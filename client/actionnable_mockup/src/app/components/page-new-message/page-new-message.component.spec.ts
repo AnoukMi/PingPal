@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PageNewConversationComponent } from './page-new-conversation.component';
+import { PageNewMessageComponent } from './page-new-message.component';
 
 describe('PageNewConversationComponent', () => {
-  let component: PageNewConversationComponent;
-  let fixture: ComponentFixture<PageNewConversationComponent>;
+  let component: PageNewMessageComponent;
+  let fixture: ComponentFixture<PageNewMessageComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PageNewConversationComponent]
+      declarations: [PageNewMessageComponent]
     });
-    fixture = TestBed.createComponent(PageNewConversationComponent);
+    fixture = TestBed.createComponent(PageNewMessageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

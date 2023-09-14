@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PageEditProfilComponent } from './page-edit-profil.component';
+import { PageEditProfileComponent } from './page-edit-profile.component';
 
 describe('PageEditProfilComponent', () => {
-  let component: PageEditProfilComponent;
-  let fixture: ComponentFixture<PageEditProfilComponent>;
+  let component: PageEditProfileComponent;
+  let fixture: ComponentFixture<PageEditProfileComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PageEditProfilComponent]
+      declarations: [PageEditProfileComponent]
     });
-    fixture = TestBed.createComponent(PageEditProfilComponent);
+    fixture = TestBed.createComponent(PageEditProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
