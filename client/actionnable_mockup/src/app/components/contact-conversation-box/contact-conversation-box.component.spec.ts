@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ContactConversationFrameComponent } from './contact-conversation-frame.component';
+import { ContactConversationBoxComponent } from './contact-conversation-box.component';
 
 describe('ContactConversationFrameComponent', () => {
-  let component: ContactConversationFrameComponent;
-  let fixture: ComponentFixture<ContactConversationFrameComponent>;
+  let component: ContactConversationBoxComponent;
+  let fixture: ComponentFixture<ContactConversationBoxComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ContactConversationFrameComponent]
+      declarations: [ContactConversationBoxComponent]
     });
-    fixture = TestBed.createComponent(ContactConversationFrameComponent);
+    fixture = TestBed.createComponent(ContactConversationBoxComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

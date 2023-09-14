@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FriendFrameSharedMsgComponent } from './friend-frame-shared-msg.component';
+import { FriendBoxSharedMsgComponent } from './friend-box-shared-msg.component';
 
 describe('FriendFrameSharedMsgComponent', () => {
-  let component: FriendFrameSharedMsgComponent;
-  let fixture: ComponentFixture<FriendFrameSharedMsgComponent>;
+  let component: FriendBoxSharedMsgComponent;
+  let fixture: ComponentFixture<FriendBoxSharedMsgComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FriendFrameSharedMsgComponent]
+      declarations: [FriendBoxSharedMsgComponent]
     });
-    fixture = TestBed.createComponent(FriendFrameSharedMsgComponent);
+    fixture = TestBed.createComponent(FriendBoxSharedMsgComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
