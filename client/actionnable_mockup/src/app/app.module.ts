@@ -12,6 +12,13 @@ import { PageEditProfileComponent } from './components/page-edit-profile/page-ed
 import { PageMyFriendsComponent } from './components/page-my-friends/page-my-friends.component';
 import { PageShareMessageComponent } from './components/page-share-message/page-share-message.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ToolBarUserComponent } from './components/tool-bar-user/tool-bar-user.component';
+import { ContactConversationFrameComponent } from './components/contact-conversation-frame/contact-conversation-frame.component';
+import { InterlocutorBubbleComponent } from './components/interlocutor-bubble/interlocutor-bubble.component';
+import { UserBubbleComponent } from './components/user-bubble/user-bubble.component';
+import { ScrollBarComponent } from './components/scroll-bar/scroll-bar.component';
+import { UserWritingFrameComponent } from './components/user-writing-frame/user-writing-frame.component';
+import { FriendFrameSharedMsgComponent } from './components/friend-frame-shared-msg/friend-frame-shared-msg.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +31,14 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     PageEditProfileComponent,
     PageMyFriendsComponent,
     PageShareMessageComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ToolBarUserComponent,
+    ContactConversationFrameComponent,
+    InterlocutorBubbleComponent,
+    UserBubbleComponent,
+    ScrollBarComponent,
+    UserWritingFrameComponent,
+    FriendFrameSharedMsgComponent
   ],
   imports: [
     BrowserModule,
