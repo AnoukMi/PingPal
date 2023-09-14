@@ -11,6 +11,7 @@ import { PageNewConversationComponent } from './components/page-new-conversation
 import { PageEditProfilComponent } from './components/page-edit-profil/page-edit-profil.component';
 import { PageMyFriendsComponent } from './components/page-my-friends/page-my-friends.component';
 import { PageShareMessageComponent } from './components/page-share-message/page-share-message.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { PageShareMessageComponent } from './components/page-share-message/page-
     PageNewConversationComponent,
     PageEditProfilComponent,
     PageMyFriendsComponent,
-    PageShareMessageComponent
+    PageShareMessageComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
