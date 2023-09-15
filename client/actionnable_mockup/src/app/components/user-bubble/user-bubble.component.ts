@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-user-bubble',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-bubble.component.css']
 })
 export class UserBubbleComponent {
-
+    @Input() content: string = '';
 }
