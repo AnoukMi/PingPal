@@ -27,6 +27,12 @@ const routes: Routes = [
     component:PageEditProfileComponent},
   {path: 'shareMessage', //page pour partager un message avec l'ensemble des amis
     component:PageShareMessageComponent},
+  {path: 'signIn/home',
+    redirectTo:'home', //renvoie sur home par le clique à partir de signIn
+    pathMatch:'full'},
+  {path: 'signIn/signUp',
+    redirectTo:'signUp', //renvoie sur signUp par le clique à partir de signIn
+    pathMatch:'full'},
   {path: '', //quand l'utilisateur est sur la racine
     redirectTo:'signIn',
     pathMatch:'full'}, //il est rédirigé vers la route de connexion, match total avec '' (vide) pour que ça marche
