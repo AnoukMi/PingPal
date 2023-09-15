@@ -11,18 +11,21 @@
         <input class="w3-check" type="checkbox"> <!-- CHECKBOX-->
       </div>
 
-      <div class="password"></div>
-      <div class="username"></div>
+      <div class="username">
+        <app-user-writing-frame [placeholder]="'Enter your username'"
+                                [type] = "'text'"></app-user-writing-frame>
+      </div>
+
+      <div class="password">
+        <app-user-writing-frame [placeholder]="'Enter your password'"
+                                [type] = "'password'"></app-user-writing-frame>
+      </div>
 
 
       <div class="text_global">
         <div class="text_upper_box">
           <div class="text_username">Username:</div>
           <div class="text_password">Password:</div>
-        </div>
-        <div class="text_in_box">
-          <div class="text_enter_user">Enter your username</div>
-          <div class="text_enter_pass">Enter your password</div>
         </div>
           <div class="text_remember">Remember me</div>
 

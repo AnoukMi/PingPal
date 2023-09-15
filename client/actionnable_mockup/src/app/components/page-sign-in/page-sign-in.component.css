@@ -23,13 +23,10 @@
 
 .password {
   position: absolute;
-  width: 354px;
-  height: 48px;
+  width: 380px;
+  height: 45px;
   top: 285px;
-  left: 23px;
-  background-color: #ffffff;
-  border-radius: 5px;
-  border: 1px solid #813641;
+  left: 5px;
 }
 
 .logo_mini {
@@ -42,13 +39,10 @@
 
 .username {
   position: absolute;
-  width: 354px;
-  height: 48px;
+  width: 380px;
+  height: 50px;
   top: 185px;
-  left: 23px;
-  background-color: #ffffff;
-  border-radius: 5px;
-  border: 1px solid #813641;
+  left: 5px;
 }
 
 .text_username{

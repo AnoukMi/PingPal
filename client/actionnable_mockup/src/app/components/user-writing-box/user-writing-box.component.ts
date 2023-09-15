@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-user-writing-frame',
@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-writing-box.component.css']
 })
 export class UserWritingBoxComponent {
-
+  @Input() placeholder: string = '';
+  @Input() type: string = '';
 }

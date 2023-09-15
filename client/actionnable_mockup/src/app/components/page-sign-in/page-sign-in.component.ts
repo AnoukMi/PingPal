@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./page-sign-in.component.css']
 })
 export class PageSignInComponent {
+  title: string = "hello";
 
 }
