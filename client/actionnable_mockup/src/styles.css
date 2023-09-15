@@ -1,1 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('assets/background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.text_global{
+  font-family: "Alata-Regular", Helvetica;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.text_upper_box {
+  -webkit-text-stroke: 1px #FAF6F6;
+  font-weight: 1000;
+  color: #813641;
+  font-size: 20px;
+}
+
+.text_button {
+  font-family: "Alata-Regular", Helvetica;
+  font-weight: 400;
+  color: #DCDCDC;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.text_in_box{
+  font-family: "Alata-Regular", Helvetica;
+  font-style: italic;
+  font-weight: 400;
+  color: #919191;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: normal;
+}

@@ -1,0 +1,110 @@
+
+.group {
+  position: relative;
+  width: 400px;
+  height: 566px;
+}
+
+.back_bloc {
+  position: absolute;
+  width: 400px;
+  height: 510px;
+  background-color: #eee7e7a6;
+  border-radius: 16px;
+}
+
+.remember-me {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  top: 350px;
+  left: 32px;
+}
+
+.password {
+  position: absolute;
+  width: 354px;
+  height: 48px;
+  top: 285px;
+  left: 23px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 1px solid #813641;
+}
+
+.logo_mini {
+  position: absolute;
+  width: 270px;
+  top: 10px;
+  left: 50%; /* Centre horizontalement */
+  transform: translateX(-50%); /* Ajuste centrage horizontal */
+}
+
+.username {
+  position: absolute;
+  width: 354px;
+  height: 48px;
+  top: 185px;
+  left: 23px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 1px solid #813641;
+}
+
+.text_username{
+  position: absolute;
+  top: 154px;
+  left: 22px;
+}
+
+.text_password {
+  position: absolute;
+  top: 253px;
+  left: 22px;
+}
+
+.text_enter_user {
+  position: absolute;
+  top: 200px;
+  left: 39px;
+}
+
+.text_enter_pass{
+  position: absolute;
+  top: 300px;
+  left: 39px;
+}
+
+.text_remember {
+  position: absolute;
+  top: 360px;
+  left: 62px;
+  color: #813641;
+  font-size: 15px;
+}
+
+.signin_button {
+  position: absolute;
+  top: 405px;
+  left: 50%; /* Centre horizontalement */
+  transform: translateX(-50%); /* Ajuste centrage horizontal */
+  background-color: #813641;
+  border-radius: 20px;
+}
+
+
+.no_account {
+  position: absolute;
+  top: 460px;
+  left: 85px;
+  color: transparent;
+  font-size: 13px;
+}
+
+.text_dont {
+  color: #919191;
+}
+
+.text_signup {
+  color: #813641;
+}

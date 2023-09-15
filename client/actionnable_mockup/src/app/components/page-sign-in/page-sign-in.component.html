@@ -1,1 +1,44 @@
-<p>page-sign-in works!</p>
+<html>
+<body>
+
+<div class="w3-padding w3-display-middle"> <!-- CENTRAGE DE TOUT -->
+
+    <div class="group">
+
+      <div class="back_bloc"></div>
+      <img class="logo_mini" src="assets/logo.png" />
+      <div class="remember-me">
+        <input class="w3-check" type="checkbox"> <!-- CHECKBOX-->
+      </div>
+
+      <div class="password"></div>
+      <div class="username"></div>
+
+
+      <div class="text_global">
+        <div class="text_upper_box">
+          <div class="text_username">Username:</div>
+          <div class="text_password">Password:</div>
+        </div>
+        <div class="text_in_box">
+          <div class="text_enter_user">Enter your username</div>
+          <div class="text_enter_pass">Enter your password</div>
+        </div>
+          <div class="text_remember">Remember me</div>
+
+          <div class="signin_button"> <!-- Place bouton à bonne position-->
+            <a routerLink="home">
+              <button class="w3-button w3-ripple w3-hover-white w3-round"> <!-- Crée bouton-->
+                <div class="text_button">SIGN IN</div></button> <!-- Applique style de texte sur texte bouton-->
+            </a>
+          </div>
+      </div>
+      <div class="no_account">
+        <span class="text_dont">Don’t have an account? </span> <span class="text_signup">
+        <a routerLink="signUp">Sign up </a></span> <!-- Bloc d'écriture en ligne (avec lien ici)-->
+      </div>
+    </div>
+
+</div>
+</body>
+</html>
