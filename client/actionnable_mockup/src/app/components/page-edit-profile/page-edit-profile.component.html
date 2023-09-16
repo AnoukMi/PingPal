@@ -7,6 +7,7 @@
   <div class="text_avatar">Avatar:</div>
   <div class="text_first_name">First&nbsp;name:</div> <!--&nbsp; permet de faire un espace sans retour à la ligne-->
   <div class="text_last_name">Last&nbsp;name:</div>
+  <div class="text_birthday">Birthday:</div>
 </div>
 
 <div class="first_name">
@@ -17,9 +18,10 @@
   <app-user-writing-frame [placeholder]="'Modify your last name'"
                           [type] = "'text'"
   ></app-user-writing-frame>
-
 </div>
-
+<div class="birthday">
+  <app-date-selector></app-date-selector>
+</div>
 <div class="user_bloc"></div>
 <div class="rectangle_toolbar"></div>
 <div class="onglet"></div>
