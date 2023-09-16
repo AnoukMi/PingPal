@@ -39,6 +39,9 @@ const routes: Routes = [
   {path: 'conversation/conversation',
     redirectTo:'conversation', //renvoie sur conversation par le clique send à partir de conversation (reste sur mm conv)
     pathMatch:'full'},
+  {path: 'newMessage/conversation',
+    redirectTo:'conversation', //renvoie sur conversation par le clique send à partir de new message
+    pathMatch:'full'},
   {path: '', //quand l'utilisateur est sur la racine
     redirectTo:'signIn',
     pathMatch:'full'}, //il est rédirigé vers la route de connexion, match total avec '' (vide) pour que ça marche

@@ -1,20 +1,31 @@
-.currentPageMark {
+.new_msg{
   position: absolute;
-  width: 143px;
-  height: 33px;
-  top: 84px;
-  left: 749px;
-  background-color: #ac8686a6;
-  border-radius: 16px 16px 0px 0px;
+  top: 120px;
+  left: 870px;
+  font-weight: 550;
 }
 
-.toolBarText {
+.search_contact {
   position: absolute;
-  font-family: "Alata-Regular", Helvetica;
-  font-weight: 400;
-  color: #eee7e7;
-  font-size: 18px;
-  text-align: center;
-  letter-spacing: 0;
-  line-height: normal;
+  width: 380px;
+  height: 50px;
+  top: 200px;
+  left: 580px;
+}
+
+.message {
+  position: absolute;
+  width: 800px;
+  height: 530px;
+  top: 300px;
+  left: 580px;
+}
+
+.send_button {
+  position: absolute;
+  top: 755px;
+  left: 1300px;
+  color: #ffffff;
+  background-color: #813641;
+  border-radius: 20px;
 }
