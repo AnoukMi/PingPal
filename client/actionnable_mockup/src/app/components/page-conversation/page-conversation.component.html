@@ -1,127 +1,34 @@
-<div class="conversation">
-  <div class="overlap-group-wrapper">
-    <div class="overlap-group">
-      <div class="layout" style="
-          width: 1337px;
-          height: 793px;
-          top: 165px;
-          left: 52px;"></div>
+<html>
+<body>
+  <div class="bloc_onglet_selector"></div>
+    <div class="back_bloc"></div>
 
       <!-- TOOLBAR-->
-      <div class="toolBarColor"></div>
+    <div class="rectangle_toolbar"></div>
+    <div class="onglet"></div>
+    <div class="user_bloc"></div>
 
-      <div class="toolBarText" style="
-           width: 178px;
-           top: 89px;
-           left: 198px;">Home</div>
-
-
-      <div class="toolBarText" style="
-           width: 178px;
-           top: 89px;
-           left: 376px;">Friends</div>
-
-      <div class="toolBarText" style="
-           width: 178px;
-           top: 89px;
-           left: 554px;">Edit profile</div>
-
+    <div class="text_tittle contact_name ">Vincentimes</div>
       <div class="chat w3-round-xlarge">
         <app-chat></app-chat>
       </div>
 
-      <div class="username" style="
-          top: 205px;
-          left: 220px;">IVAMBRE</div>
 
-      <div class="username" style="
-          top: 205px;
-          left: 865px;">VINCENTO</div>
 
       <div class="userWritingBox">
           <app-user-writing-frame [placeholder]="'Write your message'" [type]="'text'"></app-user-writing-frame>
       </div>
 
-      <div class="contactConvBox" style="
-           width: 374px;
-           height: 76px;
-           top: 632px;
-           left: 100px;"></div>
+    <div class="conv_unread"></div>
+    <div class="conv_read"></div>
 
-      <div class="identityBox" style="
-           width: 374px;
-           height: 147px;
-           top: 284px;
-           left: 100px;"></div>
-
-      <div class="identityName">Ambre Léveillé</div>
-      <p class="identityOptions">New message<br />Share a message<br />Log out</p>
-
-
-      <div class="unreadBox" style="
-           width: 374px;
-           height: 76px;
-           top: 531px;
-           left: 100px;"></div>
-
-      <div class="readBox" style="
-           width: 374px;
-           height: 76px;
-           top: 834px;
-           left: 100px;"></div>
-
-      <div class="readBox" style="
-           width: 374px;
-           height: 76px;
-           top: 733px;
-           left: 100px;"></div>
-
-      <div class="contactMsgName" style="
-           width: 187px;
-           top: 541px;
-           left: 174px;">Anouk Migliavacca</div>
-
-      <div class="msgNotif" style="
-           width: 300px;
-           top: 568px;
-           left: 174px;
-           color: #5d5d5d;">Unread message</div>
-
-      <div class="contactMsgName" style="
-           width: 187px;
-           top: 643px;
-           left: 174px;">Vincent Barat</div>
-
-      <div class="msgNotif" style="
-           width: 300px;
-           top: 669px;
-           left: 174px;
-           color: #919191;">Sent message</div>
-
-      <div class="contactMsgName" style="
-           width: 187px;
-           top: 744px;
-           left: 174px;">Quentin Perez</div>
-
-      <div class="msgNotif" style="
-           width: 300px;
-           top: 770px;
-           left: 174px;
-           color: #919191;">Read message</div>
-
-      <div class="contactMsgName" style="
-           width: 187px;
-           top: 845px;
-           left: 174px;">Arnaud Blouin</div>
-
-      <div class="msgNotif" style="
-           width: 300px;
-           top: 871px;
-           left: 174px;
-           color: #919191;">Read message</div>
-
-      <button class="w3-button sendButton">SEND</button>
-
+    <div class="send_button">
+      <a routerLink="conversation">
+        <button class="w3-button w3-ripple w3-hover-white w3-round-xxlarge"> <!-- Crée bouton-->
+          <div class="text_button">SEND</div></button> <!-- Applique style de texte sur texte bouton-->
+      </a>
     </div>
-  </div>
-</div>
+</body>
+</html>
+
+

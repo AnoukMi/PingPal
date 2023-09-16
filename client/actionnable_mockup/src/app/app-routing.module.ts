@@ -36,6 +36,9 @@ const routes: Routes = [
   {path: 'signIn/signUp',
     redirectTo:'signUp', //renvoie sur signUp par le clique à partir de signIn
     pathMatch:'full'},
+  {path: 'conversation/conversation',
+    redirectTo:'conversation', //renvoie sur conversation par le clique send à partir de conversation (reste sur mm conv)
+    pathMatch:'full'},
   {path: '', //quand l'utilisateur est sur la racine
     redirectTo:'signIn',
     pathMatch:'full'}, //il est rédirigé vers la route de connexion, match total avec '' (vide) pour que ça marche
