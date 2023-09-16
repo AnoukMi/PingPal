@@ -1,172 +1,34 @@
-.conversation {
-  background-color: #ac8686;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-}
 
-.overlap-group-wrapper {
-  background-color: #ac8686;
-  width: 1440px;
-  height: 1024px;
-}
-
-.overlap-group {
-  position: relative;
-  height: 965px;
-}
-
-.layout {
-  background-color: #eee7e7a6;
+.contact_name{
   position: absolute;
-  border-radius: 16px;
-}
-
-.username {
-  font-family: "Alata-Regular", Helvetica;
-  font-weight: 400;
-  color: #813641;
-  font-size: 32px;
-  text-align: center;
-  position: absolute;
+  top: 120px;
+  left: 870px;
+  font-weight: 550;
 }
 
 .chat {
   background-color: #ffffff4c;
   position: absolute;
-  width: 785px;
+  width: 800px;
   height: 526px;
-  top: 257px;
-  left: 562px;
+  top: 170px;
+  left: 580px;
   overflow-y: scroll;
 }
 
-
 .userWritingBox {
-  width: 825px;
-  top: 791px;
-  left: 542px;
+  width: 830px;
+  top: 710px;
+  left: 565px;
   position: absolute;
   word-wrap: break-word;
 }
 
-.sendButton {
+.send_button {
   position: absolute;
-  width: 130px;
-  height: 49px;
-  top: 885px;
-  left: 1181px;
+  top: 755px;
+  left: 1300px;
   color: #ffffff;
-  font-size: 20px;
   background-color: #813641;
-  border-radius: 16px;
+  border-radius: 20px;
 }
-
-/* TOUT CE QUI SUIT CORRESPOND AU FUTUR COMPOSANT AVEC LA TOOLBAR ET NE DOIT POUR L'INSTANT PAS ÊTRE PRIS EN COMPTE */
-
-
-/* a mettre dans contact conversation box*/
-.contactConvBox {
-  position: absolute;
-  background-color: #ffffffa6;
-  border-radius: 16px;
-  border: 1px dashed;
-  border-color: #813641;
-}
-
-.identityBox {
-  background-color: #ffffffa6;
-  border: 2px solid;
-  border-color: #813641;
-  position: absolute;
-  border-radius: 16px;
-}
-
-/* a mettre dans le gros component*/
-.identityName {
-  width: 178px;
-  top: 294px;
-  left: 240px;
-  font-size: 24px;
-  text-align: center;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  font-family: "Alata-Regular", Helvetica;
-  font-weight: 400;
-  color: #813641;
-}
-
-/* a mettre dans le gros component*/
-.identityOptions {
-  position: absolute;
-  width: 204px;
-  top: 337px;
-  left: 229px;
-  font-family: "Alata-Regular", Helvetica;
-  font-weight: 400;
-  color: #813641;
-  font-size: 18px;
-  text-align: center;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-/* a mettre dans le gros component*/
-.toolBarColor {
-  position: absolute;
-  width: 1440px;
-  height: 117px;
-  top: 0;
-  left: 0;
-  background-color: #813641a6;
-  border-radius: 0px 0px 16px 16px;
-}
-
-.toolBarText {
-  position: absolute;
-  font-family: "Alata-Regular", Helvetica;
-  font-weight: 400;
-  color: #eee7e7;
-  font-size: 18px;
-  text-align: center;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-/* A METTRE DANS CONTACT CONVERSATION BOX*/
-.unreadBox {
-  position: absolute;
-  background-color: #ac8686;
-  border-radius: 16px;
-  border: 2px dashed;
-  border-color: #813641;
-}
-
-.readBox {
-  position: absolute;
-  background-color: #ffffffa6;
-  border-radius: 16px;
-  border: 1px dashed;
-  border-color: #813641;
-}
-
-.msgNotif {
-  position: absolute;
-  font-family: "Alata-Regular", Helvetica;
-  font-weight: 400;
-  font-size: 18px;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-.contactMsgName {
-  position: absolute;
-  font-family: "Alata-Regular", Helvetica;
-  font-weight: 400;
-  color: #813641;
-  font-size: 18px;
-}
-
-

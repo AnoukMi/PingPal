@@ -1,22 +1,3 @@
-.back_bloc {
-  width: 90vw; /* 90% de la largeur de la vue du navigateur */
-  height: 90vh; /* 70% de la hauteur de la vue du navigateur */
-  top: 100px;
-  left: 50%; /* Centre horizontalement */
-  position: absolute;
-  background-color: #eee7e7a6;
-  border-radius: 16px;
-  transform: translateX(-50%); /* Ajuste la position horizontale */
-}
-
-.rectangle_toolbar {
-  position: absolute;
-  width: 100vw; /*toute la longueur de la fenetre*/
-  height: 100px;
-  top: 0;
-  left: 0;
-  background-color: #813641a6;
-}
 
 .logo {
   position: absolute;
@@ -25,47 +6,5 @@
   left: 670px;
 }
 
-.user_bloc {
-  width: 374px;
-  height: 147px;
-  top: 150px;
-  left: 100px;
-  border: 2px solid #813641;
-  position: absolute;
-  background-color: #eee7e7a6;
-  border-radius: 16px;
-}
-
-.onglet {
-  position: absolute;
-  width: 143px;
-  height: 30px;
-  top: 70px;
-  left: 215px;
-  background-color: #ac8686a6;
-  border-radius: 16px 16px 0px 0px;
-}
-
-.conv_unread {
-  position: absolute;
-  width: 374px;
-  height: 76px;
-  top: 531px;
-  left: 100px;
-  background-color: #ac8686;
-  border-radius: 16px;
-  border: 2px dashed #813641;
-}
-
-.conv_read {
-  position: absolute;
-  width: 374px;
-  height: 76px;
-  top: 632px;
-  left: 100px;
-  background-color: #eee7e7a6;
-  border-radius: 16px;
-  border: 2px dashed #813641;
-}
 
 

@@ -7,6 +7,7 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
+
 .centered {
   display: flex;
   justify-content: center;
@@ -14,6 +15,63 @@ body {
   width: 100%;
   height: 100vh;
 }
+
+/*BLOCS EN ARRIERE PLAN ET TOOLBAR*/
+.back_bloc {
+  width: 90vw; /* 90% de la largeur de la vue du navigateur */
+  height: 83vh; /* 70% de la hauteur de la vue du navigateur */
+  top: 100px;
+  left: 50%; /* Centre horizontalement */
+  position: absolute;
+  background-color: #eee7e7a6;
+  border-radius: 16px;
+  transform: translateX(-50%); /* Ajuste la position horizontale */
+}
+
+.rectangle_toolbar {
+  position: absolute;
+  width: 100vw; /*toute la longueur de la fenetre*/
+  height: 80px;
+  top: 0;
+  left: 0;
+  background-color: #813641a6;
+}
+
+.onglet {
+  position: absolute;
+  width: 143px;
+  height: 30px;
+  top: 50px;
+  left: 215px;
+  background-color: #ac8686a6;
+  border-radius: 16px 16px 0px 0px;
+}
+
+.bloc_onglet_selector {
+  position: absolute;
+  background-color: #ac8686;
+  top: 80px;
+  left: 50%; /* Centre horizontalement */
+  transform: translateX(-50%); /* Ajuste centrage horizontal */
+  width: 94vw;
+  height: 88vh;
+  border-radius: 10px;
+}
+
+/*Blocs d'identité utilisateur et contacts*/
+
+.user_bloc {
+  width: 374px;
+  height: 147px;
+  top: 150px;
+  left: 100px;
+  border: 2px solid #813641;
+  position: absolute;
+  background-color: #eee7e7a6;
+  border-radius: 16px;
+}
+
+/*textes*/
 
 .text_global{
   font-family: "Alata-Regular", Helvetica;
@@ -48,4 +106,27 @@ body {
   text-align: center;
   letter-spacing: 0;
   line-height: normal;
+}
+
+/*CONCERNANT LES CONVERSATIONS*/
+.conv_unread {
+  position: absolute;
+  width: 374px;
+  height: 76px;
+  top: 531px;
+  left: 100px;
+  background-color: #ac8686;
+  border-radius: 16px;
+  border: 2px dashed #813641;
+}
+
+.conv_read {
+  position: absolute;
+  width: 374px;
+  height: 76px;
+  top: 632px;
+  left: 100px;
+  background-color: #eee7e7a6;
+  border-radius: 16px;
+  border: 2px dashed #813641;
 }
