@@ -4,9 +4,15 @@
 <div class="user_bloc"></div>
 
 <div class="rectangle_toolbar">
-  <button class="w3-button w3-round name_onglet" style="left:250px">Home</button>
-  <button class="w3-button name_onglet" style="left: 450px">Friends</button>
-  <button class="w3-button name_onglet" style="left: 650px">Edit profile</button>
+  <a routerLink="home">
+       <button class="w3-button w3-round name_onglet" style="left:250px">Home</button>
+  </a>
+  <a routerLink="myFriends">
+        <button class="w3-button name_onglet" style="left: 450px">Friends</button>
+  </a>
+  <a routerLink="editProfile">
+        <button class="w3-button name_onglet" style="left: 650px">Edit profile</button>
+  </a>
 </div>
 
 <div class="conversations"></div>
