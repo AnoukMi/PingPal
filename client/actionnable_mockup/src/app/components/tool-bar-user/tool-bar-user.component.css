@@ -1,0 +1,49 @@
+.selected_onglet {
+  position: absolute;
+  background-color: #ac8686;
+  top: 80px;
+  left: 50%; /* Centre horizontalement */
+  transform: translateX(-50%); /* Ajuste centrage horizontal */
+  width: 94vw;
+  height: 88vh;
+  border-radius: 10px;
+}
+
+/* Toolbar du haut */
+
+.rectangle_toolbar {
+  position: absolute;
+  width: 100vw; /*toute la longueur de la fenetre*/
+  height: 80px;
+  top: 0;
+  left: 0;
+  background-color: #813641a6;
+}
+
+.name_onglet {
+  position: absolute;
+  width: 150px;
+  top: 55px;
+  font-family: "Alata-Regular", Helvetica;
+  color: #eee7e7;
+}
+
+.onglet_button {
+
+}
+/*Blocs d'identité utilisateur et contacts*/
+.user_bloc {
+  width: 374px;
+  height: 147px;
+  top: 150px;
+  left: 100px;
+  border: 2px solid #813641;
+  position: absolute;
+  background-color: #eee7e7a6;
+  border-radius: 16px;
+}
+
+.conversations {
+  top: 632px;
+  left: 100px;
+}
