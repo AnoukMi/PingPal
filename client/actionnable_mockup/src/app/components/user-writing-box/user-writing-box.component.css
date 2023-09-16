@@ -8,3 +8,7 @@
   border-radius: 5px;
   border: 1px solid #813641;
 }
+
+.w3-input:focus {
+  color: #A47272; /* Couleur du texte écrit par l'utilisateur */
+}
