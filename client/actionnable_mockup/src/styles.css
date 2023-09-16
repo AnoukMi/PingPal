@@ -29,22 +29,23 @@ body {
   font-size: 20px;
 }
 
+.text_tittle {
+  font-family: "Alata-Regular", Helvetica;
+  font-weight: 400;
+  text-align: center;
+  color: #813641;
+  font-size: 32px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+
 .text_button {
   font-family: "Alata-Regular", Helvetica;
   font-weight: 400;
   color: #DCDCDC;
   font-size: 16px;
   text-align: center;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-.text_in_box{
-  font-family: "Alata-Regular", Helvetica;
-  font-style: italic;
-  font-weight: 400;
-  color: #919191;
-  font-size: 14px;
   letter-spacing: 0;
   line-height: normal;
 }

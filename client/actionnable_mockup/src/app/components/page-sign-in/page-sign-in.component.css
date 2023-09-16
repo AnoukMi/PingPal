@@ -29,6 +29,14 @@
   left: 5px;
 }
 
+.username {
+  position: absolute;
+  width: 380px;
+  height: 50px;
+  top: 185px;
+  left: 5px;
+}
+
 .logo_mini {
   position: absolute;
   width: 270px;
@@ -37,13 +45,6 @@
   transform: translateX(-50%); /* Ajuste centrage horizontal */
 }
 
-.username {
-  position: absolute;
-  width: 380px;
-  height: 50px;
-  top: 185px;
-  left: 5px;
-}
 
 .text_username{
   position: absolute;

@@ -16,9 +16,10 @@ import { ToolBarUserComponent } from './components/tool-bar-user/tool-bar-user.c
 import { ContactConversationBoxComponent } from './components/contact-conversation-box/contact-conversation-box.component';
 import { InterlocutorBubbleComponent } from './components/interlocutor-bubble/interlocutor-bubble.component';
 import { UserBubbleComponent } from './components/user-bubble/user-bubble.component';
+import { ScrollBarComponent } from './components/scroll-bar/scroll-bar.component';
 import { UserWritingBoxComponent } from './components/user-writing-box/user-writing-box.component';
 import { FriendBoxSharedMsgComponent } from './components/friend-box-shared-msg/friend-box-shared-msg.component';
-import { ChatComponent } from './components/chat/chat.component';
+import { DateSelectorComponent } from './components/date-selector/date-selector.component';
 
 @NgModule({
   declarations: [
@@ -36,9 +37,10 @@ import { ChatComponent } from './components/chat/chat.component';
     ContactConversationBoxComponent,
     InterlocutorBubbleComponent,
     UserBubbleComponent,
+    ScrollBarComponent,
     UserWritingBoxComponent,
     FriendBoxSharedMsgComponent,
-    ChatComponent
+    DateSelectorComponent
   ],
   imports: [
     BrowserModule,

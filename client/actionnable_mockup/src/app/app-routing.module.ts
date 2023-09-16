@@ -30,6 +30,9 @@ const routes: Routes = [
   {path: 'signIn/home',
     redirectTo:'home', //renvoie sur home par le clique à partir de signIn
     pathMatch:'full'},
+  {path: 'signUp/home',
+    redirectTo:'home', //renvoie sur home par le clique à partir de signUn
+    pathMatch:'full'},
   {path: 'signIn/signUp',
     redirectTo:'signUp', //renvoie sur signUp par le clique à partir de signIn
     pathMatch:'full'},
