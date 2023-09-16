@@ -1,0 +1,130 @@
+
+.logo_background {
+  position: relative;
+  height: 90vh;
+  background-image: url(../../../assets/logo.png);
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center; /* Centre horizontalement et verticalement */
+}
+
+.back_bloc {
+  position: relative;
+  width: 50vh;
+  height: 80vh;
+  top:40px;
+  background-color: #eee7e7a6;
+  border-radius: 16px;
+}
+
+/* ZONE A REMPLACER PAR LES BLOCS D ECRITURE*/
+.username {
+  position: absolute;
+  width: 354px;
+  height: 40px;
+  top: 165px;
+  left: 50px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 1px solid #813641;
+}
+
+.password {
+  position: absolute;
+  width: 354px;
+  height: 40px;
+  top: 255px;
+  left: 50px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 1px solid #813641;
+}
+
+.confirm_password {
+  position: absolute;
+  width: 354px;
+  height: 40px;
+  top: 345px;
+  left: 50px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 1px solid #813641;
+}
+
+.first_name {
+  position: absolute;
+  width: 354px;
+  height: 40px;
+  top: 435px;
+  left: 50px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 1px solid #813641;
+}
+
+.last_name {
+  position: absolute;
+  width: 354px;
+  height: 40px;
+  top: 525px;
+  left: 50px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 1px solid #813641;
+}
+/*FIN DE ZONE*/
+
+.signup_button {
+  position: absolute;
+  width: 113px;
+  height: 39px;
+  top:675px;
+  left: 50%; /* Centre horizontalement */
+  transform: translateX(-50%); /* Ajuste centrage horizontal */
+  background-color: #813641;
+  border-radius: 20px;
+}
+
+.text_create {
+  position:absolute;
+  top:65px;
+  left: 50%; /* Centre horizontalement */
+  transform: translateX(-50%); /* Ajuste centrage horizontal */
+}
+
+.text_username {
+  position: absolute;
+  top: 135px;
+  left: 50px;
+}
+
+.text_password {
+  position: absolute;
+  top: 225px;
+  left: 50px;
+}
+
+.text_confirm {
+  position: absolute;
+  top: 315px;
+  left: 50px;
+}
+
+.text_first_name {
+  position: absolute;
+  top: 405px;
+  left: 50px;
+}
+
+.text_last_name {
+  position: absolute;
+  top: 495px;
+  left: 50px;
+}
+
+.text_birthdate {
+  position: absolute;
+  top: 585px;
+  left: 50px;
+}

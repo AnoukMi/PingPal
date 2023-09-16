@@ -29,6 +29,17 @@ body {
   font-size: 20px;
 }
 
+.text_tittle {
+  font-family: "Alata-Regular", Helvetica;
+  font-weight: 400;
+  text-align: center;
+  color: #813641;
+  font-size: 32px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+
 .text_button {
   font-family: "Alata-Regular", Helvetica;
   font-weight: 400;
