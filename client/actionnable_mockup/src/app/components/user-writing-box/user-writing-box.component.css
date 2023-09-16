@@ -1,3 +1,8 @@
+.w3-input::placeholder { /*pour que le texte à l'intérieur soit italique*/
+  font-style: italic;
+}
+
+
 .box {
   color: #813641;
   border-radius: 5px;
