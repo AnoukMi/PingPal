@@ -1,18 +1,8 @@
-/*.userBubble {*/
-/*  background-color: #813641;*/
-/*  border-radius: 16px;*/
-/*  position: absolute;*/
-/*}*/
-
-.fontColor {
-  color: #813641;
-  font-family: 'Arial';}
-
 .box {
   background-color: #813641;
   color: #FFFFFF;
   display: inline-block;
-  padding: 5px;
+  padding: 10px;
   max-width: 400px;
   word-wrap: break-word;
 }

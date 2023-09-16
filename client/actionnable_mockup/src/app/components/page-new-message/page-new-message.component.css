@@ -1,0 +1,20 @@
+.currentPageMark {
+  position: absolute;
+  width: 143px;
+  height: 33px;
+  top: 84px;
+  left: 749px;
+  background-color: #ac8686a6;
+  border-radius: 16px 16px 0px 0px;
+}
+
+.toolBarText {
+  position: absolute;
+  font-family: "Alata-Regular", Helvetica;
+  font-weight: 400;
+  color: #eee7e7;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}

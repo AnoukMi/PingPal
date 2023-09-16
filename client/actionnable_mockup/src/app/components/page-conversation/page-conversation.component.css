@@ -6,24 +6,24 @@
   width: 100%;
 }
 
-.conversation .overlap-group-wrapper {
+.overlap-group-wrapper {
   background-color: #ac8686;
   width: 1440px;
   height: 1024px;
 }
 
-.conversation .overlap-group {
+.overlap-group {
   position: relative;
   height: 965px;
 }
 
-.conversation .layout {
+.layout {
   background-color: #eee7e7a6;
   position: absolute;
   border-radius: 16px;
 }
 
-.conversation .username {
+.username {
   font-family: "Alata-Regular", Helvetica;
   font-weight: 400;
   color: #813641;
@@ -32,10 +32,14 @@
   position: absolute;
 }
 
-.conversation .whiteRectangle {
+.chat {
   background-color: #ffffff4c;
-  border-radius: 16px;
   position: absolute;
+  width: 785px;
+  height: 526px;
+  top: 257px;
+  left: 562px;
+  overflow-y: scroll;
 }
 
 .conversation .whoIsTalking {
@@ -45,13 +49,6 @@
   position: absolute;
 }
 
-/* CELUI CI EST A METTRE DANS INTERLOCUTOR BUBBLE */
-.conversation .interlocutorBubble {
-  position: absolute;
-  background-color: #ac8686;
-  border-radius: 16px;
-}
-
 .conversation .message {
   font-family: "Alata-Regular", Helvetica;
   font-weight: 400;
@@ -59,34 +56,12 @@
   position: absolute;
 }
 
-/* A METTRE DANS USER BUBBLE*/
-
-.conversation .userBubble {
-  background-color: #813641;
-  border-radius: 16px;
+.userWritingBox {
+  width: 825px;
+  top: 791px;
+  left: 542px;
   position: absolute;
-}
-
-
-.conversation .hour {
-  font-family: "Alata-Regular", Helvetica;
-  font-weight: 400;
-  color: #919191;
-  font-size: 16px;
-  text-align: center;
-  position: absolute;
-}
-
-
-
-
-/* A mettre dans user writing box*/
-.conversation .userWritingBox {
-  background-color: #ffffffa6;
-  border: 2px dashed;
-  border-color: #813641;
-  position: absolute;
-  border-radius: 16px;
+  word-wrap: break-word;
 }
 
 
@@ -199,32 +174,8 @@
   height: 49px;
   top: 885px;
   left: 1181px;
-  background-color: #813641;
-  border-radius: 16px;
-}
-
-.conversation .send {
-  width: 112px;
-  top: 900px;
-  left: 1190px;
   color: #ffffff;
   font-size: 20px;
-  position: absolute;
-  font-family: "Alata-Regular", Helvetica;
-  font-weight: 400;
-  text-align: center;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-.conversation .seenOrDelivered {
-  position: absolute;
-
-  font-family: "Alata-Regular", Helvetica;
-  font-weight: 400;
-  color: #919191;
-  font-size: 16px;
-  letter-spacing: -0.08px;
-  line-height: 17.6px;
-  white-space: nowrap;
+  background-color: #813641;
+  border-radius: 16px;
 }

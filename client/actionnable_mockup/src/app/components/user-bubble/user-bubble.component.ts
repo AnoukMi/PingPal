@@ -6,5 +6,5 @@ import {Component, Input} from '@angular/core';
   styleUrls: ['./user-bubble.component.css']
 })
 export class UserBubbleComponent {
-    @Input() content: string = '';
+  @Input() content: string = '';
 }
