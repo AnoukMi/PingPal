@@ -15,11 +15,12 @@
   top:40px;
   background-color: #eee7e7a6;
   border-radius: 16px;
+
 }
 
 .username {
   position: absolute;
-  width: 420px;
+  width:46vh ;
   height: 40px;
   top: 165px;
   left: 35px;
@@ -27,7 +28,7 @@
 
 .password {
   position: absolute;
-  width: 420px;
+  width: 46vh;
   height: 40px;
   top: 255px;
   left: 35px;
@@ -35,7 +36,7 @@
 
 .confirm_password {
   position: absolute;
-  width: 420px;
+  width: 46vh;
   height: 40px;
   top: 345px;
   left: 35px;
@@ -43,7 +44,7 @@
 
 .first_name {
   position: absolute;
-  width: 420px;
+  width: 46vh;
   height: 40px;
   top: 435px;
   left: 35px;
@@ -51,7 +52,7 @@
 
 .last_name {
   position: absolute;
-  width: 420px;
+  width: 46vh;
   height: 40px;
   top: 525px;
   left: 35px;

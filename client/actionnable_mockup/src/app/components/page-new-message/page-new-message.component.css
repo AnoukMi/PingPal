@@ -9,7 +9,7 @@
   position: absolute;
   width: 380px;
   height: 50px;
-  top: 200px;
+  top: 310px;
   left: 580px;
 }
 
@@ -17,14 +17,26 @@
   position: absolute;
   width: 800px;
   height: 530px;
-  top: 300px;
+  top: 410px;
   left: 580px;
+}
+
+.text_to {
+  position: absolute;
+  top: 280px;
+  left: 595px;
+}
+
+.text_message {
+  position: absolute;
+  top: 380px;
+  left: 595px;
 }
 
 .send_button {
   position: absolute;
-  top: 755px;
-  left: 1300px;
+  top: 500px;
+  left: 1280px;
   color: #ffffff;
   background-color: #813641;
   border-radius: 20px;

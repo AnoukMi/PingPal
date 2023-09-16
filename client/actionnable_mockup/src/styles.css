@@ -17,7 +17,7 @@ body {
 }
 
 /*BLOCS EN ARRIERE PLAN ET TOOLBAR*/
-.back_bloc {
+.back_bloc_big {
   width: 90vw; /* 90% de la largeur de la vue du navigateur */
   height: 83vh; /* 70% de la hauteur de la vue du navigateur */
   top: 100px;

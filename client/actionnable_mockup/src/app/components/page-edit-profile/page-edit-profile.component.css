@@ -1,0 +1,49 @@
+.edit{
+  position: absolute;
+  top: 120px;
+  left: 870px;
+  font-weight: 550;
+}
+
+.first_name{
+  position: absolute;
+  width: 50vh;
+  height: 50px;
+  top: 430px;
+  left: 650px;
+}
+
+.last_name {
+  position: absolute;
+  width: 50vh;
+  height: 530px;
+  top: 520px;
+  left: 650px;
+}
+
+.update_button {
+  position: absolute;
+  top: 670px;
+  left: 1000px;
+  color: #ffffff;
+  background-color: #813641;
+  border-radius: 20px;
+}
+
+.text_avatar {
+  position: absolute;
+  top: 280px;
+  left: 665px;
+}
+
+.text_first_name {
+  position: absolute;
+  top: 400px;
+  left: 665px;
+}
+
+.text_last_name {
+  position: absolute;
+  top: 490px;
+  left: 665px;
+}
