@@ -19,6 +19,7 @@ import { UserBubbleComponent } from './components/user-bubble/user-bubble.compon
 import { ScrollBarComponent } from './components/scroll-bar/scroll-bar.component';
 import { UserWritingBoxComponent } from './components/user-writing-box/user-writing-box.component';
 import { FriendBoxSharedMsgComponent } from './components/friend-box-shared-msg/friend-box-shared-msg.component';
+import { DateSelectorComponent } from './components/date-selector/date-selector.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { FriendBoxSharedMsgComponent } from './components/friend-box-shared-msg/
     UserBubbleComponent,
     ScrollBarComponent,
     UserWritingBoxComponent,
-    FriendBoxSharedMsgComponent
+    FriendBoxSharedMsgComponent,
+    DateSelectorComponent
   ],
   imports: [
     BrowserModule,
