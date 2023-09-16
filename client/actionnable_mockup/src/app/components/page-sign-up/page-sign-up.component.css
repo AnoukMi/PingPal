@@ -1,4 +1,3 @@
-
 .logo_background {
   position: relative;
   height: 90vh;
@@ -18,68 +17,59 @@
   border-radius: 16px;
 }
 
-/* ZONE A REMPLACER PAR LES BLOCS D ECRITURE*/
 .username {
   position: absolute;
-  width: 354px;
+  width: 420px;
   height: 40px;
   top: 165px;
-  left: 50px;
-  background-color: #ffffff;
-  border-radius: 5px;
-  border: 1px solid #813641;
+  left: 35px;
 }
 
 .password {
   position: absolute;
-  width: 354px;
+  width: 420px;
   height: 40px;
   top: 255px;
-  left: 50px;
-  background-color: #ffffff;
-  border-radius: 5px;
-  border: 1px solid #813641;
+  left: 35px;
 }
 
 .confirm_password {
   position: absolute;
-  width: 354px;
+  width: 420px;
   height: 40px;
   top: 345px;
-  left: 50px;
-  background-color: #ffffff;
-  border-radius: 5px;
-  border: 1px solid #813641;
+  left: 35px;
 }
 
 .first_name {
   position: absolute;
-  width: 354px;
+  width: 420px;
   height: 40px;
   top: 435px;
-  left: 50px;
-  background-color: #ffffff;
-  border-radius: 5px;
-  border: 1px solid #813641;
+  left: 35px;
 }
 
 .last_name {
   position: absolute;
-  width: 354px;
+  width: 420px;
   height: 40px;
   top: 525px;
-  left: 50px;
-  background-color: #ffffff;
-  border-radius: 5px;
-  border: 1px solid #813641;
+  left: 35px;
 }
-/*FIN DE ZONE*/
+
+/* il ne veut pas s'afficher !!! */
+.birthday {
+  position: absolute;
+  width: 420px;
+  top: 615px;
+  left: 35px;
+}
 
 .signup_button {
   position: absolute;
   width: 113px;
   height: 39px;
-  top:675px;
+  top:680px;
   left: 50%; /* Centre horizontalement */
   transform: translateX(-50%); /* Ajuste centrage horizontal */
   background-color: #813641;
@@ -123,7 +113,7 @@
   left: 50px;
 }
 
-.text_birthdate {
+.text_birthday {
   position: absolute;
   top: 585px;
   left: 50px;

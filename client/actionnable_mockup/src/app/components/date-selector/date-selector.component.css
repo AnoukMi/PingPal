@@ -1,0 +1,11 @@
+.box {
+  color: #813641;
+  border-radius: 5px;
+  border: 1px solid #813641;
+}
+
+.w3-dropdown-content select {
+  width: 100px;
+  margin-right: 20px;
+  text-align: center;
+}

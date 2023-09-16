@@ -1,39 +1,55 @@
 <html>
 <body>
-    <div class="logo_background">
-      <div class="w3-padding w3-display-middle"> <!-- CENTRAGE DE TOUT -->
-        <div class="back_bloc"></div>
+<div class="logo_background">
+  <div class="w3-padding w3-display-middle"> <!-- CENTRAGE DE TOUT -->
+    <div class="back_bloc"></div>
 
-        <div class="text_tittle">
-          <div class="text_create">Create&nbsp;your&nbsp;account</div>  <!--&nbsp; permet de faire un espace sans retour à la ligne-->
-        </div>
-
-        <div class="signup_button">
-        <a routerLink="home">
-          <button class="w3-button w3-ripple w3-hover-white w3-round-xxlarge"> <!-- Crée bouton-->
-            <div class="text_button" style="font-size: 20px;">SIGN UP</div></button> <!-- Applique style de texte sur texte bouton-->
-        </a>
-      </div>
-
-        <!--METTRE BLOC OU ECRIRE ICI !!!!!!-->
-        <div class="username"></div>
-        <div class="password"></div>
-        <div class="confirm_password"></div>
-        <div class="first_name"></div>
-      <div class="last_name"></div>
-
-
-        <div class="text_upper_box">
-              <div class="text_username">Username:</div>
-              <div class="text_password">Password:</div>
-              <div class="text_confirm">Confirm:</div>
-              <div class="text_first_name">First&nbsp;name:</div> <!--&nbsp; permet de faire un espace sans retour à la ligne-->
-              <div class="text_last_name">Last&nbsp;name:</div>
-              <div class="text_birthdate">Birthdate:</div>
-        </div>
-
-      </div>
+    <div class="text_tittle">
+      <div class="text_create">Create&nbsp;your&nbsp;account</div>  <!--&nbsp; permet de faire un espace sans retour à la ligne-->
     </div>
+
+    <div class="signup_button">
+      <a routerLink="home">
+        <button class="w3-button w3-ripple w3-hover-white w3-round-xxlarge"> <!-- Crée bouton-->
+          <div class="text_button" style="font-size: 20px;">SIGN UP</div></button> <!-- Applique style de texte sur texte bouton-->
+      </a>
+    </div>
+
+    <div class="username">
+      <app-user-writing-frame [placeholder] = "'Enter your username'" [type] = "'text'"></app-user-writing-frame>
+    </div>
+
+    <div class="password">
+      <app-user-writing-frame [placeholder] = "'Enter your password'" [type] = "'password'"></app-user-writing-frame>
+    </div>
+
+    <div class="confirm_password">
+      <app-user-writing-frame [placeholder] = "'Confirm your password'" [type] = "'password'"></app-user-writing-frame>
+    </div>
+
+    <div class="first_name">
+      <app-user-writing-frame [placeholder] = "'Enter your first name'" [type] = "'text'"></app-user-writing-frame>
+    </div>
+
+    <div class="last_name">
+      <app-user-writing-frame [placeholder] = "'Enter your last name'" [type] = "'text'"></app-user-writing-frame>
+    </div>
+
+    <div class="birthday">
+      <app-date-selector></app-date-selector>
+    </div>
+
+    <div class="text_upper_box">
+      <div class="text_username">Username:</div>
+      <div class="text_password">Password:</div>
+      <div class="text_confirm">Confirm:</div>
+      <div class="text_first_name">First&nbsp;name:</div> <!--&nbsp; permet de faire un espace sans retour à la ligne-->
+      <div class="text_last_name">Last&nbsp;name:</div>
+      <div class="text_birthday">Birthday:</div>
+    </div>
+
+  </div>
+</div>
 
 </body>
 </html>
