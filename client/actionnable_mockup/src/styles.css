@@ -28,14 +28,6 @@ body {
   transform: translateX(-50%); /* Ajuste la position horizontale */
 }
 
-.rectangle_toolbar {
-  position: absolute;
-  width: 100vw; /*toute la longueur de la fenetre*/
-  height: 80px;
-  top: 0;
-  left: 0;
-  background-color: #813641a6;
-}
 
 .onglet {
   position: absolute;
@@ -47,29 +39,8 @@ body {
   border-radius: 16px 16px 0px 0px;
 }
 
-.bloc_onglet_selector {
-  position: absolute;
-  background-color: #ac8686;
-  top: 80px;
-  left: 50%; /* Centre horizontalement */
-  transform: translateX(-50%); /* Ajuste centrage horizontal */
-  width: 94vw;
-  height: 88vh;
-  border-radius: 10px;
-}
 
-/*Blocs d'identité utilisateur et contacts*/
 
-.user_bloc {
-  width: 374px;
-  height: 147px;
-  top: 150px;
-  left: 100px;
-  border: 2px solid #813641;
-  position: absolute;
-  background-color: #eee7e7a6;
-  border-radius: 16px;
-}
 
 /*textes*/
 
@@ -87,7 +58,7 @@ body {
   font-size: 20px;
 }
 
-.text_tittle {
+.text_title {
   font-family: "Alata-Regular", Helvetica;
   font-weight: 400;
   text-align: center;
@@ -106,27 +77,4 @@ body {
   text-align: center;
   letter-spacing: 0;
   line-height: normal;
-}
-
-/*CONCERNANT LES CONVERSATIONS*/
-.conv_unread {
-  position: absolute;
-  width: 374px;
-  height: 76px;
-  top: 531px;
-  left: 100px;
-  background-color: #ac8686;
-  border-radius: 16px;
-  border: 2px dashed #813641;
-}
-
-.conv_read {
-  position: absolute;
-  width: 374px;
-  height: 76px;
-  top: 632px;
-  left: 100px;
-  background-color: #eee7e7a6;
-  border-radius: 16px;
-  border: 2px dashed #813641;
 }
