@@ -20,6 +20,8 @@ import { UserWritingBoxComponent } from './components/user-writing-box/user-writ
 import { FriendBoxSharedMsgComponent } from './components/friend-box-shared-msg/friend-box-shared-msg.component';
 import { DateSelectorComponent } from './components/date-selector/date-selector.component';
 import {ChatComponent} from "./components/chat/chat.component";
+import { CurrentConversationsComponent } from './components/current-conversations/current-conversations.component';
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -40,11 +42,13 @@ import {ChatComponent} from "./components/chat/chat.component";
     UserWritingBoxComponent,
     FriendBoxSharedMsgComponent,
     DateSelectorComponent,
-    ChatComponent
+    ChatComponent,
+    CurrentConversationsComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

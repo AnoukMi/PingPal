@@ -1,0 +1,33 @@
+/*CONCERNANT LES CONVERSATIONS*/
+.conv_unread {
+  position: absolute;
+  background-color: #ac8686;
+  border-radius: 16px;
+  border: 2px dashed #813641;
+}
+
+.conv_read {
+  position: absolute;
+  width: 374px;
+  height: 76px;
+  top: 632px;
+  left: 100px;
+  background-color: #eee7e7a6;
+  border-radius: 16px;
+  border: 2px dashed #813641;
+}
+
+.nameContact {
+  position: absolute;
+  font-family: "Alata-Regular", Helvetica;
+  color: #813641;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.messageStatus {
+  position: absolute;
+  font-family: "Alata-Regular", Helvetica;
+  font-size: 18px;
+  font-weight: 400;
+}
