@@ -1,6 +1,7 @@
-.selected_onglet {
+.selected_onglet { /*fond de l'onglet sélectioné, bloc d'arrière plan*/
   position: absolute;
-  background-color: #ac8686;
+  /*background-color: #ac8686;*/
+  background: linear-gradient(to top, #B58686,  #ac8686); /* Dégradé horizontal entre les 2 couleurs */
   top: 80px;
   left: 50%; /* Centre horizontalement */
   transform: translateX(-50%); /* Ajuste centrage horizontal */
@@ -17,7 +18,7 @@
   height: 80px;
   top: 0;
   left: 0;
-  background-color: #813641a6;
+  background: linear-gradient(to right, #813641a6,  #813641a6, #BA9B9B); /* Dégradé vertical plus lent (3 couleurs) */
 }
 
 .name_onglet {
