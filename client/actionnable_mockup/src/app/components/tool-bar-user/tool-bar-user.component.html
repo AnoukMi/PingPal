@@ -1,7 +1,27 @@
 
 <div class="selected_onglet"></div>
 <div class="back_bloc_big"></div>
-<div class="user_bloc"></div>
+
+<div class="separateur" style="left: 100px; top: 400px; width: 25vw"></div>
+<div class="separateur" style="left: 580px; top: 100px; height: 83vh"></div>
+
+<div class="username"><b>IVAMBRE</b></div>
+
+<div class="user_bloc">
+  <div class="usernameName"><b>Ambre Léveillé</b></div>
+
+  <img style="position:absolute; top: 13px; left: 4px; width: 130px" src="assets/avatar/chat.png" />
+
+  <button class="w3-button text_global" style="position: absolute; font-size: 16px; color: #813641;
+  text-align: center; top: 35px; left: 140px;">New message</button>
+
+  <button class="w3-button text_global" style="position: absolute; font-size: 16px; color: #813641;
+  text-align: center; top: 65px; left: 140px;">Share a message</button>
+
+  <button class="w3-button text_global" style="position: absolute; font-size: 16px; color: #813641;
+  text-align: center; top: 95px; left: 140px;">Log out</button>
+
+</div>
 
 <div class="rectangle_toolbar">
   <a routerLink="home">
@@ -15,4 +35,6 @@
   </a>
 </div>
 
-<div class="conversations"></div>
+<div class="conversations">
+  <app-current-conversations></app-current-conversations>
+</div>

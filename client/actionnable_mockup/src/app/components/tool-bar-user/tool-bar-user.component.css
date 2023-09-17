@@ -24,25 +24,55 @@
 .name_onglet {
   position: absolute;
   width: 150px;
-  top: 55px;
+  top: 50px;
   font-family: "Alata-Regular", Helvetica;
   color: #eee7e7;
   z-index: 2; /*pour que le texte de l'onglet soit au dessus du selecteur d'onglet "onglet" d'indice 1*/
 }
 
-/*Blocs d'identité utilisateur et contacts*/
+/*Blocs d'identité utilisateur*/
 .user_bloc {
-  width: 374px;
-  height: 147px;
-  top: 150px;
-  left: 100px;
+  width: 375px;
+  height: 150px;
+  top: 200px;
+  left: 150px;
   border: 2px solid #813641;
   position: absolute;
   background-color: #eee7e7a6;
   border-radius: 16px;
 }
 
+.username {
+  position: absolute;
+  top: 140px;
+  left: 260px;
+  font-family: "Alata-Regular", Helvetica;
+  font-size: 32px;
+  color: #813641;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.usernameName{
+  position: absolute;
+  top: 10px;
+  left: 140px;
+  font-family: "Alata-Regular", Helvetica;
+  font-size: 20px;
+  color: #813641;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.separateur {
+  position: absolute;
+  border: 1px dashed #813641;
+}
+
 .conversations {
-  top: 632px;
-  left: 100px;
+  position:absolute;
+  top: 450px;
+  left: 150px;
 }

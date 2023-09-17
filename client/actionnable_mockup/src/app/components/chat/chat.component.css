@@ -1,10 +1,7 @@
 .chat-container {
   max-height: 1500px;
   overflow-y: scroll;
-}
-
-.message {
-  margin-bottom: 10px;
+  scrollbar-face-color: #813641;
 }
 
 .userBubble {

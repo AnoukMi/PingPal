@@ -1,5 +1,12 @@
-<div class="w3-round-xlarge conv_unread">
-  <div class="nameContact" style = "top:20px; left:10px"><b>{{ contactName }}</b></div>
-  <div class="messageStatus" style = "top:50px; color: #5E5E5E;"><b>{{ unread }}</b></div>
-</div>
+<button class="w3-button" [ngClass]="{'conv_unread': !statusMessage, 'conv_read':statusMessage}">
+  <div *ngIf="!statusMessage">
+    <div class="nameContact"><b>{{ contact.firstName }} {{ contact.lastName }}</b></div>
+    <div class="messageStatus"><b>Unread message</b></div>
+  </div>
+  <div *ngIf="statusMessage">
+    <div class="nameContact">{{ contact.firstName }} {{ contact.lastName }}</div>
+    <div class="messageStatus">Read message</div>
+  </div>
 
+  <img class="avatar" src="{{contact.avatar}}" />
+</button>
