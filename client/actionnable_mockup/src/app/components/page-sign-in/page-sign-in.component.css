@@ -7,8 +7,8 @@
 
 .back_bloc {
   position: absolute;
-  width: 400px;
-  height: 510px;
+  width: 47vh;
+  height: 59vh;
   background-color: #eee7e7a6;
   border-radius: 16px;
   top: 0;
@@ -24,7 +24,7 @@
 
 .password {
   position: absolute;
-  width: 380px;
+  width: 46vh;
   height: 45px;
   top: 285px;
   left: 5px;
@@ -32,7 +32,7 @@
 
 .username {
   position: absolute;
-  width: 380px;
+  width: 46vh;
   height: 50px;
   top: 185px;
   left: 5px;

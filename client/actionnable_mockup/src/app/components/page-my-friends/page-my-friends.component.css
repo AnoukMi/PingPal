@@ -1,0 +1,50 @@
+.friends{
+  position: absolute;
+  top: 120px;
+  left: 860px;
+  font-weight: 550;
+}
+
+.onglet {
+  left:370px; /*modif la position verticale pour placer sur le bon onglet*/
+}
+
+
+.text_add{
+  position: absolute;
+  top: 250px;
+  left: 995px;
+  font-weight: 550;
+}
+
+.text_search{
+  position: absolute;
+  top: 250px;
+  left: 615px;
+  font-weight: 550;
+}
+
+.search {
+  position: absolute;
+  width: 350px;
+  top: 280px;
+  left: 600px;
+}
+
+.add {
+  position: absolute;
+  width: 350px;
+  top: 280px;
+  left: 980px;
+}
+
+.add_button {
+  position: absolute;
+  top: 282px;
+  left: 1270px;
+  color: #ffffff;
+  background-color: #813641;
+  border-radius: 20px;
+}
+
+

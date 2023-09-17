@@ -11,58 +11,57 @@
 .back_bloc {
   position: relative;
   width: 50vh;
-  height: 80vh;
-  top:40px;
+  height: 85vh;
+  top:10px;
   background-color: #eee7e7a6;
   border-radius: 16px;
 }
 
 .username {
   position: absolute;
-  width: 420px;
+  width:46vh ;
   height: 40px;
-  top: 165px;
+  top: 150px;
   left: 35px;
 }
 
 .password {
   position: absolute;
-  width: 420px;
+  width: 46vh;
   height: 40px;
-  top: 255px;
+  top: 240px;
   left: 35px;
 }
 
 .confirm_password {
   position: absolute;
-  width: 420px;
+  width: 46vh;
   height: 40px;
-  top: 345px;
+  top: 330px;
   left: 35px;
 }
 
 .first_name {
   position: absolute;
-  width: 420px;
+  width: 46vh;
   height: 40px;
-  top: 435px;
+  top: 420px;
   left: 35px;
 }
 
 .last_name {
   position: absolute;
-  width: 420px;
+  width: 46vh;
   height: 40px;
-  top: 525px;
+  top: 510px;
   left: 35px;
 }
 
-/* il ne veut pas s'afficher !!! */
 .birthday {
   position: absolute;
   width: 420px;
-  top: 615px;
-  left: 35px;
+  top: 600px;
+  left: 51px;
 }
 
 .signup_button {
@@ -78,43 +77,43 @@
 
 .text_create {
   position:absolute;
-  top:65px;
+  top:50px;
   left: 50%; /* Centre horizontalement */
   transform: translateX(-50%); /* Ajuste centrage horizontal */
 }
 
 .text_username {
   position: absolute;
-  top: 135px;
+  top: 120px;
   left: 50px;
 }
 
 .text_password {
   position: absolute;
-  top: 225px;
+  top: 210px;
   left: 50px;
 }
 
 .text_confirm {
   position: absolute;
-  top: 315px;
+  top: 300px;
   left: 50px;
 }
 
 .text_first_name {
   position: absolute;
-  top: 405px;
+  top: 390px;
   left: 50px;
 }
 
 .text_last_name {
   position: absolute;
-  top: 495px;
+  top: 480px;
   left: 50px;
 }
 
 .text_birthday {
   position: absolute;
-  top: 585px;
+  top: 570px;
   left: 50px;
 }

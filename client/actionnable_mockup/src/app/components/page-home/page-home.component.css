@@ -5,5 +5,7 @@
   left: 670px;
 }
 
-
+.onglet {
+  left:200px; /*modif la position verticale pour placer sur le bon onglet*/
+}
 

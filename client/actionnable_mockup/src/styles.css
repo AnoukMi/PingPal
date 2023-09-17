@@ -6,6 +6,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
+
 }
 
 .centered {
@@ -17,7 +18,7 @@ body {
 }
 
 /*BLOCS EN ARRIERE PLAN ET TOOLBAR*/
-.back_bloc {
+.back_bloc_big {
   width: 90vw; /* 90% de la largeur de la vue du navigateur */
   height: 83vh; /* 70% de la hauteur de la vue du navigateur */
   top: 100px;
@@ -28,19 +29,15 @@ body {
   transform: translateX(-50%); /* Ajuste la position horizontale */
 }
 
-
 .onglet {
   position: absolute;
   width: 143px;
-  height: 30px;
+  height: 40px;
   top: 50px;
-  left: 215px;
-  background-color: #ac8686a6;
+  background: linear-gradient(to bottom, #A0656A,  #ac8686); /* Dégradé horizontal entre les 2 couleurs */
   border-radius: 16px 16px 0px 0px;
+  z-index: 1; /* pour placer en arrière-plan du texte de la toolbar qui a un index de 2 et au-dessus du reste du fond (0) */
 }
-
-
-
 
 /*textes*/
 
@@ -67,7 +64,6 @@ body {
   letter-spacing: 0;
   line-height: normal;
 }
-
 
 .text_button {
   font-family: "Alata-Regular", Helvetica;

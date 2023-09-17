@@ -1,0 +1,44 @@
+.share{
+  position: absolute;
+  top: 120px;
+  left: 830px;
+  font-weight: 550;
+}
+
+.message {
+  position: absolute;
+  width: 800px;
+  top: 380px;
+  left: 580px;
+}
+
+.send_button {
+  position: absolute;
+  top: 650px;
+  left: 1280px;
+  color: #ffffff;
+  background-color: #813641;
+  border-radius: 20px;
+}
+
+.text_message {
+  position: absolute;
+  top: 350px;
+  left: 595px;
+}
+
+.text_info {
+  position: absolute;
+  font-style: italic;
+  color: #813641;
+  font-size: 18px;
+  top: 280px;
+  left: 595px;
+}
+
+.text_preview {
+  position: absolute;
+  top: 450px;
+  left: 595px;
+}
+
