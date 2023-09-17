@@ -11,14 +11,14 @@ import {PageEditProfileComponent} from "./components/page-edit-profile/page-edit
 import {PageShareMessageComponent} from "./components/page-share-message/page-share-message.component";
 
 const routes: Routes = [
+  {path: 'signIn',
+    component:PageSignInComponent}, //page de connexion
+  {path: 'signUp',
+    component:PageSignUpComponent}, //page d'inscription
   {path: 'home', //quand l'utilisateur est sur ou rentre l' url avec /home
-    component:PageHomeComponent}, //contient la page home avec le composant home codé
-  {path: 'signIn', //page de connexion
-    component:PageSignInComponent},
-  {path: 'signUp', //page d'inscription
-    component:PageSignUpComponent},
-  {path: 'myFriends', //page des contacts amis enregistrés
-    component:PageMyFriendsComponent},
+    component:PageHomeComponent},
+  {path: 'myFriends',
+    component:PageMyFriendsComponent}, //page des contacts amis enregistrés
   {path: 'newMessage', //page pour commencer une nouvelle conversation
     component:PageNewMessageComponent},
   {path: 'conversation', //page conversation avec un ami
@@ -27,21 +27,11 @@ const routes: Routes = [
     component:PageEditProfileComponent},
   {path: 'shareMessage', //page pour partager un message avec l'ensemble des amis
     component:PageShareMessageComponent},
-  {path: 'signIn/home',
-    redirectTo:'home', //renvoie sur home par le clique à partir de signIn
-    pathMatch:'full'},
-  {path: 'signUp/home',
-    redirectTo:'home', //renvoie sur home par le clique à partir de signUn
-    pathMatch:'full'},
-  {path: 'signIn/signUp',
-    redirectTo:'signUp', //renvoie sur signUp par le clique à partir de signIn
-    pathMatch:'full'},
-  {path: 'conversation/conversation',
-    redirectTo:'conversation', //renvoie sur conversation par le clique send à partir de conversation (reste sur mm conv)
-    pathMatch:'full'},
-  {path: 'newMessage/conversation',
-    redirectTo:'conversation', //renvoie sur conversation par le clique send à partir de new message
-    pathMatch:'full'},
+  {path: 'signIn/home',  redirectTo:'home', pathMatch:'full'},//renvoie sur home par le clique à partir de signIn
+  {path: 'signUp/home', redirectTo:'home', pathMatch:'full'}, //renvoie sur home par le clique à partir de signUn
+  {path: 'signIn/signUp', redirectTo:'signUp', pathMatch:'full'},  //renvoie sur signUp par le clique à partir de signIn
+  {path: 'conversation/conversation', redirectTo:'conversation', pathMatch:'full'}, //reste sur mm conv qd clique "send"
+  {path: 'newMessage/conversation', redirectTo:'conversation', pathMatch:'full'}, //renvoie sur conv crée pour new msg
   {path: '', //quand l'utilisateur est sur la racine
     redirectTo:'signIn',
     pathMatch:'full'}, //il est rédirigé vers la route de connexion, match total avec '' (vide) pour que ça marche

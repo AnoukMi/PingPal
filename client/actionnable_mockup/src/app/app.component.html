@@ -1,6 +1,14 @@
+<!--A METTRE EN TOUT PREMIER SINON LES COMPONENTS A AFFICHER DU ROUTAGE SONT CACHES DERRIERE
+LE RESTE DE CE CODE DU FOND DE BASE-->
+<ng-container *ngIf="(currentRoute !== '/signIn')&&(currentRoute !== '/signUp')">
+  <!--affiche la toolbar seulement si la route courante n'est pas signIn ou signUp-->
+  <app-tool-bar-user></app-tool-bar-user>
+</ng-container>
+
 <router-outlet></router-outlet><link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <html>
 <body>
+
 <div class="logo">
   <img src="assets/logo.png" style="width: 150px; position: absolute; top: 0; left: 0;">
 </div>
