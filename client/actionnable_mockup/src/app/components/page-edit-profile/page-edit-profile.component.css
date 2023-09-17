@@ -4,11 +4,13 @@
   left: 870px;
   font-weight: 550;
 }
+.onglet {
+  left:540px; /*modif la position verticale pour placer sur le bon onglet*/
+}
 
 .first_name{
   position: absolute;
   width: 50vh;
-  height: 50px;
   top: 430px;
   left: 650px;
 }
@@ -16,7 +18,6 @@
 .last_name {
   position: absolute;
   width: 50vh;
-  height: 530px;
   top: 520px;
   left: 650px;
 }

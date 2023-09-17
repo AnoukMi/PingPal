@@ -6,6 +6,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
+
 }
 
 .centered {
@@ -28,15 +29,14 @@ body {
   transform: translateX(-50%); /* Ajuste la position horizontale */
 }
 
-
 .onglet {
   position: absolute;
   width: 143px;
   height: 30px;
   top: 50px;
-  left: 215px;
   background-color: #ac8686a6;
   border-radius: 16px 16px 0px 0px;
+  z-index: 1; /*pour placer en arrière plan du texte de la tool bar qui a un index de 2 et au dessus du reste du fond (0)*/
 }
 
 /*textes*/
@@ -64,7 +64,6 @@ body {
   letter-spacing: 0;
   line-height: normal;
 }
-
 
 .text_button {
   font-family: "Alata-Regular", Helvetica;

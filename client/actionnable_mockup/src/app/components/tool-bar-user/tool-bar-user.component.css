@@ -26,11 +26,9 @@
   top: 55px;
   font-family: "Alata-Regular", Helvetica;
   color: #eee7e7;
+  z-index: 2; /*pour que le texte de l'onglet soit au dessus du selecteur d'onglet "onglet" d'indice 1*/
 }
 
-.onglet_button {
-
-}
 /*Blocs d'identité utilisateur et contacts*/
 .user_bloc {
   width: 374px;

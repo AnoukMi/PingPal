@@ -5,6 +5,11 @@
   font-weight: 550;
 }
 
+.onglet {
+  left:370px; /*modif la position verticale pour placer sur le bon onglet*/
+}
+
+
 .text_add{
   position: absolute;
   top: 250px;
