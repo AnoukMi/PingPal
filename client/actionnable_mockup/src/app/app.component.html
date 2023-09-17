@@ -1,7 +1,10 @@
 <!--A METTRE EN TOUT PREMIER SINON LES COMPONENTS A AFFICHER DU ROUTAGE SONT CACHES DERRIERE
 LE RESTE DE CE CODE DU FOND DE BASE-->
 <ng-container *ngIf="(currentRoute !== '/signIn')&&(currentRoute !== '/signUp')">
-  <!--affiche la toolbar seulement si la route courante n'est pas signIn ou signUp-->
+  <!--affiche la toolbar et le logo seulement si la route courante n'est pas signIn ou signUp-->
+  <a routerLink="home"> <!-- logo en premier plan dans l'angle et renvoie sur home quand on clique-->
+    <img src="assets/logo.png" style="width: 150px; position: absolute; top: 0; left: 0;   z-index: 3;">
+  </a>
   <app-tool-bar-user></app-tool-bar-user>
 </ng-container>
 
@@ -9,9 +12,7 @@ LE RESTE DE CE CODE DU FOND DE BASE-->
 <router-outlet></router-outlet><link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <html>
 <body> <!--on a redéfinit le style de body dans style.css pour qu'il contienne le fond dégradé-->
-<div class="logo">
-  <img src="assets/logo.png" style="width: 150px; position: absolute; top: 0; left: 0;">
-</div>
+
 </body>
 </html>
 
