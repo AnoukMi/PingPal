@@ -1,7 +1,7 @@
 .friends{
   position: absolute;
   top: 15vh;
-  left: 55vw;
+  left: 61vw;
   font-weight: 550;
 }
 
@@ -27,20 +27,20 @@
 .search {
   position: absolute;
   width: 20vw;
-  top: 35vh;
+  top: 34vh;
   left: 39vw;
 }
 
 .add {
   position: absolute;
   width: 20vw;
-  top: 35vh;
+  top: 34vh;
   left: 64vw;
 }
 
 .add_button {
   position: absolute;
-  top: 35.4vh;
+  top: 34.4vh;
   left: 80vw;
   color: #ffffff;
   background-color: #813641;
