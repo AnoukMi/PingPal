@@ -25,4 +25,6 @@ export class AppComponent implements OnInit {
         this.currentRoute = this.router.url;
       });
   }
+
+
 }

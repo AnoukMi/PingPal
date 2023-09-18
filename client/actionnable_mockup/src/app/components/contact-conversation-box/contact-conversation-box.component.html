@@ -1,3 +1,4 @@
+<a routerLink="conversation">
 <button class="w3-button" [ngClass]="{'conv_unread': !statusMessage, 'conv_read':statusMessage}">
   <div *ngIf="!statusMessage">
     <div class="nameContact"><b>{{ contact.firstName }} {{ contact.lastName }}</b></div>
@@ -10,3 +11,4 @@
 
   <img class="avatar" src="{{contact.avatar}}" />
 </button>
+</a>

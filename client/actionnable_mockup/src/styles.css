@@ -39,6 +39,8 @@ body {
   z-index: 1; /* pour placer en arrière-plan du texte de la toolbar qui a un index de 2 et au-dessus du reste du fond (0) */
 }
 
+
+
 /*textes*/
 
 .text_global{
