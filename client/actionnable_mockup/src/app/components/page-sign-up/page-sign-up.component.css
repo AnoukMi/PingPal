@@ -1,6 +1,6 @@
 .logo_background {
-  position: relative;
-  height: 90vh;
+  position: absolute;
+  height: 20vh;
   background-image: url(../../../assets/logo.png);
   background-size: 80%;
   background-repeat: no-repeat;
@@ -11,64 +11,57 @@
 .back_bloc {
   position: relative;
   width: 50vh;
-  height: 85vh;
-  top:10px;
+  height: 90vh;
   background-color: #eee7e7a6;
   border-radius: 16px;
 }
 
 .username {
   position: absolute;
-  width:46vh ;
-  height: 40px;
-  top: 150px;
-  left: 35px;
+  width:46vh;
+  top: 19vh;
+  left: 2vw;
 }
 
 .password {
   position: absolute;
   width: 46vh;
-  height: 40px;
-  top: 240px;
-  left: 35px;
+  top: 30vh;
+  left: 2vw;
 }
 
 .confirm_password {
   position: absolute;
   width: 46vh;
-  height: 40px;
-  top: 330px;
-  left: 35px;
+  top: 41vh;
+  left: 2vw;
 }
 
 .first_name {
   position: absolute;
   width: 46vh;
-  height: 40px;
-  top: 420px;
-  left: 35px;
+  top: 52vh;
+  left: 2vw;
 }
 
 .last_name {
   position: absolute;
   width: 46vh;
-  height: 40px;
-  top: 510px;
-  left: 35px;
+  top: 63vh;
+  left: 2vw;
 }
 
 .birthday {
   position: absolute;
-  width: 420px;
-  top: 600px;
-  left: 51px;
+  top: 72vh;
+  left: 7.3vh;
 }
 
 .signup_button {
   position: absolute;
-  width: 113px;
-  height: 39px;
-  top:680px;
+  width: 7.5vw;
+  height: 4.8vh;
+  top:84vh;
   left: 50%; /* Centre horizontalement */
   transform: translateX(-50%); /* Ajuste centrage horizontal */
   background-color: #813641;
@@ -77,43 +70,43 @@
 
 .text_create {
   position:absolute;
-  top:50px;
+  top:6vh;
   left: 50%; /* Centre horizontalement */
   transform: translateX(-50%); /* Ajuste centrage horizontal */
 }
 
 .text_username {
   position: absolute;
-  top: 120px;
-  left: 50px;
+  top: 15vh;
+  left: 3vw;
 }
 
 .text_password {
   position: absolute;
-  top: 210px;
-  left: 50px;
+  top: 26vh;
+  left: 3vw;
 }
 
 .text_confirm {
   position: absolute;
-  top: 300px;
-  left: 50px;
+  top: 37vh;
+  left: 3vw;
 }
 
 .text_first_name {
   position: absolute;
-  top: 390px;
-  left: 50px;
+  top: 48vh;
+  left: 3vw;
 }
 
 .text_last_name {
   position: absolute;
-  top: 480px;
-  left: 50px;
+  top: 59vh;
+  left: 3vw;
 }
 
 .text_birthday {
   position: absolute;
-  top: 570px;
-  left: 50px;
+    top: 70vh;
+    left: 3vw;
 }

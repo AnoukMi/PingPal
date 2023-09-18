@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,7 +22,7 @@ import { DateSelectorComponent } from './components/date-selector/date-selector.
 import {ChatComponent} from "./components/chat/chat.component";
 import { CurrentConversationsComponent } from './components/current-conversations/current-conversations.component';
 import {CommonModule} from "@angular/common";
-import { MouseComponent } from './components/mouse/mouse.component';
+// import { MouseComponent } from './components/mouse/mouse.component';
 
 @NgModule({
   declarations: [
@@ -44,8 +44,7 @@ import { MouseComponent } from './components/mouse/mouse.component';
     FriendBoxSharedMsgComponent,
     DateSelectorComponent,
     ChatComponent,
-    CurrentConversationsComponent,
-    MouseComponent,
+    CurrentConversationsComponent, //MouseComponent,
   ],
   imports: [
     BrowserModule,

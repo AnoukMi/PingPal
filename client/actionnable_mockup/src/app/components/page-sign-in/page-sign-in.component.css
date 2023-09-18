@@ -1,14 +1,14 @@
 
 .group {
   position: relative;
-  width: 400px;
-  height: 566px;
+  width: 25vw;
+  height: 63vh;
 }
 
 .back_bloc {
   position: absolute;
-  width: 47vh;
-  height: 59vh;
+  width: 47.5vh;
+  height: 64vh;
   background-color: #eee7e7a6;
   border-radius: 16px;
   top: 0;
@@ -16,32 +16,29 @@
 
 .remember-me {
   position: absolute;
-  width: 15px;
-  height: 15px;
-  top: 350px;
-  left: 32px;
+  width: 2vw;
+  top: 43vh;
+  left: 2vw;
 }
 
 .password {
   position: absolute;
-  width: 46vh;
-  height: 45px;
-  top: 285px;
-  left: 5px;
+  width: 23vw;
+  top: 36vh;
+  left: 0.5vw;
 }
 
 .username {
   position: absolute;
-  width: 46vh;
-  height: 50px;
-  top: 185px;
-  left: 5px;
+  width: 23vw;
+  top: 24vh;
+  left: 0.5vw;
 }
 
 .logo_mini {
   position: absolute;
-  width: 270px;
-  top: 10px;
+  width: 15vw;
+  top: 2vh;
   left: 50%; /* Centre horizontalement */
   transform: translateX(-50%); /* Ajuste centrage horizontal */
 }
@@ -49,39 +46,27 @@
 
 .text_username{
   position: absolute;
-  top: 154px;
-  left: 22px;
+  top: 20vh;
+  left: 1.5vw;
 }
 
 .text_password {
   position: absolute;
-  top: 253px;
-  left: 22px;
-}
-
-.text_enter_user {
-  position: absolute;
-  top: 200px;
-  left: 39px;
-}
-
-.text_enter_pass{
-  position: absolute;
-  top: 300px;
-  left: 39px;
+  top: 32vh;
+  left: 1.5vw;
 }
 
 .text_remember {
   position: absolute;
-  top: 360px;
-  left: 62px;
+  top: 44.3vh;
+  left: 4vw;
   color: #813641;
   font-size: 15px;
 }
 
 .signin_button {
   position: absolute;
-  top: 405px;
+  top: 50vh;
   left: 50%; /* Centre horizontalement */
   transform: translateX(-50%); /* Ajuste centrage horizontal */
   background-color: #813641;
@@ -90,8 +75,8 @@
 
 .no_account {
   position: absolute;
-  top: 460px;
-  left: 85px;
+  top: 58vh;
+  left: 5.4vw;
   color: transparent;
   font-size: 13px;
 }

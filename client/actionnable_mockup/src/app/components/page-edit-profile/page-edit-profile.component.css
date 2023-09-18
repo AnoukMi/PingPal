@@ -4,8 +4,9 @@
   left: 55vw;
   font-weight: 550;
 }
+
 .onglet {
-  left:42.5vw; /*modif la position verticale pour placer sur le bon onglet*/
+  left:42.3vw; /*modif la position verticale pour placer sur le bon onglet*/
 }
 
 .first_name{
@@ -40,7 +41,7 @@
 
 .text_avatar {
   position: absolute;
-  top: 33vh;
+  top: 23vh;
   left: 41vw;
 }
 
@@ -64,6 +65,5 @@
 
 .avatar {
   position:absolute;
-  width: 5vw;
-  top: 38vh;
+  width: 4vw;
 }
