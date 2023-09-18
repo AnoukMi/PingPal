@@ -1,14 +1,17 @@
 <div class="onglet"></div>
 <div class="text_title friends ">My&nbsp;friends</div>
+
 <div class="text_upper_box">
   <div class="text_search"><b>Search:</b></div>
   <div class="text_add"><b>Add:</b></div>
 </div>
+
 <div class="search">
   <app-user-writing-frame [placeholder]="'Enter a friend username'"
                           [type] = "'text'"
   ></app-user-writing-frame>
 </div>
+
 <div class="add">
   <app-user-writing-frame [placeholder]="'Enter an user to add'"
                           [type] = "'text'"
@@ -20,8 +23,8 @@
       <div class="text_button">+</div></button> <!-- Applique style de texte sur texte bouton-->
 </div>
 
-<div class="box">
-  <app-current-friends></app-current-friends>
+<div class="friendsList">
+  <app-current-friends style="position:absolute; left: 2vw"></app-current-friends>
 </div>
 
 

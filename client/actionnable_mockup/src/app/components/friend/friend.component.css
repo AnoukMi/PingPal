@@ -2,21 +2,21 @@
   position: absolute;
   width: 18vw;
   height: 10vh;
-  background-color: #eee7e7a6;
+  background-color: #AC8686;
   border-radius: 16px;
   border: 2px dashed #813641;
 }
 
 .avatar {
   position: absolute;
-  width: 4vw;
+  width: 3.5vw;
   top: 0.5vh;
   left: 1.5vw;
 }
 
 .username {
   position: absolute;
-  top: 1.5vh;
+  top: 1vh;
   left: 7vw;
   font-family: "Alata-Regular", Helvetica;
   color: #813641;
@@ -24,9 +24,19 @@
   font-weight: 400;
 }
 
-.infos {
+.name {
   position: absolute;
-  top: 4vh;
+  top: 3.5vh;
+  left: 7vw;
+  font-family: "Alata-Regular", Helvetica;
+  color: #5E5E5E;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.birthday {
+  position: absolute;
+  top: 6vh;
   left: 7vw;
   font-family: "Alata-Regular", Helvetica;
   color: #5E5E5E;

@@ -1,5 +1,6 @@
 <div class="w3-round-xlarge box">
   <img class="avatar" src="{{ contact.avatar }}" />
   <div class="username"><b>{{ contact.username }}</b></div>
-  <div class="infos">{{ contact.firstName }} {{ contact.lastName }}<br> {{ contact.birthday | date : 'MM/dd/yyyy'}}</div>
+  <div class="name">{{ contact.firstName }} {{ contact.lastName }} </div>
+  <div class="birthday">{{ contact.birthday | date : 'MM/dd/yyyy'}}</div>
 </div>
