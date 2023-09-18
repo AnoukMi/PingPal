@@ -1,0 +1,35 @@
+.box {
+  position: absolute;
+  width: 18vw;
+  height: 10vh;
+  background-color: #eee7e7a6;
+  border-radius: 16px;
+  border: 2px dashed #813641;
+}
+
+.avatar {
+  position: absolute;
+  width: 4vw;
+  top: 0.5vh;
+  left: 1.5vw;
+}
+
+.username {
+  position: absolute;
+  top: 1.5vh;
+  left: 7vw;
+  font-family: "Alata-Regular", Helvetica;
+  color: #813641;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.infos {
+  position: absolute;
+  top: 4vh;
+  left: 7vw;
+  font-family: "Alata-Regular", Helvetica;
+  color: #5E5E5E;
+  font-size: 16px;
+  font-weight: 400;
+}

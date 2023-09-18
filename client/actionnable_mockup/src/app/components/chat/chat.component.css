@@ -1,7 +1,6 @@
 .chat-container {
   max-height: 45vh;
   overflow-y: scroll;
-  scrollbar-face-color: #813641;
 }
 
 .userBubble {

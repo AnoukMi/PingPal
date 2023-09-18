@@ -22,6 +22,8 @@ import { DateSelectorComponent } from './components/date-selector/date-selector.
 import {ChatComponent} from "./components/chat/chat.component";
 import { CurrentConversationsComponent } from './components/current-conversations/current-conversations.component';
 import {CommonModule} from "@angular/common";
+import { FriendComponent } from './components/friend/friend.component';
+import { CurrentFriendsComponent } from './components/current-friends/current-friends.component';
 // import { MouseComponent } from './components/mouse/mouse.component';
 
 @NgModule({
@@ -44,7 +46,9 @@ import {CommonModule} from "@angular/common";
     FriendBoxSharedMsgComponent,
     DateSelectorComponent,
     ChatComponent,
-    CurrentConversationsComponent, //MouseComponent,
+    CurrentConversationsComponent,
+    FriendComponent,
+    CurrentFriendsComponent, //MouseComponent,
   ],
   imports: [
     BrowserModule,

@@ -47,4 +47,13 @@
   border-radius: 20px;
 }
 
+.box {
+  position: absolute;
+  top: 45vh;
+  left: 42vw;
+  background-color: #813641;
+  color: #FFFFFF;
+  max-width: 25vw;
+}
+
 
