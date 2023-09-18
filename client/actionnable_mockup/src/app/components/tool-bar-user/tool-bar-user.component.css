@@ -73,8 +73,11 @@
 
 .conversations {
   position: absolute;
-  top: 50vh;
+  top: 51vh;
   left: 10vw;
+  height:44.1vh;
+  width:26vw;
+  overflow-y:scroll;
 }
 
 .text_global:hover { /*modifie aspect quand le texte est survolé avec la souris*/
