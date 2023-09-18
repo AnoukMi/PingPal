@@ -78,6 +78,7 @@
   height:44.1vh;
   width:26vw;
   overflow-y:scroll;
+
 }
 
 .text_global:hover { /*modifie aspect quand le texte est survolé avec la souris*/
