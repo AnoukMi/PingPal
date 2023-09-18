@@ -1,7 +1,7 @@
 .conv_unread {
   position: absolute;
-  width: 375px;
-  height: 75px;
+  width: 24vw;
+  height: 10vh;
   background-color: #eee7e7a6;
   border-radius: 16px;
   border: 2px dashed #813641;
@@ -9,8 +9,8 @@
 
 .conv_read {
   position: absolute;
-  width: 375px;
-  height: 75px;
+  width: 24vw;
+  height: 10vh;
   background-color: #ac8686;
   border-radius: 16px;
   border: 2px dashed #813641;
@@ -18,8 +18,8 @@
 
 .nameContact {
   position: absolute;
-  top: 10px;
-  left: 100px;
+  top: 1.5vh;
+  left: 7vw;
   font-family: "Alata-Regular", Helvetica;
   color: #813641;
   font-size: 18px;
@@ -28,8 +28,8 @@
 
 .messageStatus {
   position: absolute;
-  top: 35px;
-  left: 100px;
+  top: 4.5vh;
+  left: 7vw;
   font-family: "Alata-Regular", Helvetica;
   color: #5E5E5E;
   font-size: 18px;
@@ -38,7 +38,7 @@
 
 .avatar {
   position: absolute;
-  width: 55px;
-  top: 10px;
-  left: 25px;
+  width: 4vw;
+  top: 1.5vh;
+  left: 1.5vw;
 }

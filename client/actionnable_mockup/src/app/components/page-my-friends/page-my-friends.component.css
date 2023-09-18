@@ -1,47 +1,47 @@
 .friends{
   position: absolute;
-  top: 120px;
-  left: 860px;
+  top: 15vh;
+  left: 55vw;
   font-weight: 550;
 }
 
 .onglet {
-  left:450px; /*modif la position verticale pour placer sur le bon onglet*/
+  left: 29.5vw; /*modif la position verticale pour placer sur le bon onglet*/
 }
 
 
 .text_add{
   position: absolute;
-  top: 250px;
-  left: 995px;
+  top: 30vh;
+  left: 65vw;
   font-weight: 550;
 }
 
 .text_search{
   position: absolute;
-  top: 250px;
-  left: 615px;
+  top: 30vh;
+  left: 40vw;
   font-weight: 550;
 }
 
 .search {
   position: absolute;
-  width: 350px;
-  top: 280px;
-  left: 600px;
+  width: 20vw;
+  top: 35vh;
+  left: 39vw;
 }
 
 .add {
   position: absolute;
-  width: 350px;
-  top: 280px;
-  left: 980px;
+  width: 20vw;
+  top: 35vh;
+  left: 64vw;
 }
 
 .add_button {
   position: absolute;
-  top: 282px;
-  left: 1270px;
+  top: 35.4vh;
+  left: 80vw;
   color: #ffffff;
   background-color: #813641;
   border-radius: 20px;

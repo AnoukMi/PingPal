@@ -1,11 +1,11 @@
 .logo {
   position: absolute;
-  width: 600px;
-  top: 330px;
-  left: 670px;
+  width: 40vw;
+  top: 33vh;
+  left: 48vw;
 }
 
 .onglet {
-  left:250px; /*modif la position verticale pour placer sur le bon onglet*/
+  left:16.5vw; /* modif la position verticale pour placer sur le bon onglet */
 }
 

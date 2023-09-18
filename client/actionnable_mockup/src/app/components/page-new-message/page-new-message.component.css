@@ -1,40 +1,40 @@
 .new_msg{
   position: absolute;
-  top: 120px;
-  left: 850px;
+  top: 15vh;
+  left: 55vw;
   font-weight: 550;
 }
 
 .search_contact {
   position: absolute;
-  width: 380px;
-  top: 310px;
-  left: 580px;
+  width: 30vw;
+  top: 35vh;
+  left: 38vw;
 }
 
 .message {
   position: absolute;
-  width: 800px;
-  top: 410px;
-  left: 580px;
+  width: 55vw;
+  top: 50vh;
+  left: 38vw;
 }
 
 .text_to {
   position: absolute;
-  top: 280px;
-  left: 595px;
+  top: 31vh;
+  left: 39vw;
 }
 
 .text_message {
   position: absolute;
-  top: 380px;
-  left: 595px;
+  top: 46vh;
+  left: 39vw;
 }
 
 .send_button {
   position: absolute;
-  top: 500px;
-  left: 1280px;
+  top: 85vh;
+  left: 85vw;
   color: #ffffff;
   background-color: #813641;
   border-radius: 20px;

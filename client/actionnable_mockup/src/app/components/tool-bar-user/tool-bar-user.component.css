@@ -2,7 +2,7 @@
   position: absolute;
   /*background-color: #ac8686;*/
   background: linear-gradient(to top, #B58686,  #ac8686); /* Dégradé horizontal entre les 2 couleurs */
-  top: 80px;
+  top: 10vh;
   left: 50%; /* Centre horizontalement */
   transform: translateX(-50%); /* Ajuste centrage horizontal */
   width: 94vw;
@@ -15,7 +15,7 @@
 .rectangle_toolbar {
   position: absolute;
   width: 100vw; /*toute la longueur de la fenetre*/
-  height: 80px;
+  height: 10vh;
   top: 0;
   left: 0;
   background: linear-gradient(to right, #813641a6,  #813641a6, #BA9B9B); /* Dégradé vertical plus lent (3 couleurs) */
@@ -23,8 +23,8 @@
 
 .name_onglet {
   position: absolute;
-  width: 150px;
-  top: 50px;
+  width: 9.7vw;
+  top: 6vh;
   font-family: "Alata-Regular", Helvetica;
   color: #eee7e7;
   z-index: 2; /*pour que le texte de l'onglet soit au dessus du selecteur d'onglet "onglet" d'indice 1*/
@@ -32,10 +32,10 @@
 
 /*Blocs d'identité utilisateur*/
 .user_bloc {
-  width: 375px;
-  height: 150px;
-  top: 200px;
-  left: 150px;
+  width: 24vw;
+  height: 18vh;
+  top: 25vh;
+  left: 10vw;
   border: 2px solid #813641;
   position: absolute;
   background-color: #eee7e7a6;
@@ -44,8 +44,8 @@
 
 .username {
   position: absolute;
-  top: 140px;
-  left: 260px;
+  top: 17vh;
+  left: 18vw;
   font-family: "Alata-Regular", Helvetica;
   font-size: 32px;
   color: #813641;
@@ -56,8 +56,8 @@
 
 .usernameName{
   position: absolute;
-  top: 10px;
-  left: 140px;
+  top: 1vh;
+  left: 9vw;
   font-family: "Alata-Regular", Helvetica;
   font-size: 20px;
   color: #813641;
@@ -72,7 +72,7 @@
 }
 
 .conversations {
-  position:absolute;
-  top: 450px;
-  left: 150px;
+  position: absolute;
+  top: 57vh;
+  left: 10vw;
 }

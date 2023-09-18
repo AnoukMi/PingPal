@@ -1,4 +1,6 @@
 .box {
+  position: absolute;
+  width: 8vw;
   color: #813641;
   border-radius: 5px;
   background-color:white;
@@ -7,11 +9,11 @@
 
 
 .box:focus-within, .box:focus-within select {
-  background-color: #F2E3E3; /*couleur fond quand on vient de sélectionner*/
+  background-color: #F2E3E3; /* couleur fond quand on vient de sélectionner */
   color: #A47272; /*couleur texte*/
 }
 .w3-dropdown-content select {
-  width: 100px;
+
   text-align: center;
   color:#813641;
 }

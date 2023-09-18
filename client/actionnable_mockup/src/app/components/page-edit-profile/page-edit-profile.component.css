@@ -1,38 +1,38 @@
 .edit{
   position: absolute;
-  top: 120px;
-  left: 870px;
+  top:15vh;
+  left: 55vw;
   font-weight: 550;
 }
 .onglet {
-  left:650px; /*modif la position verticale pour placer sur le bon onglet*/
+  left:42.5vw; /*modif la position verticale pour placer sur le bon onglet*/
 }
 
 .first_name{
   position: absolute;
-  width: 50vh;
-  top: 430px;
-  left: 650px;
+  width:30vw;
+  top: 55vh;
+  left: 40vw;
 }
 
 .last_name {
   position: absolute;
-  width: 50vh;
-  top: 520px;
-  left: 650px;
+  width: 30vw;
+  top: 66vh;
+  left: 40vw;
 }
 
 .birthday {
   position: absolute;
-  width: 420px;
-  top: 610px;
-  left: 666px;
+  width: 30vw;
+  top: 75vh;
+  left: 41vw;
 }
 
 .update_button {
   position: absolute;
-  top: 690px;
-  left: 1000px;
+  top: 87vh;
+  left: 66vw;
   color: #ffffff;
   background-color: #813641;
   border-radius: 20px;
@@ -40,30 +40,30 @@
 
 .text_avatar {
   position: absolute;
-  top: 280px;
-  left: 665px;
+  top: 33vh;
+  left: 41vw;
 }
 
 .text_first_name {
   position: absolute;
-  top: 400px;
-  left: 665px;
+  top: 51vh;
+  left: 41vw;
 }
 
 .text_last_name {
   position: absolute;
-  top: 490px;
-  left: 665px;
+  top: 62vh;
+  left: 41vw;
 }
 
 .text_birthday {
   position: absolute;
-  top: 580px;
-  left: 665px;
+  top: 73vh;
+  left: 41vw;
 }
 
 .avatar {
   position:absolute;
-  width: 80px;
-  top: 310px;
+  width: 5vw;
+  top: 38vh;
 }
