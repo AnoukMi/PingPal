@@ -1,33 +1,33 @@
 
 .contact_name{
   position: absolute;
-  top: 120px;
-  left: 870px;
+  top: 15vh;
+  left: 60vw;
   font-weight: 550;
 }
 
 .chat {
   background-color: #ffffff4c;
   position: absolute;
-  width: 800px;
-  height: 526px;
-  top: 170px;
-  left: 580px;
+  width: 52vw;
+  height: 60vh;
+  top: 21vh;
+  left: 40.5vw;
   overflow-y: scroll;
 }
 
 .userWritingBox {
-  width: 830px;
-  top: 710px;
-  left: 565px;
+  width: 54vw;
+  top: 83vh;
+  left: 39.5vw;
   position: absolute;
   word-wrap: break-word;
 }
 
 .send_button {
   position: absolute;
-  top: 755px;
-  left: 1300px;
+  top: 89vh;
+  right: 15vh;
   color: #ffffff;
   background-color: #813641;
   border-radius: 20px;

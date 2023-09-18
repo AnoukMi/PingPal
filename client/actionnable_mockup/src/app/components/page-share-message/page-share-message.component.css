@@ -1,21 +1,21 @@
 .share{
   position: absolute;
-  top: 120px;
-  left: 830px;
+  top: 15vh;
+  left: 55vw;
   font-weight: 550;
 }
 
 .message {
   position: absolute;
-  width: 800px;
-  top: 380px;
-  left: 580px;
+  width: 55vw;
+  top: 46vh;
+  left: 38vw;
 }
 
 .send_button {
   position: absolute;
-  top: 650px;
-  left: 1280px;
+  top: 85vh;
+  left: 85vw;
   color: #ffffff;
   background-color: #813641;
   border-radius: 20px;
@@ -23,8 +23,8 @@
 
 .text_message {
   position: absolute;
-  top: 350px;
-  left: 595px;
+  top: 40vh;
+  left: 39vw;
 }
 
 .text_info {
@@ -32,13 +32,13 @@
   font-style: italic;
   color: #813641;
   font-size: 18px;
-  top: 280px;
-  left: 595px;
+  top: 28vh;
+  left: 39vw;
 }
 
 .text_preview {
   position: absolute;
-  top: 450px;
-  left: 595px;
+  top: 55vh;
+  left: 39vw;
 }
 
