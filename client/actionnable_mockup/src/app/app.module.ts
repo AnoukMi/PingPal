@@ -22,6 +22,7 @@ import { DateSelectorComponent } from './components/date-selector/date-selector.
 import {ChatComponent} from "./components/chat/chat.component";
 import { CurrentConversationsComponent } from './components/current-conversations/current-conversations.component';
 import {CommonModule} from "@angular/common";
+import { MouseComponent } from './components/mouse/mouse.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import {CommonModule} from "@angular/common";
     DateSelectorComponent,
     ChatComponent,
     CurrentConversationsComponent,
+    MouseComponent,
   ],
   imports: [
     BrowserModule,

@@ -23,10 +23,10 @@
 
 .name_onglet {
   position: absolute;
-  width: 9.7vw;
-  top: 6vh;
+  top: 6.2vh;
   font-family: "Alata-Regular", Helvetica;
-  color: #eee7e7;
+  color: #F9ECEB;
+  font-size: 18px;
   z-index: 2; /*pour que le texte de l'onglet soit au dessus du selecteur d'onglet "onglet" d'indice 1*/
 }
 
@@ -56,7 +56,7 @@
 
 .usernameName{
   position: absolute;
-  top: 1vh;
+  top: 2vh;
   left: 9vw;
   font-family: "Alata-Regular", Helvetica;
   font-size: 20px;
@@ -76,3 +76,12 @@
   top: 57vh;
   left: 10vw;
 }
+
+.text_global:hover { /*modifie aspect quand le texte est survolé avec la souris*/
+  text-decoration: underline; /* Souligne le texte */
+}
+
+.name_onglet:hover { /*quand on survole un nom d'onglet*/
+  color: #EFDAD3;
+}
+

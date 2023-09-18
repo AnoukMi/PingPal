@@ -11,23 +11,23 @@
   position: absolute;
   width: 800px;
   height: 526px;
-  top: 170px;
-  left: 580px;
+  top: 20vh;
+  left:40.2vw;
   overflow-y: scroll;
 }
 
 .userWritingBox {
   width: 830px;
-  top: 710px;
-  left: 565px;
+  top:84vh;
+  left:39.3vw;
   position: absolute;
   word-wrap: break-word;
 }
 
 .send_button {
   position: absolute;
-  top: 755px;
-  left: 1300px;
+  top: 89.5vh;
+  left: 87.3vw;
   color: #ffffff;
   background-color: #813641;
   border-radius: 20px;
