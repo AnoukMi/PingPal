@@ -12,15 +12,31 @@
 
   <img style="position:absolute; top: 13px; left: 4px; width: 130px" src="assets/avatar/f3.png" />
 
-  <button class="w3-button text_global" style="position: absolute; font-size: 16px; color: #813641;
-  text-align: center; top: 35px; left: 140px;">New message</button>
+  <a routerLink="newMessage"> <!--avec icone svp-->
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#813641" class="bi bi-chat-left-text" viewBox="0 0 16 16" style="position: absolute;
+ top: 36px; left: 143px;">
+      <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+      <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+    </svg>
+   <div class="text_global" style="position: absolute; font-size: 16px; color: #813641;
+  text-align: center; top: 35px; left: 170px;">New message</div>
+  </a>
 
-  <button class="w3-button text_global" style="position: absolute; font-size: 16px; color: #813641;
-  text-align: center; top: 65px; left: 140px;">Share a message</button>
+  <a routerLink="shareMessage">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#813641" class="bi bi-send-plus" viewBox="0 0 16 16" style="position: absolute;
+       top:65px; left :143px">
+      <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z"/>
+      <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z"/>
+    </svg>
+    <div class="text_global" style="position: absolute; font-size: 16px; color: #813641;
+  text-align: center; top: 65px; left: 170px;">Share a message</div>
+  </a>
 
-  <button class="w3-button text_global" style="position: absolute; font-size: 16px; color: #813641;
-  text-align: center; top: 95px; left: 140px;">Log out</button>
+  <a routerLink="signIn">
 
+    <div class="text_global" style="position: absolute; font-size: 16px; color: #813641;
+  text-align: center; top: 95px; left: 170px;">Log out</div>
+  </a>
 </div>
 
 <div class="rectangle_toolbar">
