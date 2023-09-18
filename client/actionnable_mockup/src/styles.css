@@ -26,6 +26,7 @@ body {
   position: absolute;
   background-color: #eee7e7a6;
   border-radius: 16px;
+  border: 1px solid #813641;
   transform: translateX(-50%); /* Ajuste la position horizontale */
 }
 
