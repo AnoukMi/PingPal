@@ -36,6 +36,16 @@
   font-weight: 400;
 }
 
+.timeMsg {
+  position: absolute;
+  top: 2vh;
+  right: 1vw;
+  font-family: "Alata-Regular", Helvetica;
+  color: #5E5E5E;
+  font-size: 14px;
+  font-weight: 400;
+}
+
 .avatar {
   position: absolute;
   width: 3.8vw;
