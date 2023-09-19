@@ -55,15 +55,15 @@
   overflow-y: scroll;
   top:0.6vh;
   left:-0.5vw;
-  width: 45vw;
+  width: 35vw;
   height: 46.5vh;
 }
 
 .friendsList {
   position: absolute;
   top: 43vh;
-  left: 44vw;
-  width: 45vw;
+  left: 48.5vw;
+  width: 35vw;
   height: 48vh;
   background-color: #EEE7E7;
   border-radius: 15px;
