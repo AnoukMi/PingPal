@@ -40,11 +40,15 @@
 .add_button {
   position: absolute;
   top: 34.4vh;
-  left: 82vw;
+  left: 83.95vw;
   color: #ffffff;
   background-color: #813641;
   border-radius: 20px;
 }
+.add_button button:hover svg {
+  fill: #813641; /* Couleur de l'icone quand on survole*/
+}
+
 
 .toscroll{
   position: absolute;

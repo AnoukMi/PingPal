@@ -78,6 +78,10 @@ body {
   line-height: normal;
 }
 
+button:hover{
+  transition:0.2s; /*transition couleur survolage lente*/
+}
+
 
 /*scrollbar*/
 div::-webkit-scrollbar {

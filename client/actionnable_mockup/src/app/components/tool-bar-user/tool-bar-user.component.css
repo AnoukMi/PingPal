@@ -89,3 +89,9 @@
   color: #EFDAD3;
 }
 
+.tb a:hover svg { /*tb pour que effet s'applique que quand class=tb*/
+   fill: #D6AAA6; /*change couleur de l'icone aussi quand on survole*/
+  transition:0.3s;
+ }
+
+
