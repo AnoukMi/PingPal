@@ -9,14 +9,14 @@
 
 .avatar {
   position: absolute;
-  width: 3.5vw;
-  top: 0.5vh;
+  width: 3.8vw;
+  top: 0.8vh;
   left: 1.5vw;
 }
 
 .username {
   position: absolute;
-  top: 1vh;
+  top: 0.6vh;
   left: 7vw;
   font-family: "Alata-Regular", Helvetica;
   color: #813641;
@@ -26,7 +26,7 @@
 
 .name {
   position: absolute;
-  top: 3.5vh;
+  top: 3.6vh;
   left: 7vw;
   font-family: "Alata-Regular", Helvetica;
   color: #5E5E5E;
@@ -36,7 +36,7 @@
 
 .birthday {
   position: absolute;
-  top: 6vh;
+  top: 6.1vh;
   left: 7vw;
   font-family: "Alata-Regular", Helvetica;
   color: #5E5E5E;

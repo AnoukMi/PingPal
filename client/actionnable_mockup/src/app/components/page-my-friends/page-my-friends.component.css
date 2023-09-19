@@ -12,14 +12,14 @@
 .text_add{
   position: absolute;
   top: 30vh;
-  left: 67vw;
+  left: 69vw;
   font-weight: 550;
 }
 
 .text_search {
   position: absolute;
   top: 30vh;
-  left: 44vw;
+  left: 45vw;
   font-weight: 550;
 }
 
@@ -27,14 +27,14 @@
   position: absolute;
   width: 20vw;
   top: 34vh;
-  left: 42vw;
+  left: 44vw;
 }
 
 .add {
   position: absolute;
   width: 20vw;
   top: 34vh;
-  left: 66vw;
+  left: 68vw;
 }
 
 .add_button {
@@ -46,15 +46,23 @@
   border-radius: 20px;
 }
 
+.toscroll{
+  position: absolute;
+  overflow-y: scroll;
+  top:0.6vh;
+  left:-0.5vw;
+  width: 45vw;
+  height: 46.5vh;
+}
+
 .friendsList {
   position: absolute;
   top: 43vh;
-  left: 42vw;
+  left: 44vw;
   width: 45vw;
   height: 48vh;
   background-color: #EEE7E7;
-  overflow-y: scroll;
-  border-radius: 20px;
+  border-radius: 15px;
   border: 2px solid #813641;
 }
 

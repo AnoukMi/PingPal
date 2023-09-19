@@ -10,7 +10,7 @@ export class CurrentFriendsComponent {
   friends: Contact[];
 
   constructor(){
-    this.friends = [new Contact("Anouk", "Migliavacca", "assets/avatar/f2.png",
-        "anouka", new Date(2003, 5, 23))];
+    this.friends = [new Contact("Anouk", "Migliavacca", "assets/avatar/f5.png",
+        "anouka", new Date(2001, 5, 20))];
   }
 }

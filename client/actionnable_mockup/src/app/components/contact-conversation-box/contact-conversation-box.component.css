@@ -2,7 +2,7 @@
   position: absolute;
   width: 24vw;
   height: 10vh;
-  background-color: #eee7e7a6;
+  background-color: #ac8686;
   border-radius: 16px;
   border: 2px dashed #813641;
 }
@@ -11,7 +11,7 @@
   position: absolute;
   width: 24vw;
   height: 10vh;
-  background-color: #ac8686;
+  background-color: #eee7e7a6;
   border-radius: 16px;
   border: 2px dashed #813641;
 }
@@ -38,7 +38,7 @@
 
 .avatar {
   position: absolute;
-  width: 4vw;
-  top: 1.5vh;
+  width: 3.8vw;
+  top: 0.7vh;
   left: 1.5vw;
 }

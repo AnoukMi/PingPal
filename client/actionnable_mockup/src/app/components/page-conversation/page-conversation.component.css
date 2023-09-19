@@ -6,6 +6,15 @@
   font-weight: 550;
 }
 
+.toscroll{
+  position: relative;
+  left:-0.5vw;
+  top:0.6vh;
+  width: 52vw;
+  height: 58.9vh;
+  overflow-y: scroll;
+}
+
 .chat {
   background-color: #ffffff4c;
   position: absolute;
@@ -13,7 +22,6 @@
   height: 60vh;
   top: 21vh;
   left: 40.5vw;
-  overflow-y: scroll;
 }
 
 .userWritingBox {
