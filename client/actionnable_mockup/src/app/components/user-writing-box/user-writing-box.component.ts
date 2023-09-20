@@ -8,4 +8,5 @@ import {Component, Input} from '@angular/core';
 export class UserWritingBoxComponent {
   @Input() placeholder: string = '';
   @Input() type: string = '';
+
 }
