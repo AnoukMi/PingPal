@@ -1,0 +1,47 @@
+.global {
+  position:relative;
+  left:4.2%;
+}
+
+.box {
+  position: relative;
+  width:130%;
+  height : 40px;
+  color: grey;
+  text-align: center;
+  font-style: italic;
+  border-radius: 5px;
+  background-color:white;
+  border: 1px solid #813641;
+}
+
+.box:hover{
+  color :#813641!important;
+  background-color:#F6F0F0!important;
+}
+
+.box:focus-within, .box:focus-within select {
+  background-color: #F6EBEB!important; /* couleur fond quand on vient de sélectionner */
+  color: #A47272!important; /*couleur texte*/
+}
+
+.w3-dropdown-content select {
+  text-align: center;
+  color:#813641!important;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color:#EFE1E0;
+  border-radius: 3px;
+  border: 1px solid #C39D9D;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background:#C69292;
+  border-radius: 10px;
+  border: 1px solid #B28181;
+}

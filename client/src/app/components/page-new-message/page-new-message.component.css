@@ -1,0 +1,41 @@
+.new_msg{
+  position: absolute;
+  top: 15vh;
+  left: 61vw;
+  font-weight: 550;
+}
+
+.search_contact {
+  position: absolute;
+  width: 30vw;
+  top: 35vh;
+  left: 38vw;
+}
+
+.message {
+  position: absolute;
+  width: 55vw;
+  top: 50vh;
+  left: 38vw;
+}
+
+.text_to {
+  position: absolute;
+  top: 31vh;
+  left: 39vw;
+}
+
+.text_message {
+  position: absolute;
+  top: 46vh;
+  left: 39vw;
+}
+
+.send_button {
+  position: absolute;
+  top: 85vh;
+  left: 85vw;
+  color: #ffffff;
+  background-color: #813641;
+  border-radius: 20px;
+}

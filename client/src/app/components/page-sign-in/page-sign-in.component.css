@@ -1,0 +1,88 @@
+
+.group {
+  position: absolute;
+  min-width: 300px;
+  width: 25%;
+  height: 60%;
+  top:50%;
+  left: 50%; /* Centre horizontalement */
+  transform: translate(-50%,-50%); /* Ajuste le centrage horizontal et vertical */
+}
+
+.back_bloc {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #eee7e7a6;
+  border-radius: 16px;
+  top: 0;
+}
+
+.remember-me {
+  position: relative;
+  margin-left: 5px;
+  width: 2%;
+  top: 11%;
+  left: 6%;
+}
+
+.password {
+  position: relative;
+  width: 92%;
+  top: 8%;
+  left: 2.3%;
+}
+
+.username {
+  position: relative;
+  top:3%;
+  width: 92%;
+  left: 2.3%;
+}
+
+.logo_mini {
+  position: relative;
+  width: 70%;
+  top: 2%;
+  left: 50%; /* Centre horizontalement */
+  transform: translateX(-50%); /* Ajuste centrage horizontal */
+}
+
+.text_remember {
+  position: relative;
+  top: -2.7%;
+  margin-top:-10px;
+  margin-left:20px;
+  left: 5%;
+  color: #813641;
+  font-size: 15px;
+}
+
+.signin_button {
+  position: relative;
+  width:90px;
+  height:8%;
+  font-size:100%;
+  background-color: #813641;
+  border-radius: 16px;
+  top:17%;
+  left: 50%; /* Centre horizontalement */
+  transform: translateX(-50%); /* Ajuste le centrage horizontal */
+}
+
+.no_account {
+  position: relative;
+  top: 21%;
+  width:250%;
+  left:-65%;
+  color: transparent;
+  font-size: 13px;
+}
+
+.text_dont {
+  color: #919191;
+}
+
+.text_signup {
+  color: #813641;
+}

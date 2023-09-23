@@ -1,0 +1,8 @@
+.box {
+  background-color: #813641;
+  color: #FFFFFF;
+  display: inline-block;
+  padding: 10px;
+  max-width: 25vw;
+  word-wrap: break-word;
+}

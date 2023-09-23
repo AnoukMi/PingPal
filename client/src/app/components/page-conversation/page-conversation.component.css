@@ -1,0 +1,42 @@
+
+.contact_name{
+  position: absolute;
+  top: 15vh;
+  left: 60vw;
+  font-weight: 550;
+}
+
+.toscroll{
+  position: relative;
+  left:-0.5vw;
+  top:0.6vh;
+  width: 52vw;
+  height: 58.9vh;
+  overflow-y: scroll;
+}
+
+.chat {
+  background-color: #ffffff4c;
+  position: absolute;
+  width: 52vw;
+  height: 60vh;
+  top: 21vh;
+  left: 40.5vw;
+}
+
+.userWritingBox {
+  width: 54vw;
+  top: 83vh;
+  left: 39.5vw;
+  position: absolute;
+  word-wrap: break-word;
+}
+
+.send_button {
+  position: absolute;
+  top: 89vh;
+  right: 15vh;
+  color: #ffffff;
+  background-color: #813641;
+  border-radius: 20px;
+}

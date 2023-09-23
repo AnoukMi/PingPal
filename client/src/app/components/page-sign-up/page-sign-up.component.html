@@ -1,0 +1,44 @@
+
+
+    <div class="back_bloc">
+    <div class="text_title">
+      <div class="text_create"><b>Create&nbsp;your&nbsp;account</b></div>  <!--&nbsp; permet de faire un espace sans retour à la ligne-->
+    </div>
+
+    <div class="username">
+      <div class="text_upper_box">Username:</div>
+      <app-user-writing-frame [placeholder] = "'Enter your username'" [type] = "'text'"></app-user-writing-frame>
+    </div>
+
+    <div class="password">
+      <div class="text_upper_box">Password:</div>
+      <app-user-writing-frame [placeholder] = "'Enter your password'" [type] = "'password'"></app-user-writing-frame>
+    </div>
+
+    <div class="confirm_password">
+      <div class="text_upper_box">Confirm:</div>
+      <app-user-writing-frame [placeholder] = "'Confirm your password'" [type] = "'password'"></app-user-writing-frame>
+    </div>
+
+    <div class="first_name">
+      <div class="text_upper_box">First&nbsp;name:</div>
+      <app-user-writing-frame [placeholder] = "'Enter your first name'" [type] = "'text'"></app-user-writing-frame>
+    </div>
+
+    <div class="last_name">
+      <div class="text_upper_box">Last&nbsp;name:</div>
+      <app-user-writing-frame [placeholder] = "'Enter your last name'" [type] = "'text'"></app-user-writing-frame>
+    </div>
+    <div class="birthday">
+      <div class="text_upper_box">Birthday:</div>
+      <app-date-selector></app-date-selector>
+    </div>
+    <div class="signup_button">
+      <a routerLink="home">
+        <button class="w3-button w3-ripple w3-hover-white w3-round-xlarge"> <!-- Crée bouton-->
+          <div class="text_button" style="font-size: 20px;">SIGN UP</div></button> <!-- Applique style de texte sur texte bouton-->
+      </a>
+    </div>
+    </div>
+
+
