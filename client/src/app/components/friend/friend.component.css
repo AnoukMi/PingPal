@@ -9,15 +9,16 @@
 
 .avatar {
   position: absolute;
-  width: 3.8vw;
-  top: 0.8vh;
-  left: 1.5vw;
+  width: 25%;
+  height: 90%;
+  top: 5%;
+  left: 5%;
 }
 
 .username {
-  position: absolute;
-  top: 0.6vh;
-  left: 7vw;
+  position: relative;
+  top: 5%;
+  left: 38%;
   font-family: "Alata-Regular", Helvetica;
   color: #813641;
   font-size: 18px;
@@ -25,9 +26,9 @@
 }
 
 .name {
-  position: absolute;
-  top: 3.6vh;
-  left: 7vw;
+  position: relative;
+  top: 3.6%;
+  left: 38%;
   font-family: "Alata-Regular", Helvetica;
   color: #5E5E5E;
   font-size: 16px;
@@ -35,9 +36,9 @@
 }
 
 .birthday {
-  position: absolute;
-  top: 6.1vh;
-  left: 7vw;
+  position: relative;
+  top: 6.1%;
+  left: 38%;
   font-family: "Alata-Regular", Helvetica;
   color: #5E5E5E;
   font-size: 16px;
