@@ -1,22 +1,20 @@
 .box {
-  position: absolute;
-  width: 18vw;
-  height: 10vh;
+  position: relative;
+  width: 53%;
   background-color: #AC8686;
   border-radius: 16px;
   border: 2px dashed #813641;
 }
 
 .avatar {
-  position: absolute;
+  position: relative;
   width: 25%;
-  height: 90%;
   top: 5%;
   left: 5%;
 }
 
 .username {
-  position: relative;
+  position: absolute;
   top: 5%;
   left: 38%;
   font-family: "Alata-Regular", Helvetica;
@@ -26,8 +24,8 @@
 }
 
 .name {
-  position: relative;
-  top: 3.6%;
+  position: absolute;
+  top: 40%;
   left: 38%;
   font-family: "Alata-Regular", Helvetica;
   color: #5E5E5E;
@@ -36,8 +34,8 @@
 }
 
 .birthday {
-  position: relative;
-  top: 6.1%;
+  position: absolute;
+  top: 68%;
   left: 38%;
   font-family: "Alata-Regular", Helvetica;
   color: #5E5E5E;
@@ -47,8 +45,8 @@
 
 .sharedMsg {
   position: absolute;
-  top: -4.5vh;
-  left: 18.5vw;
+  top: -35%;
+  left: 55%;
   align-items: center;
 }
 
