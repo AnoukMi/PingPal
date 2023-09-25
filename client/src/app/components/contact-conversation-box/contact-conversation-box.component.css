@@ -1,16 +1,16 @@
 .conv_unread {
-  position: absolute;
-  width: 24vw;
-  height: 10vh;
+  position: relative;
+  width: 92%;
+  height: 100%;
   background-color: #ac8686;
   border-radius: 16px;
   border: 2px dashed #813641;
 }
 
 .conv_read {
-  position: absolute;
-  width: 24vw;
-  height: 10vh;
+  position: relative;
+  width: 92%;
+  height: 100%;
   background-color: #eee7e7a6;
   border-radius: 16px;
   border: 2px dashed #813641;
