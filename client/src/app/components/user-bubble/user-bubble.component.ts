@@ -7,4 +7,6 @@ import {Component, Input} from '@angular/core';
 })
 export class UserBubbleComponent {
   @Input() content: string = '';
+  @Input() date : string='';
+  @Input() user : string='';
 }

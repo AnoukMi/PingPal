@@ -1,8 +1,34 @@
 .box {
   background-color: #ac8686;
+  position: relative;
   color: #FFFFFF;
   display: inline-block;
+  width: auto; /*pr adapter la largeur à la taille du message*/
   padding: 10px;
-  max-width: 25vw;
+  clear: left; /*empeche de s'aligner par rapport aux blocs relatifs précédents*/
+  left : 3%;
+  max-width: 60%;
   word-wrap: break-word;
+  float: left;
+}
+
+.hour {
+  font-family: "Alata-Regular", Helvetica;
+  font-weight: 400;
+  color: #919191;
+  font-size: 13px;
+  text-align: center;
+  position : relative;
+  font-style:italic;
+  clear: left;
+  float:left;
+  left : 3.5%;
+}
+
+.interlocutorName {
+  position : relative;
+  clear: left;
+  float:left;
+  left:3.5%;
+  color: #ac8686;
 }
