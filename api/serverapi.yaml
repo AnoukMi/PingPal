@@ -1,0 +1,122 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: contact@mightycode.fr
+    url: https://mightycode.fr/
+  description: |
+    This is a prototype of CPOO Project's front/back API.
+  title: CPOO Server API
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080/
+security:
+  - CookieAuth: [ ]
+tags:
+  - name: authentication
+    description: User authentication.
+paths:
+  /user/signup:
+    post:
+      security: [ ]
+      tags:
+        - authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDTO'
+      responses:
+        '200':
+          description: Success
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+  /user/signin:
+    post:
+      security: [ ]
+      tags:
+        - authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDTO'
+      responses:
+        '200':
+          description: Success
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+  /user/signout:
+    post:
+      tags:
+        - authentication
+      responses:
+        '200':
+          description: Success
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+  /user/delete:
+    post:
+      tags:
+        - authentication
+      responses:
+        '200':
+          description: Success
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+components:
+  schemas:
+    UserDTO:
+      type: object
+      properties:
+        login:
+          type: string
+        password:
+          type: string
+    ErrorDTO:
+      type: object
+      properties:
+        timestamp:
+          type: string
+        status:
+          type: integer
+        error:
+          type: string
+        message:
+          type: string
+        path:
+          type: string
+  securitySchemes:
+    CookieAuth:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+      description: Use a session cookie to authenticate (see /login).
+x-samples-languages:
+  - curl
+  - javascript
+  - node
+  - java
+  - python
+  - php

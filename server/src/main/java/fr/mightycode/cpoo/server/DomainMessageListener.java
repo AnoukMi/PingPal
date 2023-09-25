@@ -9,26 +9,26 @@ import org.springframework.stereotype.Component;
 @Component
 public class DomainMessageListener implements RouterService.MessageListener {
 
-    private static final Logger logger = LoggerFactory.getLogger(DomainMessageListener.class);
+  private static final Logger logger = LoggerFactory.getLogger(DomainMessageListener.class);
 
-    @Value("${cpoo.server.domain}")
-    private String serverDomain;
+  @Value("${cpoo.server.domain}")
+  private String serverDomain;
 
-    @Value("${cpoo.router.url}")
-    private String routerUrl;
+  @Value("${cpoo.router.url}")
+  private String routerUrl;
 
-    @Override
-    public String getServerDomain() {
-        return serverDomain;
-    }
+  @Override
+  public String getServerDomain() {
+    return serverDomain;
+  }
 
-    @Override
-    public String getRouterUrl() {
-        return routerUrl;
-    }
+  @Override
+  public String getRouterUrl() {
+    return routerUrl;
+  }
 
-    @Override
-    public void onMessageReceived(RouterService.Message message) {
-        logger.info("onMessageReceived {}", message);
-    }
+  @Override
+  public void onMessageReceived(RouterService.Message message) {
+    logger.info("onMessageReceived {}", message);
+  }
 }

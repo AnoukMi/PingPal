@@ -24,11 +24,7 @@ public class RouterService {
   /**
    * Type of messages exchanged between domain servers.
    */
-  @Data
-  @AllArgsConstructor
-  @NoArgsConstructor
-  public static class Message {
-    private String from, to, body;
+  public static record Message(String from, String to, String body) {
   }
 
   /**

@@ -1,0 +1,134 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: contact@mightycode.fr
+    url: https://mightycode.fr/
+  description: |
+    This is a prototype of CPOO Project's front/back API.
+  title: CPOO Server API
+  version: 0.0.1
+servers:
+- url: http://localhost:8080/
+security:
+- CookieAuth: []
+tags:
+- description: User authentication.
+  name: authentication
+paths:
+  /user/signup:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDTO'
+        required: true
+      responses:
+        "200":
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+          description: Error
+      security: []
+      tags:
+      - authentication
+      x-content-type: application/json
+      x-accepts: application/json
+  /user/signin:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDTO'
+        required: true
+      responses:
+        "200":
+          description: Success
+          headers:
+            Set-Cookie:
+              explode: false
+              schema:
+                type: string
+              style: simple
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+          description: Error
+      security: []
+      tags:
+      - authentication
+      x-content-type: application/json
+      x-accepts: application/json
+  /user/signout:
+    post:
+      responses:
+        "200":
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+          description: Error
+      tags:
+      - authentication
+      x-accepts: application/json
+  /user/delete:
+    post:
+      responses:
+        "200":
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+          description: Error
+      tags:
+      - authentication
+      x-accepts: application/json
+components:
+  schemas:
+    UserDTO:
+      example:
+        password: password
+        login: login
+      properties:
+        login:
+          type: string
+        password:
+          type: string
+      type: object
+    ErrorDTO:
+      properties:
+        timestamp:
+          type: string
+        status:
+          type: integer
+        error:
+          type: string
+        message:
+          type: string
+        path:
+          type: string
+      type: object
+  securitySchemes:
+    CookieAuth:
+      description: Use a session cookie to authenticate (see /login).
+      in: cookie
+      name: JSESSIONID
+      type: apiKey
+x-samples-languages:
+- curl
+- javascript
+- node
+- java
+- python
+- php
+

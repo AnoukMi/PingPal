@@ -5,7 +5,12 @@ This is the base project your team **MUST** FORK to implement its version of the
 ## Server
 
 The server is a Spring Boot app that should ne located in the /server directory.
- An embryo allowing to receive an send messages to other domains is provided.
+An embryo allowing to receive an send messages to other domains is provided.
+
+## API and end-to-end tests
+
+The OpenAPI definition of the server API is located in the /api directory.
+The /api/e2etests contains Java end-to-end test code of the API (generated using OpenAPI code generator).
 
 ## Client
 
