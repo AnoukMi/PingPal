@@ -57,7 +57,7 @@ body {
   font-weight: 1000;
   color: #813641;
   font-size: 20px;
-  left: 4.8%;
+  left: min(4.8%, 15px);
 }
 
 .text_title {

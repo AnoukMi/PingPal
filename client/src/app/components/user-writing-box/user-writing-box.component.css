@@ -6,7 +6,7 @@
   color: #813641;
   border-radius: 5px;
   border: 1px solid #813641;
-  padding-left: 2.1vw;
+  padding-left: min(12%, 35px); /*majore à 35px le padding pour ne pas faire des gros espaces sur les grandes box*/
 }
 
 .w3-input:focus {
