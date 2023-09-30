@@ -1,0 +1,51 @@
+
+/*Blocs d'identité utilisateur*/
+.user_bloc {
+  width: 24%;
+  min-width: 270px;
+  height: 18%;
+  min-height: 100px;
+  top: 21%;
+  left: 10%;
+  border: 2px solid #813641;
+  position: absolute;
+  background-color: #eee7e7a6;
+  border-radius: 16px;
+}
+
+.username {
+  position: absolute;
+  top: 15%;
+  left: 17%;
+  font-family: "Alata-Regular", Helvetica;
+  font-size: 32px;
+  color: #813641;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.usernameName{
+  position: relative;
+  top: 8%;
+  left:42%;
+  font-family: "Alata-Regular", Helvetica;
+  font-size: 20px;
+  color: #813641;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.conversations {
+  position: absolute;
+  top: 51%;
+  left: 10%;
+  height:44%;
+  width:26%;
+  overflow-y:scroll;
+}
+
+.text_global:hover { /*modifie aspect quand le texte est survolé avec la souris*/
+  text-decoration: underline; /* Souligne le texte */
+}

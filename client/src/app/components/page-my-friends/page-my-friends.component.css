@@ -1,0 +1,73 @@
+.friends{
+  position: absolute;
+  top: 15vh;
+  left: 61vw;
+  font-weight: 550;
+}
+
+.onglet {
+  left: 29.3vw; /*modif la position verticale pour placer sur le bon onglet*/
+}
+
+.text_add{
+  position: absolute;
+  top: 30vh;
+  left: 69vw;
+  font-weight: 550;
+}
+
+.text_search {
+  position: absolute;
+  top: 30vh;
+  left: 45vw;
+  font-weight: 550;
+}
+
+.search {
+  position: absolute;
+  width: 20vw;
+  top: 34vh;
+  left: 44vw;
+}
+
+.add {
+  position: absolute;
+  width: 20vw;
+  top: 34vh;
+  left: 68vw;
+}
+
+.add_button {
+  position: absolute;
+  top: 34.4vh;
+  left: 83.95vw;
+  color: #ffffff;
+  background-color: #813641;
+  border-radius: 20px;
+}
+.add_button button:hover svg {
+  fill: #813641; /* Couleur de l'icone quand on survole*/
+}
+
+
+.toscroll{
+  position: absolute;
+  overflow-y: scroll;
+  top:0.6vh;
+  left:-0.5vw;
+  width: 35vw;
+  height: 46.5vh;
+}
+
+.friendsList {
+  position: absolute;
+  top: 43vh;
+  left: 48.5vw;
+  width: 35vw;
+  height: 48vh;
+  background-color: #E9DCDB;
+  border-radius: 15px;
+  border: 2px solid #813641;
+}
+
+

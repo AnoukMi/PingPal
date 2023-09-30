@@ -1,0 +1,42 @@
+.selected_onglet { /*fond de l'onglet sélectioné, bloc d'arrière plan*/
+  position: absolute;
+  /*background-color: #ac8686;*/
+  background: linear-gradient(to top, #B58686,  #ac8686); /* Dégradé horizontal entre les 2 couleurs */
+  top: 10%;
+  left: 50%; /* Centre horizontalement */
+  transform: translateX(-50%); /* Ajuste centrage horizontal */
+  width: 94%;
+  height: 88%;
+  border-radius: 10px;
+}
+
+/* Toolbar du haut */
+.rectangle_toolbar {
+  position: absolute;
+  width: 100%;
+  height: 10%;
+  top :0;
+  left:0;
+  background: linear-gradient(to right, #813641a6,  #813641a6, #BA9B9B); /* Dégradé vertical plus lent (3 couleurs) */
+}
+
+.name_onglet {
+  position: relative;
+  top: 61%;
+  font-family: "Alata-Regular", Helvetica;
+  color: #F9ECEB;
+  font-size: 18px;
+  z-index: 2; /*pour que le texte de l'onglet soit au dessus du selecteur d'onglet "onglet" d'indice 1*/
+}
+
+.name_onglet:hover { /*quand on survole un nom d'onglet*/
+  color: #EFDAD3;
+}
+.tb a:hover svg { /*tb pour que effet s'applique que quand class=tb*/
+   fill: #D6AAA6; /*change couleur de l'icone aussi quand on survole*/
+  transition:0.3s;
+ }
+
+.separateur {
+  border: 1px dashed #813641;
+}

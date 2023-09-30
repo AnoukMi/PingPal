@@ -1,0 +1,74 @@
+.back_bloc {
+  position: absolute;
+  min-width: 350px;
+  min-height: 700px;
+  width: 30%;
+  height: 85%;
+  background-color: #eee7e7a6;
+  top:50%;
+  left: 50%; /* Centre horizontalement */
+  transform: translate(-50%,-50%); /* Ajuste le centrage horizontal et vertical */
+  border-radius: 16px;
+}
+
+.username {
+  position: relative;
+  width:86%;
+  top: 15%;
+  left: 6%;
+}
+
+.password {
+  position: relative;
+  width: 86%;
+  top: 17%;
+  left: 6%;
+}
+
+.confirm_password {
+  position: relative;
+  width: 86%;
+  top: 19%;
+  left: 6%;
+}
+
+.first_name {
+  position: relative;
+  width: 86%;
+  top: 21%;
+  left: 6%;
+}
+
+.last_name {
+  position: relative;
+  width: 86%;
+  top: 23%;
+  left: 6%;
+}
+
+.birthday {
+  position: relative;
+  top: 25%;
+  left: 6%;
+}
+
+.signup_button {
+  position: relative;
+  width:110px;
+  height:6%;
+  font-size:100%;
+  top:32%;
+  left: 50%; /* Centre horizontalement */
+  transform: translateX(-50%); /* Ajuste centrage horizontal */
+  background-color: #813641;
+  border-radius: 16px;
+}
+
+.text_create {
+  position:absolute;
+  top:4%;
+  left: 50%; /* Centre horizontalement */
+  transform: translateX(-50%); /* Ajuste centrage horizontal */
+}
+
+

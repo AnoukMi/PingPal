@@ -1,0 +1,36 @@
+.box {
+  background-color: #813641;
+  position: relative;
+  color: #FFFFFF;
+  display: inline-block;
+  padding: 10px;
+  clear: right;
+  float: right; /*aligne à droite*/
+  right : 2%;
+  width: auto; /*pr adapter la largeur à la taille du message*/
+  max-width: 60%;
+  word-wrap: break-word;
+}
+
+.hour {
+  font-family: "Alata-Regular", Helvetica;
+  font-weight: 400;
+  color: #919191;
+  font-size: 13px;
+  text-align: center;
+  font-style:italic;
+  position : relative;
+  clear: right;
+  float : right;
+  right : 3%;
+
+}
+
+.userName {
+  position : relative;
+  clear: right;
+  float:right;
+  right:3%;
+  color: #813641;
+}
+

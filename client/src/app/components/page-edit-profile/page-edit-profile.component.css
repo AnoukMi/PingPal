@@ -1,0 +1,78 @@
+.edit{
+  position: absolute;
+  top:15vh;
+  left: 61vw;
+  font-weight: 550;
+}
+
+.onglet {
+  left:42.3vw; /*modif la position verticale pour placer sur le bon onglet*/
+}
+
+.first_name{
+  position: absolute;
+  width:30vw;
+  top: 55vh;
+  left: 51vw;
+}
+
+.last_name {
+  position: absolute;
+  width: 30vw;
+  top: 66vh;
+  left: 51vw;
+}
+
+.birthday {
+  position: absolute;
+  width: 30vw;
+  top: 75vh;
+  left: 52vw;
+}
+
+.update_button {
+  position: absolute;
+  top: 87vh;
+  left: 63.5vw;
+  color: #ffffff;
+  background-color: #813641;
+  border-radius: 20px;
+}
+
+.text_avatar {
+  position: absolute;
+  top: 23vh;
+  left: 52vw;
+}
+
+.text_first_name {
+  position: absolute;
+  top: 51vh;
+  left: 52vw;
+}
+
+.text_last_name {
+  position: absolute;
+  top: 62vh;
+  left: 52vw;
+}
+
+.text_birthday {
+  position: absolute;
+  top: 73vh;
+  left: 52vw;
+}
+
+.avatar {
+  position:absolute;
+  width: 4vw;
+}
+
+.simple_button{
+  position:absolute;
+  left:22.2vh;
+  background-color: transparent; /* Fond transparent */
+  color: transparent;
+  border:none;
+  cursor:pointer;
+}

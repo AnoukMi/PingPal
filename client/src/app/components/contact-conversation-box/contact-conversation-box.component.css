@@ -1,0 +1,59 @@
+.conv_unread {
+  position: relative;
+  width: 92%;
+  height: 100%;
+  background-color: #ac8686;
+  border-radius: 16px;
+  border: 2px dashed #813641;
+}
+
+.conv_read {
+  position: relative;
+  width: 92%;
+  height: 100%;
+  background-color: #eee7e7a6;
+  border-radius: 16px;
+  border: 2px dashed #813641;
+}
+
+.nameContact {
+  position: absolute;
+  top: 1.5vh;
+  left: 7vw;
+  font-family: "Alata-Regular", Helvetica;
+  color: #813641;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.messageStatus {
+  position: absolute;
+  top: 4.5vh;
+  left: 7vw;
+  font-family: "Alata-Regular", Helvetica;
+  color: #5E5E5E;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.timeMsg {
+  position: absolute;
+  top: 2vh;
+  right: 1vw;
+  font-family: "Alata-Regular", Helvetica;
+  color: #5E5E5E;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.avatar {
+  position: absolute;
+  width: 3.8vw;
+  top: 0.7vh;
+  left: 1.5vw;
+}
+
+.hover-effect:hover{
+  background-color: #C4A6A4!important; /* Couleur quand on survole, prime sur les autres para du bouton */
+  transition: background-color 0.3s; /* Transition en douceur de la couleur de fond et de la couleur du texte */
+}

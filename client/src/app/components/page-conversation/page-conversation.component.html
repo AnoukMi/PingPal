@@ -1,0 +1,23 @@
+    <div class="text_title contact_name ">Vincentimes</div>
+
+      <div class="chat w3-round-xlarge">
+        <div class="toscroll">
+        <app-chat></app-chat>
+      </div>
+</div>
+
+
+      <div class="userWritingBox" >
+          <app-user-writing-frame [placeholder]="'Write your message'" [type]="'text'"></app-user-writing-frame>
+      </div>
+
+
+    <div class="send_button">
+      <a routerLink="conversation">
+        <button class="w3-button w3-ripple w3-hover-white w3-round-xxlarge"> <!-- Crée bouton-->
+          <div class="text_button">SEND</div></button> <!-- Applique style de texte sur texte bouton-->
+      </a>
+    </div>
+
+
+

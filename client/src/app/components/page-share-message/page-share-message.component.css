@@ -1,0 +1,51 @@
+.share{
+  position: absolute;
+  top: 15vh;
+  left: 59vw;
+  font-weight: 550;
+}
+
+.message {
+  position: absolute;
+  width: 55vw;
+  top: 46vh;
+  left: 38vw;
+}
+
+.send_button {
+  position: absolute;
+  top: 85vh;
+  left: 85vw;
+  color: #ffffff;
+  background-color: #813641;
+  border-radius: 20px;
+}
+
+.text_message {
+  position: absolute;
+  top: 42vh;
+  left: 39vw;
+}
+
+.text_info {
+  position: absolute;
+  font-style: italic;
+  color: #813641;
+  font-size: 18px;
+  top: 28vh;
+  left: 39vw;
+}
+
+.text_preview {
+  position: absolute;
+  top: 55vh;
+  left: 39vw;
+}
+
+.preview {
+  position: absolute;
+  top: 65vh;
+  left: 51vw;
+}
+
+
