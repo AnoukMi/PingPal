@@ -246,11 +246,63 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
+  /user/conversation/{msgID}:
+    patch:
+      summary: Modify a certain message already sent
+      tags:
+        - conversation
+      parameters:
+        - name: msgID
+          in: path
+          description: ID of the message to modify in the list of messages
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageDTO'
+      responses:
+        '200':
+          description: Success, message modified
+        '404':
+          description: msgID not found in the list of messages
+        default:
+            description: Error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorDTO'
+    delete:
+      summary: Delete a message already sent
+      tags:
+        - conversation
+      parameters:
+        - name: msgID
+          in: path
+          description: ID of the message to delete in the list of messages
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Success, message deleted
+        '404':
+          description: UserID not found in the list of messages
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
   /user/shareMessage:
     post:
       summary: Post a new public message ("status") for all the current user friends and remove the previous one
       tags:
-        - profil
+        - profile
       requestBody:
         required: true
         content:
@@ -269,10 +321,31 @@ paths:
     delete:
       summary: Remove the previous shared message to make it empty
       tags:
-        - profil
+        - profile
       responses:
         '200':
           description: Success, delete the message (also if it was already empty)
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+  /user/editProfile:
+    post:
+      summary: Update information about the user
+      tags:
+        - profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            $ref: '#/components/schemas/FullUserDTO'
+      responses:
+        '200':
+          description: Success, profile updated
+        '400':
+          description: Error, could not retrieve the information updated
         default:
           description: Error
           content:
@@ -350,6 +423,26 @@ paths:
           description: Success, contact deleted
         '404':
           description: UserID not found in the current user's list of friends
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+  /user/friends:
+    get:
+      summary: Get the user's list of friends
+      tags:
+        - contact
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ContactProfileDTO'
         default:
           description: Error
           content:
