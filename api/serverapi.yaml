@@ -368,6 +368,7 @@ components:
           type: string
         remember:
           type: boolean
+          description: To choose if the user wants to register his information for next time
     ErrorDTO:
       type: object
       properties:
@@ -384,8 +385,12 @@ components:
     FullUserDTO:
       type: object
       properties:
+        icon:
+          type: integer
+          description: Number (ref) of the profile icon (image) of the user
         login:
           type: string
+          description: Username
         password:
           type: string
         firstname:
@@ -439,6 +444,9 @@ components:
         userID:
           type: string
           description: Username (userID) of the contact
+        icon:
+          type: integer
+          description: Number (ref) of the profile icon (image) of the user
         firstname:
           type: string
         lastname:
