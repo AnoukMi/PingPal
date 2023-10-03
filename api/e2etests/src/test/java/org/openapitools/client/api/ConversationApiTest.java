@@ -32,6 +32,7 @@ import java.util.Map;
 public class ConversationApiTest {
 
     private final ConversationApi api = new ConversationApi();
+    private final AuthenticationApi apiAuth = new AuthenticationApi();
 
     /**
      * Delete a message already sent
@@ -42,6 +43,7 @@ public class ConversationApiTest {
     public void userConversationMsgIDDeleteTest() throws ApiException {
         Long msgID = null;
         api.userConversationMsgIDDelete(msgID);
+
         // TODO: test validations
     }
 
@@ -89,9 +91,24 @@ public class ConversationApiTest {
      */
     @Test
     public void userConversationUserPostTest() throws ApiException {
-        String user = null;
+        /* String user = null;
         ConversationDTO response = api.userConversationUserPost(user);
-        
+
+        // Signing up with a new account
+        UserDTO userDTO = new UserDTO().login("ivambre").password("password");
+        apiAuth.userSignupPost(userDTO);
+
+        // Creating a new friend with whom I want to create a new conversation
+        ContactProfileDTO contactProfileDTO = new ContactProfileDTO().userID("vincentimes");
+        ConversationDTO newConv = new ConversationDTO().userID(contactProfileDTO.getUserID());
+
+        // Creating again the same new conversation with the same contact, it should fail
+        try {
+            Conversation DTO newConvBis = new ConversationDTO().userID(contactProfileDTO.getUserID());
+            Assertions.fail();
+        } catch (ApiException e) {
+            Assertions.assertEquals(HttpsStatus.SC_CONFLIT, e.getCode());
+        } */
     }
 
     /**

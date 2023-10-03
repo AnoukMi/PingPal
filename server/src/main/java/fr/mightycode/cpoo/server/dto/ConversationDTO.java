@@ -1,2 +1,2 @@
-public record ConversationDTO(String userID, String peerAddress, string lastMessageDate) {
+public record ConversationDTO(String userID, String peerAddress, String lastMessageDate) {
 }

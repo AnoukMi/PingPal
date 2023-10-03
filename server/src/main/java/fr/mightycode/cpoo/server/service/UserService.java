@@ -27,7 +27,8 @@ public class UserService {
     if (userDetailsManager.userExists(login))
       return false;
     final UserDetails user = new User(login, passwordEncoder.encode(password), List.of(new SimpleGrantedAuthority("ROLE_USER")));
-    userDetailsManager.createUser(user);
+    userDetailsManager.
+            createUser(user);
     return true;
   }
 

@@ -65,7 +65,7 @@ public class AuthenticationApiTest {
     @Test
     public void userSigninPostTest() throws ApiException {
 
-        // Signing in with invalid credentials should fail with UNAUTHORIZED
+        /**/// Signing in with invalid credentials should fail with UNAUTHORIZED
         UserDTO userDTO = new UserDTO().login("user").password("invalid");
         try {
             api.userSigninPost(userDTO);
