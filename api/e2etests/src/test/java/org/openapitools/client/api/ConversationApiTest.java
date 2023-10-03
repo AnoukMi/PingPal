@@ -91,7 +91,7 @@ public class ConversationApiTest {
      */
     @Test
     public void userConversationUserPostTest() throws ApiException {
-        /* String user = null;
+        String user = null;
         ConversationDTO response = api.userConversationUserPost(user);
 
         // Signing up with a new account
@@ -108,7 +108,7 @@ public class ConversationApiTest {
             Assertions.fail();
         } catch (ApiException e) {
             Assertions.assertEquals(HttpsStatus.SC_CONFLIT, e.getCode());
-        } */
+        }
     }
 
     /**
