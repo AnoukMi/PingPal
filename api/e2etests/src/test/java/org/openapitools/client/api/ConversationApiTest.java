@@ -91,7 +91,7 @@ public class ConversationApiTest {
     public void userConversationUserPostTest() throws ApiException {
         String user = null;
         ConversationDTO response = api.userConversationUserPost(user);
-        // TODO: test validations
+        
     }
 
     /**
