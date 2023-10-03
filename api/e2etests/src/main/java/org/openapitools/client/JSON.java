@@ -93,7 +93,12 @@ public class JSON {
         gsonBuilder.registerTypeAdapter(OffsetDateTime.class, offsetDateTimeTypeAdapter);
         gsonBuilder.registerTypeAdapter(LocalDate.class, localDateTypeAdapter);
         gsonBuilder.registerTypeAdapter(byte[].class, byteArrayAdapter);
+        gsonBuilder.registerTypeAdapterFactory(new org.openapitools.client.model.ContactProfileDTO.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new org.openapitools.client.model.ConversationDTO.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new org.openapitools.client.model.ErrorDTO.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new org.openapitools.client.model.FullUserDTO.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new org.openapitools.client.model.MessageDTO.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new org.openapitools.client.model.PublicMessageDTO.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new org.openapitools.client.model.UserDTO.CustomTypeAdapterFactory());
         gson = gsonBuilder.create();
     }

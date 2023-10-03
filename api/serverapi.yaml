@@ -169,15 +169,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-  /user/conversation/{userID}:
+  /user/conversation/{user}:
     post:
       summary: Create a new (empty) conversation with a given user
       tags:
         - conversation
       parameters:
-        - name: userID
+        - name: user
           in: path
-          description: Username of the new interlocutor with whom to start a discussion
+          description: Username or peer address of the new interlocutor with whom to start a discussion
           required: true
           schema:
             type: string
@@ -203,9 +203,9 @@ paths:
       tags:
         - conversation
       parameters:
-        - name: userID
+        - name: user
           in: path
-          description: Username of the interlocutor from whom we want to retrieve the conversation
+          description: Username or peer address of the interlocutor from whom we want to retrieve the conversation
           required: true
           schema:
             type: string
@@ -229,9 +229,9 @@ paths:
       tags:
         - conversation
       parameters:
-        - name: userID
+        - name: user
           in: path
-          description: Username of the interlocutor from whom we want to delete the conversation
+          description: Username or peer address of the interlocutor from whom we want to delete the conversation
           required: true
           schema:
             type: string
@@ -260,13 +260,18 @@ paths:
             type: integer
             format: int64
       requestBody:
+        description: New content of the message
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MessageDTO'
+              type: string
       responses:
         '200':
-          description: Success, message modified
+          description: Success, return modified message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageDTO'
         '404':
           description: msgID not found in the list of messages
         default:
@@ -331,8 +336,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-  /user/editProfile:
-    post:
+  /user/profile:
+    get:
+      summary: Get the current information about the user
+      tags:
+        - profile
+      responses:
+        '200':
+          description: Success, profile retrieved and returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FullUserDTO'
+        '400':
+          description: Error, could not retrieve the current information about the user
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+    patch:
       summary: Update information about the user
       tags:
         - profile
@@ -340,10 +364,15 @@ paths:
         required: true
         content:
           application/json:
-            $ref: '#/components/schemas/FullUserDTO'
+            schema:
+              $ref: '#/components/schemas/FullUserDTO'
       responses:
         '200':
-          description: Success, profile updated
+          description: Success, updated profile returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FullUserDTO'
         '400':
           description: Error, could not retrieve the information updated
         default:
@@ -509,6 +538,10 @@ components:
     MessageDTO:
       type: object
       properties:
+        msgID:
+          type: integer
+          format: int64
+          description: ID of the message in the list of messages
         autorID:
           type: string
           description: Username (userID) of the writer
@@ -522,6 +555,9 @@ components:
           type: string
           format: date-time
           description: Date of the message to be able to sort messages from the newest to the oldest
+        edited:
+          type: boolean
+          description: True if message has been edited, false otherwise
     PublicMessageDTO:
       type: object
       properties:
@@ -537,6 +573,9 @@ components:
         userID:
           type: string
           description: Username (userID) of the contact
+        peerAddress:
+          type: string
+          description: E-mail address of the contact
         icon:
           type: integer
           description: Number (ref) of the profile icon (image) of the user

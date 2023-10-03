@@ -198,7 +198,7 @@ null (empty response body)
 
 <a id="userSignupPost"></a>
 # **userSignupPost**
-> userSignupPost(userDTO)
+> userSignupPost(fullUserDTO)
 
 
 
@@ -217,9 +217,9 @@ public class Example {
     defaultClient.setBasePath("http://localhost:8080");
 
     AuthenticationApi apiInstance = new AuthenticationApi(defaultClient);
-    UserDTO userDTO = new UserDTO(); // UserDTO | 
+    FullUserDTO fullUserDTO = new FullUserDTO(); // FullUserDTO | 
     try {
-      apiInstance.userSignupPost(userDTO);
+      apiInstance.userSignupPost(fullUserDTO);
     } catch (ApiException e) {
       System.err.println("Exception when calling AuthenticationApi#userSignupPost");
       System.err.println("Status code: " + e.getCode());
@@ -235,7 +235,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **userDTO** | [**UserDTO**](UserDTO.md)|  | |
+| **fullUserDTO** | [**FullUserDTO**](FullUserDTO.md)|  | |
 
 ### Return type
 

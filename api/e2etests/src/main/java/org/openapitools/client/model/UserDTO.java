@@ -42,7 +42,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import org.openapitools.client.JSON;
@@ -59,6 +58,10 @@ public class UserDTO {
   public static final String SERIALIZED_NAME_PASSWORD = "password";
   @SerializedName(SERIALIZED_NAME_PASSWORD)
   private String password;
+
+  public static final String SERIALIZED_NAME_REMEMBER = "remember";
+  @SerializedName(SERIALIZED_NAME_REMEMBER)
+  private Boolean remember;
 
   public UserDTO() {
   }
@@ -105,6 +108,27 @@ public class UserDTO {
   }
 
 
+  public UserDTO remember(Boolean remember) {
+    
+    this.remember = remember;
+    return this;
+  }
+
+   /**
+   * To choose if the user wants to register his information for next time
+   * @return remember
+  **/
+  @javax.annotation.Nullable
+  public Boolean getRemember() {
+    return remember;
+  }
+
+
+  public void setRemember(Boolean remember) {
+    this.remember = remember;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -116,12 +140,13 @@ public class UserDTO {
     }
     UserDTO userDTO = (UserDTO) o;
     return Objects.equals(this.login, userDTO.login) &&
-        Objects.equals(this.password, userDTO.password);
+        Objects.equals(this.password, userDTO.password) &&
+        Objects.equals(this.remember, userDTO.remember);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(login, password);
+    return Objects.hash(login, password, remember);
   }
 
   @Override
@@ -130,6 +155,7 @@ public class UserDTO {
     sb.append("class UserDTO {\n");
     sb.append("    login: ").append(toIndentedString(login)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
+    sb.append("    remember: ").append(toIndentedString(remember)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -154,6 +180,7 @@ public class UserDTO {
     openapiFields = new HashSet<String>();
     openapiFields.add("login");
     openapiFields.add("password");
+    openapiFields.add("remember");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -172,9 +199,9 @@ public class UserDTO {
         }
       }
 
-      Set<Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
+      Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
-      for (Entry<String, JsonElement> entry : entries) {
+      for (Map.Entry<String, JsonElement> entry : entries) {
         if (!UserDTO.openapiFields.contains(entry.getKey())) {
           throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `UserDTO` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }

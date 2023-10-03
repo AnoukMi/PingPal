@@ -28,6 +28,7 @@ import java.io.IOException;
 
 
 import org.openapitools.client.model.ErrorDTO;
+import org.openapitools.client.model.FullUserDTO;
 import org.openapitools.client.model.UserDTO;
 
 import java.lang.reflect.Type;
@@ -424,7 +425,7 @@ public class AuthenticationApi {
     }
     /**
      * Build call for userSignupPost
-     * @param userDTO  (required)
+     * @param fullUserDTO  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -435,7 +436,7 @@ public class AuthenticationApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userSignupPostCall(UserDTO userDTO, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call userSignupPostCall(FullUserDTO fullUserDTO, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -449,7 +450,7 @@ public class AuthenticationApi {
             basePath = null;
         }
 
-        Object localVarPostBody = userDTO;
+        Object localVarPostBody = fullUserDTO;
 
         // create path and map variables
         String localVarPath = "/user/signup";
@@ -481,20 +482,20 @@ public class AuthenticationApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call userSignupPostValidateBeforeCall(UserDTO userDTO, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'userDTO' is set
-        if (userDTO == null) {
-            throw new ApiException("Missing the required parameter 'userDTO' when calling userSignupPost(Async)");
+    private okhttp3.Call userSignupPostValidateBeforeCall(FullUserDTO fullUserDTO, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'fullUserDTO' is set
+        if (fullUserDTO == null) {
+            throw new ApiException("Missing the required parameter 'fullUserDTO' when calling userSignupPost(Async)");
         }
 
-        return userSignupPostCall(userDTO, _callback);
+        return userSignupPostCall(fullUserDTO, _callback);
 
     }
 
     /**
      * 
      * 
-     * @param userDTO  (required)
+     * @param fullUserDTO  (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -503,14 +504,14 @@ public class AuthenticationApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public void userSignupPost(UserDTO userDTO) throws ApiException {
-        userSignupPostWithHttpInfo(userDTO);
+    public void userSignupPost(FullUserDTO fullUserDTO) throws ApiException {
+        userSignupPostWithHttpInfo(fullUserDTO);
     }
 
     /**
      * 
      * 
-     * @param userDTO  (required)
+     * @param fullUserDTO  (required)
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -520,15 +521,15 @@ public class AuthenticationApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> userSignupPostWithHttpInfo(UserDTO userDTO) throws ApiException {
-        okhttp3.Call localVarCall = userSignupPostValidateBeforeCall(userDTO, null);
+    public ApiResponse<Void> userSignupPostWithHttpInfo(FullUserDTO fullUserDTO) throws ApiException {
+        okhttp3.Call localVarCall = userSignupPostValidateBeforeCall(fullUserDTO, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      *  (asynchronously)
      * 
-     * @param userDTO  (required)
+     * @param fullUserDTO  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -539,9 +540,9 @@ public class AuthenticationApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userSignupPostAsync(UserDTO userDTO, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call userSignupPostAsync(FullUserDTO fullUserDTO, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = userSignupPostValidateBeforeCall(userDTO, _callback);
+        okhttp3.Call localVarCall = userSignupPostValidateBeforeCall(fullUserDTO, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
