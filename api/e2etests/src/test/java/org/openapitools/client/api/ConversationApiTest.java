@@ -98,12 +98,12 @@ public class ConversationApiTest {
     @Test
     public void userConversationUserPostTest() throws ApiException {
         // Creating a new friend with whom you want to create a new conversation
-        ContactProfileDTO contactProfileDTO = new ContactProfileDTO().userID("vincentimes");
-        ConversationDTO newConv = new ConversationDTO().userID(contactProfileDTO.getUserID());
+        ContactProfileDTO contactProfileDTO = new ContactProfileDTO("vincentimes","vince@insa.fr", 2,"Vincent", "Barat", "10/10/1970", "");
+        ConversationDTO newConv = new ConversationDTO(contactProfileDTO.getUserID(),contactProfileDTO.getPeerAddress(),"");
 
         // If we try to create the same conversation again, it fails
         try {
-            ConversationDTO newConvBis = new ConversationDTO().userID(contactProfileDTO.getUserID());
+            ConversationDTO newConvBis = new ConversationDTO(contactProfileDTO.getUserID(),contactProfileDTO.getPeerAddress(),"");
             api.userConversationUserPost(newConvBis);
             Assertions.fail();
         } catch (ApiException e) {
@@ -113,7 +113,7 @@ public class ConversationApiTest {
         // If we try to create a conversation with a user that doesn't exist, it should also fail
         try {
             String nonExistentUser = "nonexistentuser";
-            ConversationDTO newConvNonExistent = new ConversationDTO().userID(nonExistentUser);
+            ConversationDTO newConvNonExistent = new ConversationDTO(nonExistentUser,"", "");
             api.userConversationUserPost(newConvNonExistent);
             Assertions.fail();
         } catch (ApiException e) {
