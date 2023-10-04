@@ -1,7 +1,7 @@
 package fr.mightycode.cpoo.server.controller;
 
-import fr.mightycode.cpoo.server.dto.UserDTO;
-import fr.mightycode.cpoo.server.service.UserService;
+import fr.mightycode.cpoo.server.dto.ConversationDTO;
+import fr.mightycode.cpoo.server.service.ConversationService;
 import jakarta.servlet.ServletException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +18,7 @@ import java.security.Principal;
 @CrossOrigin
 public class ConversationController {
     private final ConversationService conversationService;
+
 
 /**
  * Create a new (empty) conversation with a given user
