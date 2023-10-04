@@ -18,16 +18,15 @@ import java.security.Principal;
 @CrossOrigin
 public class ConversationController {
     private final ConversationService conversationService;
-    @PostMapping(value = "/{user}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "conversation/{user}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ConversationDTO> createEmptyConversation(@PathVariable String user) {
         try {
             ConversationDTO conversation = conversationService.createEmptyConversation(user);
             return new ResponseEntity<>(conversation, HttpStatus.CREATED);
         } catch (UserNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // user not found
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // user not found
         } catch (ConversationAlreadyExistsException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST); //conversation already exists
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build(); // conversation already exists
         }
     }
-}

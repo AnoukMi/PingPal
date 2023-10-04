@@ -91,23 +91,27 @@ public class ConversationApiTest {
      */
     @Test
     public void userConversationUserPostTest() throws ApiException {
-        String user = null;
-        ConversationDTO response = api.userConversationUserPost(user);
-
-        // Signing up with a new account
-        UserDTO userDTO = new UserDTO().login("ivambre").password("password");
-        apiAuth.userSignupPost(userDTO);
-
-        // Creating a new friend with whom I want to create a new conversation
+        // Creating a new friend with whom you want to create a new conversation
         ContactProfileDTO contactProfileDTO = new ContactProfileDTO().userID("vincentimes");
         ConversationDTO newConv = new ConversationDTO().userID(contactProfileDTO.getUserID());
 
-        // Creating again the same new conversation with the same contact, it should fail
+        // If we try to create the same conversation again, it fails
         try {
-            Conversation DTO newConvBis = new ConversationDTO().userID(contactProfileDTO.getUserID());
+            ConversationDTO newConvBis = new ConversationDTO().userID(contactProfileDTO.getUserID());
+            api.userConversationUserPost(newConvBis);
             Assertions.fail();
         } catch (ApiException e) {
-            Assertions.assertEquals(HttpsStatus.SC_CONFLIT, e.getCode());
+            Assertions.assertEquals(HttpStatus.SC_CONFLICT, e.getCode());
+        }
+
+        // If we try to create a conversation with a user that doesn't exist, it should also fail
+        try {
+            String nonExistentUser = "nonexistentuser";
+            ConversationDTO newConvNonExistent = new ConversationDTO().userID(nonExistentUser);
+            api.userConversationUserPost(newConvNonExistent);
+            Assertions.fail();
+        } catch (ApiException e) {
+            Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
         }
     }
 
