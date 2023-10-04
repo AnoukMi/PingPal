@@ -32,7 +32,13 @@ import java.util.Map;
 public class ConversationApiTest {
 
     private final ConversationApi api = new ConversationApi();
-    private final AuthenticationApi apiAuth = new AuthenticationApi();
+
+    @BeforeEach
+    public void init() throws ApiException {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        api.setApiClient(new ApiClient(okHttpClient));
+    }
+
 
     /**
      * Delete a message already sent
