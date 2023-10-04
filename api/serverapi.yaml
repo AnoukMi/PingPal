@@ -505,16 +505,13 @@ components:
         path:
           type: string
     FullUserDTO:
+      allOf:
+        - $ref: '#/components/schemas/UserDTO'
       type: object
       properties:
         icon:
           type: integer
           description: Number (ref) of the profile icon (image) of the user
-        login:
-          type: string
-          description: Username
-        password:
-          type: string
         firstname:
           type: string
         lastname:

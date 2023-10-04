@@ -18,6 +18,11 @@ import java.security.Principal;
 @CrossOrigin
 public class ConversationController {
     private final ConversationService conversationService;
+
+/**
+ * Create a new (empty) conversation with a given user
+ *
+ **/
     @PostMapping(value = "conversation/{user}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ConversationDTO> createEmptyConversation(@PathVariable String user) {
@@ -30,3 +35,4 @@ public class ConversationController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build(); // conversation already exists
         }
     }
+}
