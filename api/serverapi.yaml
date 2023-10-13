@@ -151,7 +151,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MessageDTO'
+              $ref: '#/components/schemas/MessageReducedDTO'
       responses:
         '200':
           description: Add the message to the list of messages with the given user and return the updated list
@@ -481,19 +481,6 @@ paths:
 
 components:
   schemas:
-    UserDTO:
-      type: object
-      properties:
-        login:
-          type: string
-          example: anouk20
-        password:
-          type: string
-          example: abc2001/n
-        remember:
-          type: boolean
-          description: To choose if the user wants to register his information for next time
-          example: true
     ErrorDTO:
       type: object
       properties:
@@ -507,33 +494,51 @@ components:
           type: string
         path:
           type: string
-    FullUserDTO:
+    UserDTO:
       type: object
       properties:
-        icon:
-          type: integer
-          description: Number (ref) of the profile icon (image) of the user
-          example: 6
         login:
           type: string
-          description: Username
           example: anouk20
         password:
           type: string
           example: abc2001/n
-        firstname:
-          type: string
-          example: Anouk
-        lastname:
-          type: string
-          example: Migliavacca
-        birthday:
-          type: string
-          format: date-time
-          example: 06/20/2001
-        address:
-          type: string
-          example: anouk.mi@domain
+        remember:
+          type: boolean
+          description: To choose if the user wants to register his information for next time
+          example: true
+      required:
+        - login
+        - password
+        - remember
+    FullUserDTO:
+      allOf:
+        - $ref: '#/components/schemas/UserDTO'
+        - type: object
+          properties:
+            icon:
+              type: integer
+              description: Number (ref) of the profile icon (image) of the user
+              example: 6
+            firstname:
+              type: string
+              example: Anouk
+            lastname:
+              type: string
+              example: Migliavacca
+            birthday:
+              type: string
+              format: date-time
+              example: 06/20/2001
+            address:
+              type: string
+              example: anouk.mi@domain
+          required:
+            - icon
+            - firstname
+            - lastname
+            - birthday
+            - address
     ConversationDTO:
       type: object
       properties:
@@ -549,35 +554,55 @@ components:
           format: date-time
           description : Date of the last sent message to be able to sort conversations from the newest to the oldest
           example: 10/10/2023 12:30:22
-    MessageDTO:
+      required:
+        - peerAddress
+        - lastMessageDate
+    MessageReducedDTO:
       type: object
       properties:
-        msgID:
-          type: integer
-          format: int64
-          description: ID of the message in the list of messages
-          example: 1029374
-        autorID:
-          type: string
-          description: Username (userID) of the writer
-          example: ambre_lv
         recipientID:
           type: string
-          description: Username (userID) of the addressee
-          example: anouk20
+          description: Username (userID) of the addressee or the peerAddress
+          example: anouk20 OR anouKmi@domain
         content:
           type: string
           description: Text contained in the message
           example: Hello friend
-        date:
-          type: string
-          format: date-time
-          description: Date of the message to be able to sort messages from the newest to the oldest
-          example: 10/10/2023 12:30:22
-        edited:
-          type: boolean
-          description: True if message has been edited, false otherwise
-          example: false
+      required:
+        - recipientID
+        - content
+    MessageDTO:
+      allOf :
+        - $ref: '#/components/schemas/MessageReducedDTO'
+        - type: object
+          properties:
+            msgID:
+              type: integer
+              format: int64
+              description: ID of the message in the list of messages
+              example: 1029374
+            autorID:
+              type: string
+              description: Username (userID) of the writer if it's a registered user of the app
+              example: ambre_lv
+            autorAddress :
+              type: string
+              description: PeerAddress of the writer
+              example: alv@domain
+            date:
+              type: string
+              format: date-time
+              description: Date of the message to be able to sort messages from the newest to the oldest
+              example: 10/10/2023 12:30:22
+            edited:
+              type: boolean
+              description: True if message has been edited, false otherwise
+              example: false
+          required :
+            - msgID
+            - autorAddress
+            - date
+            - edited
     PublicMessageDTO:
       type: object
       properties:
@@ -589,6 +614,9 @@ components:
           type: string
           description: Text contained in the message
           example: Hello everybody
+      required:
+        - userID
+        - content
     ContactProfileDTO:
       type: object
       properties:
@@ -618,6 +646,13 @@ components:
           type: string
           description: Content of the public message (status) shared by the contact (can be empty)
           example: Hi everybody !
+      required:
+        - userID
+        - peerAddress
+        - icon
+        - firstname
+        - lastname
+        - birthday
 
   securitySchemes:
     CookieAuth:
