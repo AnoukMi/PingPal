@@ -8,6 +8,8 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class ConversationService {
+
+    private final ConversationRepository
     public void createEmpty(){
 
     }

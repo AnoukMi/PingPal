@@ -17,6 +17,10 @@ import java.security.Principal;
 @AllArgsConstructor
 @CrossOrigin
 public class ConversationController {
+    @Value("pingpal")
+    private String serverDomain;
+
+
     private final ConversationService conversationService;
 
 
