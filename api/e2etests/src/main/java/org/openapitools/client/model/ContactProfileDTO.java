@@ -93,7 +93,7 @@ public class ContactProfileDTO {
    * Username (userID) of the contact
    * @return userID
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getUserID() {
     return userID;
   }
@@ -114,7 +114,7 @@ public class ContactProfileDTO {
    * E-mail address of the contact
    * @return peerAddress
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getPeerAddress() {
     return peerAddress;
   }
@@ -135,7 +135,7 @@ public class ContactProfileDTO {
    * Number (ref) of the profile icon (image) of the user
    * @return icon
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public Integer getIcon() {
     return icon;
   }
@@ -156,7 +156,7 @@ public class ContactProfileDTO {
    * Get firstname
    * @return firstname
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getFirstname() {
     return firstname;
   }
@@ -177,7 +177,7 @@ public class ContactProfileDTO {
    * Get lastname
    * @return lastname
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getLastname() {
     return lastname;
   }
@@ -198,7 +198,7 @@ public class ContactProfileDTO {
    * Get birthday
    * @return birthday
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public OffsetDateTime getBirthday() {
     return birthday;
   }
@@ -297,6 +297,12 @@ public class ContactProfileDTO {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("userID");
+    openapiRequiredFields.add("peerAddress");
+    openapiRequiredFields.add("icon");
+    openapiRequiredFields.add("firstname");
+    openapiRequiredFields.add("lastname");
+    openapiRequiredFields.add("birthday");
   }
 
  /**
@@ -319,17 +325,24 @@ public class ContactProfileDTO {
           throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `ContactProfileDTO` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : ContactProfileDTO.openapiRequiredFields) {
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
+        }
+      }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if ((jsonObj.get("userID") != null && !jsonObj.get("userID").isJsonNull()) && !jsonObj.get("userID").isJsonPrimitive()) {
+      if (!jsonObj.get("userID").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `userID` to be a primitive type in the JSON string but got `%s`", jsonObj.get("userID").toString()));
       }
-      if ((jsonObj.get("peerAddress") != null && !jsonObj.get("peerAddress").isJsonNull()) && !jsonObj.get("peerAddress").isJsonPrimitive()) {
+      if (!jsonObj.get("peerAddress").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `peerAddress` to be a primitive type in the JSON string but got `%s`", jsonObj.get("peerAddress").toString()));
       }
-      if ((jsonObj.get("firstname") != null && !jsonObj.get("firstname").isJsonNull()) && !jsonObj.get("firstname").isJsonPrimitive()) {
+      if (!jsonObj.get("firstname").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `firstname` to be a primitive type in the JSON string but got `%s`", jsonObj.get("firstname").toString()));
       }
-      if ((jsonObj.get("lastname") != null && !jsonObj.get("lastname").isJsonNull()) && !jsonObj.get("lastname").isJsonPrimitive()) {
+      if (!jsonObj.get("lastname").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `lastname` to be a primitive type in the JSON string but got `%s`", jsonObj.get("lastname").toString()));
       }
       if ((jsonObj.get("sharedMessage") != null && !jsonObj.get("sharedMessage").isJsonNull()) && !jsonObj.get("sharedMessage").isJsonPrimitive()) {

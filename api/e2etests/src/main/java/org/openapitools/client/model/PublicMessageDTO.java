@@ -72,7 +72,7 @@ public class PublicMessageDTO {
    * Username (userID) of the writer
    * @return userID
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getUserID() {
     return userID;
   }
@@ -93,7 +93,7 @@ public class PublicMessageDTO {
    * Text contained in the message
    * @return content
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getContent() {
     return content;
   }
@@ -156,6 +156,8 @@ public class PublicMessageDTO {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("userID");
+    openapiRequiredFields.add("content");
   }
 
  /**
@@ -178,11 +180,18 @@ public class PublicMessageDTO {
           throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `PublicMessageDTO` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : PublicMessageDTO.openapiRequiredFields) {
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
+        }
+      }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if ((jsonObj.get("userID") != null && !jsonObj.get("userID").isJsonNull()) && !jsonObj.get("userID").isJsonPrimitive()) {
+      if (!jsonObj.get("userID").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `userID` to be a primitive type in the JSON string but got `%s`", jsonObj.get("userID").toString()));
       }
-      if ((jsonObj.get("content") != null && !jsonObj.get("content").isJsonNull()) && !jsonObj.get("content").isJsonPrimitive()) {
+      if (!jsonObj.get("content").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `content` to be a primitive type in the JSON string but got `%s`", jsonObj.get("content").toString()));
       }
   }

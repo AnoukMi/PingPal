@@ -1,13 +1,13 @@
 
 
-# PublicMessageDTO
+# MessageReducedDTO
 
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**userID** | **String** | Username (userID) of the writer |  |
+|**recipientID** | **String** | Username (userID) of the interlocutor or the peerAddress |  |
 |**content** | **String** | Text contained in the message |  |
 
 

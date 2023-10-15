@@ -505,7 +505,7 @@ components:
           example: abc2001/n
         remember:
           type: boolean
-          description: To choose if the user wants to register his information for next time
+          description: To choose if the user wants to remember their information for next time
           example: true
       required:
         - login
@@ -562,7 +562,7 @@ components:
       properties:
         recipientID:
           type: string
-          description: Username (userID) of the addressee or the peerAddress
+          description: Username (userID) of the interlocutor or the peerAddress
           example: anouk20 OR anouKmi@domain
         content:
           type: string
@@ -645,7 +645,7 @@ components:
         sharedMessage :
           type: string
           description: Content of the public message (status) shared by the contact (can be empty)
-          example: Hi everybody !
+          example: Hi everybody!
       required:
         - userID
         - peerAddress

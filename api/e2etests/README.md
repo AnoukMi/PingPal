@@ -148,6 +148,7 @@ All URIs are relative to *http://localhost:8080*
  - [ErrorDTO](docs/ErrorDTO.md)
  - [FullUserDTO](docs/FullUserDTO.md)
  - [MessageDTO](docs/MessageDTO.md)
+ - [MessageReducedDTO](docs/MessageReducedDTO.md)
  - [PublicMessageDTO](docs/PublicMessageDTO.md)
  - [UserDTO](docs/UserDTO.md)
 

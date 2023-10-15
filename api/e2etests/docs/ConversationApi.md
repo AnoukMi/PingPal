@@ -426,7 +426,7 @@ This endpoint does not need any parameter.
 
 <a id="userUserIDMessagePost"></a>
 # **userUserIDMessagePost**
-> List&lt;MessageDTO&gt; userUserIDMessagePost(userID, messageDTO)
+> List&lt;MessageDTO&gt; userUserIDMessagePost(userID, messageReducedDTO)
 
 Send a new message to a given user
 
@@ -453,9 +453,9 @@ public class Example {
 
     ConversationApi apiInstance = new ConversationApi(defaultClient);
     String userID = "userID_example"; // String | Username of the interlocutor to whom send a message
-    MessageDTO messageDTO = new MessageDTO(); // MessageDTO | 
+    MessageReducedDTO messageReducedDTO = new MessageReducedDTO(); // MessageReducedDTO | 
     try {
-      List<MessageDTO> result = apiInstance.userUserIDMessagePost(userID, messageDTO);
+      List<MessageDTO> result = apiInstance.userUserIDMessagePost(userID, messageReducedDTO);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConversationApi#userUserIDMessagePost");
@@ -473,7 +473,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **userID** | **String**| Username of the interlocutor to whom send a message | |
-| **messageDTO** | [**MessageDTO**](MessageDTO.md)|  | |
+| **messageReducedDTO** | [**MessageReducedDTO**](MessageReducedDTO.md)|  | |
 
 ### Return type
 

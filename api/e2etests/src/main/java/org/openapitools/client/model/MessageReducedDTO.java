@@ -47,85 +47,60 @@ import java.util.Set;
 import org.openapitools.client.JSON;
 
 /**
- * UserDTO
+ * MessageReducedDTO
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class UserDTO {
-  public static final String SERIALIZED_NAME_LOGIN = "login";
-  @SerializedName(SERIALIZED_NAME_LOGIN)
-  private String login;
+public class MessageReducedDTO {
+  public static final String SERIALIZED_NAME_RECIPIENT_I_D = "recipientID";
+  @SerializedName(SERIALIZED_NAME_RECIPIENT_I_D)
+  private String recipientID;
 
-  public static final String SERIALIZED_NAME_PASSWORD = "password";
-  @SerializedName(SERIALIZED_NAME_PASSWORD)
-  private String password;
+  public static final String SERIALIZED_NAME_CONTENT = "content";
+  @SerializedName(SERIALIZED_NAME_CONTENT)
+  private String content;
 
-  public static final String SERIALIZED_NAME_REMEMBER = "remember";
-  @SerializedName(SERIALIZED_NAME_REMEMBER)
-  private Boolean remember;
-
-  public UserDTO() {
+  public MessageReducedDTO() {
   }
 
-  public UserDTO login(String login) {
+  public MessageReducedDTO recipientID(String recipientID) {
     
-    this.login = login;
+    this.recipientID = recipientID;
     return this;
   }
 
    /**
-   * Get login
-   * @return login
+   * Username (userID) of the interlocutor or the peerAddress
+   * @return recipientID
   **/
   @javax.annotation.Nonnull
-  public String getLogin() {
-    return login;
+  public String getRecipientID() {
+    return recipientID;
   }
 
 
-  public void setLogin(String login) {
-    this.login = login;
+  public void setRecipientID(String recipientID) {
+    this.recipientID = recipientID;
   }
 
 
-  public UserDTO password(String password) {
+  public MessageReducedDTO content(String content) {
     
-    this.password = password;
+    this.content = content;
     return this;
   }
 
    /**
-   * Get password
-   * @return password
+   * Text contained in the message
+   * @return content
   **/
   @javax.annotation.Nonnull
-  public String getPassword() {
-    return password;
+  public String getContent() {
+    return content;
   }
 
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-
-  public UserDTO remember(Boolean remember) {
-    
-    this.remember = remember;
-    return this;
-  }
-
-   /**
-   * To choose if the user wants to remember their information for next time
-   * @return remember
-  **/
-  @javax.annotation.Nonnull
-  public Boolean getRemember() {
-    return remember;
-  }
-
-
-  public void setRemember(Boolean remember) {
-    this.remember = remember;
+  public void setContent(String content) {
+    this.content = content;
   }
 
 
@@ -138,24 +113,22 @@ public class UserDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UserDTO userDTO = (UserDTO) o;
-    return Objects.equals(this.login, userDTO.login) &&
-        Objects.equals(this.password, userDTO.password) &&
-        Objects.equals(this.remember, userDTO.remember);
+    MessageReducedDTO messageReducedDTO = (MessageReducedDTO) o;
+    return Objects.equals(this.recipientID, messageReducedDTO.recipientID) &&
+        Objects.equals(this.content, messageReducedDTO.content);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(login, password, remember);
+    return Objects.hash(recipientID, content);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class UserDTO {\n");
-    sb.append("    login: ").append(toIndentedString(login)).append("\n");
-    sb.append("    password: ").append(toIndentedString(password)).append("\n");
-    sb.append("    remember: ").append(toIndentedString(remember)).append("\n");
+    sb.append("class MessageReducedDTO {\n");
+    sb.append("    recipientID: ").append(toIndentedString(recipientID)).append("\n");
+    sb.append("    content: ").append(toIndentedString(content)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -178,50 +151,48 @@ public class UserDTO {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("login");
-    openapiFields.add("password");
-    openapiFields.add("remember");
+    openapiFields.add("recipientID");
+    openapiFields.add("content");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("login");
-    openapiRequiredFields.add("password");
-    openapiRequiredFields.add("remember");
+    openapiRequiredFields.add("recipientID");
+    openapiRequiredFields.add("content");
   }
 
  /**
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to UserDTO
+  * @throws IOException if the JSON Element is invalid with respect to MessageReducedDTO
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!UserDTO.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in UserDTO is not found in the empty JSON string", UserDTO.openapiRequiredFields.toString()));
+        if (!MessageReducedDTO.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in MessageReducedDTO is not found in the empty JSON string", MessageReducedDTO.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!UserDTO.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `UserDTO` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        if (!MessageReducedDTO.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `MessageReducedDTO` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
 
       // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : UserDTO.openapiRequiredFields) {
+      for (String requiredField : MessageReducedDTO.openapiRequiredFields) {
         if (jsonElement.getAsJsonObject().get(requiredField) == null) {
           throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if (!jsonObj.get("login").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `login` to be a primitive type in the JSON string but got `%s`", jsonObj.get("login").toString()));
+      if (!jsonObj.get("recipientID").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `recipientID` to be a primitive type in the JSON string but got `%s`", jsonObj.get("recipientID").toString()));
       }
-      if (!jsonObj.get("password").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `password` to be a primitive type in the JSON string but got `%s`", jsonObj.get("password").toString()));
+      if (!jsonObj.get("content").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `content` to be a primitive type in the JSON string but got `%s`", jsonObj.get("content").toString()));
       }
   }
 
@@ -229,22 +200,22 @@ public class UserDTO {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!UserDTO.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'UserDTO' and its subtypes
+       if (!MessageReducedDTO.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'MessageReducedDTO' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<UserDTO> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(UserDTO.class));
+       final TypeAdapter<MessageReducedDTO> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(MessageReducedDTO.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<UserDTO>() {
+       return (TypeAdapter<T>) new TypeAdapter<MessageReducedDTO>() {
            @Override
-           public void write(JsonWriter out, UserDTO value) throws IOException {
+           public void write(JsonWriter out, MessageReducedDTO value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public UserDTO read(JsonReader in) throws IOException {
+           public MessageReducedDTO read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -255,18 +226,18 @@ public class UserDTO {
   }
 
  /**
-  * Create an instance of UserDTO given an JSON string
+  * Create an instance of MessageReducedDTO given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of UserDTO
-  * @throws IOException if the JSON string is invalid with respect to UserDTO
+  * @return An instance of MessageReducedDTO
+  * @throws IOException if the JSON string is invalid with respect to MessageReducedDTO
   */
-  public static UserDTO fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, UserDTO.class);
+  public static MessageReducedDTO fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, MessageReducedDTO.class);
   }
 
  /**
-  * Convert an instance of UserDTO to an JSON string
+  * Convert an instance of MessageReducedDTO to an JSON string
   *
   * @return JSON string
   */

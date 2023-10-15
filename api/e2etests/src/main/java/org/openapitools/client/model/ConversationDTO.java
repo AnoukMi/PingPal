@@ -98,7 +98,7 @@ public class ConversationDTO {
    * Get peerAddress
    * @return peerAddress
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getPeerAddress() {
     return peerAddress;
   }
@@ -119,7 +119,7 @@ public class ConversationDTO {
    * Date of the last sent message to be able to sort conversations from the newest to the oldest
    * @return lastMessageDate
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public OffsetDateTime getLastMessageDate() {
     return lastMessageDate;
   }
@@ -185,6 +185,8 @@ public class ConversationDTO {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("peerAddress");
+    openapiRequiredFields.add("lastMessageDate");
   }
 
  /**
@@ -207,11 +209,18 @@ public class ConversationDTO {
           throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `ConversationDTO` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : ConversationDTO.openapiRequiredFields) {
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
+        }
+      }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
       if ((jsonObj.get("userID") != null && !jsonObj.get("userID").isJsonNull()) && !jsonObj.get("userID").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `userID` to be a primitive type in the JSON string but got `%s`", jsonObj.get("userID").toString()));
       }
-      if ((jsonObj.get("peerAddress") != null && !jsonObj.get("peerAddress").isJsonNull()) && !jsonObj.get("peerAddress").isJsonPrimitive()) {
+      if (!jsonObj.get("peerAddress").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `peerAddress` to be a primitive type in the JSON string but got `%s`", jsonObj.get("peerAddress").toString()));
       }
   }

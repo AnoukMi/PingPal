@@ -164,7 +164,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MessageDTO'
+              $ref: '#/components/schemas/MessageReducedDTO'
         required: true
       responses:
         "200":
@@ -542,21 +542,6 @@ paths:
       x-accepts: application/json
 components:
   schemas:
-    UserDTO:
-      example:
-        remember: true
-        password: password
-        login: login
-      properties:
-        login:
-          type: string
-        password:
-          type: string
-        remember:
-          description: To choose if the user wants to register his information for
-            next time
-          type: boolean
-      type: object
     ErrorDTO:
       properties:
         timestamp:
@@ -570,114 +555,171 @@ components:
         path:
           type: string
       type: object
-    FullUserDTO:
+    UserDTO:
       example:
-        birthday: 2000-01-23T04:56:07.000+00:00
-        password: password
-        firstname: firstname
-        icon: 0
-        login: login
-        lastname: lastname
+        remember: true
+        password: abc2001/n
+        login: anouk20
       properties:
-        icon:
-          description: Number (ref) of the profile icon (image) of the user
-          type: integer
         login:
-          description: Username
+          example: anouk20
           type: string
         password:
+          example: abc2001/n
           type: string
-        firstname:
-          type: string
-        lastname:
-          type: string
-        birthday:
-          format: date-time
-          type: string
+        remember:
+          description: To choose if the user wants to remember their information for
+            next time
+          example: true
+          type: boolean
+      required:
+      - login
+      - password
+      - remember
       type: object
+    FullUserDTO:
+      allOf:
+      - $ref: '#/components/schemas/UserDTO'
+      - properties:
+          icon:
+            description: Number (ref) of the profile icon (image) of the user
+            example: 6
+            type: integer
+          firstname:
+            example: Anouk
+            type: string
+          lastname:
+            example: Migliavacca
+            type: string
+          birthday:
+            format: date-time
+            type: string
+          address:
+            example: anouk.mi@domain
+            type: string
+        required:
+        - address
+        - birthday
+        - firstname
+        - icon
+        - lastname
+        type: object
     ConversationDTO:
       example:
         lastMessageDate: 2000-01-23T04:56:07.000+00:00
-        userID: userID
-        peerAddress: nameInterlocutor.surname@domain
+        userID: ambre_lv
+        peerAddress: alv@domain
       properties:
         userID:
           description: Username of the interlocutor
+          example: ambre_lv
           type: string
         peerAddress:
-          example: nameInterlocutor.surname@domain
+          example: alv@domain
           type: string
         lastMessageDate:
           description: Date of the last sent message to be able to sort conversations
             from the newest to the oldest
           format: date-time
           type: string
+      required:
+      - lastMessageDate
+      - peerAddress
       type: object
-    MessageDTO:
+    MessageReducedDTO:
       example:
-        date: 2000-01-23T04:56:07.000+00:00
-        autorID: autorID
-        edited: true
-        msgID: 0
-        recipientID: recipientID
-        content: content
+        recipientID: anouk20 OR anouKmi@domain
+        content: Hello friend
       properties:
-        msgID:
-          description: ID of the message in the list of messages
-          format: int64
-          type: integer
-        autorID:
-          description: Username (userID) of the writer
-          type: string
         recipientID:
-          description: Username (userID) of the addressee
+          description: Username (userID) of the interlocutor or the peerAddress
+          example: anouk20 OR anouKmi@domain
           type: string
         content:
           description: Text contained in the message
+          example: Hello friend
           type: string
-        date:
-          description: Date of the message to be able to sort messages from the newest
-            to the oldest
-          format: date-time
-          type: string
-        edited:
-          description: "True if message has been edited, false otherwise"
-          type: boolean
+      required:
+      - content
+      - recipientID
       type: object
+    MessageDTO:
+      allOf:
+      - $ref: '#/components/schemas/MessageReducedDTO'
+      - properties:
+          msgID:
+            description: ID of the message in the list of messages
+            example: 1029374
+            format: int64
+            type: integer
+          autorID:
+            description: Username (userID) of the writer if it's a registered user
+              of the app
+            example: ambre_lv
+            type: string
+          autorAddress:
+            description: PeerAddress of the writer
+            example: alv@domain
+            type: string
+          date:
+            description: Date of the message to be able to sort messages from the
+              newest to the oldest
+            format: date-time
+            type: string
+          edited:
+            description: "True if message has been edited, false otherwise"
+            example: false
+            type: boolean
+        required:
+        - autorAddress
+        - date
+        - edited
+        - msgID
+        type: object
     PublicMessageDTO:
       example:
-        userID: userID
-        content: content
+        userID: anouk20
+        content: Hello everybody
       properties:
         userID:
           description: Username (userID) of the writer
+          example: anouk20
           type: string
         content:
           description: Text contained in the message
+          example: Hello everybody
           type: string
+      required:
+      - content
+      - userID
       type: object
     ContactProfileDTO:
       example:
         birthday: 2000-01-23T04:56:07.000+00:00
-        firstname: firstname
-        icon: 0
-        userID: userID
-        sharedMessage: sharedMessage
-        peerAddress: peerAddress
-        lastname: lastname
+        firstname: Ambre
+        icon: 5
+        userID: ambre_lv
+        sharedMessage: Hi everybody!
+        peerAddress: alv@domain
+        lastname: Leveille
       properties:
         userID:
           description: Username (userID) of the contact
+          example: ambre_lv
           type: string
         peerAddress:
           description: E-mail address of the contact
+          example: alv@domain
           type: string
         icon:
           description: Number (ref) of the profile icon (image) of the user
+          example: 5
           type: integer
         firstname:
+          example: Ambre
           type: string
         lastname:
+          example: Leveille
           type: string
         birthday:
           format: date-time
@@ -685,7 +727,15 @@ components:
         sharedMessage:
           description: Content of the public message (status) shared by the contact
             (can be empty)
+          example: Hi everybody!
           type: string
+      required:
+      - birthday
+      - firstname
+      - icon
+      - lastname
+      - peerAddress
+      - userID
       type: object
   securitySchemes:
     CookieAuth:

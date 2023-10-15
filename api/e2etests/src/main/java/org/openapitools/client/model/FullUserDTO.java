@@ -52,10 +52,6 @@ import org.openapitools.client.JSON;
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class FullUserDTO {
-  public static final String SERIALIZED_NAME_ICON = "icon";
-  @SerializedName(SERIALIZED_NAME_ICON)
-  private Integer icon;
-
   public static final String SERIALIZED_NAME_LOGIN = "login";
   @SerializedName(SERIALIZED_NAME_LOGIN)
   private String login;
@@ -63,6 +59,14 @@ public class FullUserDTO {
   public static final String SERIALIZED_NAME_PASSWORD = "password";
   @SerializedName(SERIALIZED_NAME_PASSWORD)
   private String password;
+
+  public static final String SERIALIZED_NAME_REMEMBER = "remember";
+  @SerializedName(SERIALIZED_NAME_REMEMBER)
+  private Boolean remember;
+
+  public static final String SERIALIZED_NAME_ICON = "icon";
+  @SerializedName(SERIALIZED_NAME_ICON)
+  private Integer icon;
 
   public static final String SERIALIZED_NAME_FIRSTNAME = "firstname";
   @SerializedName(SERIALIZED_NAME_FIRSTNAME)
@@ -76,29 +80,12 @@ public class FullUserDTO {
   @SerializedName(SERIALIZED_NAME_BIRTHDAY)
   private OffsetDateTime birthday;
 
+  public static final String SERIALIZED_NAME_ADDRESS = "address";
+  @SerializedName(SERIALIZED_NAME_ADDRESS)
+  private String address;
+
   public FullUserDTO() {
   }
-
-  public FullUserDTO icon(Integer icon) {
-    
-    this.icon = icon;
-    return this;
-  }
-
-   /**
-   * Number (ref) of the profile icon (image) of the user
-   * @return icon
-  **/
-  @javax.annotation.Nullable
-  public Integer getIcon() {
-    return icon;
-  }
-
-
-  public void setIcon(Integer icon) {
-    this.icon = icon;
-  }
-
 
   public FullUserDTO login(String login) {
     
@@ -107,10 +94,10 @@ public class FullUserDTO {
   }
 
    /**
-   * Username
+   * Get login
    * @return login
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getLogin() {
     return login;
   }
@@ -131,7 +118,7 @@ public class FullUserDTO {
    * Get password
    * @return password
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getPassword() {
     return password;
   }
@@ -139,6 +126,48 @@ public class FullUserDTO {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+
+  public FullUserDTO remember(Boolean remember) {
+    
+    this.remember = remember;
+    return this;
+  }
+
+   /**
+   * To choose if the user wants to remember their information for next time
+   * @return remember
+  **/
+  @javax.annotation.Nonnull
+  public Boolean getRemember() {
+    return remember;
+  }
+
+
+  public void setRemember(Boolean remember) {
+    this.remember = remember;
+  }
+
+
+  public FullUserDTO icon(Integer icon) {
+    
+    this.icon = icon;
+    return this;
+  }
+
+   /**
+   * Number (ref) of the profile icon (image) of the user
+   * @return icon
+  **/
+  @javax.annotation.Nonnull
+  public Integer getIcon() {
+    return icon;
+  }
+
+
+  public void setIcon(Integer icon) {
+    this.icon = icon;
   }
 
 
@@ -152,7 +181,7 @@ public class FullUserDTO {
    * Get firstname
    * @return firstname
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getFirstname() {
     return firstname;
   }
@@ -173,7 +202,7 @@ public class FullUserDTO {
    * Get lastname
    * @return lastname
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getLastname() {
     return lastname;
   }
@@ -194,7 +223,7 @@ public class FullUserDTO {
    * Get birthday
    * @return birthday
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public OffsetDateTime getBirthday() {
     return birthday;
   }
@@ -202,6 +231,27 @@ public class FullUserDTO {
 
   public void setBirthday(OffsetDateTime birthday) {
     this.birthday = birthday;
+  }
+
+
+  public FullUserDTO address(String address) {
+    
+    this.address = address;
+    return this;
+  }
+
+   /**
+   * Get address
+   * @return address
+  **/
+  @javax.annotation.Nonnull
+  public String getAddress() {
+    return address;
+  }
+
+
+  public void setAddress(String address) {
+    this.address = address;
   }
 
 
@@ -215,29 +265,33 @@ public class FullUserDTO {
       return false;
     }
     FullUserDTO fullUserDTO = (FullUserDTO) o;
-    return Objects.equals(this.icon, fullUserDTO.icon) &&
-        Objects.equals(this.login, fullUserDTO.login) &&
+    return Objects.equals(this.login, fullUserDTO.login) &&
         Objects.equals(this.password, fullUserDTO.password) &&
+        Objects.equals(this.remember, fullUserDTO.remember) &&
+        Objects.equals(this.icon, fullUserDTO.icon) &&
         Objects.equals(this.firstname, fullUserDTO.firstname) &&
         Objects.equals(this.lastname, fullUserDTO.lastname) &&
-        Objects.equals(this.birthday, fullUserDTO.birthday);
+        Objects.equals(this.birthday, fullUserDTO.birthday) &&
+        Objects.equals(this.address, fullUserDTO.address);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(icon, login, password, firstname, lastname, birthday);
+    return Objects.hash(login, password, remember, icon, firstname, lastname, birthday, address);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class FullUserDTO {\n");
-    sb.append("    icon: ").append(toIndentedString(icon)).append("\n");
     sb.append("    login: ").append(toIndentedString(login)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
+    sb.append("    remember: ").append(toIndentedString(remember)).append("\n");
+    sb.append("    icon: ").append(toIndentedString(icon)).append("\n");
     sb.append("    firstname: ").append(toIndentedString(firstname)).append("\n");
     sb.append("    lastname: ").append(toIndentedString(lastname)).append("\n");
     sb.append("    birthday: ").append(toIndentedString(birthday)).append("\n");
+    sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -260,15 +314,25 @@ public class FullUserDTO {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("icon");
     openapiFields.add("login");
     openapiFields.add("password");
+    openapiFields.add("remember");
+    openapiFields.add("icon");
     openapiFields.add("firstname");
     openapiFields.add("lastname");
     openapiFields.add("birthday");
+    openapiFields.add("address");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("login");
+    openapiRequiredFields.add("password");
+    openapiRequiredFields.add("remember");
+    openapiRequiredFields.add("icon");
+    openapiRequiredFields.add("firstname");
+    openapiRequiredFields.add("lastname");
+    openapiRequiredFields.add("birthday");
+    openapiRequiredFields.add("address");
   }
 
  /**
@@ -291,18 +355,28 @@ public class FullUserDTO {
           throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `FullUserDTO` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : FullUserDTO.openapiRequiredFields) {
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
+        }
+      }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if ((jsonObj.get("login") != null && !jsonObj.get("login").isJsonNull()) && !jsonObj.get("login").isJsonPrimitive()) {
+      if (!jsonObj.get("login").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `login` to be a primitive type in the JSON string but got `%s`", jsonObj.get("login").toString()));
       }
-      if ((jsonObj.get("password") != null && !jsonObj.get("password").isJsonNull()) && !jsonObj.get("password").isJsonPrimitive()) {
+      if (!jsonObj.get("password").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `password` to be a primitive type in the JSON string but got `%s`", jsonObj.get("password").toString()));
       }
-      if ((jsonObj.get("firstname") != null && !jsonObj.get("firstname").isJsonNull()) && !jsonObj.get("firstname").isJsonPrimitive()) {
+      if (!jsonObj.get("firstname").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `firstname` to be a primitive type in the JSON string but got `%s`", jsonObj.get("firstname").toString()));
       }
-      if ((jsonObj.get("lastname") != null && !jsonObj.get("lastname").isJsonNull()) && !jsonObj.get("lastname").isJsonPrimitive()) {
+      if (!jsonObj.get("lastname").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `lastname` to be a primitive type in the JSON string but got `%s`", jsonObj.get("lastname").toString()));
+      }
+      if (!jsonObj.get("address").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `address` to be a primitive type in the JSON string but got `%s`", jsonObj.get("address").toString()));
       }
   }
 

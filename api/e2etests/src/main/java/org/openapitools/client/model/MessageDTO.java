@@ -52,6 +52,14 @@ import org.openapitools.client.JSON;
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class MessageDTO {
+  public static final String SERIALIZED_NAME_RECIPIENT_I_D = "recipientID";
+  @SerializedName(SERIALIZED_NAME_RECIPIENT_I_D)
+  private String recipientID;
+
+  public static final String SERIALIZED_NAME_CONTENT = "content";
+  @SerializedName(SERIALIZED_NAME_CONTENT)
+  private String content;
+
   public static final String SERIALIZED_NAME_MSG_I_D = "msgID";
   @SerializedName(SERIALIZED_NAME_MSG_I_D)
   private Long msgID;
@@ -60,13 +68,9 @@ public class MessageDTO {
   @SerializedName(SERIALIZED_NAME_AUTOR_I_D)
   private String autorID;
 
-  public static final String SERIALIZED_NAME_RECIPIENT_I_D = "recipientID";
-  @SerializedName(SERIALIZED_NAME_RECIPIENT_I_D)
-  private String recipientID;
-
-  public static final String SERIALIZED_NAME_CONTENT = "content";
-  @SerializedName(SERIALIZED_NAME_CONTENT)
-  private String content;
+  public static final String SERIALIZED_NAME_AUTOR_ADDRESS = "autorAddress";
+  @SerializedName(SERIALIZED_NAME_AUTOR_ADDRESS)
+  private String autorAddress;
 
   public static final String SERIALIZED_NAME_DATE = "date";
   @SerializedName(SERIALIZED_NAME_DATE)
@@ -79,48 +83,6 @@ public class MessageDTO {
   public MessageDTO() {
   }
 
-  public MessageDTO msgID(Long msgID) {
-    
-    this.msgID = msgID;
-    return this;
-  }
-
-   /**
-   * ID of the message in the list of messages
-   * @return msgID
-  **/
-  @javax.annotation.Nullable
-  public Long getMsgID() {
-    return msgID;
-  }
-
-
-  public void setMsgID(Long msgID) {
-    this.msgID = msgID;
-  }
-
-
-  public MessageDTO autorID(String autorID) {
-    
-    this.autorID = autorID;
-    return this;
-  }
-
-   /**
-   * Username (userID) of the writer
-   * @return autorID
-  **/
-  @javax.annotation.Nullable
-  public String getAutorID() {
-    return autorID;
-  }
-
-
-  public void setAutorID(String autorID) {
-    this.autorID = autorID;
-  }
-
-
   public MessageDTO recipientID(String recipientID) {
     
     this.recipientID = recipientID;
@@ -128,10 +90,10 @@ public class MessageDTO {
   }
 
    /**
-   * Username (userID) of the addressee
+   * Username (userID) of the interlocutor or the peerAddress
    * @return recipientID
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getRecipientID() {
     return recipientID;
   }
@@ -152,7 +114,7 @@ public class MessageDTO {
    * Text contained in the message
    * @return content
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getContent() {
     return content;
   }
@@ -160,6 +122,69 @@ public class MessageDTO {
 
   public void setContent(String content) {
     this.content = content;
+  }
+
+
+  public MessageDTO msgID(Long msgID) {
+    
+    this.msgID = msgID;
+    return this;
+  }
+
+   /**
+   * ID of the message in the list of messages
+   * @return msgID
+  **/
+  @javax.annotation.Nonnull
+  public Long getMsgID() {
+    return msgID;
+  }
+
+
+  public void setMsgID(Long msgID) {
+    this.msgID = msgID;
+  }
+
+
+  public MessageDTO autorID(String autorID) {
+    
+    this.autorID = autorID;
+    return this;
+  }
+
+   /**
+   * Username (userID) of the writer if it&#39;s a registered user of the app
+   * @return autorID
+  **/
+  @javax.annotation.Nullable
+  public String getAutorID() {
+    return autorID;
+  }
+
+
+  public void setAutorID(String autorID) {
+    this.autorID = autorID;
+  }
+
+
+  public MessageDTO autorAddress(String autorAddress) {
+    
+    this.autorAddress = autorAddress;
+    return this;
+  }
+
+   /**
+   * PeerAddress of the writer
+   * @return autorAddress
+  **/
+  @javax.annotation.Nonnull
+  public String getAutorAddress() {
+    return autorAddress;
+  }
+
+
+  public void setAutorAddress(String autorAddress) {
+    this.autorAddress = autorAddress;
   }
 
 
@@ -173,7 +198,7 @@ public class MessageDTO {
    * Date of the message to be able to sort messages from the newest to the oldest
    * @return date
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public OffsetDateTime getDate() {
     return date;
   }
@@ -194,7 +219,7 @@ public class MessageDTO {
    * True if message has been edited, false otherwise
    * @return edited
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public Boolean getEdited() {
     return edited;
   }
@@ -215,27 +240,29 @@ public class MessageDTO {
       return false;
     }
     MessageDTO messageDTO = (MessageDTO) o;
-    return Objects.equals(this.msgID, messageDTO.msgID) &&
-        Objects.equals(this.autorID, messageDTO.autorID) &&
-        Objects.equals(this.recipientID, messageDTO.recipientID) &&
+    return Objects.equals(this.recipientID, messageDTO.recipientID) &&
         Objects.equals(this.content, messageDTO.content) &&
+        Objects.equals(this.msgID, messageDTO.msgID) &&
+        Objects.equals(this.autorID, messageDTO.autorID) &&
+        Objects.equals(this.autorAddress, messageDTO.autorAddress) &&
         Objects.equals(this.date, messageDTO.date) &&
         Objects.equals(this.edited, messageDTO.edited);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(msgID, autorID, recipientID, content, date, edited);
+    return Objects.hash(recipientID, content, msgID, autorID, autorAddress, date, edited);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class MessageDTO {\n");
-    sb.append("    msgID: ").append(toIndentedString(msgID)).append("\n");
-    sb.append("    autorID: ").append(toIndentedString(autorID)).append("\n");
     sb.append("    recipientID: ").append(toIndentedString(recipientID)).append("\n");
     sb.append("    content: ").append(toIndentedString(content)).append("\n");
+    sb.append("    msgID: ").append(toIndentedString(msgID)).append("\n");
+    sb.append("    autorID: ").append(toIndentedString(autorID)).append("\n");
+    sb.append("    autorAddress: ").append(toIndentedString(autorAddress)).append("\n");
     sb.append("    date: ").append(toIndentedString(date)).append("\n");
     sb.append("    edited: ").append(toIndentedString(edited)).append("\n");
     sb.append("}");
@@ -260,15 +287,22 @@ public class MessageDTO {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("msgID");
-    openapiFields.add("autorID");
     openapiFields.add("recipientID");
     openapiFields.add("content");
+    openapiFields.add("msgID");
+    openapiFields.add("autorID");
+    openapiFields.add("autorAddress");
     openapiFields.add("date");
     openapiFields.add("edited");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("recipientID");
+    openapiRequiredFields.add("content");
+    openapiRequiredFields.add("msgID");
+    openapiRequiredFields.add("autorAddress");
+    openapiRequiredFields.add("date");
+    openapiRequiredFields.add("edited");
   }
 
  /**
@@ -291,15 +325,25 @@ public class MessageDTO {
           throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `MessageDTO` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : MessageDTO.openapiRequiredFields) {
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
+        }
+      }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
+      if (!jsonObj.get("recipientID").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `recipientID` to be a primitive type in the JSON string but got `%s`", jsonObj.get("recipientID").toString()));
+      }
+      if (!jsonObj.get("content").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `content` to be a primitive type in the JSON string but got `%s`", jsonObj.get("content").toString()));
+      }
       if ((jsonObj.get("autorID") != null && !jsonObj.get("autorID").isJsonNull()) && !jsonObj.get("autorID").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `autorID` to be a primitive type in the JSON string but got `%s`", jsonObj.get("autorID").toString()));
       }
-      if ((jsonObj.get("recipientID") != null && !jsonObj.get("recipientID").isJsonNull()) && !jsonObj.get("recipientID").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `recipientID` to be a primitive type in the JSON string but got `%s`", jsonObj.get("recipientID").toString()));
-      }
-      if ((jsonObj.get("content") != null && !jsonObj.get("content").isJsonNull()) && !jsonObj.get("content").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `content` to be a primitive type in the JSON string but got `%s`", jsonObj.get("content").toString()));
+      if (!jsonObj.get("autorAddress").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `autorAddress` to be a primitive type in the JSON string but got `%s`", jsonObj.get("autorAddress").toString()));
       }
   }
 
