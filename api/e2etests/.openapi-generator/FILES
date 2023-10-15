@@ -12,6 +12,7 @@ docs/ConversationApi.md
 docs/ConversationDTO.md
 docs/ErrorDTO.md
 docs/FullUserDTO.md
+docs/MessageApi.md
 docs/MessageDTO.md
 docs/MessageReducedDTO.md
 docs/ProfileApi.md
@@ -41,6 +42,7 @@ src/main/java/org/openapitools/client/StringUtil.java
 src/main/java/org/openapitools/client/api/AuthenticationApi.java
 src/main/java/org/openapitools/client/api/ContactApi.java
 src/main/java/org/openapitools/client/api/ConversationApi.java
+src/main/java/org/openapitools/client/api/MessageApi.java
 src/main/java/org/openapitools/client/api/ProfileApi.java
 src/main/java/org/openapitools/client/auth/ApiKeyAuth.java
 src/main/java/org/openapitools/client/auth/Authentication.java
@@ -55,3 +57,4 @@ src/main/java/org/openapitools/client/model/MessageDTO.java
 src/main/java/org/openapitools/client/model/MessageReducedDTO.java
 src/main/java/org/openapitools/client/model/PublicMessageDTO.java
 src/main/java/org/openapitools/client/model/UserDTO.java
+src/test/java/org/openapitools/client/api/MessageApiTest.java

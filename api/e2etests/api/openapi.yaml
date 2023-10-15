@@ -115,80 +115,6 @@ paths:
       tags:
       - conversation
       x-accepts: application/json
-  /user/{userID}/messages:
-    get:
-      parameters:
-      - description: Username of the interlocutor with whom the messages of the conversation
-          are exchanged
-        explode: false
-        in: path
-        name: userID
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/MessageDTO'
-                type: array
-          description: Provide the list of messages sent both by the user and his
-            interlocutor for a given interlocutor
-        "404":
-          description: UserID not found in the current user conversations
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorDTO'
-          description: Error
-      summary: Retrieve all messages in a given conversation
-      tags:
-      - conversation
-      x-accepts: application/json
-  /user/{userID}/message:
-    post:
-      parameters:
-      - description: Username of the interlocutor to whom send a message
-        explode: false
-        in: path
-        name: userID
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/MessageReducedDTO'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/MessageDTO'
-                type: array
-          description: Add the message to the list of messages with the given user
-            and return the updated list
-        "404":
-          description: UserID not found
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorDTO'
-          description: Error
-      summary: Send a new message to a given user
-      tags:
-      - conversation
-      x-content-type: application/json
-      x-accepts: application/json
   /user/conversation/{user}:
     delete:
       parameters:
@@ -280,9 +206,92 @@ paths:
       tags:
       - conversation
       x-accepts: application/json
-  /user/conversation/{msgID}:
+  /user/{userID}/messages:
+    get:
+      parameters:
+      - description: Username of the interlocutor with whom the messages of the conversation
+          are exchanged
+        explode: false
+        in: path
+        name: userID
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/MessageDTO'
+                type: array
+          description: Provide the list of messages sent both by the user and his
+            interlocutor for a given interlocutor
+        "404":
+          description: UserID not found in the current user conversations
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+          description: Error
+      summary: Retrieve all messages in a given conversation
+      tags:
+      - message
+      x-accepts: application/json
+  /user/{userID}/message:
+    post:
+      parameters:
+      - description: Username of the interlocutor to whom send a message
+        explode: false
+        in: path
+        name: userID
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageReducedDTO'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/MessageDTO'
+                type: array
+          description: Add the message to the list of messages with the given user
+            and return the updated list
+        "404":
+          description: UserID not found
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+          description: Error
+      summary: Send a new message to a given user
+      tags:
+      - message
+      x-content-type: application/json
+      x-accepts: application/json
+  /user/conversation/{userID}/{msgID}:
     delete:
       parameters:
+      - description: Username or peer address of the interlocutor from whom we want
+          to delete the message
+        explode: false
+        in: path
+        name: userID
+        required: true
+        schema:
+          type: string
+        style: simple
       - description: ID of the message to delete in the list of messages
         explode: false
         in: path
@@ -305,10 +314,19 @@ paths:
           description: Error
       summary: Delete a message already sent
       tags:
-      - conversation
+      - message
       x-accepts: application/json
     patch:
       parameters:
+      - description: Username or peer address of the interlocutor from whom we want
+          to modify the message
+        explode: false
+        in: path
+        name: userID
+        required: true
+        schema:
+          type: string
+        style: simple
       - description: ID of the message to modify in the list of messages
         explode: false
         in: path
@@ -341,7 +359,7 @@ paths:
           description: Error
       summary: Modify a certain message already sent
       tags:
-      - conversation
+      - message
       x-content-type: application/json
       x-accepts: application/json
   /user/shareMessage:

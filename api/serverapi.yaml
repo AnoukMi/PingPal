@@ -105,70 +105,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-  /user/{userID}/messages:
-    get:
-      summary: Retrieve all messages in a given conversation
-      tags:
-        - conversation
-      parameters:
-        - name: userID
-          in: path
-          description: Username of the interlocutor with whom the messages of the conversation are exchanged
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Provide the list of messages sent both by the user and his interlocutor for a given interlocutor
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/MessageDTO'
-        '404':
-          description: UserID not found in the current user conversations
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorDTO'
-  /user/{userID}/message:
-    post:
-      summary: Send a new message to a given user
-      tags:
-        - conversation
-      parameters:
-        - name: userID
-          in: path
-          description: Username of the interlocutor to whom send a message
-          required: true
-          schema:
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/MessageReducedDTO'
-      responses:
-        '200':
-          description: Add the message to the list of messages with the given user and return the updated list
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/MessageDTO'
-        '404':
-          description: UserID not found
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorDTO'
   /user/conversation/{user}:
     post:
       summary: Create a new (empty) conversation with a given user
@@ -246,12 +182,84 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-  /user/conversation/{msgID}:
+
+  /user/{userID}/messages:
+    get:
+      summary: Retrieve all messages in a given conversation
+      tags:
+        - message
+      parameters:
+        - name: userID
+          in: path
+          description: Username of the interlocutor with whom the messages of the conversation are exchanged
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Provide the list of messages sent both by the user and his interlocutor for a given interlocutor
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MessageDTO'
+        '404':
+          description: UserID not found in the current user conversations
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+  /user/{userID}/message:
+    post:
+      summary: Send a new message to a given user
+      tags:
+        - message
+      parameters:
+        - name: userID
+          in: path
+          description: Username of the interlocutor to whom send a message
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageReducedDTO'
+      responses:
+        '200':
+          description: Add the message to the list of messages with the given user and return the updated list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MessageDTO'
+        '404':
+          description: UserID not found
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+
+  /user/conversation/{userID}/{msgID}:
     patch:
       summary: Modify a certain message already sent
       tags:
-        - conversation
+        - message
       parameters:
+        - name: userID
+          in: path
+          description: Username or peer address of the interlocutor from whom we want to modify the message
+          required: true
+          schema:
+            type: string
         - name: msgID
           in: path
           description: ID of the message to modify in the list of messages
@@ -283,8 +291,14 @@ paths:
     delete:
       summary: Delete a message already sent
       tags:
-        - conversation
+        - message
       parameters:
+        - name: userID
+          in: path
+          description: Username or peer address of the interlocutor from whom we want to delete the message
+          required: true
+          schema:
+            type: string
         - name: msgID
           in: path
           description: ID of the message to delete in the list of messages
