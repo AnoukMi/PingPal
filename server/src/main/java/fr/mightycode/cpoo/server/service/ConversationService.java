@@ -9,9 +9,9 @@ import java.util.List;
 @AllArgsConstructor
 public class ConversationService {
 
-    private final ConversationRepository
-    public void createEmpty(){
+    private final ConversationRepository conversationRepository;
 
+    private ConversationDTO createEmptyConversation(UserDTO user){
+        
     }
-
 }

@@ -22,12 +22,13 @@ public class ConversationController {
 
 
     private final ConversationService conversationService;
+    private final MessageService messageService;
 
 
 /**
  * Create a new (empty) conversation with a given user
  *
- **/
+ */
     @PostMapping(value = "conversation/{user}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ConversationDTO> createEmptyConversation(@PathVariable String user) {
@@ -40,4 +41,22 @@ public class ConversationController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build(); // conversation already exists
         }
     }
+
+/**
+ * Delete a message already sent
+ *
+ */
+    @DeleteMapping(value = "conversation/{user}/{msgID}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void deleteSentMessage(@PathVariable string user, @PathVariable Long msgID){
+        try {
+            MessageDTO message = messageService.getMessageById(msgID);
+
+            if(message == null){
+                // Lancer une exception
+            }else{
+                messageService.deleteSentMessage(message);
+            }
+        }
+    }
+
 }

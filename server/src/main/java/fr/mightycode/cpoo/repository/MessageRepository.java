@@ -2,6 +2,6 @@ import org.springframework.data.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ConversationRepository extends JpaRepository<ConversationDTO, Long>{
+public interface MessageRepository extends JpaRepository<MessageDTO, Long>{
 
 }
