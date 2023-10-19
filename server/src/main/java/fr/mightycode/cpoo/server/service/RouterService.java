@@ -1,6 +1,7 @@
 package fr.mightycode.cpoo.server.service;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
@@ -15,6 +16,7 @@ import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import org.springframework.web.socket.messaging.WebSocketStompClient;
 
 import java.lang.reflect.Type;
+import java.util.UUID;
 
 @Service
 public class RouterService {
@@ -24,7 +26,13 @@ public class RouterService {
   /**
    * Type of messages exchanged between domain servers.
    */
-  public static record Message(String from, String to, String body) {
+  public record Message(
+          UUID id,      // unique id of the message
+          String from,  // sender address
+          String to,    // recipient address
+          String type,  // MIME type of the body
+          String body   // body (BASE64 encoded for binary types)
+  ) {
   }
 
   /**
