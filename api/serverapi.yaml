@@ -13,7 +13,16 @@ security:
   - CookieAuth: [ ]
 tags:
   - name: authentication
-    description: User authentication
+    description: User's authentication management
+  - name: conversation
+    description: User's conversations management
+  - name: message
+    description: User's messages management
+  - name: profile
+    description: User's profile informations management
+  - name: contact
+    description: User's contacts management
+
 paths:
   /user/signup:
     post:

@@ -7,7 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.test.web.servlet.MockMvc;
-
+import jakarta.servlet.http.HttpSession;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -19,54 +19,58 @@ class ServerApplicationTests {
 
   @Autowired
   private MockMvc mvc;
-
   @Autowired
   private WebTestClient webClient;
+  @Autowired
+  private HttpSession httpSession;
 
   @Test
   void testSignUpSignInSignOut() throws Exception {
-
-    // Signing up an existing account should fail with CONFLICT
-    mvc.perform(post("/user/signup")
-        .contentType(APPLICATION_JSON)
-        .content("""
-          {
-            "login": "admin",
-            "password": "admin"
-          }"""))
-      .andExpect(status().isConflict());
 
     // Signing up a non-existing account should succeed
     mvc.perform(post("/user/signup")
         .contentType(APPLICATION_JSON)
         .content("""
-          {
-            "login": "test",
-            "password": "test"
+          {"login": "test",
+            "password": "test",
+            "remember":false,
+            "icon":1,
+            "firstname":"Admin",
+            "lastname":"Adminadm",
+            "birthday":"2000-05-05",
+            "address":"admin@pingpal"
           }"""))
       .andExpect(status().isOk());
 
     // Signing up an existing account should fail with CONFLICT
     mvc.perform(post("/user/signup")
-        .contentType(APPLICATION_JSON)
-        .content("""
+                    .contentType(APPLICATION_JSON)
+                    .content("""
           {
             "login": "test",
-            "password": "test"
+            "password": "test",
+            "remember":false,
+            "icon":1,
+            "firstname":"Admin",
+            "lastname":"Adminadm",
+            "birthday":"2000-05-05",
+            "address":"admin@pingpal"
           }"""))
-      .andExpect(status().isConflict());
+            .andExpect(status().isConflict());
 
     // Signing in with invalid credentials should fail with UNAUTHORIZED
+    httpSession.invalidate();
     webClient.post()
-      .uri("/user/signin")
-      .contentType(APPLICATION_JSON)
-      .bodyValue("""
+            .uri("/user/signin")
+            .contentType(APPLICATION_JSON)
+            .content("""
         {
           "login": "user",
-          "password": "invalid"
+          "password": "invalid",
+          "remember": false,
         }""")
-      .exchange()
-      .expectStatus().isUnauthorized();
+            .exchange()
+            .expectStatus().isUnauthorized();
 
     // Signing in a fresh account should succeed
     webClient.post()
@@ -74,8 +78,9 @@ class ServerApplicationTests {
       .contentType(APPLICATION_JSON)
       .bodyValue("""
         {
-          "login": "user",
-          "password": "user"
+          "login": "test",
+          "password": "test",
+          "remember":false
         }""")
       .exchange()
       .expectStatus().isOk();

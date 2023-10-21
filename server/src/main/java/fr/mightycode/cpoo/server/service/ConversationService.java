@@ -1,4 +1,4 @@
-package fr.mightycode.cpoo.server.service;
+/*package fr.mightycode.cpoo.server.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,4 +14,4 @@ public class ConversationService {
 
     }
 
-}
+}*/

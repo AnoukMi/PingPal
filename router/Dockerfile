@@ -1,4 +1,4 @@
-FROM openjdk:20
+FROM openjdk:21
 COPY ./target/router-0.0.1-SNAPSHOT.jar /tmp
 WORKDIR /tmp
 EXPOSE 8081
