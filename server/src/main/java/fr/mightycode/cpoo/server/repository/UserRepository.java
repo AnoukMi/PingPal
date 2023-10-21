@@ -1,12 +1,13 @@
 package fr.mightycode.cpoo.server.repository;
 
-import fr.mightycode.cpoo.server.model.User;
+import fr.mightycode.cpoo.server.model.UserData;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, String> {
-    User findByLogin(String login);
+public interface UserRepository extends JpaRepository<UserData, String> {
+    UserData findByLogin(String login);
+    void deleteByLogin(String login);
 }

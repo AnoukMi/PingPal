@@ -1,4 +1,4 @@
-package fr.mightycode.cpoo.server.controller;
+/*package fr.mightycode.cpoo.server.controller;
 
 import fr.mightycode.cpoo.server.dto.ConversationDTO;
 import fr.mightycode.cpoo.server.service.ConversationService;
@@ -13,7 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("/user")
 @AllArgsConstructor
 @CrossOrigin
 public class ConversationController {
@@ -23,12 +23,12 @@ public class ConversationController {
 
     private final ConversationService conversationService;
 
-
+*/
 /**
  * Create a new (empty) conversation with a given user
  *
- **/
-    @PostMapping(value = "conversation/{user}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+ **/ /*
+    @PostMapping(value = "/conversation/{user}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ConversationDTO> createEmptyConversation(@PathVariable String user) {
         try {
@@ -40,4 +40,4 @@ public class ConversationController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build(); // conversation already exists
         }
     }
-}
+}*/

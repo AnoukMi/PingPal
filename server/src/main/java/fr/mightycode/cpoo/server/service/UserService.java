@@ -1,5 +1,6 @@
 package fr.mightycode.cpoo.server.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -10,18 +11,43 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
+import fr.mightycode.cpoo.server.model.UserData;
+import fr.mightycode.cpoo.server.repository.UserRepository;
+import java.time.LocalDate;
 
 import java.util.List;
+import java.util.ArrayList;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
-
+  @Autowired //pour partager un userRepository commun aux autres services
+  private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
-
   private final UserDetailsManager userDetailsManager;
-
   private final HttpServletRequest httpServletRequest;
+
+  /**
+   * Store a new user (create a new user account)
+   * Used in UserController.java (signup)
+   *
+   * @param all parameters of an user
+   */
+  public void createUser(String login, int icon, String firstname, String lastname, LocalDate birthday, String address) {
+    List<UserData> friends = new ArrayList<UserData>();
+    UserData user = new UserData(login,icon,firstname,lastname,birthday,address, null, friends);
+    userRepository.save(user);
+  }
+
+  /**
+   * Delete an user account
+   * Used in UserController.java (delete)
+   *
+   * @param login The username of the user to delete
+   */
+  public void deleteUser(String login){
+    userRepository.deleteByLogin(login);
+  }
 
   public boolean signup(final String login, final String password) { //create account
     if (userDetailsManager.userExists(login)) //if already exists
@@ -48,7 +74,7 @@ public class UserService {
     if (!userDetailsManager.userExists(login)) { //case user doesn't exist
       return 0;
     }else{
-      UserDetails userDetails = userDetailsService.loadUserByUsername(login);
+      UserDetails userDetails = userDetailsManager.loadUserByUsername(login);
       if (!passwordEncoder.matches(password, userDetails.getPassword())) { //case incorrect password
         return 1;
       }

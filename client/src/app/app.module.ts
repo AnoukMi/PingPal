@@ -1,8 +1,12 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ApiModule, Configuration } from './api';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule } from '@angular/forms';
+
 import { PageSignInComponent } from './components/page-sign-in/page-sign-in.component';
 import { PageSignUpComponent } from './components/page-sign-up/page-sign-up.component';
 import { PageHomeComponent } from './components/page-home/page-home.component';
@@ -55,7 +59,15 @@ import { LeftSideComponent } from './components/left-side/left-side.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule,
+    // To avoid CORS issues and limitations, we use an Angular reverse proxy to access the server API
+    // (see proxy-config.json: it specifies that all HTTP calls to /serverapi/* URLs should be redirected to the server API at http://localhost:8080/*)
+    // Here we configure the generated API client for it to use this base path.
+    ApiModule.forRoot(() => new Configuration({ basePath: '/serverapi' }))
+
   ],
   providers: [],
   bootstrap: [AppComponent]

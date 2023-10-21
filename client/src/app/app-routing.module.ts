@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { authGuard } from "./guards/auth.guard";
 import {PageConversationComponent} from "./components/page-conversation/page-conversation.component";
 import {PageNotFoundComponent} from "./components/page-not-found/page-not-found.component";
 import {PageHomeComponent} from "./components/page-home/page-home.component";
@@ -16,7 +17,8 @@ const routes: Routes = [
   {path: 'signUp',
     component:PageSignUpComponent}, //page d'inscription
   {path: 'home', //quand l'utilisateur est sur ou rentre l' url avec /home
-    component:PageHomeComponent},
+    component:PageHomeComponent,
+    canActivate: [authGuard]}, //appelle fonction de garde avant de charger page home pour vérifier autorisation d'accès
   {path: 'myFriends',
     component:PageMyFriendsComponent}, //page des contacts amis enregistrés
   {path: 'newMessage', //page pour commencer une nouvelle conversation
@@ -44,3 +46,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
+
