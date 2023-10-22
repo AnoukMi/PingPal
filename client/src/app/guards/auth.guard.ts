@@ -20,7 +20,7 @@ export const authGuard: CanActivateFn = (route, state) => {
         return true;
 
       // If not set, the user is not authenticated: redirect to the signin page (set the return URL to guarded route)
-      router.navigate(['signin'], { queryParams: { returnURL: state.url } });
+      router.navigate(['signIn'], { queryParams: { returnURL: state.url } });
       return false;
     })
   );

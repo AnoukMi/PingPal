@@ -29,7 +29,7 @@ export class PageSignUpComponent {
       .subscribe({
       next: _ => {
         // Return to signin
-        this.router.navigate(['signIn']);
+        this.router.navigate([this.route.snapshot.queryParams['returnURL'] || 'signIn']);
       },
       error: err => {
         this.error = err.error.message || err.message;

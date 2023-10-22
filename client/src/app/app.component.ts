@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CurrentUser, UserService } from "./api";
+import { CurrentUser, UserService } from "./services/user.service";
 
 
 @Component({
@@ -9,7 +9,6 @@ import { CurrentUser, UserService } from "./api";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'actionnable_mockup';
   currentUser: CurrentUser = undefined;
 
   constructor(private userService: UserService, protected router: Router) {
@@ -18,7 +17,7 @@ export class AppComponent {
   }
 
   signout() {
-    this.userService.signout().subscribe(_ => this.router.navigate(['/signin']));
+    this.userService.signout().subscribe(_ => this.router.navigate(['signIn']));
   }
 
 

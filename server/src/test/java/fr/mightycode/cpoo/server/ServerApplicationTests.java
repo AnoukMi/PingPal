@@ -63,7 +63,7 @@ class ServerApplicationTests {
     webClient.post()
             .uri("/user/signin")
             .contentType(APPLICATION_JSON)
-            .content("""
+            .bodyValue("""
         {
           "login": "user",
           "password": "invalid",
