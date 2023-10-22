@@ -101,7 +101,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-  /user/conversations:
+  /user/conversation/conversations:
     get:
       summary: Retrieve all conversations (headers) between the current user and others
       tags:
@@ -201,7 +201,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
 
-  /user/{userID}/messages:
+  /user/message/{userID}/messages:
     get:
       summary: Retrieve all messages in a given conversation
       tags:
@@ -232,7 +232,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-  /user/{userID}/message:
+  /user/message/{userID}/newMessage:
     post:
       summary: Send a new message to a given user
       tags:
@@ -268,7 +268,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
 
-  /user/conversation/{userID}/{msgID}:
+  /user/message/{userID}/{msgID}:
     patch:
       summary: Modify a certain message already sent
       tags:
@@ -616,7 +616,7 @@ components:
         - recipientID
         - content
     MessageDTO:
-      allOf :
+      allOf:
         - $ref: '#/components/schemas/MessageReducedDTO'
         - type: object
           properties:
@@ -629,7 +629,7 @@ components:
               type: string
               description: Username (userID) of the writer if it's a registered user of the app
               example: ambre_lv
-            autorAddress :
+            autorAddress:
               type: string
               description: PeerAddress of the writer
               example: alv@domain
@@ -642,7 +642,7 @@ components:
               type: boolean
               description: True if message has been edited, false otherwise
               example: false
-          required :
+          required:
             - msgID
             - autorAddress
             - date

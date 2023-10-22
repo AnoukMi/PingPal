@@ -26,7 +26,7 @@ public class ProfileController {
     private final ProfileService profileService;
 
     @PostMapping(value = "shareMessage", consumes = MediaType.APPLICATION_JSON_VALUE) //post a new status
-    public void postSharedMessage(@RequestBody String messageToSharen, final Principal user) {
+    public void postSharedMessage(@RequestBody String messageToShare, final Principal user) {
         String loggedUser = user.getName();
         try {
             if(!profileService.saveSharedMessage(messageToShare, loggedUser)) //false if message.length>=200

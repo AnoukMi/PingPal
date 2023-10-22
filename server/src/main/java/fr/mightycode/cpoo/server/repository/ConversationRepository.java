@@ -3,5 +3,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ConversationRepository extends JpaRepository<ConversationDTO, Long>{
-
+    List<ConversationDTO> findByFromOrToIgnoreCaseOrderByTimestampDesc(String userAddress);
 }

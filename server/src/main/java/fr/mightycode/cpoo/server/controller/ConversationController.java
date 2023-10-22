@@ -13,7 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("user/conversation")
 @AllArgsConstructor
 @CrossOrigin
 public class ConversationController {
@@ -25,11 +25,23 @@ public class ConversationController {
     private final MessageService messageService;
 
 
-/**
- * Create a new (empty) conversation with a given user
- *
- */
-    @PostMapping(value = "conversation/{user}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    /**
+     * Retrieve all conversations of a given user
+     * @param user The user login
+     * @return The list of all conversations
+     */
+    @GetMapping(value = "conversations", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<ConversationDTO> listConversationsGet(final Principal user){
+        return conversationService.getConversations(user.getName());
+    }
+}
+
+    /**
+     * Create a new (empty) conversation with a given user
+     * @param user User ID to create a conversation with
+     * @return
+     */
+    @PostMapping(value = "{user}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ConversationDTO> createEmptyConversation(@PathVariable String user) {
         try {
@@ -42,21 +54,31 @@ public class ConversationController {
         }
     }
 
-/**
- * Delete a message already sent
- *
- */
-    @DeleteMapping(value = "conversation/{user}/{msgID}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void deleteSentMessage(@PathVariable string user, @PathVariable Long msgID){
+    /**
+     * Search and get an existing conversation with a given user
+     * @param user The given user login
+     * @return The conversationDTO that corresponds
+     */
+    @GetMapping(value = "{user}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ConversationDTO getOneConversation(@PathVariable String user){
         try {
-            MessageDTO message = messageService.getMessageById(msgID);
-
-            if(message == null){
-                // Lancer une exception
-            }else{
-                messageService.deleteSentMessage(message);
-            }
+            return conversationService.getOneConversation(user);
+        } catch(NoSuchElementException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
     }
 
-}
+    /**
+     * Delete an existing conversation with a given user
+     * @param user The given user login
+     */
+    @DeleteMapping(value = "{user}")
+    public void deleteOneConversation(@PathVariable String user){
+        try {
+            return conversationService.deleteConversation(user);
+        } catch(NoSuchElementException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        }
+    }
+
+
