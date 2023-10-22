@@ -630,15 +630,15 @@ components:
         - type: object
           properties:
             msgID:
-              type: integer
-              format: int64
-              description: ID of the message in the list of messages
-              example: 1029374
-            autorID:
+              type: string
+              format: UUID
+              description: UUID of the message in the list of messages
+              example: 550e8400-e29b-41d4-a716-446655440000
+            authorID:
               type: string
               description: Username (userID) of the writer if it's a registered user of the app
               example: ambre_lv
-            autorAddress:
+            authorAddress:
               type: string
               description: PeerAddress of the writer
               example: alv@domain
@@ -653,7 +653,7 @@ components:
               example: false
           required:
             - msgID
-            - autorAddress
+            - authorAddress
             - date
             - edited
     ContactProfileDTO:
