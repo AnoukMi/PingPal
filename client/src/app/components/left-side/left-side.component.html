@@ -1,6 +1,6 @@
-<div class="username"><b>IVAMBRE</b></div>
+<div class="username"><b>{{this.login}}</b></div>
 <div class="user_bloc">
-  <div class="usernameName"><b>Ambre Léveillé</b></div>
+  <div class="usernameName"><b>{{this.firstname}} {{this.lastname}}</b></div>
   <img style="position:relative; top:-10%; left: 4%; width:30%;height:90%;" src="assets/avatar/f3.png" />
 
   <a routerLink="newMessage"> <!--avec icone svg-->
@@ -23,7 +23,7 @@
   text-align: center; top: 57.2%; left: 50%;">Share a message</div>
   </a>
 
-  <a routerLink="signIn">
+  <a routerLink="signIn" (click)="signout()">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <span class="material-symbols-outlined" style="position: relative; top:30%; left :3.6%; margin-left: -6px; color:#813641; width:17px; height:17px">logout</span>
     <div class="text_global" style="position: absolute; font-size: 16px; color: #813641;
@@ -37,7 +37,7 @@
        style="position:absolute;left:5.6%;margin-left:6px;top:25%">
     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
   </svg>
-  <app-user-writing-frame [placeholder]="'Search'" [type] = "'text'"></app-user-writing-frame>
+  <app-user-writing-frame [placeholder]="'Search'" [type]="'text'"></app-user-writing-frame>
 </div>
 
 <div class="conversations">

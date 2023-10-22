@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, Subject } from "rxjs";
 import { AuthenticationService, ProfileService, FullUserDTO } from "../api";
+import { HttpClient } from '@angular/common/http';
 
 
 // Information about the current user of the app:
@@ -143,4 +144,35 @@ export class UserService {
   getCurrentUserAddress() {
     return this._currentUser?.login + '@pingpal';
   }
+
+  /**
+   * Get the login of the signed-in user.
+   * @return login of the user if signed-in, null if not signed-in, or undefined if unknown.
+   */
+  getLogin(): Observable<string | null | undefined> {
+    return this.currentUser.pipe(
+      map(user => user ? user.login : null)
+    );
+  }
+
+  /**
+   * Get the firstname of the signed-in user.
+   * @return firstname of the user if signed-in, null if not signed-in, or undefined if unknown.
+   */
+  getFirstname(): Observable<string | null | undefined> {
+    return this.currentUser.pipe(
+      map(user => user ? user.firstname : null)
+    );
+  }
+
+  /**
+   * Get the lastname of the signed-in user.
+   * @return lastname of the user if signed-in, null if not signed-in, or undefined if unknown.
+   */
+  getLastname(): Observable<string | null | undefined> {
+    return this.currentUser.pipe(
+      map(user => user ? user.lastname : null)
+    );
+  }
+
 }

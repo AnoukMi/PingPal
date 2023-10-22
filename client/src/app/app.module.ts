@@ -2,7 +2,14 @@ import {NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ApiModule, Configuration } from './api';
+import {
+  ApiModule,
+  AuthenticationService,
+  Configuration,
+  ContactService,
+  ConversationService, MessageService,
+  ProfileService
+} from './api';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from "@angular/forms";
 import { FormsModule } from '@angular/forms';
@@ -20,7 +27,7 @@ import { ToolBarUserComponent } from './components/tool-bar-user/tool-bar-user.c
 import { ContactConversationBoxComponent } from './components/contact-conversation-box/contact-conversation-box.component';
 import { InterlocutorBubbleComponent } from './components/interlocutor-bubble/interlocutor-bubble.component';
 import { UserBubbleComponent } from './components/user-bubble/user-bubble.component';
-import { UserWritingBoxComponent } from './components/user-writing-box/user-writing-box.component';
+import { UserWritingFrameComponent } from './components/user-writing-frame/user-writing-frame.component';
 import { FriendBoxSharedMsgComponent } from './components/friend-box-shared-msg/friend-box-shared-msg.component';
 import { DateSelectorComponent } from './components/date-selector/date-selector.component';
 import {ChatComponent} from "./components/chat/chat.component";
@@ -29,32 +36,36 @@ import {CommonModule} from "@angular/common";
 import { FriendComponent } from './components/friend/friend.component';
 import { CurrentFriendsComponent } from './components/current-friends/current-friends.component';
 import { LeftSideComponent } from './components/left-side/left-side.component';
+import {UserService} from "./services/user.service";
+import {ScrollBarComponent} from "./components/scroll-bar/scroll-bar.component";
 // import { MouseComponent } from './components/mouse/mouse.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ChatComponent,
+    ContactConversationBoxComponent,
+    CurrentConversationsComponent,
+    CurrentFriendsComponent,
+    DateSelectorComponent,
+    FriendComponent,
+    FriendBoxSharedMsgComponent,
+    InterlocutorBubbleComponent,
+    LeftSideComponent,
+    PageConversationComponent,
+    PageEditProfileComponent,
+    PageHomeComponent,
+    PageMyFriendsComponent,
+    PageNewMessageComponent,
+    PageNotFoundComponent,
+    PageShareMessageComponent,
     PageSignInComponent,
     PageSignUpComponent,
-    PageHomeComponent,
-    PageConversationComponent,
-    PageNewMessageComponent,
-    PageEditProfileComponent,
-    PageMyFriendsComponent,
-    PageShareMessageComponent,
-    PageNotFoundComponent,
+    ScrollBarComponent,
     ToolBarUserComponent,
-    ContactConversationBoxComponent,
-    InterlocutorBubbleComponent,
     UserBubbleComponent,
-    UserWritingBoxComponent,
-    FriendBoxSharedMsgComponent,
-    DateSelectorComponent,
-    ChatComponent,
-    CurrentConversationsComponent,
-    FriendComponent,
-    CurrentFriendsComponent,
-    LeftSideComponent, //MouseComponent,
+    UserWritingFrameComponent,
+     //MouseComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,7 +80,7 @@ import { LeftSideComponent } from './components/left-side/left-side.component';
     ApiModule.forRoot(() => new Configuration({ basePath: '/serverapi' }))
 
   ],
-  providers: [],
+  providers: [AuthenticationService, ProfileService, ConversationService, MessageService,ContactService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

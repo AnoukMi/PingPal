@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserWritingBoxComponent } from './user-writing-box.component';
+import { UserWritingFrameComponent } from './user-writing-frame.component';
 
 describe('UserWritingFrameComponent', () => {
-  let component: UserWritingBoxComponent;
-  let fixture: ComponentFixture<UserWritingBoxComponent>;
+  let component: UserWritingFrameComponent;
+  let fixture: ComponentFixture<UserWritingFrameComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [UserWritingBoxComponent]
+      declarations: [UserWritingFrameComponent]
     });
-    fixture = TestBed.createComponent(UserWritingBoxComponent);
+    fixture = TestBed.createComponent(UserWritingFrameComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
