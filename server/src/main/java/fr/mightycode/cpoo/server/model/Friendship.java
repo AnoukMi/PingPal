@@ -1,6 +1,5 @@
 package fr.mightycode.cpoo.server.model;
 
-import fr.mightycode.cpoo.server.service.RouterService;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,9 +13,9 @@ public class Friendship {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserData user;
 
     @ManyToOne
     @JoinColumn(name = "friend_id")
-    private User friend;
+    private UserData friend;
 }

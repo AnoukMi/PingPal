@@ -1,48 +1,29 @@
 package fr.mightycode.cpoo.server.service;
 
+import fr.mightycode.cpoo.server.dto.FullUserDTO;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import fr.mightycode.cpoo.server.model.User;
+import fr.mightycode.cpoo.server.model.UserData;
 import fr.mightycode.cpoo.server.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ProfileService {
+    @Autowired //pour partager un userRepository commun aux autres services
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
-    /**
-     * Store a new user (create a new user account)
-     * Used in UserController.java (signup)
-     *
-     * @param all parameters of an user
-     */
-    public void createUser(String login, int icon, String firstname, String lastname, LocalDate birthday, String address) {
-        List<User> friends = new Arraylist<User>();
-        User user = new User(login,icon,firstname,lastname,birthday,address, null, friends);
-        userRepository.save(user);
-    }
-
-    /**
-     * Delete an user account
-     * Used in UserController.java (delete)
-     *
-     * @param login The username of the user to delete
-     */
-    public void deleteUser(String login){
-        userRepository.deleteById(login);
-    }
+    private final UserDetailsManager userDetailsManager;
 
     /**
      * Store a public (shared) short message
@@ -50,7 +31,7 @@ public class ProfileService {
      * @param message The message to store
      */
     public boolean saveSharedMessage(String message, String userId) {
-        User user = userRepository.findByLogin(userId);
+        UserData user = userRepository.findByLogin(userId);
         if(message.length()<200){ //checke if not too long
             user.setSharedMessage(message); //update message
             userRepository.save(user); //save update to user
@@ -66,7 +47,7 @@ public class ProfileService {
      * @param userId The login of the user
      */
     public boolean deleteSharedMessage(String userId) {
-        User user = userRepository.findByLogin(userId);
+        UserData user = userRepository.findByLogin(userId);
         if (user.getSharedMessage() != null && !user.getSharedMessage().isEmpty()) { //checke if not already null or empty
             user.setSharedMessage(null); //reset message
             userRepository.save(user); //update user with resetting
@@ -82,7 +63,9 @@ public class ProfileService {
      * @param userId The login of the user
      */
     public FullUserDTO getUserFullProfile(String userId) {
-        User user = userRepository.findByLogin(userId);
+        UserData user = userRepository.findByLogin(userId);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //to convert LocalDate to String
+        String birthdayString = user.getBirthday().format(formatter);
         FullUserDTO userFull = new FullUserDTO(
                user.getLogin(),
                "", //doesn't give password
@@ -90,7 +73,7 @@ public class ProfileService {
                user.getIcon(),
                user.getFirstname(),
                user.getLastname(),
-               user.getBirthday(),
+               birthdayString,
                user.getAddress()
             );
        return userFull; //give all user informations
@@ -102,9 +85,9 @@ public class ProfileService {
      * @param all common parameters of FullUserDTO and User
      */
     public boolean editProfile(String userId, String password, int icon, String firstname, String lastname, LocalDate birthday, String address) throws ServletException {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(userId);
+        UserDetails userDetails = userDetailsManager.loadUserByUsername(userId);
         if (passwordEncoder.matches(password, userDetails.getPassword())) { //checke password to securize editing
-            User user = userRepository.findByLogin(userId);
+            UserData user = userRepository.findByLogin(userId);
             user.setIcon(icon);
             user.setFirstname(firstname);
             user.setLastname(lastname);

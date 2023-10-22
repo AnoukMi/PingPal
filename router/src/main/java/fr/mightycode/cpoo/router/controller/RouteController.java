@@ -11,12 +11,8 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class RouteController {
-
-  private static final Logger logger = LoggerFactory.getLogger(RouteController.class);
-
   @Autowired
   RouterService routerService;
-
   @MessageMapping("/route")
   public void route(Message message, StompHeaderAccessor accessor) {
     routerService.routeMessage(message, accessor);
