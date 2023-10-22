@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { UserService } from "../../api";
+import { UserService } from "../../services/user.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+
+
 
 @Component({
   selector: 'app-page-sign-up',
@@ -9,23 +12,51 @@ import { UserService } from "../../api";
 })
 
 export class PageSignUpComponent {
-  login: string ="";
-  password: string ="";
-  firstname: string ="";
-  lastname: string ="";
-  birthday: string ="";
+  // Signup form
+  signupForm: FormGroup;
   loading = false; // true if sign in is in progress
   error: string | null = null; // error to display
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) {
+
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router,
+              private formBuilder: FormBuilder) {
     console.debug('### SignupComponent()');
+    // Build the signup form with field validators
+    this.signupForm = this.formBuilder.group({
+      login: ['', Validators.required],
+      password: ['', Validators.required],
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
+    });
+  }
+
+  /**
+   * Get a given field of the signup form by its name.
+   * @param name The name of the field to get
+   * @return the field
+   */
+  getField(name: string) {
+    return this.signupForm.controls[name];
+  }
+
+  /**
+   * Check if a field of the signup form is invalid.
+   * @param name The name of the field the check
+   * @return true if the field is invalid
+   */
+  isInvalid(name: string) {
+    const field = this.getField(name);
+    return field.touched && field.errors;
   }
 
   onSubmit() {
+    // If form is invalid, cancel
+    if (this.signupForm.invalid)
+      return;
 
     // Sign in using form values
     this.loading = true;
-    this.userService.signup(this.login, this.password, false, 1, this.firstname, this.lastname, "2001-20-06", `${this.login}@pingpal`)
+    this.userService.signup(this.getField('login').value, this.getField('password').value, false, 1, this.getField('firstname').value, this.getField('lastname').value, "2001-11-06", `${this.getField('login').value}@pingpal`)
       .subscribe({
       next: _ => {
         // Return to signin
