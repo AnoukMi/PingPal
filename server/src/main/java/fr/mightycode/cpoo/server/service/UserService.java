@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 import fr.mightycode.cpoo.server.model.UserData;
+import fr.mightycode.cpoo.server.model.Conversation;
 import fr.mightycode.cpoo.server.repository.UserRepository;
 import java.time.LocalDate;
 
@@ -35,7 +36,8 @@ public class UserService {
    */
   public void createUser(String login, int icon, String firstname, String lastname, LocalDate birthday, String address) {
     List<UserData> friends = new ArrayList<UserData>();
-    UserData user = new UserData(login,icon,firstname,lastname,birthday,address, null, friends);
+    List<Conversation> conv = new ArrayList<Conversation>();
+    UserData user = new UserData(login,icon,firstname,lastname,birthday,address, null, friends, conv);
     userRepository.save(user);
   }
 

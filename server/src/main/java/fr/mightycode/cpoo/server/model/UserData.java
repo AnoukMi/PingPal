@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
 import java.util.List;
+import fr.mightycode.cpoo.server.model.Conversation;
 
 
 @Data
@@ -34,10 +35,14 @@ public class UserData {
     )
     private List<UserData> friends; //liste d'amis de l'user
 
+  @OneToMany(mappedBy = "userData")
+  private List<Conversation> conversations;
+
     public UserData() {
         // Constructeur par défaut vide (obligé)
     }
-    public UserData(String login, int icon, String firstname, String lastname, LocalDate birthday, String address, String sharedMessage, List<UserData> friends) {
+    public UserData(String login, int icon, String firstname, String lastname, LocalDate birthday, String address,
+                    String sharedMessage, List<UserData> friends, List<Conversation> conversations) {
         this.login = login;
         this.icon = icon;
         this.firstname = firstname;
@@ -46,6 +51,7 @@ public class UserData {
         this.address = address;
         this.sharedMessage = sharedMessage;
         this.friends = friends;
+        this.conversations = conversations;
     }
 
 
@@ -97,5 +103,11 @@ public class UserData {
     }
     public void setFriends(List<UserData> friends) {
         this.friends = friends;
+    }
+    public List<Conversation> getConversations(){
+      return conversations;
+    }
+    public void setConversations(List<Conversation> conversations){
+      this.conversations = conversations;
     }
 }

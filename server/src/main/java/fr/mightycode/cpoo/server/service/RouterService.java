@@ -1,4 +1,4 @@
-/*package fr.mightycode.cpoo.server.service;
+package fr.mightycode.cpoo.server.service;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
@@ -14,52 +14,55 @@ import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import org.springframework.web.socket.messaging.WebSocketStompClient;
 
+import fr.mightycode.cpoo.server.model.Message;
 import java.lang.reflect.Type;
 import java.util.UUID;
+import java.time.LocalDate;
 
 @Service
 @Slf4j
 public class RouterService {
-*/
+
   /**
    * Type of messages exchanged between domain servers.
    */
-/*
+
   public record Message(
           UUID id,      // unique id of the message
-          String from,  // sender address
-          String to,    // recipient address
-          String type,  // MIME type of the body
-          String body   // body (BASE64 encoded for binary types)
+          String recipient, // recipient address
+          String content, // content of the message
+          String author,    // sender login
+          String authorAddress, // sender address
+          LocalDate date,  // date when the message was sent
+          boolean edited // true if the message was edited by the sender
   ) {
   }
-*/
+
   /**
    * This interface is used by the router service to notify the domain server about incoming messages.
    * It must be implemented as a @Component or @Service, so that it can be injected automatically at service
    * creation time.
    */
-/*
+
   public interface MessageListener {
-*/
+
     /**
      * @return The name of the domain to listen.
      */
-      /*
+
     String getServerDomain();
-            */
+
     /**
      * @return The URL of the router.
      */
-      /*
+
     String getRouterUrl();
-            */
+
     /**
      * Notify the listener about an incoming message for its domain.
      *
      * @param message The incoming message.
      */
-      /*
     void onMessageReceived(Message message);
   }
 
@@ -127,14 +130,14 @@ public class RouterService {
     log.info("Trying to connect to router {}...", messageListener.getRouterUrl());
     webSocketStompClient.connectAsync(messageListener.getRouterUrl(), routerStompSessionHandler);
   }
-*/
+
   /**
    * Route a message to its recipient's domain server
    * (i.e. the domain specified in the 'to' property of the message).
    *
    * @param message The message to route
    */
-  /*
+
   public void routeMessage(Message message) {
     log.info("Routing message {}", message);
     StompSession stompSession = routerStompSessionHandler.getStompSession();
@@ -145,4 +148,3 @@ public class RouterService {
     stompSession.send("/router/route", message);
   }
 }
-*/
