@@ -17,7 +17,7 @@ import org.springframework.http.HttpStatus;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("user")
 @RequiredArgsConstructor
 @CrossOrigin
 
@@ -25,7 +25,7 @@ public class ProfileController {
 
     private final ProfileService profileService;
 
-    @PostMapping(value = "/shareMessage", consumes = MediaType.APPLICATION_JSON_VALUE) //post a new status
+    @PostMapping(value = "shareMessage", consumes = MediaType.APPLICATION_JSON_VALUE) //post a new status
     public void postSharedMessage(@RequestBody String messageToShare, final Principal user) {
         String loggedUser = user.getName();
         try {
@@ -36,7 +36,7 @@ public class ProfileController {
         }
     }
 
-    @DeleteMapping(value = "/shareMessage") //reset a shared message (make it null)
+    @DeleteMapping(value = "shareMessage") //reset a shared message (make it null)
     public void deleteSharedMessage(final Principal user) {
         String loggedUser = user.getName();
         try {
@@ -47,7 +47,7 @@ public class ProfileController {
         }
     }
 
-    @GetMapping(value = "/profile", produces = MediaType.APPLICATION_JSON_VALUE) //return all user informations
+    @GetMapping(value = "profile", produces = MediaType.APPLICATION_JSON_VALUE) //return all user informations
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<FullUserDTO> getLoggedUserProfile(final Principal user) {
         String loggedUser = user.getName(); //give the login of the logged user
@@ -59,11 +59,11 @@ public class ProfileController {
         }
     }
 
-    @PatchMapping(value = "/profile", consumes = MediaType.APPLICATION_JSON_VALUE) //edit the user informations
+    @PatchMapping(value = "profile", consumes = MediaType.APPLICATION_JSON_VALUE) //edit the user informations
     public void editLoggedUserProfile(@RequestBody final FullUserDTO user) {
         try {
             String birthday = user.birthday();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //to convert string date to LocalDate type
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy"); //to convert string date to LocalDate type
             if(!profileService.editProfile(user.login(),
                     user.password(),
                     user.icon(),

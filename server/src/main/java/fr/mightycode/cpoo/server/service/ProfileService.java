@@ -64,7 +64,7 @@ public class ProfileService {
      */
     public FullUserDTO getUserFullProfile(String userId) {
         UserData user = userRepository.findByLogin(userId);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //to convert LocalDate to String
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy"); //to convert LocalDate to String
         String birthdayString = user.getBirthday().format(formatter);
         FullUserDTO userFull = new FullUserDTO(
                user.getLogin(),

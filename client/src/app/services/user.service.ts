@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, Subject } from "rxjs";
-import { AuthenticationService, ProfileService, FullUserDTO } from "../api";
+import { AuthenticationService, ProfileService, FullUserDTO, UserDTO } from "../api";
+import { HttpClient } from '@angular/common/http';
 
 
 // Information about the current user of the app:
@@ -103,6 +104,28 @@ export class UserService {
     );
   }
 
+  delete(login: string, password: string, remember: boolean) {
+    console.debug(`### deleting ${login}...`);
+    return this.authenticationService.userDeleteDelete({ login, password, remember }).pipe(
+      map(_ => {
+        console.debug('### deleted account :', login);
+        this.signout(); //log out while deleting
+        return;
+      }),
+      catchError(error => {
+        if (error.status === 404) {
+          console.debug('### this user doesn\'t exist');
+          return of(void 0);
+        }
+        if (error.status === 401) {
+          console.debug('### password error');
+          return of(void 0);
+        }
+        throw error;
+      })
+    );
+  }
+
   /**
    * Wrapper of the GET /user/profile endpoint.
    */
@@ -142,5 +165,51 @@ export class UserService {
    */
   getCurrentUserAddress() {
     return this._currentUser?.login + '@pingpal';
+  }
+
+  /**
+   * Get the login of the signed-in user.
+   * @return login of the user if signed-in, null if not signed-in, or undefined if unknown.
+   */
+  getLogin(): Observable<string | null | undefined> {
+    return this.currentUser.pipe(
+      map(user => user ? user.login : null)
+    );
+  }
+
+  /**
+   * Get the firstname of the signed-in user.
+   * @return firstname of the user if signed-in, null if not signed-in, or undefined if unknown.
+   */
+  getFirstname(): Observable<string | null | undefined> {
+    return this.currentUser.pipe(
+      map(user => user ? user.firstname : null)
+    );
+  }
+
+  /**
+   * Get the lastname of the signed-in user.
+   * @return lastname of the user if signed-in, null if not signed-in, or undefined if unknown.
+   */
+  getLastname(): Observable<string | null | undefined> {
+    return this.currentUser.pipe(
+      map(user => user ? user.lastname : null)
+    );
+  }
+
+  /**
+   * Get the icon number of the signed-in user.
+   * @return icon of the user if signed-in, null if not signed-in, or undefined if unknown.
+   */
+  getIcon(): Observable<number | null | undefined> {
+    return this.currentUser.pipe(
+      map(user => user ? user.icon : null)
+    );
+  }
+
+  getBirthday(): Observable<string | null | undefined> {
+    return this.currentUser.pipe(
+      map(user => user ? user.birthday : null)
+    );
   }
 }
