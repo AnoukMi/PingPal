@@ -8,534 +8,572 @@ info:
   title: CPOO Server API
   version: 0.0.1
 servers:
-  - url: http://localhost:8080/
+- url: http://localhost:8080/
 security:
-  - CookieAuth: [ ]
+- CookieAuth: []
 tags:
-  - name: authentication
-    description: User's authentication management
-  - name: conversation
-    description: User's conversations management
-  - name: message
-    description: User's messages management
-  - name: profile
-    description: User's profile informations management
-  - name: contact
-    description: User's contacts management
-
+- description: User's authentication management
+  name: authentication
+- description: User's conversations management
+  name: conversation
+- description: User's messages management
+  name: message
+- description: User's profile information management
+  name: profile
+- description: User's contacts management
+  name: contact
 paths:
   /user/signup:
     post:
-      security: [ ]
-      tags:
-        - authentication
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/FullUserDTO'
+        required: true
       responses:
-        '200':
+        "200":
           description: Success
-        '409':
-          description: Conflict, a user account with the same login already exists
+        "409":
+          description: "Conflict, a user account with the same login already exists"
         default:
-          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
+          description: Error
+      security: []
+      tags:
+      - authentication
+      x-content-type: application/json
+      x-accepts: application/json
   /user/signin:
     post:
-      security: [ ]
-      tags:
-        - authentication
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UserDTO'
+        required: true
       responses:
-        '200':
+        "200":
           description: Success
           headers:
             Set-Cookie:
+              explode: false
               schema:
                 type: string
-        '401':
-          description: Unauthorized, invalid login or password
-        '409':
-          description: Conflict, user already signed in (the session cookie is valid)
+              style: simple
+        "401":
+          description: "Unauthorized, invalid login or password"
+        "409":
+          description: "Conflict, user already signed in (the session cookie is valid)"
         default:
-          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
+          description: Error
+      security: []
+      tags:
+      - authentication
+      x-content-type: application/json
+      x-accepts: application/json
   /user/signout:
     post:
-      tags:
-        - authentication
       responses:
-        '200':
+        "200":
           description: Success
         default:
-          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
+          description: Error
+      tags:
+      - authentication
+      x-accepts: application/json
   /user/delete:
     delete:
-      tags:
-        - authentication
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UserDTO'
+        required: true
       responses:
-        '200':
+        "200":
           description: Success
-        '401':
-          description: Unauthorized, invalid password
-        '404':
+        "401":
+          description: "Unauthorized, invalid password"
+        "404":
           description: Current user not found
         default:
-          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-  /user/conversations:
-    get:
-      summary: Retrieve all conversations (headers) between the current user and others
+          description: Error
       tags:
-        - conversation
+      - authentication
+      x-content-type: application/json
+      x-accepts: application/json
+  /user/conversation/conversations:
+    get:
       responses:
-        '200':
-          description: Provide the list of the conversations between the user and others
+        "200":
           content:
             application/json:
               schema:
-                type: array
                 items:
                   $ref: '#/components/schemas/ConversationDTO'
+                type: array
+          description: Provide the list of the conversations between the user and
+            others
+        "400":
+          description: Bad request
         default:
-          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-  /user/conversation/{user}:
-    post:
-      summary: Create a new (empty) conversation with a given user
+          description: Error
+      summary: Retrieve all conversations (headers) between the current user and others
       tags:
-        - conversation
+      - conversation
+      x-accepts: application/json
+  /user/conversation/{user}:
+    delete:
       parameters:
-        - name: user
-          in: path
-          description: Username or peer address of the new interlocutor with whom to start a discussion
-          required: true
-          schema:
-            type: string
+      - description: Username or peer address of the interlocutor from whom we want
+          to delete the conversation
+        explode: false
+        in: path
+        name: user
+        required: true
+        schema:
+          type: string
+        style: simple
       responses:
-        '200':
-          description: Create the new conversation and return the header
+        "200":
+          description: "Success, conversation deleted"
+        "404":
+          description: UserID not found in the current user's list of conversations
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+          description: Error
+      summary: Delete an existing conversation (the header and all contained messages)
+        with a given user
+      tags:
+      - conversation
+      x-accepts: application/json
+    get:
+      parameters:
+      - description: Username or peer address of the interlocutor from whom we want
+          to retrieve the conversation
+        explode: false
+        in: path
+        name: user
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConversationDTO'
-        '404':
-          description: UserID not found in the users of the application
-        '409':
-          description: Conflict, a conversation already exists with the given UserID
+          description: Provide the header of the found conversation with the given
+            user
+        "410":
+          description: "The conversation is no more available, has been deleted"
+        "404":
+          description: UserID not found in the current user's list of conversations
         default:
-          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-    get:
+          description: Error
       summary: Search an existing conversation (the header) with a given user
       tags:
-        - conversation
+      - conversation
+      x-accepts: application/json
+    post:
       parameters:
-        - name: user
-          in: path
-          description: Username or peer address of the interlocutor from whom we want to retrieve the conversation
-          required: true
-          schema:
-            type: string
+      - description: Username or peer address of the new interlocutor with whom to
+          start a discussion
+        explode: false
+        in: path
+        name: user
+        required: true
+        schema:
+          type: string
+        style: simple
       responses:
-        '200':
-          description: Provide the header of the found conversation with the given user
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConversationDTO'
-        '410':
-          description: The conversation is no more available, has been deleted
-        '404':
-          description: UserID not found in the current user's list of conversations
+          description: Create the new conversation and return the header
+        "404":
+          description: UserID not found in the users of the application
+        "409":
+          description: "Conflict, a conversation already exists with the given UserID"
         default:
-          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-    delete:
-      summary: Delete an existing conversation (the header and all contained messages) with a given user
+          description: Error
+      summary: Create a new (empty) conversation with a given user
       tags:
-        - conversation
-      parameters:
-        - name: user
-          in: path
-          description: Username or peer address of the interlocutor from whom we want to delete the conversation
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Success, conversation deleted
-        '404':
-          description: UserID not found in the current user's list of conversations
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorDTO'
-
-  /user/{userID}/messages:
+      - conversation
+      x-accepts: application/json
+  /user/message/{userID}/messages:
     get:
-      summary: Retrieve all messages in a given conversation
-      tags:
-        - message
       parameters:
-        - name: userID
-          in: path
-          description: Username of the interlocutor with whom the messages of the conversation are exchanged
-          required: true
-          schema:
-            type: string
+      - description: Username of the interlocutor with whom the messages of the conversation
+          are exchanged
+        explode: false
+        in: path
+        name: userID
+        required: true
+        schema:
+          type: string
+        style: simple
       responses:
-        '200':
-          description: Provide the list of messages sent both by the user and his interlocutor for a given interlocutor
+        "200":
           content:
             application/json:
               schema:
-                type: array
                 items:
                   $ref: '#/components/schemas/MessageDTO'
-        '410':
-          description: The messages are no more available, have been deleted
-        '404':
+                type: array
+          description: Provide the list of messages sent both by the user and his
+            interlocutor for a given interlocutor
+        "410":
+          description: "The messages are no more available, have been deleted"
+        "404":
           description: UserID not found in the current user conversations
         default:
-          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-  /user/{userID}/message:
-    post:
-      summary: Send a new message to a given user
+          description: Error
+      summary: Retrieve all messages in a given conversation
       tags:
-        - message
-      parameters:
-        - name: userID
-          in: path
-          description: Username of the interlocutor to whom send a message
-          required: true
-          schema:
-            type: string
+      - message
+      x-accepts: application/json
+  /user/message/newMessage:
+    post:
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/MessageReducedDTO'
+        required: true
       responses:
-        '200':
-          description: Add the message to the list of messages with the given user and return the updated list
+        "200":
           content:
             application/json:
               schema:
-                type: array
                 items:
                   $ref: '#/components/schemas/MessageDTO'
-        '404':
+                type: array
+          description: Add the message to the list of messages with the given user
+            and return the updated list
+        "404":
           description: UserID not found
         default:
-          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-
-  /user/conversation/{userID}/{msgID}:
-    patch:
-      summary: Modify a certain message already sent
+          description: Error
+      summary: Send a new message to a given user
       tags:
-        - message
+      - message
+      x-content-type: application/json
+      x-accepts: application/json
+  /user/message/{msgID}:
+    delete:
       parameters:
-        - name: userID
-          in: path
-          description: Username or peer address of the interlocutor from whom we want to modify the message
-          required: true
-          schema:
-            type: string
-        - name: msgID
-          in: path
-          description: ID of the message to modify in the list of messages
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - description: ID of the message to delete in the list of messages
+        explode: false
+        in: path
+        name: msgID
+        required: true
+        schema:
+          format: UUID
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: "Success, message deleted"
+        "410":
+          description: "The message is no more available, has been deleted"
+        "404":
+          description: msgID not found in the list of messages
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+          description: Error
+      summary: Delete a message already sent
+      tags:
+      - message
+      x-accepts: application/json
+    patch:
+      parameters:
+      - description: ID of the message to modify in the list of messages
+        explode: false
+        in: path
+        name: msgID
+        required: true
+        schema:
+          format: UUID
+          type: string
+        style: simple
       requestBody:
-        description: New content of the message
         content:
           application/json:
             schema:
               type: string
+        description: New content of the message
       responses:
-        '200':
-          description: Success, return modified message
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/MessageDTO'
-        '410':
-          description: The message is no more available, has been deleted
-        '404':
+          description: "Success, return modified message"
+        "410":
+          description: "The message is no more available, has been deleted"
+        "404":
           description: msgID not found in the list of messages
         default:
-          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-    delete:
-      summary: Delete a message already sent
+          description: Error
+      summary: Modify a certain message already sent
       tags:
-        - message
-      parameters:
-        - name: userID
-          in: path
-          description: Username or peer address of the interlocutor from whom we want to delete the message
-          required: true
-          schema:
-            type: string
-        - name: msgID
-          in: path
-          description: ID of the message to delete in the list of messages
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: Success, message deleted
-        '410':
-          description: The user or the message is no more available, has been deleted
-        '404':
-          description: UserID or msgID not found in the list of messages
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorDTO'
+      - message
+      x-content-type: application/json
+      x-accepts: application/json
   /user/shareMessage:
-    post:
-      summary: Post a new public message ("status") for all the current user friends and remove the previous one
+    delete:
+      responses:
+        "200":
+          description: "Success, delete the message"
+        "410":
+          description: "No shared message to delete, already empty"
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+          description: Error
+      summary: Remove the previous shared message to make it empty
       tags:
-        - profile
+      - profile
+      x-accepts: application/json
+    post:
       requestBody:
-        required: true
         content:
           application/json:
             schema:
-              type: string
               description: Content of the message to share
-              example : "Hello everybody"
+              example: Hello everybody
+              type: string
+        required: true
       responses:
-        '200':
-          description: Success, reset the previous post and share the message
-        '400':
-          description: Error, the message is too long
+        "200":
+          description: "Success, reset the previous post and share the message"
+        "400":
+          description: "Error, the message is too long"
         default:
-          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-    delete:
-      summary: Remove the previous shared message to make it empty
+          description: Error
+      summary: Post a new public message ("status") for all the current user friends
+        and remove the previous one
       tags:
-        - profile
-      responses:
-        '200':
-          description: Success, delete the message
-        '410':
-          description: No shared message to delete, already empty
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorDTO'
+      - profile
+      x-content-type: application/json
+      x-accepts: application/json
   /user/profile:
     get:
-      summary: Get the current information about the logged user
-      tags:
-        - profile
       responses:
-        '200':
-          description: Success, profile retrieved and returned
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/FullUserDTO'
+          description: "Success, profile retrieved and returned"
         default:
-          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-    patch:
-      summary: Update information about the user
+          description: Error
+      summary: Get the current information about the logged user
       tags:
-        - profile
+      - profile
+      x-accepts: application/json
+    patch:
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/FullUserDTO'
+        required: true
       responses:
-        '200':
-          description: Success, profile updated
-        '400':
-          description: Error, information types not valid
-        '401':
-          description: Error, unvalid authentification
+        "200":
+          description: "Success, profile updated"
+        "400":
+          description: "Error, information types not valid"
+        "401":
+          description: "Error, unvalid authentification"
         default:
-          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-  /user/friend/{userID}:
-    post:
-      summary: Add a new contact to the current user's friends
+          description: Error
+      summary: Update information about the user
       tags:
-        - contact
+      - profile
+      x-content-type: application/json
+      x-accepts: application/json
+  /user/friend/{userID}:
+    delete:
       parameters:
-        - name: userID
-          in: path
-          description: Username of the user to add
-          required: true
-          schema:
-            type: string
+      - description: Username of the friend to remove
+        explode: false
+        in: path
+        name: userID
+        required: true
+        schema:
+          type: string
+        style: simple
       responses:
-        '200':
-          description: Add the user in the list of contacts (friends) and return the header contact profil of the new friend
+        "200":
+          description: "Success, contact deleted"
+        "404":
+          description: UserID not found in the current user's list of friends
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+          description: Error
+      summary: Delete an existing contact (remove from the list of friends of the
+        current user)
+      tags:
+      - contact
+      x-accepts: application/json
+    get:
+      parameters:
+      - description: Username of the friend to search
+        explode: false
+        in: path
+        name: userID
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ContactProfileDTO'
-        '410':
+          description: Provide the header of the found contact profil of the given
+            username
+        "410":
           description: The user has been deleted
-        '404':
-          description: UserID not found in the users of the application
-        '409':
-          description: UserID already existing in the list of friends
+        "404":
+          description: UserID not found in the current user's list of friends
         default:
-          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-    get:
+          description: Error
       summary: Search an existing contact in the list of the current user's friends
       tags:
-        - contact
+      - contact
+      x-accepts: application/json
+    post:
       parameters:
-        - name: userID
-          in: path
-          description: Username of the friend to search
-          required: true
-          schema:
-            type: string
+      - description: Username of the user to add
+        explode: false
+        in: path
+        name: userID
+        required: true
+        schema:
+          type: string
+        style: simple
       responses:
-        '200':
-          description: Provide the header of the found contact profil of the given username
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ContactProfileDTO'
-        '410':
+          description: Add the user in the list of contacts (friends) and return the
+            header contact profil of the new friend
+        "410":
           description: The user has been deleted
-        '404':
-          description: UserID not found in the current user's list of friends
+        "404":
+          description: UserID not found in the users of the application
+        "409":
+          description: UserID already existing in the list of friends
         default:
-          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-    delete:
-      summary: Delete an existing contact (remove from the list of friends of the current user)
+          description: Error
+      summary: Add a new contact to the current user's friends
       tags:
-        - contact
-      parameters:
-        - name: userID
-          in: path
-          description: Username of the friend to remove
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Success, contact deleted
-        '404':
-          description: UserID not found in the current user's list of friends
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorDTO'
+      - contact
+      x-accepts: application/json
   /user/friends:
     get:
-      summary: Get the user's list of friends
-      tags:
-        - contact
       responses:
-        '200':
-          description: Success
+        "200":
           content:
             application/json:
               schema:
-                type: array
                 items:
                   $ref: '#/components/schemas/ContactProfileDTO'
+                type: array
+          description: Success
         default:
-          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-
+          description: Error
+      summary: Get the user's list of friends
+      tags:
+      - contact
+      x-accepts: application/json
 components:
   schemas:
     ErrorDTO:
-      type: object
       properties:
         timestamp:
           type: string
@@ -547,162 +585,183 @@ components:
           type: string
         path:
           type: string
-    UserDTO:
       type: object
+    UserDTO:
+      example:
+        remember: true
+        password: abc2001/n
+        login: anouk20
       properties:
         login:
-          type: string
           example: anouk20
-        password:
           type: string
+        password:
           example: abc2001/n
+          type: string
         remember:
-          type: boolean
-          description: To choose if the user wants to remember their information for next time
+          description: To choose if the user wants to remember their information for
+            next time
           example: true
+          type: boolean
       required:
-        - login
-        - password
-        - remember
+      - login
+      - password
+      - remember
+      type: object
     FullUserDTO:
       allOf:
-        - $ref: '#/components/schemas/UserDTO'
-        - type: object
-          properties:
-            icon:
-              type: integer
-              description: Number (ref) of the profile icon (image) of the user
-              example: 6
-            firstname:
-              type: string
-              example: Anouk
-            lastname:
-              type: string
-              example: Migliavacca
-            birthday:
-              type: string
-              format: date-time
-              example: 06/20/2001
-            address:
-              type: string
-              example: anouk.mi@domain
-          required:
-            - icon
-            - firstname
-            - lastname
-            - birthday
-            - address
+      - $ref: '#/components/schemas/UserDTO'
+      - properties:
+          icon:
+            description: Number (ref) of the profile icon (image) of the user
+            example: 6
+            type: integer
+          firstname:
+            example: Anouk
+            type: string
+          lastname:
+            example: Migliavacca
+            type: string
+          birthday:
+            format: date-time
+            type: string
+          address:
+            example: anouk.mi@domain
+            type: string
+        required:
+        - address
+        - birthday
+        - firstname
+        - icon
+        - lastname
+        type: object
     ConversationDTO:
-      type: object
+      example:
+        lastMessageDate: 2000-01-23T04:56:07.000+00:00
+        userID: ambre_lv
+        peerAddress: alv@domain
       properties:
         userID:
-          type: string
           description: Username of the interlocutor
           example: ambre_lv
+          type: string
         peerAddress:
-          type: string
           example: alv@domain
-        lastMessageDate:
           type: string
+        lastMessageDate:
+          description: Date of the last sent message to be able to sort conversations
+            from the newest to the oldest
           format: date-time
-          description : Date of the last sent message to be able to sort conversations from the newest to the oldest
-          example: 10/10/2023 12:30:22
+          type: string
       required:
-        - peerAddress
-        - lastMessageDate
-    MessageReducedDTO:
+      - lastMessageDate
+      - peerAddress
       type: object
+    MessageReducedDTO:
+      example:
+        recipientID: anouk20 OR anouKmi@domain
+        content: Hello friend
       properties:
         recipientID:
-          type: string
           description: Username (userID) of the interlocutor or the peerAddress
           example: anouk20 OR anouKmi@domain
-        content:
           type: string
+        content:
           description: Text contained in the message
           example: Hello friend
+          type: string
       required:
-        - recipientID
-        - content
-    MessageDTO:
-      allOf :
-        - $ref: '#/components/schemas/MessageReducedDTO'
-        - type: object
-          properties:
-            msgID:
-              type: integer
-              format: int64
-              description: ID of the message in the list of messages
-              example: 1029374
-            autorID:
-              type: string
-              description: Username (userID) of the writer if it's a registered user of the app
-              example: ambre_lv
-            autorAddress :
-              type: string
-              description: PeerAddress of the writer
-              example: alv@domain
-            date:
-              type: string
-              format: date-time
-              description: Date of the message to be able to sort messages from the newest to the oldest
-              example: 10/10/2023 12:30:22
-            edited:
-              type: boolean
-              description: True if message has been edited, false otherwise
-              example: false
-          required :
-            - msgID
-            - autorAddress
-            - date
-            - edited
-    ContactProfileDTO:
+      - content
+      - recipientID
       type: object
+    MessageDTO:
+      allOf:
+      - $ref: '#/components/schemas/MessageReducedDTO'
+      - properties:
+          msgID:
+            description: UUID of the message in the list of messages
+            example: 550e8400-e29b-41d4-a716-446655440000
+            format: UUID
+            type: string
+          authorID:
+            description: Username (userID) of the writer if it's a registered user
+              of the app
+            example: ambre_lv
+            type: string
+          authorAddress:
+            description: PeerAddress of the writer
+            example: alv@domain
+            type: string
+          date:
+            description: Date of the message to be able to sort messages from the
+              newest to the oldest
+            format: date-time
+            type: string
+          edited:
+            description: "True if message has been edited, false otherwise"
+            example: false
+            type: boolean
+        required:
+        - authorAddress
+        - date
+        - edited
+        - msgID
+        type: object
+    ContactProfileDTO:
+      example:
+        birthday: 2000-01-23T04:56:07.000+00:00
+        firstname: Ambre
+        icon: 5
+        userID: ambre_lv
+        sharedMessage: Hi everybody!
+        peerAddress: alv@domain
+        lastname: Leveille
       properties:
         userID:
-          type: string
           description: Username (userID) of the contact
           example: ambre_lv
-        peerAddress:
           type: string
+        peerAddress:
           description: E-mail address of the contact
           example: alv@domain
+          type: string
         icon:
-          type: integer
           description: Number (ref) of the profile icon (image) of the user
           example: 5
+          type: integer
         firstname:
-          type: string
           example: Ambre
+          type: string
         lastname:
-          type: string
           example: Leveille
+          type: string
         birthday:
-          type: string
           format: date-time
-          example: 01/05/2003
-        sharedMessage :
           type: string
-          description: Content of the public message (status) shared by the contact (can be empty)
+        sharedMessage:
+          description: Content of the public message (status) shared by the contact
+            (can be empty)
           example: Hi everybody!
+          type: string
       required:
-        - userID
-        - peerAddress
-        - icon
-        - firstname
-        - lastname
-        - birthday
-
+      - birthday
+      - firstname
+      - icon
+      - lastname
+      - peerAddress
+      - userID
+      type: object
   securitySchemes:
     CookieAuth:
-      type: apiKey
+      description: Use a session cookie to authenticate (see /login).
       in: cookie
       name: JSESSIONID
-      description: Use a session cookie to authenticate (see /login).
+      type: apiKey
 x-samples-languages:
-  - curl
-  - javascript
-  - node
-  - java
-  - python
-  - php
+- curl
+- javascript
+- node
+- java
+- python
+- php
+

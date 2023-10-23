@@ -4,15 +4,15 @@ All URIs are relative to *http://localhost:8080*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**userConversationUserIDMsgIDDelete**](MessageApi.md#userConversationUserIDMsgIDDelete) | **DELETE** /user/conversation/{userID}/{msgID} | Delete a message already sent |
-| [**userConversationUserIDMsgIDPatch**](MessageApi.md#userConversationUserIDMsgIDPatch) | **PATCH** /user/conversation/{userID}/{msgID} | Modify a certain message already sent |
-| [**userUserIDMessagePost**](MessageApi.md#userUserIDMessagePost) | **POST** /user/{userID}/message | Send a new message to a given user |
-| [**userUserIDMessagesGet**](MessageApi.md#userUserIDMessagesGet) | **GET** /user/{userID}/messages | Retrieve all messages in a given conversation |
+| [**userMessageMsgIDDelete**](MessageApi.md#userMessageMsgIDDelete) | **DELETE** /user/message/{msgID} | Delete a message already sent |
+| [**userMessageMsgIDPatch**](MessageApi.md#userMessageMsgIDPatch) | **PATCH** /user/message/{msgID} | Modify a certain message already sent |
+| [**userMessageNewMessagePost**](MessageApi.md#userMessageNewMessagePost) | **POST** /user/message/newMessage | Send a new message to a given user |
+| [**userMessageUserIDMessagesGet**](MessageApi.md#userMessageUserIDMessagesGet) | **GET** /user/message/{userID}/messages | Retrieve all messages in a given conversation |
 
 
-<a id="userConversationUserIDMsgIDDelete"></a>
-# **userConversationUserIDMsgIDDelete**
-> userConversationUserIDMsgIDDelete(userID, msgID)
+<a id="userMessageMsgIDDelete"></a>
+# **userMessageMsgIDDelete**
+> userMessageMsgIDDelete(msgID)
 
 Delete a message already sent
 
@@ -38,12 +38,11 @@ public class Example {
     //CookieAuth.setApiKeyPrefix("Token");
 
     MessageApi apiInstance = new MessageApi(defaultClient);
-    String userID = "userID_example"; // String | Username or peer address of the interlocutor from whom we want to delete the message
-    Long msgID = 56L; // Long | ID of the message to delete in the list of messages
+    UUID msgID = UUID.randomUUID(); // UUID | ID of the message to delete in the list of messages
     try {
-      apiInstance.userConversationUserIDMsgIDDelete(userID, msgID);
+      apiInstance.userMessageMsgIDDelete(msgID);
     } catch (ApiException e) {
-      System.err.println("Exception when calling MessageApi#userConversationUserIDMsgIDDelete");
+      System.err.println("Exception when calling MessageApi#userMessageMsgIDDelete");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -57,8 +56,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **userID** | **String**| Username or peer address of the interlocutor from whom we want to delete the message | |
-| **msgID** | **Long**| ID of the message to delete in the list of messages | |
+| **msgID** | **UUID**| ID of the message to delete in the list of messages | |
 
 ### Return type
 
@@ -77,12 +75,13 @@ null (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Success, message deleted |  -  |
-| **404** | UserID not found in the list of messages |  -  |
+| **410** | The message is no more available, has been deleted |  -  |
+| **404** | msgID not found in the list of messages |  -  |
 | **0** | Error |  -  |
 
-<a id="userConversationUserIDMsgIDPatch"></a>
-# **userConversationUserIDMsgIDPatch**
-> MessageDTO userConversationUserIDMsgIDPatch(userID, msgID, body)
+<a id="userMessageMsgIDPatch"></a>
+# **userMessageMsgIDPatch**
+> MessageDTO userMessageMsgIDPatch(msgID, body)
 
 Modify a certain message already sent
 
@@ -108,14 +107,13 @@ public class Example {
     //CookieAuth.setApiKeyPrefix("Token");
 
     MessageApi apiInstance = new MessageApi(defaultClient);
-    String userID = "userID_example"; // String | Username or peer address of the interlocutor from whom we want to modify the message
-    Long msgID = 56L; // Long | ID of the message to modify in the list of messages
+    UUID msgID = UUID.randomUUID(); // UUID | ID of the message to modify in the list of messages
     String body = "body_example"; // String | New content of the message
     try {
-      MessageDTO result = apiInstance.userConversationUserIDMsgIDPatch(userID, msgID, body);
+      MessageDTO result = apiInstance.userMessageMsgIDPatch(msgID, body);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling MessageApi#userConversationUserIDMsgIDPatch");
+      System.err.println("Exception when calling MessageApi#userMessageMsgIDPatch");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -129,8 +127,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **userID** | **String**| Username or peer address of the interlocutor from whom we want to modify the message | |
-| **msgID** | **Long**| ID of the message to modify in the list of messages | |
+| **msgID** | **UUID**| ID of the message to modify in the list of messages | |
 | **body** | **String**| New content of the message | [optional] |
 
 ### Return type
@@ -150,12 +147,13 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Success, return modified message |  -  |
+| **410** | The message is no more available, has been deleted |  -  |
 | **404** | msgID not found in the list of messages |  -  |
 | **0** | Error |  -  |
 
-<a id="userUserIDMessagePost"></a>
-# **userUserIDMessagePost**
-> List&lt;MessageDTO&gt; userUserIDMessagePost(userID, messageReducedDTO)
+<a id="userMessageNewMessagePost"></a>
+# **userMessageNewMessagePost**
+> List&lt;MessageDTO&gt; userMessageNewMessagePost(messageReducedDTO)
 
 Send a new message to a given user
 
@@ -181,13 +179,12 @@ public class Example {
     //CookieAuth.setApiKeyPrefix("Token");
 
     MessageApi apiInstance = new MessageApi(defaultClient);
-    String userID = "userID_example"; // String | Username of the interlocutor to whom send a message
     MessageReducedDTO messageReducedDTO = new MessageReducedDTO(); // MessageReducedDTO | 
     try {
-      List<MessageDTO> result = apiInstance.userUserIDMessagePost(userID, messageReducedDTO);
+      List<MessageDTO> result = apiInstance.userMessageNewMessagePost(messageReducedDTO);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling MessageApi#userUserIDMessagePost");
+      System.err.println("Exception when calling MessageApi#userMessageNewMessagePost");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -201,7 +198,6 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **userID** | **String**| Username of the interlocutor to whom send a message | |
 | **messageReducedDTO** | [**MessageReducedDTO**](MessageReducedDTO.md)|  | |
 
 ### Return type
@@ -224,9 +220,9 @@ public class Example {
 | **404** | UserID not found |  -  |
 | **0** | Error |  -  |
 
-<a id="userUserIDMessagesGet"></a>
-# **userUserIDMessagesGet**
-> List&lt;MessageDTO&gt; userUserIDMessagesGet(userID)
+<a id="userMessageUserIDMessagesGet"></a>
+# **userMessageUserIDMessagesGet**
+> List&lt;MessageDTO&gt; userMessageUserIDMessagesGet(userID)
 
 Retrieve all messages in a given conversation
 
@@ -254,10 +250,10 @@ public class Example {
     MessageApi apiInstance = new MessageApi(defaultClient);
     String userID = "userID_example"; // String | Username of the interlocutor with whom the messages of the conversation are exchanged
     try {
-      List<MessageDTO> result = apiInstance.userUserIDMessagesGet(userID);
+      List<MessageDTO> result = apiInstance.userMessageUserIDMessagesGet(userID);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling MessageApi#userUserIDMessagesGet");
+      System.err.println("Exception when calling MessageApi#userMessageUserIDMessagesGet");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -290,6 +286,7 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Provide the list of messages sent both by the user and his interlocutor for a given interlocutor |  -  |
+| **410** | The messages are no more available, have been deleted |  -  |
 | **404** | UserID not found in the current user conversations |  -  |
 | **0** | Error |  -  |
 

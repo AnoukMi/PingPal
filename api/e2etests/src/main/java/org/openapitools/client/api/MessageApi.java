@@ -30,6 +30,7 @@ import java.io.IOException;
 import org.openapitools.client.model.ErrorDTO;
 import org.openapitools.client.model.MessageDTO;
 import org.openapitools.client.model.MessageReducedDTO;
+import java.util.UUID;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -75,8 +76,7 @@ public class MessageApi {
     }
 
     /**
-     * Build call for userConversationUserIDMsgIDDelete
-     * @param userID Username or peer address of the interlocutor from whom we want to delete the message (required)
+     * Build call for userMessageMsgIDDelete
      * @param msgID ID of the message to delete in the list of messages (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -85,11 +85,12 @@ public class MessageApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, message deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> UserID not found in the list of messages </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> The message is no more available, has been deleted </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> msgID not found in the list of messages </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userConversationUserIDMsgIDDeleteCall(String userID, Long msgID, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call userMessageMsgIDDeleteCall(UUID msgID, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -106,8 +107,7 @@ public class MessageApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/user/conversation/{userID}/{msgID}"
-            .replace("{" + "userID" + "}", localVarApiClient.escapeString(userID.toString()))
+        String localVarPath = "/user/message/{msgID}"
             .replace("{" + "msgID" + "}", localVarApiClient.escapeString(msgID.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -136,43 +136,37 @@ public class MessageApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call userConversationUserIDMsgIDDeleteValidateBeforeCall(String userID, Long msgID, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'userID' is set
-        if (userID == null) {
-            throw new ApiException("Missing the required parameter 'userID' when calling userConversationUserIDMsgIDDelete(Async)");
-        }
-
+    private okhttp3.Call userMessageMsgIDDeleteValidateBeforeCall(UUID msgID, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'msgID' is set
         if (msgID == null) {
-            throw new ApiException("Missing the required parameter 'msgID' when calling userConversationUserIDMsgIDDelete(Async)");
+            throw new ApiException("Missing the required parameter 'msgID' when calling userMessageMsgIDDelete(Async)");
         }
 
-        return userConversationUserIDMsgIDDeleteCall(userID, msgID, _callback);
+        return userMessageMsgIDDeleteCall(msgID, _callback);
 
     }
 
     /**
      * Delete a message already sent
      * 
-     * @param userID Username or peer address of the interlocutor from whom we want to delete the message (required)
      * @param msgID ID of the message to delete in the list of messages (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, message deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> UserID not found in the list of messages </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> The message is no more available, has been deleted </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> msgID not found in the list of messages </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public void userConversationUserIDMsgIDDelete(String userID, Long msgID) throws ApiException {
-        userConversationUserIDMsgIDDeleteWithHttpInfo(userID, msgID);
+    public void userMessageMsgIDDelete(UUID msgID) throws ApiException {
+        userMessageMsgIDDeleteWithHttpInfo(msgID);
     }
 
     /**
      * Delete a message already sent
      * 
-     * @param userID Username or peer address of the interlocutor from whom we want to delete the message (required)
      * @param msgID ID of the message to delete in the list of messages (required)
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -180,19 +174,19 @@ public class MessageApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, message deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> UserID not found in the list of messages </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> The message is no more available, has been deleted </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> msgID not found in the list of messages </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> userConversationUserIDMsgIDDeleteWithHttpInfo(String userID, Long msgID) throws ApiException {
-        okhttp3.Call localVarCall = userConversationUserIDMsgIDDeleteValidateBeforeCall(userID, msgID, null);
+    public ApiResponse<Void> userMessageMsgIDDeleteWithHttpInfo(UUID msgID) throws ApiException {
+        okhttp3.Call localVarCall = userMessageMsgIDDeleteValidateBeforeCall(msgID, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      * Delete a message already sent (asynchronously)
      * 
-     * @param userID Username or peer address of the interlocutor from whom we want to delete the message (required)
      * @param msgID ID of the message to delete in the list of messages (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -201,19 +195,19 @@ public class MessageApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, message deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> UserID not found in the list of messages </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> The message is no more available, has been deleted </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> msgID not found in the list of messages </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userConversationUserIDMsgIDDeleteAsync(String userID, Long msgID, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call userMessageMsgIDDeleteAsync(UUID msgID, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = userConversationUserIDMsgIDDeleteValidateBeforeCall(userID, msgID, _callback);
+        okhttp3.Call localVarCall = userMessageMsgIDDeleteValidateBeforeCall(msgID, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
     /**
-     * Build call for userConversationUserIDMsgIDPatch
-     * @param userID Username or peer address of the interlocutor from whom we want to modify the message (required)
+     * Build call for userMessageMsgIDPatch
      * @param msgID ID of the message to modify in the list of messages (required)
      * @param body New content of the message (optional)
      * @param _callback Callback for upload/download progress
@@ -223,11 +217,12 @@ public class MessageApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, return modified message </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> The message is no more available, has been deleted </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> msgID not found in the list of messages </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userConversationUserIDMsgIDPatchCall(String userID, Long msgID, String body, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call userMessageMsgIDPatchCall(UUID msgID, String body, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -244,8 +239,7 @@ public class MessageApi {
         Object localVarPostBody = body;
 
         // create path and map variables
-        String localVarPath = "/user/conversation/{userID}/{msgID}"
-            .replace("{" + "userID" + "}", localVarApiClient.escapeString(userID.toString()))
+        String localVarPath = "/user/message/{msgID}"
             .replace("{" + "msgID" + "}", localVarApiClient.escapeString(msgID.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -275,25 +269,19 @@ public class MessageApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call userConversationUserIDMsgIDPatchValidateBeforeCall(String userID, Long msgID, String body, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'userID' is set
-        if (userID == null) {
-            throw new ApiException("Missing the required parameter 'userID' when calling userConversationUserIDMsgIDPatch(Async)");
-        }
-
+    private okhttp3.Call userMessageMsgIDPatchValidateBeforeCall(UUID msgID, String body, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'msgID' is set
         if (msgID == null) {
-            throw new ApiException("Missing the required parameter 'msgID' when calling userConversationUserIDMsgIDPatch(Async)");
+            throw new ApiException("Missing the required parameter 'msgID' when calling userMessageMsgIDPatch(Async)");
         }
 
-        return userConversationUserIDMsgIDPatchCall(userID, msgID, body, _callback);
+        return userMessageMsgIDPatchCall(msgID, body, _callback);
 
     }
 
     /**
      * Modify a certain message already sent
      * 
-     * @param userID Username or peer address of the interlocutor from whom we want to modify the message (required)
      * @param msgID ID of the message to modify in the list of messages (required)
      * @param body New content of the message (optional)
      * @return MessageDTO
@@ -302,19 +290,19 @@ public class MessageApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, return modified message </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> The message is no more available, has been deleted </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> msgID not found in the list of messages </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public MessageDTO userConversationUserIDMsgIDPatch(String userID, Long msgID, String body) throws ApiException {
-        ApiResponse<MessageDTO> localVarResp = userConversationUserIDMsgIDPatchWithHttpInfo(userID, msgID, body);
+    public MessageDTO userMessageMsgIDPatch(UUID msgID, String body) throws ApiException {
+        ApiResponse<MessageDTO> localVarResp = userMessageMsgIDPatchWithHttpInfo(msgID, body);
         return localVarResp.getData();
     }
 
     /**
      * Modify a certain message already sent
      * 
-     * @param userID Username or peer address of the interlocutor from whom we want to modify the message (required)
      * @param msgID ID of the message to modify in the list of messages (required)
      * @param body New content of the message (optional)
      * @return ApiResponse&lt;MessageDTO&gt;
@@ -323,12 +311,13 @@ public class MessageApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, return modified message </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> The message is no more available, has been deleted </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> msgID not found in the list of messages </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<MessageDTO> userConversationUserIDMsgIDPatchWithHttpInfo(String userID, Long msgID, String body) throws ApiException {
-        okhttp3.Call localVarCall = userConversationUserIDMsgIDPatchValidateBeforeCall(userID, msgID, body, null);
+    public ApiResponse<MessageDTO> userMessageMsgIDPatchWithHttpInfo(UUID msgID, String body) throws ApiException {
+        okhttp3.Call localVarCall = userMessageMsgIDPatchValidateBeforeCall(msgID, body, null);
         Type localVarReturnType = new TypeToken<MessageDTO>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -336,7 +325,6 @@ public class MessageApi {
     /**
      * Modify a certain message already sent (asynchronously)
      * 
-     * @param userID Username or peer address of the interlocutor from whom we want to modify the message (required)
      * @param msgID ID of the message to modify in the list of messages (required)
      * @param body New content of the message (optional)
      * @param _callback The callback to be executed when the API call finishes
@@ -346,20 +334,20 @@ public class MessageApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, return modified message </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> The message is no more available, has been deleted </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> msgID not found in the list of messages </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userConversationUserIDMsgIDPatchAsync(String userID, Long msgID, String body, final ApiCallback<MessageDTO> _callback) throws ApiException {
+    public okhttp3.Call userMessageMsgIDPatchAsync(UUID msgID, String body, final ApiCallback<MessageDTO> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = userConversationUserIDMsgIDPatchValidateBeforeCall(userID, msgID, body, _callback);
+        okhttp3.Call localVarCall = userMessageMsgIDPatchValidateBeforeCall(msgID, body, _callback);
         Type localVarReturnType = new TypeToken<MessageDTO>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
-     * Build call for userUserIDMessagePost
-     * @param userID Username of the interlocutor to whom send a message (required)
+     * Build call for userMessageNewMessagePost
      * @param messageReducedDTO  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -372,7 +360,7 @@ public class MessageApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userUserIDMessagePostCall(String userID, MessageReducedDTO messageReducedDTO, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call userMessageNewMessagePostCall(MessageReducedDTO messageReducedDTO, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -389,8 +377,7 @@ public class MessageApi {
         Object localVarPostBody = messageReducedDTO;
 
         // create path and map variables
-        String localVarPath = "/user/{userID}/message"
-            .replace("{" + "userID" + "}", localVarApiClient.escapeString(userID.toString()));
+        String localVarPath = "/user/message/newMessage";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -419,25 +406,19 @@ public class MessageApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call userUserIDMessagePostValidateBeforeCall(String userID, MessageReducedDTO messageReducedDTO, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'userID' is set
-        if (userID == null) {
-            throw new ApiException("Missing the required parameter 'userID' when calling userUserIDMessagePost(Async)");
-        }
-
+    private okhttp3.Call userMessageNewMessagePostValidateBeforeCall(MessageReducedDTO messageReducedDTO, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'messageReducedDTO' is set
         if (messageReducedDTO == null) {
-            throw new ApiException("Missing the required parameter 'messageReducedDTO' when calling userUserIDMessagePost(Async)");
+            throw new ApiException("Missing the required parameter 'messageReducedDTO' when calling userMessageNewMessagePost(Async)");
         }
 
-        return userUserIDMessagePostCall(userID, messageReducedDTO, _callback);
+        return userMessageNewMessagePostCall(messageReducedDTO, _callback);
 
     }
 
     /**
      * Send a new message to a given user
      * 
-     * @param userID Username of the interlocutor to whom send a message (required)
      * @param messageReducedDTO  (required)
      * @return List&lt;MessageDTO&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -449,15 +430,14 @@ public class MessageApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public List<MessageDTO> userUserIDMessagePost(String userID, MessageReducedDTO messageReducedDTO) throws ApiException {
-        ApiResponse<List<MessageDTO>> localVarResp = userUserIDMessagePostWithHttpInfo(userID, messageReducedDTO);
+    public List<MessageDTO> userMessageNewMessagePost(MessageReducedDTO messageReducedDTO) throws ApiException {
+        ApiResponse<List<MessageDTO>> localVarResp = userMessageNewMessagePostWithHttpInfo(messageReducedDTO);
         return localVarResp.getData();
     }
 
     /**
      * Send a new message to a given user
      * 
-     * @param userID Username of the interlocutor to whom send a message (required)
      * @param messageReducedDTO  (required)
      * @return ApiResponse&lt;List&lt;MessageDTO&gt;&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -469,8 +449,8 @@ public class MessageApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<List<MessageDTO>> userUserIDMessagePostWithHttpInfo(String userID, MessageReducedDTO messageReducedDTO) throws ApiException {
-        okhttp3.Call localVarCall = userUserIDMessagePostValidateBeforeCall(userID, messageReducedDTO, null);
+    public ApiResponse<List<MessageDTO>> userMessageNewMessagePostWithHttpInfo(MessageReducedDTO messageReducedDTO) throws ApiException {
+        okhttp3.Call localVarCall = userMessageNewMessagePostValidateBeforeCall(messageReducedDTO, null);
         Type localVarReturnType = new TypeToken<List<MessageDTO>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -478,7 +458,6 @@ public class MessageApi {
     /**
      * Send a new message to a given user (asynchronously)
      * 
-     * @param userID Username of the interlocutor to whom send a message (required)
      * @param messageReducedDTO  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -491,15 +470,15 @@ public class MessageApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userUserIDMessagePostAsync(String userID, MessageReducedDTO messageReducedDTO, final ApiCallback<List<MessageDTO>> _callback) throws ApiException {
+    public okhttp3.Call userMessageNewMessagePostAsync(MessageReducedDTO messageReducedDTO, final ApiCallback<List<MessageDTO>> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = userUserIDMessagePostValidateBeforeCall(userID, messageReducedDTO, _callback);
+        okhttp3.Call localVarCall = userMessageNewMessagePostValidateBeforeCall(messageReducedDTO, _callback);
         Type localVarReturnType = new TypeToken<List<MessageDTO>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
-     * Build call for userUserIDMessagesGet
+     * Build call for userMessageUserIDMessagesGet
      * @param userID Username of the interlocutor with whom the messages of the conversation are exchanged (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -508,11 +487,12 @@ public class MessageApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Provide the list of messages sent both by the user and his interlocutor for a given interlocutor </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> The messages are no more available, have been deleted </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> UserID not found in the current user conversations </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userUserIDMessagesGetCall(String userID, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call userMessageUserIDMessagesGetCall(String userID, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -529,7 +509,7 @@ public class MessageApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/user/{userID}/messages"
+        String localVarPath = "/user/message/{userID}/messages"
             .replace("{" + "userID" + "}", localVarApiClient.escapeString(userID.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -558,13 +538,13 @@ public class MessageApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call userUserIDMessagesGetValidateBeforeCall(String userID, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call userMessageUserIDMessagesGetValidateBeforeCall(String userID, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'userID' is set
         if (userID == null) {
-            throw new ApiException("Missing the required parameter 'userID' when calling userUserIDMessagesGet(Async)");
+            throw new ApiException("Missing the required parameter 'userID' when calling userMessageUserIDMessagesGet(Async)");
         }
 
-        return userUserIDMessagesGetCall(userID, _callback);
+        return userMessageUserIDMessagesGetCall(userID, _callback);
 
     }
 
@@ -578,12 +558,13 @@ public class MessageApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Provide the list of messages sent both by the user and his interlocutor for a given interlocutor </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> The messages are no more available, have been deleted </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> UserID not found in the current user conversations </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public List<MessageDTO> userUserIDMessagesGet(String userID) throws ApiException {
-        ApiResponse<List<MessageDTO>> localVarResp = userUserIDMessagesGetWithHttpInfo(userID);
+    public List<MessageDTO> userMessageUserIDMessagesGet(String userID) throws ApiException {
+        ApiResponse<List<MessageDTO>> localVarResp = userMessageUserIDMessagesGetWithHttpInfo(userID);
         return localVarResp.getData();
     }
 
@@ -597,12 +578,13 @@ public class MessageApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Provide the list of messages sent both by the user and his interlocutor for a given interlocutor </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> The messages are no more available, have been deleted </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> UserID not found in the current user conversations </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<List<MessageDTO>> userUserIDMessagesGetWithHttpInfo(String userID) throws ApiException {
-        okhttp3.Call localVarCall = userUserIDMessagesGetValidateBeforeCall(userID, null);
+    public ApiResponse<List<MessageDTO>> userMessageUserIDMessagesGetWithHttpInfo(String userID) throws ApiException {
+        okhttp3.Call localVarCall = userMessageUserIDMessagesGetValidateBeforeCall(userID, null);
         Type localVarReturnType = new TypeToken<List<MessageDTO>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -618,13 +600,14 @@ public class MessageApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Provide the list of messages sent both by the user and his interlocutor for a given interlocutor </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> The messages are no more available, have been deleted </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> UserID not found in the current user conversations </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userUserIDMessagesGetAsync(String userID, final ApiCallback<List<MessageDTO>> _callback) throws ApiException {
+    public okhttp3.Call userMessageUserIDMessagesGetAsync(String userID, final ApiCallback<List<MessageDTO>> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = userUserIDMessagesGetValidateBeforeCall(userID, _callback);
+        okhttp3.Call localVarCall = userMessageUserIDMessagesGetValidateBeforeCall(userID, _callback);
         Type localVarReturnType = new TypeToken<List<MessageDTO>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
