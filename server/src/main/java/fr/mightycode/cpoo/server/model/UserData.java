@@ -3,8 +3,8 @@ package fr.mightycode.cpoo.server.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import fr.mightycode.cpoo.server.model.Conversation;
 
 
 @Data
@@ -42,7 +42,7 @@ public class UserData {
         // Constructeur par défaut vide (obligé)
     }
     public UserData(String login, int icon, String firstname, String lastname, LocalDate birthday, String address,
-                    String sharedMessage, List<UserData> friends, List<Conversation> conversations) {
+                    String sharedMessage) {
         this.login = login;
         this.icon = icon;
         this.firstname = firstname;
@@ -50,8 +50,8 @@ public class UserData {
         this.birthday = birthday;
         this.address = address;
         this.sharedMessage = sharedMessage;
-        this.friends = friends;
-        this.conversations = conversations;
+        this.friends = new ArrayList<>();
+        this.conversations = new ArrayList<>();
     }
 
 
