@@ -16,7 +16,7 @@ public class Message {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "msgID", nullable = false)
-  private UUID msgID;
+  final private UUID msgID;
   @Column(name = "recipient", nullable = false)
   private String recipient;
   @Column(name = "content", nullable = false)
@@ -63,9 +63,9 @@ public class Message {
   public UUID getMsgId(){
     return this.msgID;
   }
-  public void setMsgId(UUID id){
-    this.msgID = id;
-  }
+//  public void setMsgId(UUID id){
+//    this.msgID = id;
+//  }
   public String getRecipient(){
     return recipient;
   }

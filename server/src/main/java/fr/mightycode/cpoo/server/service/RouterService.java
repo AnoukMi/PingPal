@@ -3,6 +3,7 @@ package fr.mightycode.cpoo.server.service;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.simp.stomp.StompCommand;
@@ -71,6 +72,7 @@ public class RouterService {
   public static class RouterStompSessionHandler extends StompSessionHandlerAdapter {
 
     private final WebSocketStompClient webSocketStompClient;
+
     private final MessageListener messageListener;
 
     @Getter

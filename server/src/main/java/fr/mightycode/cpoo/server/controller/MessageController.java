@@ -1,20 +1,17 @@
 package fr.mightycode.cpoo.server.controller;
+
 import fr.mightycode.cpoo.server.service.RouterService;
 
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
 import fr.mightycode.cpoo.server.dto.MessageDTO;
 import fr.mightycode.cpoo.server.dto.MessageReducedDTO;
 import fr.mightycode.cpoo.server.service.MessageService;
-import fr.mightycode.cpoo.server.service.ConversationService;
 
-import jakarta.servlet.ServletException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -39,86 +36,89 @@ public class MessageController {
     private String serverDomain;
 
     private final MessageService messageService;
-    private final ConversationService conversationService;
 
-  private final RouterService routerService;
+    private final RouterService routerService;
 
     /**
      * Retrieve all messages in a given conversation
      * @return The list of all messages
      */
-    @GetMapping(value = "message/{userID}/messages", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<MessageDTO> listMessagesGet(final Principal user) {
-        return messageService.getMessages(user.getName());
+    @GetMapping(value = "{userID}/messages", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<MessageDTO> listMessagesGet(@PathVariable final String userID) {
+        try {
+            List<MessageDTO> messages = messageService.getMessages(userID);
+          if(messages == null){
+            throw new ResponseStatusException(HttpStatus.GONE, "The messages are no more available, have been deleted");
+          }
+          return messages;
+        }catch(final Exception ex){
+          throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+        }
     }
 
 
     /**
      * Send a new message to a given user
      */
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "newMessage", consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
     public MessageDTO sendNewMessage(final Principal user, @RequestBody final MessageReducedDTO postMessage) {
+      try {
+        // A la place des lignes qui suivent, peut-être tester si le recipient existe dans la BDD
+        if (postMessage.recipient() == null) {
+          throw new ResponseStatusException(HttpStatus.NOT_FOUND, "UserID not found");
+        }
 
-      long currentTimeMillis = System.currentTimeMillis();
-      Instant instant = Instant.ofEpochMilli(currentTimeMillis);
-      LocalDate localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+        long currentTimeMillis = System.currentTimeMillis();
+        Instant instant = Instant.ofEpochMilli(currentTimeMillis);
+        LocalDate localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
 
+        // Build a router message from the MessageReducedDTO
+        RouterService.Message routerMessage = new RouterService.Message(
+          UUID.randomUUID(),
+          postMessage.recipient(),
+          postMessage.content(),
+          user.getName(),
+          user.getName() + "@" + serverDomain,
+          localDate,
+          false
+        );
 
-      // Build a router message from the MessageReducedDTO
-      RouterService.Message routerMessage = new RouterService.Message(
-        UUID.randomUUID(),
-        postMessage.recipient(),
-        postMessage.content(),
-        user.getName(),
-        user.getName() + "@" + serverDomain,
-        localDate,
-        false
-      );
+        // Route the message
+        routerService.routeMessage(routerMessage);
 
-      // Route the message
-      routerService.routeMessage(routerMessage);
-
-      // Return the message as a DTO
-      return new MessageDTO(routerMessage);
+        // Return the message as a DTO
+        return new MessageDTO(routerMessage);
+      }catch (final Exception ex) {
+        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+      }
     }
 
 
     /**
      * Delete a message already sent
      */
-    @DeleteMapping(value = "{msgID}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "{msgID}")
     public void deleteSentMessage(@PathVariable final UUID msgID) {
-      messageService.deleteSentMessage(msgID);
+      try{
+        if(!messageService.deleteSentMessage(msgID)){
+          throw new ResponseStatusException(HttpStatus.GONE, "The message is no more available, has been deleted");
+        }
+      }catch(final Exception ex){
+        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+      }
     }
 
 
   /**
      * Modify a message already sent
      */
-
-  @PatchMapping(value = "{msgID}", consumes = MediaType.APPLICATION_JSON_VALUE)
+  @PatchMapping(value = "{msgID}", produces = MediaType.APPLICATION_JSON_VALUE)
   public MessageDTO modifySentMessage(@PathVariable final UUID msgID, @RequestBody final String content) {
-    return messageService.modifySentMessage(msgID, content);
+    try{
+      return messageService.modifySentMessage(msgID, content);
+    }catch(final Exception ex){
+      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+    }
   }
-//  @PatchMapping(value = "{msgID}", consumes = MediaType.APPLICATION_JSON_VALUE,
-//    produces = MediaType.APPLICATION_JSON_VALUE)
-//  @ResponseStatus(HttpStatus.OK)
-//  public ResponseEntity<MessageDTO> modifySentMessage(@PathVariable String userID, @PathVariable Long msgID, @RequestBody final String modifiedContent) {
-//    try {
-//      MessageDTO message = messageService.getMessageById(msgID);
-//      // Vérification si le message est null
-//      if (message == null) {
-//        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The message does not exist");
-//      }
-//      // Vous pouvez maintenant appeler la méthode de modification
-//      messageService.modifySentMessage(message, modifiedContent);
-//
-//      // Si la modification réussit, vous pouvez renvoyer la nouvelle version du message
-//      return new ResponseEntity<>(message, HttpStatus.OK);
-//
-//    } catch (NoSuchElementException e) {
-//      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incorrect types for user attributes");
-//    }
-//  }
 }
-

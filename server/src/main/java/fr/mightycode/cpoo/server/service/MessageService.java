@@ -5,6 +5,7 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import fr.mightycode.cpoo.server.repository.MessageRepository;
 import fr.mightycode.cpoo.server.repository.ConversationRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import fr.mightycode.cpoo.server.model.Message;
 import fr.mightycode.cpoo.server.model.Conversation;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.NoSuchElementException;
 
@@ -39,35 +41,44 @@ public class MessageService {
       Message message = messageRepository.findByMsgID(msgID);
 
       if (message != null) {
-        MessageDTO messageDTO = new MessageDTO(message);
-        return messageDTO;
+          return new MessageDTO(message);
       } else {
-        // Gérez le cas où aucune entité n'est trouvée avec l'ID spécifié
-        return null; // ou lancez une exception, ou retournez un message d'erreur, selon vos besoins
+        return null;
       }
     }
+
+
     /**
      * Delete a message that's already sent.
-     * @param msg The message to delete
+     * @param msgID The message to delete
      */
-    public void deleteSentMessage(UUID msgID) {
-      messageRepository.deleteByMsgID(msgID);
+    public boolean deleteSentMessage(UUID msgID) {
+      if(msgID == null){
+        return false;
+      }else{
+        messageRepository.deleteByMsgID(msgID);
+        return true;
+      }
     }
 
     /**
      * Modify the content of a message that's already sent.
-     * @param msg The message to modify
+     * @param msgID The message to modify
      * @param modifiedContent The new content of the message
      */
     public MessageDTO modifySentMessage(UUID msgID, String modifiedContent){
+        // TODO : gérer le fait que le msgID n'appartienne pas à la BDD
+        // throw new ResponseStatusException(HttpStatus.NOT_FOUND, "msgID not found in the list of messages");
         Message msg = messageRepository.findByMsgID(msgID);
-        MessageDTO modifiedMsg = new MessageDTO(msgID, msg.getRecipient(), modifiedContent, msg.getAuthor(),
+        if(msg == null){
+          throw new ResponseStatusException(HttpStatus.GONE, "The message is no more available, has been deleted");
+        }
+      return new MessageDTO(msgID, msg.getRecipient(), modifiedContent, msg.getAuthor(),
           msg.getAuthorAddress(), msg.getDate(), true);
-        return modifiedMsg;
     }
 
     /**
-     * Get all messages send to or by a given user.
+     * Get all messages sent to or by a given user.
      *
      * @param login The user login
      * @return the list of messages sent to or by the user
@@ -75,7 +86,7 @@ public class MessageService {
     public List<MessageDTO> getMessages(String login) {
         List<MessageDTO> msgDTOS = new ArrayList<>();
         String userAddress = login + "@" + serverDomain;
-        Conversation conversation = conversationRepository.findByUser(userAddress);
+        Conversation conversation = conversationRepository.findByPeerAddress(userAddress);
         List<Message> messages = messageRepository.findByConversation(conversation);
         for(Message msg : messages) {
           MessageDTO msgDTO = new MessageDTO(msg.getMsgId(), msg.getRecipient(), msg.getContent(), msg.getAuthor(),
