@@ -30,6 +30,10 @@ export class PageSignUpComponent {
     });
   }
 
+  /**
+   * Change the birthday with the selected date
+   * @param birthday The birthday in the date selector
+   */
   receiptBirthChange(birthday: string){
     this.birthday=birthday;
   }
@@ -52,6 +56,11 @@ export class PageSignUpComponent {
     return field.touched && field.errors;
   }
 
+  /**
+   * Check if the date of the signup form is invalid.
+   * @param birthdate The current date selected
+   * @return true if the date is invalid (not completed)
+   */
   isInvalidDate(birthdate:string){
     const datePattern = /^\d{2}-\d{2}-\d{4}$/;
     return !datePattern.test(birthdate);

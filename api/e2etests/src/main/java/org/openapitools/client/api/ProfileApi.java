@@ -29,7 +29,6 @@ import java.io.IOException;
 
 import org.openapitools.client.model.ErrorDTO;
 import org.openapitools.client.model.FullUserDTO;
-import org.openapitools.client.model.PublicMessageDTO;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -83,7 +82,6 @@ public class ProfileApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, profile retrieved and returned </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Error, could not retrieve the current information about the user </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -138,7 +136,7 @@ public class ProfileApi {
     }
 
     /**
-     * Get the current information about the user
+     * Get the current information about the logged user
      * 
      * @return FullUserDTO
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -146,7 +144,6 @@ public class ProfileApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, profile retrieved and returned </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Error, could not retrieve the current information about the user </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -156,7 +153,7 @@ public class ProfileApi {
     }
 
     /**
-     * Get the current information about the user
+     * Get the current information about the logged user
      * 
      * @return ApiResponse&lt;FullUserDTO&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -164,7 +161,6 @@ public class ProfileApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, profile retrieved and returned </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Error, could not retrieve the current information about the user </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -175,7 +171,7 @@ public class ProfileApi {
     }
 
     /**
-     * Get the current information about the user (asynchronously)
+     * Get the current information about the logged user (asynchronously)
      * 
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -184,7 +180,6 @@ public class ProfileApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, profile retrieved and returned </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Error, could not retrieve the current information about the user </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -204,8 +199,9 @@ public class ProfileApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success, updated profile returned </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Error, could not retrieve the information updated </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Success, profile updated </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Error, information types not valid </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Error, unvalid authentification </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -269,39 +265,38 @@ public class ProfileApi {
      * Update information about the user
      * 
      * @param fullUserDTO  (required)
-     * @return FullUserDTO
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success, updated profile returned </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Error, could not retrieve the information updated </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Success, profile updated </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Error, information types not valid </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Error, unvalid authentification </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public FullUserDTO userProfilePatch(FullUserDTO fullUserDTO) throws ApiException {
-        ApiResponse<FullUserDTO> localVarResp = userProfilePatchWithHttpInfo(fullUserDTO);
-        return localVarResp.getData();
+    public void userProfilePatch(FullUserDTO fullUserDTO) throws ApiException {
+        userProfilePatchWithHttpInfo(fullUserDTO);
     }
 
     /**
      * Update information about the user
      * 
      * @param fullUserDTO  (required)
-     * @return ApiResponse&lt;FullUserDTO&gt;
+     * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success, updated profile returned </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Error, could not retrieve the information updated </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Success, profile updated </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Error, information types not valid </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Error, unvalid authentification </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<FullUserDTO> userProfilePatchWithHttpInfo(FullUserDTO fullUserDTO) throws ApiException {
+    public ApiResponse<Void> userProfilePatchWithHttpInfo(FullUserDTO fullUserDTO) throws ApiException {
         okhttp3.Call localVarCall = userProfilePatchValidateBeforeCall(fullUserDTO, null);
-        Type localVarReturnType = new TypeToken<FullUserDTO>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
+        return localVarApiClient.execute(localVarCall);
     }
 
     /**
@@ -314,16 +309,16 @@ public class ProfileApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success, updated profile returned </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Error, could not retrieve the information updated </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Success, profile updated </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Error, information types not valid </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Error, unvalid authentification </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userProfilePatchAsync(FullUserDTO fullUserDTO, final ApiCallback<FullUserDTO> _callback) throws ApiException {
+    public okhttp3.Call userProfilePatchAsync(FullUserDTO fullUserDTO, final ApiCallback<Void> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = userProfilePatchValidateBeforeCall(fullUserDTO, _callback);
-        Type localVarReturnType = new TypeToken<FullUserDTO>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
     /**
@@ -334,7 +329,8 @@ public class ProfileApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success, delete the message (also if it was already empty) </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Success, delete the message </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> No shared message to delete, already empty </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -395,7 +391,8 @@ public class ProfileApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success, delete the message (also if it was already empty) </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Success, delete the message </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> No shared message to delete, already empty </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -411,7 +408,8 @@ public class ProfileApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success, delete the message (also if it was already empty) </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Success, delete the message </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> No shared message to delete, already empty </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -429,7 +427,8 @@ public class ProfileApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success, delete the message (also if it was already empty) </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Success, delete the message </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> No shared message to delete, already empty </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -441,7 +440,7 @@ public class ProfileApi {
     }
     /**
      * Build call for userShareMessagePost
-     * @param publicMessageDTO  (required)
+     * @param body  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -449,10 +448,11 @@ public class ProfileApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, reset the previous post and share the message </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Error, the message is too long </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userShareMessagePostCall(PublicMessageDTO publicMessageDTO, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call userShareMessagePostCall(String body, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -466,7 +466,7 @@ public class ProfileApi {
             basePath = null;
         }
 
-        Object localVarPostBody = publicMessageDTO;
+        Object localVarPostBody = body;
 
         // create path and map variables
         String localVarPath = "/user/shareMessage";
@@ -498,54 +498,56 @@ public class ProfileApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call userShareMessagePostValidateBeforeCall(PublicMessageDTO publicMessageDTO, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'publicMessageDTO' is set
-        if (publicMessageDTO == null) {
-            throw new ApiException("Missing the required parameter 'publicMessageDTO' when calling userShareMessagePost(Async)");
+    private okhttp3.Call userShareMessagePostValidateBeforeCall(String body, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            throw new ApiException("Missing the required parameter 'body' when calling userShareMessagePost(Async)");
         }
 
-        return userShareMessagePostCall(publicMessageDTO, _callback);
+        return userShareMessagePostCall(body, _callback);
 
     }
 
     /**
      * Post a new public message (\&quot;status\&quot;) for all the current user friends and remove the previous one
      * 
-     * @param publicMessageDTO  (required)
+     * @param body  (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, reset the previous post and share the message </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Error, the message is too long </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public void userShareMessagePost(PublicMessageDTO publicMessageDTO) throws ApiException {
-        userShareMessagePostWithHttpInfo(publicMessageDTO);
+    public void userShareMessagePost(String body) throws ApiException {
+        userShareMessagePostWithHttpInfo(body);
     }
 
     /**
      * Post a new public message (\&quot;status\&quot;) for all the current user friends and remove the previous one
      * 
-     * @param publicMessageDTO  (required)
+     * @param body  (required)
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, reset the previous post and share the message </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Error, the message is too long </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> userShareMessagePostWithHttpInfo(PublicMessageDTO publicMessageDTO) throws ApiException {
-        okhttp3.Call localVarCall = userShareMessagePostValidateBeforeCall(publicMessageDTO, null);
+    public ApiResponse<Void> userShareMessagePostWithHttpInfo(String body) throws ApiException {
+        okhttp3.Call localVarCall = userShareMessagePostValidateBeforeCall(body, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      * Post a new public message (\&quot;status\&quot;) for all the current user friends and remove the previous one (asynchronously)
      * 
-     * @param publicMessageDTO  (required)
+     * @param body  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -553,12 +555,13 @@ public class ProfileApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, reset the previous post and share the message </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Error, the message is too long </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userShareMessagePostAsync(PublicMessageDTO publicMessageDTO, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call userShareMessagePostAsync(String body, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = userShareMessagePostValidateBeforeCall(publicMessageDTO, _callback);
+        okhttp3.Call localVarCall = userShareMessagePostValidateBeforeCall(body, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }

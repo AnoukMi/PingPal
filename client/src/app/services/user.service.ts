@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, Subject } from "rxjs";
 import { AuthenticationService, ProfileService, FullUserDTO, UserDTO } from "../api";
-import { HttpClient } from '@angular/common/http';
 
 
 // Information about the current user of the app:
@@ -22,6 +21,7 @@ export class UserService {
   private currentUserSubject = new Subject<CurrentUser>();
   currentUserObservable = this.currentUserSubject.asObservable();
 
+  // @ts-ignore
   /**
    * Get the current user of the app.
    * @return the profile of the user if signed-in, null if not signed-in, or undefined if unknown.

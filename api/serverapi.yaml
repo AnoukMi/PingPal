@@ -19,7 +19,7 @@ tags:
   - name: message
     description: User's messages management
   - name: profile
-    description: User's profile informations management
+    description: User's profile information management
   - name: contact
     description: User's contacts management
 
@@ -110,11 +110,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-  /user/conversations:
+  /user/conversation/conversations:
     get:
       summary: Retrieve all conversations (headers) between the current user and others
       tags:
-         - conversation
+        - conversation
       responses:
         '200':
           description: Provide the list of the conversations between the user and others
@@ -124,6 +124,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ConversationDTO'
+        '400':
+          description: Bad request
         default:
           description: Error
           content:
@@ -154,11 +156,11 @@ paths:
         '409':
           description: Conflict, a conversation already exists with the given UserID
         default:
-           description: Error
-           content:
-             application/json:
-               schema:
-                 $ref: '#/components/schemas/ErrorDTO'
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
     get:
       summary: Search an existing conversation (the header) with a given user
       tags:
@@ -178,7 +180,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConversationDTO'
         '410':
-            description: The conversation is no more available, has been deleted
+          description: The conversation is no more available, has been deleted
         '404':
           description: UserID not found in the current user's list of conversations
         default:
@@ -210,7 +212,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
 
-  /user/{userID}/messages:
+  /user/message/{userID}/messages:
     get:
       summary: Retrieve all messages in a given conversation
       tags:
@@ -241,18 +243,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-  /user/{userID}/message:
+  /user/message/newMessage:
     post:
       summary: Send a new message to a given user
       tags:
         - message
-      parameters:
-        - name: userID
-          in: path
-          description: Username of the interlocutor to whom send a message
-          required: true
-          schema:
-            type: string
       requestBody:
         required: true
         content:
@@ -276,26 +271,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-
-  /user/conversation/{userID}/{msgID}:
+  /user/message/{msgID}:
     patch:
       summary: Modify a certain message already sent
       tags:
         - message
       parameters:
-        - name: userID
-          in: path
-          description: Username or peer address of the interlocutor from whom we want to modify the message
-          required: true
-          schema:
-            type: string
         - name: msgID
           in: path
           description: ID of the message to modify in the list of messages
           required: true
           schema:
-            type: integer
-            format: int64
+            type: string
+            format: UUID
       requestBody:
         description: New content of the message
         content:
@@ -314,36 +302,30 @@ paths:
         '404':
           description: msgID not found in the list of messages
         default:
-            description: Error
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorDTO'
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
     delete:
       summary: Delete a message already sent
       tags:
         - message
       parameters:
-        - name: userID
-          in: path
-          description: Username or peer address of the interlocutor from whom we want to delete the message
-          required: true
-          schema:
-            type: string
         - name: msgID
           in: path
           description: ID of the message to delete in the list of messages
           required: true
           schema:
-            type: integer
-            format: int64
+            type: string
+            format: UUID
       responses:
         '200':
           description: Success, message deleted
         '410':
-          description: The user or the message is no more available, has been deleted
+          description: The message is no more available, has been deleted
         '404':
-          description: UserID or msgID not found in the list of messages
+          description: msgID not found in the list of messages
         default:
           description: Error
           content:
@@ -625,20 +607,20 @@ components:
         - recipientID
         - content
     MessageDTO:
-      allOf :
+      allOf:
         - $ref: '#/components/schemas/MessageReducedDTO'
         - type: object
           properties:
             msgID:
-              type: integer
-              format: int64
-              description: ID of the message in the list of messages
-              example: 1029374
-            autorID:
+              type: string
+              format: UUID
+              description: UUID of the message in the list of messages
+              example: 550e8400-e29b-41d4-a716-446655440000
+            authorID:
               type: string
               description: Username (userID) of the writer if it's a registered user of the app
               example: ambre_lv
-            autorAddress :
+            authorAddress:
               type: string
               description: PeerAddress of the writer
               example: alv@domain
@@ -651,9 +633,9 @@ components:
               type: boolean
               description: True if message has been edited, false otherwise
               example: false
-          required :
+          required:
             - msgID
-            - autorAddress
+            - authorAddress
             - date
             - edited
     ContactProfileDTO:
@@ -681,7 +663,7 @@ components:
           type: string
           format: date-time
           example: 01/05/2003
-        sharedMessage :
+        sharedMessage:
           type: string
           description: Content of the public message (status) shared by the contact (can be empty)
           example: Hi everybody!

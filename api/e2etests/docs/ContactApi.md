@@ -144,6 +144,7 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Provide the header of the found contact profil of the given username |  -  |
+| **410** | The user has been deleted |  -  |
 | **404** | UserID not found in the current user&#39;s list of friends |  -  |
 | **0** | Error |  -  |
 
@@ -213,8 +214,9 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Add the user in the list of contacts (friends) and return the header contact profil of the new friend |  -  |
+| **410** | The user has been deleted |  -  |
 | **404** | UserID not found in the users of the application |  -  |
-| **400** | UserID already existing in the list of friends |  -  |
+| **409** | UserID already existing in the list of friends |  -  |
 | **0** | Error |  -  |
 
 <a id="userFriendsGet"></a>

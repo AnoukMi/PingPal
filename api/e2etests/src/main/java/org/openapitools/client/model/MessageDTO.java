@@ -22,6 +22,7 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
+import java.util.UUID;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -62,15 +63,15 @@ public class MessageDTO {
 
   public static final String SERIALIZED_NAME_MSG_I_D = "msgID";
   @SerializedName(SERIALIZED_NAME_MSG_I_D)
-  private Long msgID;
+  private UUID msgID;
 
-  public static final String SERIALIZED_NAME_AUTOR_I_D = "autorID";
-  @SerializedName(SERIALIZED_NAME_AUTOR_I_D)
-  private String autorID;
+  public static final String SERIALIZED_NAME_AUTHOR_I_D = "authorID";
+  @SerializedName(SERIALIZED_NAME_AUTHOR_I_D)
+  private String authorID;
 
-  public static final String SERIALIZED_NAME_AUTOR_ADDRESS = "autorAddress";
-  @SerializedName(SERIALIZED_NAME_AUTOR_ADDRESS)
-  private String autorAddress;
+  public static final String SERIALIZED_NAME_AUTHOR_ADDRESS = "authorAddress";
+  @SerializedName(SERIALIZED_NAME_AUTHOR_ADDRESS)
+  private String authorAddress;
 
   public static final String SERIALIZED_NAME_DATE = "date";
   @SerializedName(SERIALIZED_NAME_DATE)
@@ -125,66 +126,66 @@ public class MessageDTO {
   }
 
 
-  public MessageDTO msgID(Long msgID) {
+  public MessageDTO msgID(UUID msgID) {
     
     this.msgID = msgID;
     return this;
   }
 
    /**
-   * ID of the message in the list of messages
+   * UUID of the message in the list of messages
    * @return msgID
   **/
   @javax.annotation.Nonnull
-  public Long getMsgID() {
+  public UUID getMsgID() {
     return msgID;
   }
 
 
-  public void setMsgID(Long msgID) {
+  public void setMsgID(UUID msgID) {
     this.msgID = msgID;
   }
 
 
-  public MessageDTO autorID(String autorID) {
+  public MessageDTO authorID(String authorID) {
     
-    this.autorID = autorID;
+    this.authorID = authorID;
     return this;
   }
 
    /**
    * Username (userID) of the writer if it&#39;s a registered user of the app
-   * @return autorID
+   * @return authorID
   **/
   @javax.annotation.Nullable
-  public String getAutorID() {
-    return autorID;
+  public String getAuthorID() {
+    return authorID;
   }
 
 
-  public void setAutorID(String autorID) {
-    this.autorID = autorID;
+  public void setAuthorID(String authorID) {
+    this.authorID = authorID;
   }
 
 
-  public MessageDTO autorAddress(String autorAddress) {
+  public MessageDTO authorAddress(String authorAddress) {
     
-    this.autorAddress = autorAddress;
+    this.authorAddress = authorAddress;
     return this;
   }
 
    /**
    * PeerAddress of the writer
-   * @return autorAddress
+   * @return authorAddress
   **/
   @javax.annotation.Nonnull
-  public String getAutorAddress() {
-    return autorAddress;
+  public String getAuthorAddress() {
+    return authorAddress;
   }
 
 
-  public void setAutorAddress(String autorAddress) {
-    this.autorAddress = autorAddress;
+  public void setAuthorAddress(String authorAddress) {
+    this.authorAddress = authorAddress;
   }
 
 
@@ -243,15 +244,15 @@ public class MessageDTO {
     return Objects.equals(this.recipientID, messageDTO.recipientID) &&
         Objects.equals(this.content, messageDTO.content) &&
         Objects.equals(this.msgID, messageDTO.msgID) &&
-        Objects.equals(this.autorID, messageDTO.autorID) &&
-        Objects.equals(this.autorAddress, messageDTO.autorAddress) &&
+        Objects.equals(this.authorID, messageDTO.authorID) &&
+        Objects.equals(this.authorAddress, messageDTO.authorAddress) &&
         Objects.equals(this.date, messageDTO.date) &&
         Objects.equals(this.edited, messageDTO.edited);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(recipientID, content, msgID, autorID, autorAddress, date, edited);
+    return Objects.hash(recipientID, content, msgID, authorID, authorAddress, date, edited);
   }
 
   @Override
@@ -261,8 +262,8 @@ public class MessageDTO {
     sb.append("    recipientID: ").append(toIndentedString(recipientID)).append("\n");
     sb.append("    content: ").append(toIndentedString(content)).append("\n");
     sb.append("    msgID: ").append(toIndentedString(msgID)).append("\n");
-    sb.append("    autorID: ").append(toIndentedString(autorID)).append("\n");
-    sb.append("    autorAddress: ").append(toIndentedString(autorAddress)).append("\n");
+    sb.append("    authorID: ").append(toIndentedString(authorID)).append("\n");
+    sb.append("    authorAddress: ").append(toIndentedString(authorAddress)).append("\n");
     sb.append("    date: ").append(toIndentedString(date)).append("\n");
     sb.append("    edited: ").append(toIndentedString(edited)).append("\n");
     sb.append("}");
@@ -290,8 +291,8 @@ public class MessageDTO {
     openapiFields.add("recipientID");
     openapiFields.add("content");
     openapiFields.add("msgID");
-    openapiFields.add("autorID");
-    openapiFields.add("autorAddress");
+    openapiFields.add("authorID");
+    openapiFields.add("authorAddress");
     openapiFields.add("date");
     openapiFields.add("edited");
 
@@ -300,7 +301,7 @@ public class MessageDTO {
     openapiRequiredFields.add("recipientID");
     openapiRequiredFields.add("content");
     openapiRequiredFields.add("msgID");
-    openapiRequiredFields.add("autorAddress");
+    openapiRequiredFields.add("authorAddress");
     openapiRequiredFields.add("date");
     openapiRequiredFields.add("edited");
   }
@@ -339,11 +340,14 @@ public class MessageDTO {
       if (!jsonObj.get("content").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `content` to be a primitive type in the JSON string but got `%s`", jsonObj.get("content").toString()));
       }
-      if ((jsonObj.get("autorID") != null && !jsonObj.get("autorID").isJsonNull()) && !jsonObj.get("autorID").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `autorID` to be a primitive type in the JSON string but got `%s`", jsonObj.get("autorID").toString()));
+      if (!jsonObj.get("msgID").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `msgID` to be a primitive type in the JSON string but got `%s`", jsonObj.get("msgID").toString()));
       }
-      if (!jsonObj.get("autorAddress").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `autorAddress` to be a primitive type in the JSON string but got `%s`", jsonObj.get("autorAddress").toString()));
+      if ((jsonObj.get("authorID") != null && !jsonObj.get("authorID").isJsonNull()) && !jsonObj.get("authorID").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `authorID` to be a primitive type in the JSON string but got `%s`", jsonObj.get("authorID").toString()));
+      }
+      if (!jsonObj.get("authorAddress").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `authorAddress` to be a primitive type in the JSON string but got `%s`", jsonObj.get("authorAddress").toString()));
       }
   }
 
