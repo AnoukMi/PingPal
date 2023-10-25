@@ -4,15 +4,15 @@ All URIs are relative to *http://localhost:8080*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**userDeletePost**](AuthenticationApi.md#userDeletePost) | **POST** /user/delete |  |
+| [**userDeleteDelete**](AuthenticationApi.md#userDeleteDelete) | **DELETE** /user/delete |  |
 | [**userSigninPost**](AuthenticationApi.md#userSigninPost) | **POST** /user/signin |  |
 | [**userSignoutPost**](AuthenticationApi.md#userSignoutPost) | **POST** /user/signout |  |
 | [**userSignupPost**](AuthenticationApi.md#userSignupPost) | **POST** /user/signup |  |
 
 
-<a id="userDeletePost"></a>
-# **userDeletePost**
-> userDeletePost()
+<a id="userDeleteDelete"></a>
+# **userDeleteDelete**
+> userDeleteDelete(userDTO)
 
 
 
@@ -38,10 +38,11 @@ public class Example {
     //CookieAuth.setApiKeyPrefix("Token");
 
     AuthenticationApi apiInstance = new AuthenticationApi(defaultClient);
+    UserDTO userDTO = new UserDTO(); // UserDTO | 
     try {
-      apiInstance.userDeletePost();
+      apiInstance.userDeleteDelete(userDTO);
     } catch (ApiException e) {
-      System.err.println("Exception when calling AuthenticationApi#userDeletePost");
+      System.err.println("Exception when calling AuthenticationApi#userDeleteDelete");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -52,7 +53,10 @@ public class Example {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **userDTO** | [**UserDTO**](UserDTO.md)|  | |
 
 ### Return type
 
@@ -64,13 +68,15 @@ null (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Success |  -  |
+| **401** | Unauthorized, invalid password |  -  |
+| **404** | Current user not found |  -  |
 | **0** | Error |  -  |
 
 <a id="userSigninPost"></a>
@@ -131,6 +137,8 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Success |  * Set-Cookie -  <br>  |
+| **401** | Unauthorized, invalid login or password |  -  |
+| **409** | Conflict, user already signed in (the session cookie is valid) |  -  |
 | **0** | Error |  -  |
 
 <a id="userSignoutPost"></a>
@@ -254,5 +262,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Success |  -  |
+| **409** | Conflict, a user account with the same login already exists |  -  |
 | **0** | Error |  -  |
 

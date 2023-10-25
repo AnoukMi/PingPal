@@ -4,21 +4,17 @@ All URIs are relative to *http://localhost:8080*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**userConversationMsgIDDelete**](ConversationApi.md#userConversationMsgIDDelete) | **DELETE** /user/conversation/{msgID} | Delete a message already sent |
-| [**userConversationMsgIDPatch**](ConversationApi.md#userConversationMsgIDPatch) | **PATCH** /user/conversation/{msgID} | Modify a certain message already sent |
+| [**userConversationConversationsGet**](ConversationApi.md#userConversationConversationsGet) | **GET** /user/conversation/conversations | Retrieve all conversations (headers) between the current user and others |
 | [**userConversationUserDelete**](ConversationApi.md#userConversationUserDelete) | **DELETE** /user/conversation/{user} | Delete an existing conversation (the header and all contained messages) with a given user |
 | [**userConversationUserGet**](ConversationApi.md#userConversationUserGet) | **GET** /user/conversation/{user} | Search an existing conversation (the header) with a given user |
 | [**userConversationUserPost**](ConversationApi.md#userConversationUserPost) | **POST** /user/conversation/{user} | Create a new (empty) conversation with a given user |
-| [**userConversationsGet**](ConversationApi.md#userConversationsGet) | **GET** /user/conversations | Retrieve all conversations (headers) between the current user and others |
-| [**userUserIDMessagePost**](ConversationApi.md#userUserIDMessagePost) | **POST** /user/{userID}/message | Send a new message to a given user |
-| [**userUserIDMessagesGet**](ConversationApi.md#userUserIDMessagesGet) | **GET** /user/{userID}/messages | Retrieve all messages in a given conversation |
 
 
-<a id="userConversationMsgIDDelete"></a>
-# **userConversationMsgIDDelete**
-> userConversationMsgIDDelete(msgID)
+<a id="userConversationConversationsGet"></a>
+# **userConversationConversationsGet**
+> List&lt;ConversationDTO&gt; userConversationConversationsGet()
 
-Delete a message already sent
+Retrieve all conversations (headers) between the current user and others
 
 ### Example
 ```java
@@ -42,11 +38,11 @@ public class Example {
     //CookieAuth.setApiKeyPrefix("Token");
 
     ConversationApi apiInstance = new ConversationApi(defaultClient);
-    Long msgID = 56L; // Long | ID of the message to delete in the list of messages
     try {
-      apiInstance.userConversationMsgIDDelete(msgID);
+      List<ConversationDTO> result = apiInstance.userConversationConversationsGet();
+      System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling ConversationApi#userConversationMsgIDDelete");
+      System.err.println("Exception when calling ConversationApi#userConversationConversationsGet");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -57,14 +53,11 @@ public class Example {
 ```
 
 ### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **msgID** | **Long**| ID of the message to delete in the list of messages | |
+This endpoint does not need any parameter.
 
 ### Return type
 
-null (empty response body)
+[**List&lt;ConversationDTO&gt;**](ConversationDTO.md)
 
 ### Authorization
 
@@ -78,79 +71,8 @@ null (empty response body)
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Success, message deleted |  -  |
-| **404** | UserID not found in the list of messages |  -  |
-| **0** | Error |  -  |
-
-<a id="userConversationMsgIDPatch"></a>
-# **userConversationMsgIDPatch**
-> MessageDTO userConversationMsgIDPatch(msgID, body)
-
-Modify a certain message already sent
-
-### Example
-```java
-// Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.ConversationApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8080");
-    
-    // Configure API key authorization: CookieAuth
-    ApiKeyAuth CookieAuth = (ApiKeyAuth) defaultClient.getAuthentication("CookieAuth");
-    CookieAuth.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //CookieAuth.setApiKeyPrefix("Token");
-
-    ConversationApi apiInstance = new ConversationApi(defaultClient);
-    Long msgID = 56L; // Long | ID of the message to modify in the list of messages
-    String body = "body_example"; // String | New content of the message
-    try {
-      MessageDTO result = apiInstance.userConversationMsgIDPatch(msgID, body);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConversationApi#userConversationMsgIDPatch");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **msgID** | **Long**| ID of the message to modify in the list of messages | |
-| **body** | **String**| New content of the message | [optional] |
-
-### Return type
-
-[**MessageDTO**](MessageDTO.md)
-
-### Authorization
-
-[CookieAuth](../README.md#CookieAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success, return modified message |  -  |
-| **404** | msgID not found in the list of messages |  -  |
+| **200** | Provide the list of the conversations between the user and others |  -  |
+| **400** | Bad request |  -  |
 | **0** | Error |  -  |
 
 <a id="userConversationUserDelete"></a>
@@ -287,6 +209,7 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Provide the header of the found conversation with the given user |  -  |
+| **410** | The conversation is no more available, has been deleted |  -  |
 | **404** | UserID not found in the current user&#39;s list of conversations |  -  |
 | **0** | Error |  -  |
 
@@ -357,210 +280,6 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Create the new conversation and return the header |  -  |
 | **404** | UserID not found in the users of the application |  -  |
-| **400** | A conversation already exists with the given UserID |  -  |
-| **0** | Error |  -  |
-
-<a id="userConversationsGet"></a>
-# **userConversationsGet**
-> List&lt;ConversationDTO&gt; userConversationsGet()
-
-Retrieve all conversations (headers) between the current user and others
-
-### Example
-```java
-// Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.ConversationApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8080");
-    
-    // Configure API key authorization: CookieAuth
-    ApiKeyAuth CookieAuth = (ApiKeyAuth) defaultClient.getAuthentication("CookieAuth");
-    CookieAuth.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //CookieAuth.setApiKeyPrefix("Token");
-
-    ConversationApi apiInstance = new ConversationApi(defaultClient);
-    try {
-      List<ConversationDTO> result = apiInstance.userConversationsGet();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConversationApi#userConversationsGet");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-[**List&lt;ConversationDTO&gt;**](ConversationDTO.md)
-
-### Authorization
-
-[CookieAuth](../README.md#CookieAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Provide the list of the conversations between the user and others |  -  |
-| **0** | Error |  -  |
-
-<a id="userUserIDMessagePost"></a>
-# **userUserIDMessagePost**
-> List&lt;MessageDTO&gt; userUserIDMessagePost(userID, messageReducedDTO)
-
-Send a new message to a given user
-
-### Example
-```java
-// Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.ConversationApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8080");
-    
-    // Configure API key authorization: CookieAuth
-    ApiKeyAuth CookieAuth = (ApiKeyAuth) defaultClient.getAuthentication("CookieAuth");
-    CookieAuth.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //CookieAuth.setApiKeyPrefix("Token");
-
-    ConversationApi apiInstance = new ConversationApi(defaultClient);
-    String userID = "userID_example"; // String | Username of the interlocutor to whom send a message
-    MessageReducedDTO messageReducedDTO = new MessageReducedDTO(); // MessageReducedDTO | 
-    try {
-      List<MessageDTO> result = apiInstance.userUserIDMessagePost(userID, messageReducedDTO);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConversationApi#userUserIDMessagePost");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **userID** | **String**| Username of the interlocutor to whom send a message | |
-| **messageReducedDTO** | [**MessageReducedDTO**](MessageReducedDTO.md)|  | |
-
-### Return type
-
-[**List&lt;MessageDTO&gt;**](MessageDTO.md)
-
-### Authorization
-
-[CookieAuth](../README.md#CookieAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Add the message to the list of messages with the given user and return the updated list |  -  |
-| **404** | UserID not found |  -  |
-| **0** | Error |  -  |
-
-<a id="userUserIDMessagesGet"></a>
-# **userUserIDMessagesGet**
-> List&lt;MessageDTO&gt; userUserIDMessagesGet(userID)
-
-Retrieve all messages in a given conversation
-
-### Example
-```java
-// Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.ConversationApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8080");
-    
-    // Configure API key authorization: CookieAuth
-    ApiKeyAuth CookieAuth = (ApiKeyAuth) defaultClient.getAuthentication("CookieAuth");
-    CookieAuth.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //CookieAuth.setApiKeyPrefix("Token");
-
-    ConversationApi apiInstance = new ConversationApi(defaultClient);
-    String userID = "userID_example"; // String | Username of the interlocutor with whom the messages of the conversation are exchanged
-    try {
-      List<MessageDTO> result = apiInstance.userUserIDMessagesGet(userID);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConversationApi#userUserIDMessagesGet");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **userID** | **String**| Username of the interlocutor with whom the messages of the conversation are exchanged | |
-
-### Return type
-
-[**List&lt;MessageDTO&gt;**](MessageDTO.md)
-
-### Authorization
-
-[CookieAuth](../README.md#CookieAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Provide the list of messages sent both by the user and his interlocutor for a given interlocutor |  -  |
-| **404** | UserID not found in the current user conversations |  -  |
+| **409** | Conflict, a conversation already exists with the given UserID |  -  |
 | **0** | Error |  -  |
 

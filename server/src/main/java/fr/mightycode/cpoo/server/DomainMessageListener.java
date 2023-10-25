@@ -1,4 +1,4 @@
-/*package fr.mightycode.cpoo.server;
+package fr.mightycode.cpoo.server;
 
 import fr.mightycode.cpoo.server.model.Message;
 import fr.mightycode.cpoo.server.service.MessageService;
@@ -36,4 +36,4 @@ public class DomainMessageListener implements RouterService.MessageListener {
     log.info("Storing message received from router: {}", routerMessage);
     messageService.storeMessage(new Message(routerMessage));
   }
-}*/
+}

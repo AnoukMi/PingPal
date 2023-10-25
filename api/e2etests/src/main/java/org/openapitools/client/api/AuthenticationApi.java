@@ -75,7 +75,8 @@ public class AuthenticationApi {
     }
 
     /**
-     * Build call for userDeletePost
+     * Build call for userDeleteDelete
+     * @param userDTO  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -83,10 +84,12 @@ public class AuthenticationApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized, invalid password </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Current user not found </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userDeletePostCall(final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call userDeleteDeleteCall(UserDTO userDTO, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -100,7 +103,7 @@ public class AuthenticationApi {
             basePath = null;
         }
 
-        Object localVarPostBody = null;
+        Object localVarPostBody = userDTO;
 
         // create path and map variables
         String localVarPath = "/user/delete";
@@ -120,6 +123,7 @@ public class AuthenticationApi {
         }
 
         final String[] localVarContentTypes = {
+            "application/json"
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         if (localVarContentType != null) {
@@ -127,50 +131,62 @@ public class AuthenticationApi {
         }
 
         String[] localVarAuthNames = new String[] { "CookieAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call userDeletePostValidateBeforeCall(final ApiCallback _callback) throws ApiException {
-        return userDeletePostCall(_callback);
+    private okhttp3.Call userDeleteDeleteValidateBeforeCall(UserDTO userDTO, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'userDTO' is set
+        if (userDTO == null) {
+            throw new ApiException("Missing the required parameter 'userDTO' when calling userDeleteDelete(Async)");
+        }
+
+        return userDeleteDeleteCall(userDTO, _callback);
 
     }
 
     /**
      * 
      * 
+     * @param userDTO  (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized, invalid password </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Current user not found </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public void userDeletePost() throws ApiException {
-        userDeletePostWithHttpInfo();
+    public void userDeleteDelete(UserDTO userDTO) throws ApiException {
+        userDeleteDeleteWithHttpInfo(userDTO);
     }
 
     /**
      * 
      * 
+     * @param userDTO  (required)
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized, invalid password </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Current user not found </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> userDeletePostWithHttpInfo() throws ApiException {
-        okhttp3.Call localVarCall = userDeletePostValidateBeforeCall(null);
+    public ApiResponse<Void> userDeleteDeleteWithHttpInfo(UserDTO userDTO) throws ApiException {
+        okhttp3.Call localVarCall = userDeleteDeleteValidateBeforeCall(userDTO, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      *  (asynchronously)
      * 
+     * @param userDTO  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -178,12 +194,14 @@ public class AuthenticationApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized, invalid password </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Current user not found </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userDeletePostAsync(final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call userDeleteDeleteAsync(UserDTO userDTO, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = userDeletePostValidateBeforeCall(_callback);
+        okhttp3.Call localVarCall = userDeleteDeleteValidateBeforeCall(userDTO, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
@@ -197,6 +215,8 @@ public class AuthenticationApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success </td><td>  * Set-Cookie -  <br>  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized, invalid login or password </td><td>  -  </td></tr>
+        <tr><td> 409 </td><td> Conflict, user already signed in (the session cookie is valid) </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -265,6 +285,8 @@ public class AuthenticationApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success </td><td>  * Set-Cookie -  <br>  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized, invalid login or password </td><td>  -  </td></tr>
+        <tr><td> 409 </td><td> Conflict, user already signed in (the session cookie is valid) </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -282,6 +304,8 @@ public class AuthenticationApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success </td><td>  * Set-Cookie -  <br>  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized, invalid login or password </td><td>  -  </td></tr>
+        <tr><td> 409 </td><td> Conflict, user already signed in (the session cookie is valid) </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -301,6 +325,8 @@ public class AuthenticationApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success </td><td>  * Set-Cookie -  <br>  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized, invalid login or password </td><td>  -  </td></tr>
+        <tr><td> 409 </td><td> Conflict, user already signed in (the session cookie is valid) </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -433,6 +459,7 @@ public class AuthenticationApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+        <tr><td> 409 </td><td> Conflict, a user account with the same login already exists </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -501,6 +528,7 @@ public class AuthenticationApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+        <tr><td> 409 </td><td> Conflict, a user account with the same login already exists </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -518,6 +546,7 @@ public class AuthenticationApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+        <tr><td> 409 </td><td> Conflict, a user account with the same login already exists </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -537,6 +566,7 @@ public class AuthenticationApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+        <tr><td> 409 </td><td> Conflict, a user account with the same login already exists </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */

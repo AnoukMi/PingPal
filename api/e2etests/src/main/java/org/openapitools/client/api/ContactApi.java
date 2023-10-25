@@ -210,6 +210,7 @@ public class ContactApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Provide the header of the found contact profil of the given username </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> The user has been deleted </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> UserID not found in the current user&#39;s list of friends </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
@@ -280,6 +281,7 @@ public class ContactApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Provide the header of the found contact profil of the given username </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> The user has been deleted </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> UserID not found in the current user&#39;s list of friends </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
@@ -299,6 +301,7 @@ public class ContactApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Provide the header of the found contact profil of the given username </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> The user has been deleted </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> UserID not found in the current user&#39;s list of friends </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
@@ -320,6 +323,7 @@ public class ContactApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Provide the header of the found contact profil of the given username </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> The user has been deleted </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> UserID not found in the current user&#39;s list of friends </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
@@ -341,8 +345,9 @@ public class ContactApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Add the user in the list of contacts (friends) and return the header contact profil of the new friend </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> The user has been deleted </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> UserID not found in the users of the application </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> UserID already existing in the list of friends </td><td>  -  </td></tr>
+        <tr><td> 409 </td><td> UserID already existing in the list of friends </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -412,8 +417,9 @@ public class ContactApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Add the user in the list of contacts (friends) and return the header contact profil of the new friend </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> The user has been deleted </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> UserID not found in the users of the application </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> UserID already existing in the list of friends </td><td>  -  </td></tr>
+        <tr><td> 409 </td><td> UserID already existing in the list of friends </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -432,8 +438,9 @@ public class ContactApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Add the user in the list of contacts (friends) and return the header contact profil of the new friend </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> The user has been deleted </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> UserID not found in the users of the application </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> UserID already existing in the list of friends </td><td>  -  </td></tr>
+        <tr><td> 409 </td><td> UserID already existing in the list of friends </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -454,8 +461,9 @@ public class ContactApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Add the user in the list of contacts (friends) and return the header contact profil of the new friend </td><td>  -  </td></tr>
+        <tr><td> 410 </td><td> The user has been deleted </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> UserID not found in the users of the application </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> UserID already existing in the list of friends </td><td>  -  </td></tr>
+        <tr><td> 409 </td><td> UserID already existing in the list of friends </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
