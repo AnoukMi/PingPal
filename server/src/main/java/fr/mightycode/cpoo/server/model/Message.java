@@ -16,7 +16,7 @@ public class Message {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "msgID", nullable = false)
-  final private UUID msgID;
+  private UUID msgID;
   @Column(name = "recipient", nullable = false)
   private String recipient;
   @Column(name = "content", nullable = false)
