@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserData, String> {
-    UserData findByLogin(String login);
-    void deleteByLogin(String login);
+  UserData findByLogin(String login);
+  void deleteByLogin(String login);
 }

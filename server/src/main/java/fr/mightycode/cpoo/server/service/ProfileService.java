@@ -76,11 +76,11 @@ public class ProfileService {
                birthdayString,
                user.getAddress()
             );
-       return userFull; //give all user informations
+       return userFull; //give all user information
     }
 
     /**
-     * Modify the current user profile informations
+     * Modify the current user profile information
      *
      * @param all common parameters of FullUserDTO and User
      */
