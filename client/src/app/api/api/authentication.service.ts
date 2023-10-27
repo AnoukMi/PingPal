@@ -1,6 +1,6 @@
 /**
  * CPOO Server API
- * This is a prototype of CPOO Project\'s front/back API.
+ * This is a prototype of CPOO Project\'s front/back API. 
  *
  * The version of the OpenAPI document: 0.0.1
  * Contact: contact@mightycode.fr
@@ -13,7 +13,7 @@
 
 import { Inject, Injectable, Optional }                      from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent, HttpParameterCodec, HttpContext
+         HttpResponse, HttpEvent, HttpParameterCodec, HttpContext 
         }       from '@angular/common/http';
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
@@ -34,7 +34,6 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-
 export class AuthenticationService {
 
     protected basePath = 'http://localhost:8080';
@@ -97,7 +96,7 @@ export class AuthenticationService {
     }
 
     /**
-     * @param userDTO
+     * @param userDTO 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -170,10 +169,9 @@ export class AuthenticationService {
     }
 
     /**
-     * @param userDTO
+     * @param userDTO 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
-     * @param options
      */
     public userSigninPost(userDTO: UserDTO, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any>;
     public userSigninPost(userDTO: UserDTO, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<any>>;
@@ -297,7 +295,7 @@ export class AuthenticationService {
     }
 
     /**
-     * @param fullUserDTO
+     * @param fullUserDTO 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
