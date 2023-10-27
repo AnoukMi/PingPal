@@ -3,9 +3,9 @@
 .user_bloc {
   width: 24%;
   min-width: 270px;
-  height: 18%;
+  height: 19%;
   min-height: 100px;
-  top: 21%;
+  top: 20%;
   left: 10%;
   border: 2px solid #813641;
   position: absolute;
@@ -48,4 +48,17 @@
 
 .text_global:hover { /*modifie aspect quand le texte est survolé avec la souris*/
   text-decoration: underline; /* Souligne le texte */
+}
+
+.date {
+  position: relative;
+  top: 10%;
+  left: 42%;
+  font-family: "Alata-Regular", Helvetica;
+  font-style:italic;
+  font-size: 15px;
+  color: #813641;
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: normal;
 }

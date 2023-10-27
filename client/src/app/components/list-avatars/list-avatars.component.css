@@ -1,0 +1,14 @@
+.simple_button{
+  position:absolute;
+  left:0%;
+  background-color: transparent; /* Fond transparent */
+  color: transparent;
+  border:none;
+  cursor:pointer;
+}
+
+.avatar {
+  position:relative;
+  width: 20%;
+}
+

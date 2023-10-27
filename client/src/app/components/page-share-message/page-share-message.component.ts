@@ -8,5 +8,5 @@ import {Contact} from "../../models/contact";
 })
 export class PageShareMessageComponent {
   myself: Contact = new Contact("Ambre", "Léveillé",
-    "assets/avatar/f3.png", "ivambre", new Date(2003, 10, 5))
+    "assets/avatar/3.png", "ivambre", new Date(2003, 10, 5))
 }

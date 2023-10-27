@@ -63,7 +63,7 @@ public class ProfileController {
     public void editLoggedUserProfile(@RequestBody final FullUserDTO user) {
         try {
             String birthday = user.birthday();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //to convert string date to LocalDate type
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy"); //to convert string date to LocalDate type
             if(!profileService.editProfile(user.login(),
                     user.password(),
                     user.icon(),

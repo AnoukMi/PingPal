@@ -10,13 +10,13 @@ export class CurrentConversationsComponent {
   recentConv: Contact[];
 
   constructor() {
-    this.recentConv = [new Contact("Anouk", "Migliavacca", "assets/avatar/f2.png"),
-      new Contact("Vincent", "Barat", "assets/avatar/m3.png"),
-      new Contact("Quentin", "Perez", "assets/avatar/m4.png"),
-      new Contact("Vincent", "Barat", "assets/avatar/m5.png"),
-      new Contact("Vincent", "Barat", "assets/avatar/m6.png"),
-      new Contact("Vincent", "Barat", "assets/avatar/f5.png"),
-      new Contact("Vincent", "Barat", "assets/avatar/f3.png"),
-      new Contact("Vincent", "Barat", "assets/avatar/m1.png")];
+    this.recentConv = [new Contact("Anouk", "Migliavacca", "assets/avatar/2.png"),
+      new Contact("Vincent", "Barat", "assets/avatar/9.png"),
+      new Contact("Quentin", "Perez", "assets/avatar/10.png"),
+      new Contact("Vincent", "Barat", "assets/avatar/11.png"),
+      new Contact("Vincent", "Barat", "assets/avatar/12.png"),
+      new Contact("Vincent", "Barat", "assets/avatar/5.png"),
+      new Contact("Vincent", "Barat", "assets/avatar/3.png"),
+      new Contact("Vincent", "Barat", "assets/avatar/7.png")];
   }
 }

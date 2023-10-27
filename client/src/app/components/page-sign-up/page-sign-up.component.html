@@ -51,11 +51,12 @@
 
     <div class="birthday">
       <div class="text_upper_box">Birthday:</div>
-      <app-date-selector></app-date-selector>
+      <app-date-selector (birthdayChange)="receiptBirthChange($event)"></app-date-selector>
     </div>
+
     <div class="signup_button">
         <button [disabled]="loading || getField('login').errors || getField('password').errors
-      || getField('firstname').errors || getField('lastname').errors " class="w3-button w3-ripple w3-hover-white w3-round-xlarge" (click)="onSubmit()"> <!-- Crée bouton-->
+      || getField('firstname').errors || getField('lastname').errors || isInvalidDate(this.birthday)" class="w3-button w3-ripple w3-hover-white w3-round-xlarge" (click)="onSubmit()"> <!-- Crée bouton-->
           <span *ngIf="loading" class="w3-spin"></span>
           <div class="text_button" style="font-size: 20px;">SIGN UP</div></button> <!-- Applique style de texte sur texte bouton-->
     </div>

@@ -29,7 +29,7 @@ public class UserController {
     if (!userService.signup(user.login(), user.password()))
       throw new ResponseStatusException(HttpStatus.CONFLICT, "User already exists");
     String birthday = user.birthday();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //to convert string date to LocalDate type
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy"); //to convert string date to LocalDate type
     userService.createUser(user.login(), user.icon(), user.firstname(), user.lastname(), LocalDate.parse(birthday, formatter), user.address()); //to add new user in database
   }
 

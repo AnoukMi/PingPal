@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { UserService } from "../../services/user.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-
 
 
 @Component({
@@ -16,6 +15,7 @@ export class PageSignUpComponent {
   signupForm: FormGroup;
   loading = false; // true if sign in is in progress
   error: string | null = null; // error to display
+  birthday: string = '';
 
 
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router,
@@ -30,6 +30,9 @@ export class PageSignUpComponent {
     });
   }
 
+  receiptBirthChange(birthday: string){
+    this.birthday=birthday;
+  }
   /**
    * Get a given field of the signup form by its name.
    * @param name The name of the field to get
@@ -49,6 +52,11 @@ export class PageSignUpComponent {
     return field.touched && field.errors;
   }
 
+  isInvalidDate(birthdate:string){
+    const datePattern = /^\d{2}-\d{2}-\d{4}$/;
+    return !datePattern.test(birthdate);
+  }
+
   onSubmit() {
     // If form is invalid, cancel
     if (this.signupForm.invalid)
@@ -56,7 +64,7 @@ export class PageSignUpComponent {
 
     // Sign in using form values
     this.loading = true;
-    this.userService.signup(this.getField('login').value, this.getField('password').value, false, 1, this.getField('firstname').value, this.getField('lastname').value, "2001-11-06", `${this.getField('login').value}@pingpal`)
+    this.userService.signup(this.getField('login').value, this.getField('password').value, false, 0, this.getField('firstname').value, this.getField('lastname').value, this.birthday, `${this.getField('login').value}@pingpal`)
       .subscribe({
       next: _ => {
         // Return to signin
@@ -69,6 +77,7 @@ export class PageSignUpComponent {
       }
     });
   }
+
 }
 
 

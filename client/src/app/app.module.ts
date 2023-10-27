@@ -38,6 +38,7 @@ import { CurrentFriendsComponent } from './components/current-friends/current-fr
 import { LeftSideComponent } from './components/left-side/left-side.component';
 import {UserService} from "./services/user.service";
 import {ScrollBarComponent} from "./components/scroll-bar/scroll-bar.component";
+import { ListAvatarsComponent } from './components/list-avatars/list-avatars.component';
 // import { MouseComponent } from './components/mouse/mouse.component';
 
 @NgModule({
@@ -65,6 +66,7 @@ import {ScrollBarComponent} from "./components/scroll-bar/scroll-bar.component";
     ToolBarUserComponent,
     UserBubbleComponent,
     UserWritingFrameComponent,
+    ListAvatarsComponent,
      //MouseComponent,
   ],
   imports: [

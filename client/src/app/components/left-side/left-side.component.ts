@@ -11,6 +11,8 @@ export class LeftSideComponent {
   login : string ='';
   firstname : string='';
   lastname : string='';
+  icon : number=0;
+  birthday: string='';
   currentUser: CurrentUser = undefined;
   constructor(private userService: UserService, protected router: Router) {
     console.debug('### AppComponent()');
@@ -25,10 +27,21 @@ export class LeftSideComponent {
     this.userService.getLastname().subscribe(lastname => {
       this.lastname = lastname || '';
     });
+
+    this.userService.getIcon().subscribe(icon => {
+      this.icon = icon || 0;
+    });
+
+    this.userService.getBirthday().subscribe(birthday => {
+      this.birthday = birthday || '';
+    });
     this.userService.currentUserObservable.subscribe(currentUser => this.currentUser = currentUser);
   }
+
+
   signout() {
     this.userService.signout().subscribe(_ => this.router.navigate(['signIn']));
   }
+
 
 }
