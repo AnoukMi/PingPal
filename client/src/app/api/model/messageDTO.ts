@@ -21,17 +21,17 @@ export interface MessageDTO {
      */
     content: string;
     /**
-     * ID of the message in the list of messages
+     * UUID of the message in the list of messages
      */
-    msgID: number;
+    msgID: string;
     /**
      * Username (userID) of the writer if it\'s a registered user of the app
      */
-    autorID?: string;
+    authorID?: string;
     /**
      * PeerAddress of the writer
      */
-    autorAddress: string;
+    authorAddress: string;
     /**
      * Date of the message to be able to sort messages from the newest to the oldest
      */

@@ -84,7 +84,8 @@ export class PageEditProfileComponent {
     this.userService.delete(login, this.getField('validPassword').value, false).subscribe({
       next: _ => {
         // Redirect to the return URL or to sign in page
-        this.router.navigate([this.route.snapshot.queryParams['returnURL'] || 'signIn']);
+        console.log("HERE");
+        this.userService.signout().subscribe(_ => this.router.navigate(['signIn']));
       },
       error: err => {
         this.error = err.error.message || err.message;

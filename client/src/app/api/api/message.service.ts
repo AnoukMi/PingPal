@@ -97,20 +97,16 @@ export class MessageService {
 
     /**
      * Delete a message already sent
-     * @param userID Username or peer address of the interlocutor from whom we want to delete the message
      * @param msgID ID of the message to delete in the list of messages
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public userConversationUserIDMsgIDDelete(userID: string, msgID: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any>;
-    public userConversationUserIDMsgIDDelete(userID: string, msgID: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<any>>;
-    public userConversationUserIDMsgIDDelete(userID: string, msgID: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<any>>;
-    public userConversationUserIDMsgIDDelete(userID: string, msgID: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (userID === null || userID === undefined) {
-            throw new Error('Required parameter userID was null or undefined when calling userConversationUserIDMsgIDDelete.');
-        }
+    public userMessageMsgIDDelete(msgID: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any>;
+    public userMessageMsgIDDelete(msgID: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<any>>;
+    public userMessageMsgIDDelete(msgID: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<any>>;
+    public userMessageMsgIDDelete(msgID: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (msgID === null || msgID === undefined) {
-            throw new Error('Required parameter msgID was null or undefined when calling userConversationUserIDMsgIDDelete.');
+            throw new Error('Required parameter msgID was null or undefined when calling userMessageMsgIDDelete.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -150,7 +146,7 @@ export class MessageService {
             }
         }
 
-        let localVarPath = `/user/conversation/${this.configuration.encodeParam({name: "userID", value: userID, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/${this.configuration.encodeParam({name: "msgID", value: msgID, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
+        let localVarPath = `/user/message/${this.configuration.encodeParam({name: "msgID", value: msgID, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: "UUID"})}`;
         return this.httpClient.request<any>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -165,21 +161,17 @@ export class MessageService {
 
     /**
      * Modify a certain message already sent
-     * @param userID Username or peer address of the interlocutor from whom we want to modify the message
      * @param msgID ID of the message to modify in the list of messages
      * @param body New content of the message
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public userConversationUserIDMsgIDPatch(userID: string, msgID: number, body?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<MessageDTO>;
-    public userConversationUserIDMsgIDPatch(userID: string, msgID: number, body?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<MessageDTO>>;
-    public userConversationUserIDMsgIDPatch(userID: string, msgID: number, body?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<MessageDTO>>;
-    public userConversationUserIDMsgIDPatch(userID: string, msgID: number, body?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (userID === null || userID === undefined) {
-            throw new Error('Required parameter userID was null or undefined when calling userConversationUserIDMsgIDPatch.');
-        }
+    public userMessageMsgIDPatch(msgID: string, body?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<MessageDTO>;
+    public userMessageMsgIDPatch(msgID: string, body?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<MessageDTO>>;
+    public userMessageMsgIDPatch(msgID: string, body?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<MessageDTO>>;
+    public userMessageMsgIDPatch(msgID: string, body?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (msgID === null || msgID === undefined) {
-            throw new Error('Required parameter msgID was null or undefined when calling userConversationUserIDMsgIDPatch.');
+            throw new Error('Required parameter msgID was null or undefined when calling userMessageMsgIDPatch.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -228,7 +220,7 @@ export class MessageService {
             }
         }
 
-        let localVarPath = `/user/conversation/${this.configuration.encodeParam({name: "userID", value: userID, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/${this.configuration.encodeParam({name: "msgID", value: msgID, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
+        let localVarPath = `/user/message/${this.configuration.encodeParam({name: "msgID", value: msgID, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: "UUID"})}`;
         return this.httpClient.request<MessageDTO>('patch', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -244,20 +236,16 @@ export class MessageService {
 
     /**
      * Send a new message to a given user
-     * @param userID Username of the interlocutor to whom send a message
      * @param messageReducedDTO 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public userUserIDMessagePost(userID: string, messageReducedDTO: MessageReducedDTO, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<MessageDTO>>;
-    public userUserIDMessagePost(userID: string, messageReducedDTO: MessageReducedDTO, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<MessageDTO>>>;
-    public userUserIDMessagePost(userID: string, messageReducedDTO: MessageReducedDTO, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<MessageDTO>>>;
-    public userUserIDMessagePost(userID: string, messageReducedDTO: MessageReducedDTO, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (userID === null || userID === undefined) {
-            throw new Error('Required parameter userID was null or undefined when calling userUserIDMessagePost.');
-        }
+    public userMessageNewMessagePost(messageReducedDTO: MessageReducedDTO, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<MessageDTO>>;
+    public userMessageNewMessagePost(messageReducedDTO: MessageReducedDTO, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<MessageDTO>>>;
+    public userMessageNewMessagePost(messageReducedDTO: MessageReducedDTO, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<MessageDTO>>>;
+    public userMessageNewMessagePost(messageReducedDTO: MessageReducedDTO, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (messageReducedDTO === null || messageReducedDTO === undefined) {
-            throw new Error('Required parameter messageReducedDTO was null or undefined when calling userUserIDMessagePost.');
+            throw new Error('Required parameter messageReducedDTO was null or undefined when calling userMessageNewMessagePost.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -306,7 +294,7 @@ export class MessageService {
             }
         }
 
-        let localVarPath = `/user/${this.configuration.encodeParam({name: "userID", value: userID, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/message`;
+        let localVarPath = `/user/message/newMessage`;
         return this.httpClient.request<Array<MessageDTO>>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -326,12 +314,12 @@ export class MessageService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public userUserIDMessagesGet(userID: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<MessageDTO>>;
-    public userUserIDMessagesGet(userID: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<MessageDTO>>>;
-    public userUserIDMessagesGet(userID: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<MessageDTO>>>;
-    public userUserIDMessagesGet(userID: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public userMessageUserIDMessagesGet(userID: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<MessageDTO>>;
+    public userMessageUserIDMessagesGet(userID: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<MessageDTO>>>;
+    public userMessageUserIDMessagesGet(userID: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<MessageDTO>>>;
+    public userMessageUserIDMessagesGet(userID: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (userID === null || userID === undefined) {
-            throw new Error('Required parameter userID was null or undefined when calling userUserIDMessagesGet.');
+            throw new Error('Required parameter userID was null or undefined when calling userMessageUserIDMessagesGet.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -371,7 +359,7 @@ export class MessageService {
             }
         }
 
-        let localVarPath = `/user/${this.configuration.encodeParam({name: "userID", value: userID, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/messages`;
+        let localVarPath = `/user/message/${this.configuration.encodeParam({name: "userID", value: userID, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/messages`;
         return this.httpClient.request<Array<MessageDTO>>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,

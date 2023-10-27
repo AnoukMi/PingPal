@@ -65,6 +65,5 @@ public class UserController {
       if (ret==1) {
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Incorrect password");
       }
-      userService.deleteUser(user.login()); //to delete user from the database
   }
 }

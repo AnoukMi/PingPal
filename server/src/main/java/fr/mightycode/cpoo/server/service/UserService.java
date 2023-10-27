@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 import fr.mightycode.cpoo.server.model.UserData;
 import fr.mightycode.cpoo.server.model.Conversation;
 import fr.mightycode.cpoo.server.repository.UserRepository;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.time.LocalDate;
 
 import java.util.List;
@@ -32,7 +35,7 @@ public class UserService {
    * Store a new user (create a new user account)
    * Used in UserController.java (signup)
    *
-   * @param all parameters of an user
+   * @param login and others : all of UserData and FullUserDTOc
    */
   public void createUser(String login, int icon, String firstname, String lastname, LocalDate birthday, String address) {
     UserData user = new UserData(login,icon,firstname,lastname,birthday,address, null);
@@ -45,8 +48,14 @@ public class UserService {
    *
    * @param login The username of the user to delete
    */
-  public void deleteUser(String login){
-    userRepository.deleteByLogin(login);
+  public void deleteThisUser(String login) throws ResponseStatusException {
+    UserData user = userRepository.findByLogin(login);
+    userRepository.delete(user);
+    if (user != null) {
+      userRepository.delete(user);
+    } else {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User does not exist");
+    }
   }
 
   public boolean signup(final String login, final String password) { //create account
@@ -78,6 +87,7 @@ public class UserService {
       if (!passwordEncoder.matches(password, userDetails.getPassword())) { //case incorrect password
         return 1;
       }
+      deleteThisUser(login); //to delete user from the database
       userDetailsManager.deleteUser(login); //ok, deletion
       return -1;
     }
