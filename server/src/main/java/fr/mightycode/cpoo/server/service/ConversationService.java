@@ -3,12 +3,11 @@ package fr.mightycode.cpoo.server.service;
 import fr.mightycode.cpoo.server.model.Conversation;
 import fr.mightycode.cpoo.server.model.UserData;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import fr.mightycode.cpoo.server.repository.ConversationRepository;
 import fr.mightycode.cpoo.server.repository.MessageRepository;
 import fr.mightycode.cpoo.server.repository.UserRepository;
-import fr.mightycode.cpoo.server.dto.UserDTO;
 import fr.mightycode.cpoo.server.dto.ConversationDTO;
 
 import java.util.ArrayList;
@@ -18,8 +17,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ConversationService {
 
+    @Autowired
     private final ConversationRepository conversationRepository;
+    @Autowired
     private final MessageRepository messageRepository;
+    @Autowired
     private final UserRepository userRepository;
 
 
