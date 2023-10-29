@@ -3,6 +3,7 @@ package fr.mightycode.cpoo.server.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -16,6 +17,8 @@ public class Message {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "msgID", nullable = false)
   private UUID msgID;
+  @Column(name = "idRecip", nullable = false)
+  private UUID idRecip; //the ID of the same message in the recipient BDD
   @Column(name = "recipient", nullable = false)
   private String recipient;
   @Column(name = "content", nullable = false)
@@ -39,25 +42,27 @@ public class Message {
 
   public Message(RouterService.Message message){
     this.msgID = message.id();
+    this.idRecip = message.idRecip();
     this.recipient = message.recipient();
     this.content = message.content();
     this.author = message.author();
     this.authorAddress = message.authorAddress();
     this.date = message.date();
     this.edited = message.edited();
-    this.conversation=null;
   }
 
-//  public Message(Long msgID, String recipientID, String content, String autorID, String autorAddress,
-//                 LocalDate date, boolean edited, Conversation conversation){
-//    this.msgID = msgID;
-//    this.recipient = recipientID;
-//    this.content = content;
-//    this.author = autorID;
-//    this.date = date;
-//    this.edited = edited;
-//    this.conversation = conversation;
-//  }
+  public Message(UUID msgID,UUID idRecip, String recipientID, String content, String autorID, String autorAddress,
+                 LocalDateTime date, boolean edited, Conversation conversation){
+    this.msgID = msgID;
+    this.idRecip = idRecip;
+    this.recipient = recipientID;
+    this.content = content;
+    this.author = autorID;
+    this.authorAddress = autorAddress;
+    this.date = date;
+    this.edited = edited;
+    this.conversation = conversation;
+  }
 
   // getters et setters
   public UUID getMsgId(){
@@ -66,6 +71,14 @@ public class Message {
 //  public void setMsgId(UUID id){
 //    this.msgID = id;
 //  }
+
+  public UUID getIdRecip(){
+    return this.idRecip;
+  }
+  public void setIdRecip(UUID id){
+    this.idRecip = id;
+  }
+
   public String getRecipient(){
     return recipient;
   }

@@ -66,20 +66,22 @@ public class MessageController {
       produces = MediaType.APPLICATION_JSON_VALUE)
     public MessageDTO sendNewMessage(final Principal user, @PathVariable final String recipient,
                                      @RequestBody final String content) {
+        String recipAddr=recipient;
         Pattern formatAddress = Pattern.compile(".+@.+"); // .+ signifie "n'importe quel caractère, une ou plusieurs fois"
         Matcher matcher = formatAddress.matcher(recipient); //objet Matcher pour effectuer la correspondance
         if (!matcher.matches()) { // Vérifie si login ne correspond pas au format d'adresse (càd le login est censé correspondre
             //à un user de l'application appartenant à la base de donnée)
             UserData userRecipient = userRepository.findByLogin(recipient);
             if(userRecipient==null){
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "UserID not found");
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipient user does not exist");
             }
+            recipAddr=recipient+"@pingpal";
         }
         try {
             // Build a router message from the given information in parameters
             RouterService.Message routerMessage = new RouterService.Message(
-            UUID.randomUUID(),
-            recipient,
+            UUID.randomUUID(), UUID.randomUUID(),
+            recipAddr,
             content,
             user.getName(),
             user.getName() + "@" + serverDomain,
@@ -92,7 +94,7 @@ public class MessageController {
             // Route the message
             routerService.routeMessage(routerMessage);
 
-            // Store the message in the DB
+            // Store the message in the DB for both user and interlocutor
             messageService.storeMessage(message);
 
             // Return the message as a DTO

@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
  @RestController
 @RequestMapping("user/conversation")
 @RequiredArgsConstructor
@@ -48,13 +49,19 @@ public class ConversationController {
 
   /**
    * Create a new (empty) conversation with a given user
-   * @param user UserID to create a conversation with
+   * @param user current user
+   * @param interlocutor address or username of the interlocutor with whom create a new conversation
    * @return The created conversationDTO with the user
    */
     @PostMapping(value = "newConversation/{user}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ConversationDTO createEmptyConversation(@PathVariable final String user) {
+    public ConversationDTO createEmptyConversation(final Principal user, @PathVariable final String interlocutor) {
+      String address = interlocutor;
+      if (!isAddress(interlocutor)) { // Vérifie si login ne correspond pas au format d'address
+        //càd le login est supposé être un user de l'application
+        address = interlocutor + "@pingpal";
+      }
       try{
-        return conversationService.createEmptyConversation(user);
+        return conversationService.createEmptyConversation(user.getName(),address);
       }catch(final Exception ex){
         throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
       }
@@ -69,33 +76,56 @@ public class ConversationController {
    */
   @GetMapping(value = "{login}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ConversationDTO getOneConversation(final Principal user, @PathVariable String login) {
-    String address=login;
-    Pattern formatAddress = Pattern.compile(".+@.+"); // .+ signifie "n'importe quel caractère, une ou plusieurs fois"
-    Matcher matcher = formatAddress.matcher(login); //objet Matcher pour effectuer la correspondance
-    if (!matcher.matches()) { // Vérifie si login ne correspond pas au format d'address
+    String address = login;
+    if (!isAddress(login)) { // Vérifie si login ne correspond pas au format d'address
       //càd le login est supposé être un user de l'application
-      address=login+"@pingpal";
+      if(conversationService.logMember(login)==null){
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipient user does not exist");
+      }
+      address = login + "@pingpal"; //si existe on rend son adresse
+    }
     try {
       return conversationService.getOneConversation(user.getName(), address);
-    }catch (final Exception ex) {
-       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
-     }
+    } catch (final Exception ex) {
+      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+    }
   }
 
   /**
    * Delete an existing conversation with a given user
    *
    * @param user The current user logged in
-   * @param login The login with whom the conversation is exchanged
+   * @param login The login user with whom the conversation is exchanged
    */
   @DeleteMapping(value = "{login}")
   public void deleteOneConversation(final Principal user, @PathVariable String login) {
+    String address = login;
+    if (!isAddress(login)) { // Vérifie si login ne correspond pas au format d'address
+      //càd le login est supposé être un user de l'application
+      address = login + "@pingpal";
+    }
     try {
-      conversationService.deleteConversation(user, login);
+      conversationService.deleteConversation(user.getName(), address);
     }catch (final Exception ex) {
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
     }
   }
+
+   /**
+    * Check if a string is an address
+    *
+    * @param log The user login to test as an address or not
+    * @return true if it is an address
+    */
+   public boolean isAddress(String log){
+     Pattern formatAddress = Pattern.compile(".+@.+");
+     Matcher matcher = formatAddress.matcher(log); // Objet Matcher pour effectuer la correspondance
+     if (matcher.matches()) { //si on est au format d'adresse
+       return true;
+     }
+     return false;
+   }
+
 }
 
 

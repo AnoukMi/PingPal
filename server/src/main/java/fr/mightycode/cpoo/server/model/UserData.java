@@ -27,7 +27,7 @@ public class UserData {
     @Column(name = "sharedMessage", nullable = true, length = 200)
     private String sharedMessage; //texte du statut partagé
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL) //cascade pour que supprimer un user supprime l'amitié)
     @JoinTable(
             name = "friendship",
             joinColumns = @JoinColumn(name = "user_id", nullable = false),
@@ -35,7 +35,7 @@ public class UserData {
     )
     private List<UserData> friends; //liste d'amis de l'user
 
-  @OneToMany(mappedBy = "userData")
+  @OneToMany(mappedBy = "userData", cascade = CascadeType.ALL) //cascade pour que supprimer un user supprime toutes ses convs
   private List<Conversation> conversations;
 
     public UserData() {

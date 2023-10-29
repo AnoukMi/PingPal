@@ -30,6 +30,7 @@ public class RouterService {
 
   public record Message(
           UUID id,      // unique id of the message
+          UUID idRecip,      // unique id of the message for the recipient
           String recipient, // recipient address
           String content, // content of the message
           String author,    // sender login

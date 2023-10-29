@@ -340,8 +340,6 @@ paths:
                 $ref: '#/components/schemas/MessageDTO'
         '410':
           description: The message is no more available, has been deleted
-        '404':
-          description: msgID not found in the list of messages
         default:
           description: Error
           content:
@@ -363,8 +361,6 @@ paths:
       responses:
         '200':
           description: Success, message deleted
-        '410':
-          description: The message is no more available, has been deleted
         '404':
           description: msgID not found in the list of messages
         default:

@@ -14,6 +14,8 @@ import org.springframework.web.server.ResponseStatusException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
@@ -67,24 +69,78 @@ public class ConversationService {
 
     /**
      * Create a new conversation with a given user
-     * @param login The interlocutor
+     * @param address The interlocutor address
+     * @param user The current user
      */
-    public ConversationDTO createEmptyConversation(String login){
+    public ConversationDTO createEmptyConversation(String user, String address){
+      if(conversationRepository.findByID(user+address)!=null){
+        throw new ResponseStatusException(HttpStatus.CONFLICT, "A conversation with this user already exists");
+      }
+
+      //si aucune conv avec cet utilisateur n'existe, on la crée
       Conversation conversation = new Conversation();
-      conversation.setPeerAddress(login + "@pingpal");
+      conversation.setId(user+address); //id unique composé des 2 utilisateurs (avec le domaine du second)
+      UserData user1 = userRepository.findByLogin(user); //le fait de charger l'user devrait màj automatiquement sa liste de conv
+      conversation.setUserData(user1);
+      conversation.setPeerAddress(address);
       conversationRepository.save(conversation);
+
+      String interlocutor = logMember(address); //renvoie null si pas membre de Pingpal, sinon son username
+      if (interlocutor!=null) { //si appartient à l'application, il faut aussi ajouter la conversation dans la BDD pour l'interlocuteur
+        //seulement si n'existe pas déjà dans BDD du destinataire
+        if(conversationRepository.findByID(interlocutor+user+"@pingpal")==null) {
+          Conversation conversationDest = new Conversation();
+          conversationDest.setPeerAddress(user+"@pingpal");
+          conversationDest.setId(interlocutor+user+"@pingpal"); //id unique composé des 2 utilisateurs (avec le domaine du second)
+          UserData user2 = userRepository.findByLogin(interlocutor); //le fait de charger l'user devrait màj automatiquement sa liste de conv
+          conversationDest.setUserData(user2);
+          conversationRepository.save(conversationDest);
+        }
+      }
+
       return new ConversationDTO(conversation);
     }
 
     /**
      * Delete an existing conversation with a given user
-     * @param login The given user login
+     * @param address The given user (interlocutor) address
+     * @param loggedUser The current user login
      */
-    public void deleteConversation(final Principal user, String login){
-      ConversationDTO conversationDTOToDelete = getOneConversation(user, login);
-      if(conversationDTOToDelete == null){
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversation to delete not found");
+    public void deleteConversation(String loggedUser, String address){
+      UserData userData = userRepository.findByLogin(loggedUser);
+      List<Conversation> conversations = conversationRepository.findByUserData(userData);
+      Conversation conversationToDelete = null;
+      for(Conversation conversation : conversations){
+        if(conversation.getPeerAddress().equals(address)){
+          conversationToDelete = conversation;
+          break;
+        }
       }
-      conversationRepository.deleteByUser(login);
+      if(conversationToDelete == null){
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversation not found with this user");
+      }
+      conversationRepository.delete(conversationToDelete);
     }
+
+  /**
+   * Tell if an user is in our application by giving his username
+   *
+   * @param user The user login to test or his address
+   * @return the login of the user if he is part of the application (is in the database), else null
+   */
+  public String logMember(String user){
+    String login = user;
+    Pattern formatAddress = Pattern.compile("(.+)@pingpal"); //parenthèses pour capturer ce qui se trouve avant "@"
+    Matcher matcher = formatAddress.matcher(user); // Objet Matcher pour effectuer la correspondance
+    if (matcher.matches()) { //si on est au format d'adresse du domaine pingpal
+      //Récupère la valeur du groupe capturé (la partie avant "@pingpal")
+      login = matcher.group(1);
+    }
+    if(userRepository.findByLogin(login)==null){ //cherche le login dans BDD, retournera aussi null si c'est une adresse d'un autre domaine
+      return null; //n'est pas membre
+    }
+    return login;
+  }
+
+
 }

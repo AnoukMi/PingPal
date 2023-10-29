@@ -33,7 +33,6 @@ public class MessageService {
     @Autowired
     private final UserRepository userRepository;
 
-    /**
 
     /**
      * Delete a message that's already sent.
@@ -42,8 +41,14 @@ public class MessageService {
     public void deleteSentMessage(UUID msgID) {
         Message message = messageRepository.findByMsgID(msgID);
       if (message == null) {
-        throw new ResponseStatusException(HttpStatus.GONE, "The message is no more available, has been deleted");
+          throw new ResponseStatusException(HttpStatus.NOT_FOUND, "msgID not found in the list of messages");
       } else {
+          String recipient = message.getRecipient();
+          String userPing =logMember(recipient);
+          if(userPing!=null){ //supprime aussi pour le destinataire si appartient à l'appli
+              Message messageRecip = messageRepository.findByMsgID(message.getIdRecip());
+              messageRepository.delete(messageRecip);
+          }
         messageRepository.delete(message);
       }
     }
@@ -54,13 +59,19 @@ public class MessageService {
      * @param modifiedContent The new content of the message
      */
     public MessageDTO modifySentMessage(UUID msgID, String modifiedContent){
-        // TODO : gérer le fait que le msgID n'appartienne pas à la BDD
-        // throw new ResponseStatusException(HttpStatus.NOT_FOUND, "msgID not found in the list of messages");
         Message msg = messageRepository.findByMsgID(msgID);
         if(msg == null){
           throw new ResponseStatusException(HttpStatus.GONE, "The message is no more available, has been deleted");
         }
         msg.setContent(modifiedContent);
+        msg.setEdited(true);
+        String recipient = msg.getRecipient();
+        String userPing =logMember(recipient);
+        if(userPing!=null){ //modifie aussi pour le destinataire si appartient à l'appli
+            Message messageRecip = messageRepository.findByMsgID(msg.getIdRecip());
+            messageRecip.setContent(modifiedContent);
+            messageRecip.setEdited(true);
+        }
       return new MessageDTO(msgID, msg.getRecipient(), modifiedContent, msg.getAuthor(),
           msg.getAuthorAddress(), msg.getDate(), true);
     }
@@ -78,11 +89,9 @@ public class MessageService {
         UserData userData = userRepository.findByLogin(login);
         //récupère tous les headers de conversations de l'utilisateur connecté
         List<Conversation> conversations = conversationRepository.findByUserData(userData);
-        Pattern formatAddress = Pattern.compile(".+@.+"); // .+ signifie "n'importe quel caractère, une ou plusieurs fois"
-        Matcher matcher = formatAddress.matcher(interlocutor); //objet Matcher pour effectuer la correspondance
         String userAddress ="";
-        if (matcher.matches()) { // Vérifie si login correspond au format d'adresse
-            //si oui, userAddress prend directement la valeur de login
+        if (isAddress(interlocutor)) { // Vérifie si interlocutor correspond au format d'adresse
+            //si oui, userAddress prend directement la valeur de interlocutor
             userAddress = interlocutor;
         } else {
             // Sinon, login est l'username d'un user inscrit : on convertit avec l'addresse pingpal
@@ -119,7 +128,69 @@ public class MessageService {
      * @param msg The message sent to store
      */
     public void storeMessage(Message msg){
-
+        String login = logMember(msg.getAuthor());
+        UserData userData = userRepository.findByLogin(login);
+        List<Conversation> conversations = conversationRepository.findByUserData(userData);
+        Conversation conv = null;
+        for(Conversation conversation : conversations){
+            if(conversation.getPeerAddress().equals(msg.getRecipient())){
+                conv = conversation;
+                break;
+            }
+        }
+        msg.setConversation(conv);
         messageRepository.save(msg);
+
+        String recipient = msg.getRecipient();
+        String userPing =logMember(recipient);
+        if(userPing!=null){ //stocke aussi pour le destinataire si appartient à l'appli
+            UserData userRecip = userRepository.findByLogin(userPing);
+            List<Conversation> conversationsRec = conversationRepository.findByUserData(userRecip);
+            Conversation convRec = null;
+            for(Conversation conversation : conversationsRec){
+                if(conversation.getPeerAddress().equals(msg.getAuthorAddress())){
+                    convRec = conversation;
+                    break;
+                }
+            }
+            Message msgRecip = new Message(msg.getIdRecip(),msg.getMsgId(),msg.getRecipient(),msg.getContent(),
+                    msg.getAuthor(),msg.getAuthorAddress(),msg.getDate(),msg.isEdited(),convRec);
+            messageRepository.save(msgRecip);
+        }
+    }
+
+    /**
+     * Tell if an user is in our application by giving his username
+     *
+     * @param user The user login to test or his address
+     * @return the login of the user if he is part of the application (is in the database), else null
+     */
+    public String logMember(String user){
+        String login = user;
+        Pattern formatAddress = Pattern.compile("(.+)@pingpal"); //parenthèses pour capturer ce qui se trouve avant "@"
+        Matcher matcher = formatAddress.matcher(user); // Objet Matcher pour effectuer la correspondance
+        if (matcher.matches()) { //si on est au format d'adresse du domaine pingpal
+            //Récupère la valeur du groupe capturé (la partie avant "@pingpal")
+            login = matcher.group(1);
+        }
+        if(userRepository.findByLogin(login)==null){ //cherche le login dans BDD, retournera aussi null si c'est une adresse d'un autre domaine
+            return null; //n'est pas membre
+        }
+        return login;
+    }
+
+    /**
+     * Check if a string is an address
+     *
+     * @param log The user login to test as an address or not
+     * @return true if it is an address
+     */
+    public boolean isAddress(String log){
+        Pattern formatAddress = Pattern.compile(".+@.+");
+        Matcher matcher = formatAddress.matcher(log); // Objet Matcher pour effectuer la correspondance
+        if (matcher.matches()) { //si on est au format d'adresse
+            return true;
+        }
+        return false;
     }
 }
