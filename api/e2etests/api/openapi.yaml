@@ -142,14 +142,14 @@ paths:
       tags:
       - conversation
       x-accepts: application/json
-  /user/conversation/newConversation/{user}:
+  /user/conversation/newConversation/{interlocutor}:
     post:
       parameters:
       - description: Username or peer address of the new interlocutor with whom to
           start a discussion
         explode: false
         in: path
-        name: user
+        name: interlocutor
         required: true
         schema:
           type: string
@@ -328,8 +328,6 @@ paths:
       responses:
         "200":
           description: "Success, message deleted"
-        "410":
-          description: "The message is no more available, has been deleted"
         "404":
           description: msgID not found in the list of messages
         default:
@@ -368,8 +366,6 @@ paths:
           description: "Success, return modified message"
         "410":
           description: "The message is no more available, has been deleted"
-        "404":
-          description: msgID not found in the list of messages
         default:
           content:
             application/json:

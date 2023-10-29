@@ -75,7 +75,6 @@ null (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Success, message deleted |  -  |
-| **410** | The message is no more available, has been deleted |  -  |
 | **404** | msgID not found in the list of messages |  -  |
 | **0** | Error |  -  |
 
@@ -148,7 +147,6 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Success, return modified message |  -  |
 | **410** | The message is no more available, has been deleted |  -  |
-| **404** | msgID not found in the list of messages |  -  |
 | **0** | Error |  -  |
 
 <a id="userMessageNewMessageRecipientPost"></a>

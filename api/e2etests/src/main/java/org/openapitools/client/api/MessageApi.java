@@ -84,7 +84,6 @@ public class MessageApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, message deleted </td><td>  -  </td></tr>
-        <tr><td> 410 </td><td> The message is no more available, has been deleted </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> msgID not found in the list of messages </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
@@ -154,7 +153,6 @@ public class MessageApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, message deleted </td><td>  -  </td></tr>
-        <tr><td> 410 </td><td> The message is no more available, has been deleted </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> msgID not found in the list of messages </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
@@ -173,7 +171,6 @@ public class MessageApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, message deleted </td><td>  -  </td></tr>
-        <tr><td> 410 </td><td> The message is no more available, has been deleted </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> msgID not found in the list of messages </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
@@ -194,7 +191,6 @@ public class MessageApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, message deleted </td><td>  -  </td></tr>
-        <tr><td> 410 </td><td> The message is no more available, has been deleted </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> msgID not found in the list of messages </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
@@ -217,7 +213,6 @@ public class MessageApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, return modified message </td><td>  -  </td></tr>
         <tr><td> 410 </td><td> The message is no more available, has been deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> msgID not found in the list of messages </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -290,7 +285,6 @@ public class MessageApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, return modified message </td><td>  -  </td></tr>
         <tr><td> 410 </td><td> The message is no more available, has been deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> msgID not found in the list of messages </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -311,7 +305,6 @@ public class MessageApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, return modified message </td><td>  -  </td></tr>
         <tr><td> 410 </td><td> The message is no more available, has been deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> msgID not found in the list of messages </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -334,7 +327,6 @@ public class MessageApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Success, return modified message </td><td>  -  </td></tr>
         <tr><td> 410 </td><td> The message is no more available, has been deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> msgID not found in the list of messages </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */

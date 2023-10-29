@@ -132,13 +132,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-  /user/conversation/newConversation/{user}:
+  /user/conversation/newConversation/{interlocutor}:
     post:
       summary: Create a new (empty) conversation with a given user
       tags:
         - conversation
       parameters:
-        - name: user
+        - name: interlocutor
           in: path
           description: Username or peer address of the new interlocutor with whom to start a discussion
           required: true
@@ -279,39 +279,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-#  /user/message/{user}:
-#    post:
-#      summary: Send a new message to an existing conversation with the given user
-#      tags:
-#        - message
-#      parameters:
-#        - name: user
-#          in: path
-#          description: Username of the interlocutor with whom the messages of the conversation are exchanged
-#          required: true
-#          schema:
-#            type: string
-#      requestBody:
-#        required: true
-#        content:
-#          application/json:
-#            schema:
-#              $ref: '#/components/schemas/MessageReducedDTO'
-#      responses:
-#        '200':
-#          description: Create a new message and send it to the interlocutor
-#          content:
-#            application/json:
-#              schema:
-#                $ref: '#/components/schemas/MessageDTO'
-#        '404':
-#          description: UserID not found in the current list of conversations
-#        default:
-#          description: Error
-#          content:
-#            application/json:
-#              schema:
-#                $ref: '#/components/schemas/ErrorDTO'
   /user/message/{msgID}:
     patch:
       summary: Modify a certain message already sent

@@ -7,7 +7,7 @@ All URIs are relative to *http://localhost:8080*
 | [**userConversationConversationsGet**](ConversationApi.md#userConversationConversationsGet) | **GET** /user/conversation/conversations | Retrieve all conversations (headers) between the current user and others |
 | [**userConversationLoginDelete**](ConversationApi.md#userConversationLoginDelete) | **DELETE** /user/conversation/{login} | Delete an existing conversation (the header and all contained messages) with a given user |
 | [**userConversationLoginGet**](ConversationApi.md#userConversationLoginGet) | **GET** /user/conversation/{login} | Search an existing conversation (the header) with a given user |
-| [**userConversationNewConversationUserPost**](ConversationApi.md#userConversationNewConversationUserPost) | **POST** /user/conversation/newConversation/{user} | Create a new (empty) conversation with a given user |
+| [**userConversationNewConversationInterlocutorPost**](ConversationApi.md#userConversationNewConversationInterlocutorPost) | **POST** /user/conversation/newConversation/{interlocutor} | Create a new (empty) conversation with a given user |
 
 
 <a id="userConversationConversationsGet"></a>
@@ -213,9 +213,9 @@ public class Example {
 | **404** | UserID not found in the current user&#39;s list of conversations |  -  |
 | **0** | Error |  -  |
 
-<a id="userConversationNewConversationUserPost"></a>
-# **userConversationNewConversationUserPost**
-> ConversationDTO userConversationNewConversationUserPost(user)
+<a id="userConversationNewConversationInterlocutorPost"></a>
+# **userConversationNewConversationInterlocutorPost**
+> ConversationDTO userConversationNewConversationInterlocutorPost(interlocutor)
 
 Create a new (empty) conversation with a given user
 
@@ -241,12 +241,12 @@ public class Example {
     //CookieAuth.setApiKeyPrefix("Token");
 
     ConversationApi apiInstance = new ConversationApi(defaultClient);
-    String user = "user_example"; // String | Username or peer address of the new interlocutor with whom to start a discussion
+    String interlocutor = "interlocutor_example"; // String | Username or peer address of the new interlocutor with whom to start a discussion
     try {
-      ConversationDTO result = apiInstance.userConversationNewConversationUserPost(user);
+      ConversationDTO result = apiInstance.userConversationNewConversationInterlocutorPost(interlocutor);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling ConversationApi#userConversationNewConversationUserPost");
+      System.err.println("Exception when calling ConversationApi#userConversationNewConversationInterlocutorPost");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -260,7 +260,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **user** | **String**| Username or peer address of the new interlocutor with whom to start a discussion | |
+| **interlocutor** | **String**| Username or peer address of the new interlocutor with whom to start a discussion | |
 
 ### Return type
 
