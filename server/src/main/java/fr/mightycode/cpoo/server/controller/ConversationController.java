@@ -69,29 +69,37 @@ public class ConversationController {
    */
   @GetMapping(value = "{login}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ConversationDTO getOneConversation(final Principal user, @PathVariable String login) {
-    String address=login;
+    String address = login;
     Pattern formatAddress = Pattern.compile(".+@.+"); // .+ signifie "n'importe quel caractère, une ou plusieurs fois"
     Matcher matcher = formatAddress.matcher(login); //objet Matcher pour effectuer la correspondance
     if (!matcher.matches()) { // Vérifie si login ne correspond pas au format d'address
       //càd le login est supposé être un user de l'application
-      address=login+"@pingpal";
+      address = login + "@pingpal";
+    }
     try {
       return conversationService.getOneConversation(user.getName(), address);
-    }catch (final Exception ex) {
-       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
-     }
+    } catch (final Exception ex) {
+      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+    }
   }
 
   /**
    * Delete an existing conversation with a given user
    *
    * @param user The current user logged in
-   * @param login The login with whom the conversation is exchanged
+   * @param login The login user with whom the conversation is exchanged
    */
   @DeleteMapping(value = "{login}")
   public void deleteOneConversation(final Principal user, @PathVariable String login) {
+    String address = login;
+    Pattern formatAddress = Pattern.compile(".+@.+"); // .+ signifie "n'importe quel caractère, une ou plusieurs fois"
+    Matcher matcher = formatAddress.matcher(login); //objet Matcher pour effectuer la correspondance
+    if (!matcher.matches()) { // Vérifie si login ne correspond pas au format d'address
+      //càd le login est supposé être un user de l'application
+      address = login + "@pingpal";
+    }
     try {
-      conversationService.deleteConversation(user, login);
+      conversationService.deleteConversation(user.getName(), address);
     }catch (final Exception ex) {
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
     }

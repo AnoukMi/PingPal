@@ -78,13 +78,22 @@ public class ConversationService {
 
     /**
      * Delete an existing conversation with a given user
-     * @param login The given user login
+     * @param address The given user (interlocutor) address
+     * @param loggedUser The current user login
      */
-    public void deleteConversation(final Principal user, String login){
-      ConversationDTO conversationDTOToDelete = getOneConversation(user, login);
-      if(conversationDTOToDelete == null){
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversation to delete not found");
+    public void deleteConversation(String loggedUser, String address){
+      UserData userData = userRepository.findByLogin(loggedUser);
+      List<Conversation> conversations = conversationRepository.findByUserData(userData);
+      Conversation conversationToDelete = null;
+      for(Conversation conversation : conversations){
+        if(conversation.getPeerAddress().equals(address)){
+          conversationToDelete = conversation;
+          break;
+        }
       }
-      conversationRepository.deleteByUser(login);
+      if(conversationToDelete == null){
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversation not found with this user");
+      }
+      conversationRepository.delete(conversationToDelete);
     }
 }

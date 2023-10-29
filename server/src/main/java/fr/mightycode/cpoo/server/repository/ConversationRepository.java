@@ -10,8 +10,6 @@ import java.util.List;
 
 @Repository
 public interface ConversationRepository extends JpaRepository<Conversation, String>{
-  Conversation findByPeerAddress(String address);
-  void deleteByUser(String user);
   @Query("SELECT c FROM Conversation c WHERE c.userData = :userData ORDER BY c.lastMsgDate DESC")
   List<Conversation> findByUserDataOrderByLastMsgDateDesc(UserData userData);
   List<Conversation> findByUserData(UserData userData);
