@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Value;
 import java.security.Principal;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
  @RestController
 @RequestMapping("user/conversation")
@@ -38,7 +37,7 @@ public class ConversationController {
   @GetMapping(value = "conversations", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<ConversationDTO> listConversationsGet(final Principal user) {
     try {
-      List<ConversationDTO> conversations = conversationService.getConversations(user.getName());
+      List<ConversationDTO> conversations = conversationService.getConversations(user);
       if (conversations == null) {
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Problem");
       }
@@ -55,8 +54,8 @@ public class ConversationController {
    * @param user UserID to create a conversation with
    * @return The created conversationDTO with the user
    */
-    @PostMapping(value = "{user}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ConversationDTO createEmptyConversation(@PathVariable String user) {
+    @PostMapping(value = "newConversation/{user}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ConversationDTO createEmptyConversation(@PathVariable final String user) {
       try{
         return conversationService.createEmptyConversation(user);
       }catch(final Exception ex){
@@ -67,31 +66,31 @@ public class ConversationController {
   /**
    * Search and get an existing conversation with a given user
    *
-   * @param user The given user login
+   * @param user The current user logged in
+   * @param login The login with whom the conversation is exchanged
    * @return The conversationDTO that corresponds
    */
-//  @GetMapping(value = "{user}", produces = MediaType.APPLICATION_JSON_VALUE)
-//  public ConversationDTO getOneConversation(@PathVariable String user) {
-//    try {
-//      return conversationService.getOneConversation(user);
-//    }
-//    catch (NoSuchElementException e) {
-//      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
-//    }
-//  }
+  @GetMapping(value = "{login}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ConversationDTO getOneConversation(final Principal user, @PathVariable String login) {
+    try {
+      return conversationService.getOneConversation(user, login);
+    }catch (final Exception ex) {
+       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+     }
+  }
 
   /**
    * Delete an existing conversation with a given user
    *
-   * @param user The given user login
+   * @param user The current user logged in
+   * @param login The login with whom the conversation is exchanged
    */
-  @DeleteMapping(value = "{user}")
-  public void deleteOneConversation(@PathVariable String user) {
+  @DeleteMapping(value = "{login}")
+  public void deleteOneConversation(final Principal user, @PathVariable String login) {
     try {
-      conversationService.deleteConversation(user);
-    }
-    catch (NoSuchElementException e) {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+      conversationService.deleteConversation(user, login);
+    }catch (final Exception ex) {
+      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
     }
   }
 }

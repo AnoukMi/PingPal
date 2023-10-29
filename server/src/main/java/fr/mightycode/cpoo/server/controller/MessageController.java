@@ -1,15 +1,14 @@
 package fr.mightycode.cpoo.server.controller;
 
+import fr.mightycode.cpoo.server.model.Message;
 import fr.mightycode.cpoo.server.service.RouterService;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import fr.mightycode.cpoo.server.dto.MessageDTO;
-import fr.mightycode.cpoo.server.dto.MessageReducedDTO;
 import fr.mightycode.cpoo.server.service.MessageService;
 
 import lombok.RequiredArgsConstructor;
@@ -35,9 +34,12 @@ public class MessageController {
     @Value("pingpal")
     private String serverDomain;
 
+    @Autowired
     private final MessageService messageService;
 
+    @Autowired
     private final RouterService routerService;
+
 
     /**
      * Retrieve all messages in a given conversation
@@ -46,46 +48,45 @@ public class MessageController {
     @GetMapping(value = "{userID}/messages", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<MessageDTO> listMessagesGet(@PathVariable final String userID) {
         try {
-            List<MessageDTO> messages = messageService.getMessages(userID);
-          if(messages == null){
-            throw new ResponseStatusException(HttpStatus.GONE, "The messages are no more available, have been deleted");
-          }
-          return messages;
+            return messageService.getMessages(userID);
         }catch(final Exception ex){
           throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
         }
     }
 
 
-    /**
+  /**
      * Send a new message to a given user
      */
-    @PostMapping(value = "newMessage", consumes = MediaType.APPLICATION_JSON_VALUE,
+
+    @PostMapping(value = "newMessage/{recipient}", consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-    public MessageDTO sendNewMessage(final Principal user, @RequestBody final MessageReducedDTO postMessage) {
+    public MessageDTO sendNewMessage(final Principal user, @PathVariable final String recipient,
+                                     @RequestBody final String content) {
       try {
         // A la place des lignes qui suivent, peut-être tester si le recipient existe dans la BDD
-        if (postMessage.recipient() == null) {
+        if (recipient == null) {
           throw new ResponseStatusException(HttpStatus.NOT_FOUND, "UserID not found");
         }
-
-        long currentTimeMillis = System.currentTimeMillis();
-        Instant instant = Instant.ofEpochMilli(currentTimeMillis);
-        LocalDate localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
 
         // Build a router message from the MessageReducedDTO
         RouterService.Message routerMessage = new RouterService.Message(
           UUID.randomUUID(),
-          postMessage.recipient(),
-          postMessage.content(),
+          recipient,
+          content,
           user.getName(),
           user.getName() + "@" + serverDomain,
-          localDate,
+          LocalDate.now(),
           false
         );
 
+        Message message = new Message(routerMessage);
+
         // Route the message
         routerService.routeMessage(routerMessage);
+
+        // Store the message in the DB
+        messageService.storeMessage(message);
 
         // Return the message as a DTO
         return new MessageDTO(routerMessage);
@@ -101,9 +102,7 @@ public class MessageController {
     @DeleteMapping(value = "{msgID}")
     public void deleteSentMessage(@PathVariable final UUID msgID) {
       try{
-        if(!messageService.deleteSentMessage(msgID)){
-          throw new ResponseStatusException(HttpStatus.GONE, "The message is no more available, has been deleted");
-        }
+        messageService.deleteSentMessage(msgID);
       }catch(final Exception ex){
         throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
       }

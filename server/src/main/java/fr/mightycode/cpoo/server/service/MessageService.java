@@ -1,7 +1,5 @@
 package fr.mightycode.cpoo.server.service;
 
-import java.util.Optional;
-
 import lombok.RequiredArgsConstructor;
 import fr.mightycode.cpoo.server.repository.MessageRepository;
 import fr.mightycode.cpoo.server.repository.ConversationRepository;
@@ -20,7 +18,6 @@ import fr.mightycode.cpoo.server.model.Message;
 import fr.mightycode.cpoo.server.model.Conversation;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -33,31 +30,16 @@ public class MessageService {
     private final ConversationRepository conversationRepository;
 
     /**
-     * Return the message by its ID
-     * @param msgID ID of the message
-     * @return MessageDTO that corresponds to the given ID
-     */
-    public MessageDTO getMessageById(UUID msgID){
-      Message message = messageRepository.findByMsgID(msgID);
-
-      if (message != null) {
-          return new MessageDTO(message);
-      } else {
-        return null;
-      }
-    }
-
 
     /**
      * Delete a message that's already sent.
      * @param msgID The message to delete
      */
-    public boolean deleteSentMessage(UUID msgID) {
-      if(msgID == null){
-        return false;
-      }else{
+    public void deleteSentMessage(UUID msgID) {
+      if (messageRepository.findByMsgID(msgID) == null) {
+        throw new ResponseStatusException(HttpStatus.GONE, "The message is no more available, has been deleted");
+      } else {
         messageRepository.deleteByMsgID(msgID);
-        return true;
       }
     }
 
@@ -92,6 +74,9 @@ public class MessageService {
           MessageDTO msgDTO = new MessageDTO(msg.getMsgId(), msg.getRecipient(), msg.getContent(), msg.getAuthor(),
             msg.getAuthorAddress(), msg.getDate(), msg.isEdited());
           msgDTOS.add(msgDTO);
+        }
+        if(msgDTOS.isEmpty()){
+          throw new ResponseStatusException(HttpStatus.GONE, "The messages are no more available, have been deleted");
         }
         return msgDTOS;
     }

@@ -6,9 +6,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 
-import fr.mightycode.cpoo.server.model.UserData;
-import fr.mightycode.cpoo.server.model.Message;
-
 
 @Data
 @Entity

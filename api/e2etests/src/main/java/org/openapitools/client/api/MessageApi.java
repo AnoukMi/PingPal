@@ -29,7 +29,6 @@ import java.io.IOException;
 
 import org.openapitools.client.model.ErrorDTO;
 import org.openapitools.client.model.MessageDTO;
-import org.openapitools.client.model.MessageReducedDTO;
 import java.util.UUID;
 
 import java.lang.reflect.Type;
@@ -347,8 +346,9 @@ public class MessageApi {
         return localVarCall;
     }
     /**
-     * Build call for userMessageNewMessagePost
-     * @param messageReducedDTO  (required)
+     * Build call for userMessageNewMessageRecipientPost
+     * @param recipient Username of the interlocutor with whom the messages of the conversation are exchanged (required)
+     * @param body  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -360,7 +360,7 @@ public class MessageApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userMessageNewMessagePostCall(MessageReducedDTO messageReducedDTO, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call userMessageNewMessageRecipientPostCall(String recipient, Object body, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -374,10 +374,11 @@ public class MessageApi {
             basePath = null;
         }
 
-        Object localVarPostBody = messageReducedDTO;
+        Object localVarPostBody = body;
 
         // create path and map variables
-        String localVarPath = "/user/message/newMessage";
+        String localVarPath = "/user/message/newMessage/{recipient}"
+            .replace("{" + "recipient" + "}", localVarApiClient.escapeString(recipient.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -406,20 +407,26 @@ public class MessageApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call userMessageNewMessagePostValidateBeforeCall(MessageReducedDTO messageReducedDTO, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'messageReducedDTO' is set
-        if (messageReducedDTO == null) {
-            throw new ApiException("Missing the required parameter 'messageReducedDTO' when calling userMessageNewMessagePost(Async)");
+    private okhttp3.Call userMessageNewMessageRecipientPostValidateBeforeCall(String recipient, Object body, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'recipient' is set
+        if (recipient == null) {
+            throw new ApiException("Missing the required parameter 'recipient' when calling userMessageNewMessageRecipientPost(Async)");
         }
 
-        return userMessageNewMessagePostCall(messageReducedDTO, _callback);
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            throw new ApiException("Missing the required parameter 'body' when calling userMessageNewMessageRecipientPost(Async)");
+        }
+
+        return userMessageNewMessageRecipientPostCall(recipient, body, _callback);
 
     }
 
     /**
      * Send a new message to a given user
      * 
-     * @param messageReducedDTO  (required)
+     * @param recipient Username of the interlocutor with whom the messages of the conversation are exchanged (required)
+     * @param body  (required)
      * @return List&lt;MessageDTO&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -430,15 +437,16 @@ public class MessageApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public List<MessageDTO> userMessageNewMessagePost(MessageReducedDTO messageReducedDTO) throws ApiException {
-        ApiResponse<List<MessageDTO>> localVarResp = userMessageNewMessagePostWithHttpInfo(messageReducedDTO);
+    public List<MessageDTO> userMessageNewMessageRecipientPost(String recipient, Object body) throws ApiException {
+        ApiResponse<List<MessageDTO>> localVarResp = userMessageNewMessageRecipientPostWithHttpInfo(recipient, body);
         return localVarResp.getData();
     }
 
     /**
      * Send a new message to a given user
      * 
-     * @param messageReducedDTO  (required)
+     * @param recipient Username of the interlocutor with whom the messages of the conversation are exchanged (required)
+     * @param body  (required)
      * @return ApiResponse&lt;List&lt;MessageDTO&gt;&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -449,8 +457,8 @@ public class MessageApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<List<MessageDTO>> userMessageNewMessagePostWithHttpInfo(MessageReducedDTO messageReducedDTO) throws ApiException {
-        okhttp3.Call localVarCall = userMessageNewMessagePostValidateBeforeCall(messageReducedDTO, null);
+    public ApiResponse<List<MessageDTO>> userMessageNewMessageRecipientPostWithHttpInfo(String recipient, Object body) throws ApiException {
+        okhttp3.Call localVarCall = userMessageNewMessageRecipientPostValidateBeforeCall(recipient, body, null);
         Type localVarReturnType = new TypeToken<List<MessageDTO>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -458,7 +466,8 @@ public class MessageApi {
     /**
      * Send a new message to a given user (asynchronously)
      * 
-     * @param messageReducedDTO  (required)
+     * @param recipient Username of the interlocutor with whom the messages of the conversation are exchanged (required)
+     * @param body  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -470,9 +479,9 @@ public class MessageApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userMessageNewMessagePostAsync(MessageReducedDTO messageReducedDTO, final ApiCallback<List<MessageDTO>> _callback) throws ApiException {
+    public okhttp3.Call userMessageNewMessageRecipientPostAsync(String recipient, Object body, final ApiCallback<List<MessageDTO>> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = userMessageNewMessagePostValidateBeforeCall(messageReducedDTO, _callback);
+        okhttp3.Call localVarCall = userMessageNewMessageRecipientPostValidateBeforeCall(recipient, body, _callback);
         Type localVarReturnType = new TypeToken<List<MessageDTO>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
