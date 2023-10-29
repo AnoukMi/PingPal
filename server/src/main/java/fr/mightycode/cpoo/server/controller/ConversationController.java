@@ -3,12 +3,10 @@
 import fr.mightycode.cpoo.server.dto.ConversationDTO;
 import fr.mightycode.cpoo.server.service.ConversationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.security.Principal;
 
@@ -22,6 +20,7 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 @CrossOrigin
 public class ConversationController {
+
   private final ConversationService conversationService;
 
 
@@ -53,7 +52,7 @@ public class ConversationController {
    * @param interlocutor address or username of the interlocutor with whom create a new conversation
    * @return The created conversationDTO with the user
    */
-    @PostMapping(value = "newConversation/{user}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "newConversation/{interlocutor}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ConversationDTO createEmptyConversation(final Principal user, @PathVariable final String interlocutor) {
       String address = interlocutor;
       if (!isAddress(interlocutor)) { // Vérifie si login ne correspond pas au format d'address
@@ -120,10 +119,8 @@ public class ConversationController {
    public boolean isAddress(String log){
      Pattern formatAddress = Pattern.compile(".+@.+");
      Matcher matcher = formatAddress.matcher(log); // Objet Matcher pour effectuer la correspondance
-     if (matcher.matches()) { //si on est au format d'adresse
-       return true;
-     }
-     return false;
+       //si on est au format d'adresse
+       return matcher.matches();
    }
 
 }

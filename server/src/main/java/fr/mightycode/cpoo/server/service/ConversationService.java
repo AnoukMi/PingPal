@@ -11,7 +11,6 @@ import fr.mightycode.cpoo.server.repository.UserRepository;
 import fr.mightycode.cpoo.server.dto.ConversationDTO;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -73,7 +72,7 @@ public class ConversationService {
      * @param user The current user
      */
     public ConversationDTO createEmptyConversation(String user, String address){
-      if(conversationRepository.findByID(user+address)!=null){
+      if(conversationRepository.findById(user + address).isPresent()){
         throw new ResponseStatusException(HttpStatus.CONFLICT, "A conversation with this user already exists");
       }
 
@@ -88,7 +87,7 @@ public class ConversationService {
       String interlocutor = logMember(address); //renvoie null si pas membre de Pingpal, sinon son username
       if (interlocutor!=null) { //si appartient à l'application, il faut aussi ajouter la conversation dans la BDD pour l'interlocuteur
         //seulement si n'existe pas déjà dans BDD du destinataire
-        if(conversationRepository.findByID(interlocutor+user+"@pingpal")==null) {
+        if(conversationRepository.findById(interlocutor + user + "@pingpal").isEmpty()) {
           Conversation conversationDest = new Conversation();
           conversationDest.setPeerAddress(user+"@pingpal");
           conversationDest.setId(interlocutor+user+"@pingpal"); //id unique composé des 2 utilisateurs (avec le domaine du second)
@@ -123,7 +122,7 @@ public class ConversationService {
     }
 
   /**
-   * Tell if an user is in our application by giving his username
+   * Tell if a user is in our application by giving his username
    *
    * @param user The user login to test or his address
    * @return the login of the user if he is part of the application (is in the database), else null
