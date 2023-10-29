@@ -119,29 +119,28 @@ public class Example {
 
 All URIs are relative to *http://localhost:8080*
 
-Class | Method | HTTP request | Description
------------- | ------------- | ------------- | -------------
-*AuthenticationApi* | [**userDeleteDelete**](docs/AuthenticationApi.md#userDeleteDelete) | **DELETE** /user/delete | 
-*AuthenticationApi* | [**userSigninPost**](docs/AuthenticationApi.md#userSigninPost) | **POST** /user/signin | 
-*AuthenticationApi* | [**userSignoutPost**](docs/AuthenticationApi.md#userSignoutPost) | **POST** /user/signout | 
-*AuthenticationApi* | [**userSignupPost**](docs/AuthenticationApi.md#userSignupPost) | **POST** /user/signup | 
-*ContactApi* | [**userFriendUserIDDelete**](docs/ContactApi.md#userFriendUserIDDelete) | **DELETE** /user/friend/{userID} | Delete an existing contact (remove from the list of friends of the current user)
-*ContactApi* | [**userFriendUserIDGet**](docs/ContactApi.md#userFriendUserIDGet) | **GET** /user/friend/{userID} | Search an existing contact in the list of the current user&#39;s friends
-*ContactApi* | [**userFriendUserIDPost**](docs/ContactApi.md#userFriendUserIDPost) | **POST** /user/friend/{userID} | Add a new contact to the current user&#39;s friends
-*ContactApi* | [**userFriendsGet**](docs/ContactApi.md#userFriendsGet) | **GET** /user/friends | Get the user&#39;s list of friends
-*ConversationApi* | [**userConversationConversationsGet**](docs/ConversationApi.md#userConversationConversationsGet) | **GET** /user/conversation/conversations | Retrieve all conversations (headers) between the current user and others
-*ConversationApi* | [**userConversationUserDelete**](docs/ConversationApi.md#userConversationUserDelete) | **DELETE** /user/conversation/{user} | Delete an existing conversation (the header and all contained messages) with a given user
-*ConversationApi* | [**userConversationUserGet**](docs/ConversationApi.md#userConversationUserGet) | **GET** /user/conversation/{user} | Search an existing conversation (the header) with a given user
-*ConversationApi* | [**userConversationUserPost**](docs/ConversationApi.md#userConversationUserPost) | **POST** /user/conversation/{user} | Create a new (empty) conversation with a given user
-*MessageApi* | [**userMessageMsgIDDelete**](docs/MessageApi.md#userMessageMsgIDDelete) | **DELETE** /user/message/{msgID} | Delete a message already sent
-*MessageApi* | [**userMessageMsgIDPatch**](docs/MessageApi.md#userMessageMsgIDPatch) | **PATCH** /user/message/{msgID} | Modify a certain message already sent
-*MessageApi* | [**userMessageNewMessagePost**](docs/MessageApi.md#userMessageNewMessagePost) | **POST** /user/message/newMessage | Send a new message to a given user
-*MessageApi* | [**userMessageUserIDMessagesGet**](docs/MessageApi.md#userMessageUserIDMessagesGet) | **GET** /user/message/{userID}/messages | Retrieve all messages in a given conversation
-*ProfileApi* | [**userProfileGet**](docs/ProfileApi.md#userProfileGet) | **GET** /user/profile | Get the current information about the logged user
-*ProfileApi* | [**userProfilePatch**](docs/ProfileApi.md#userProfilePatch) | **PATCH** /user/profile | Update information about the user
-*ProfileApi* | [**userShareMessageDelete**](docs/ProfileApi.md#userShareMessageDelete) | **DELETE** /user/shareMessage | Remove the previous shared message to make it empty
-*ProfileApi* | [**userShareMessagePost**](docs/ProfileApi.md#userShareMessagePost) | **POST** /user/shareMessage | Post a new public message (\&quot;status\&quot;) for all the current user friends and remove the previous one
-
+| Class               | Method                                                                                                         | HTTP request                                       | Description                                                                                                   |
+|---------------------|----------------------------------------------------------------------------------------------------------------|----------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| *AuthenticationApi* | [**userDeleteDelete**](docs/AuthenticationApi.md#userDeleteDelete)                                             | **DELETE** /user/delete                            |                                                                                                               |
+| *AuthenticationApi* | [**userSigninPost**](docs/AuthenticationApi.md#userSigninPost)                                                 | **POST** /user/signin                              |                                                                                                               |
+| *AuthenticationApi* | [**userSignoutPost**](docs/AuthenticationApi.md#userSignoutPost)                                               | **POST** /user/signout                             |                                                                                                               |
+| *AuthenticationApi* | [**userSignupPost**](docs/AuthenticationApi.md#userSignupPost)                                                 | **POST** /user/signup                              |                                                                                                               |
+| *ContactApi*        | [**userFriendUserIDDelete**](docs/ContactApi.md#userFriendUserIDDelete)                                        | **DELETE** /user/friend/{userID}                   | Delete an existing contact (remove from the list of friends of the current user)                              |
+| *ContactApi*        | [**userFriendUserIDGet**](docs/ContactApi.md#userFriendUserIDGet)                                              | **GET** /user/friend/{userID}                      | Search an existing contact in the list of the current user&#39;s friends                                      |
+| *ContactApi*        | [**userFriendUserIDPost**](docs/ContactApi.md#userFriendUserIDPost)                                            | **POST** /user/friend/{userID}                     | Add a new contact to the current user&#39;s friends                                                           |
+| *ContactApi*        | [**userFriendsGet**](docs/ContactApi.md#userFriendsGet)                                                        | **GET** /user/friends                              | Get the user&#39;s list of friends                                                                            |
+| *ConversationApi*   | [**userConversationConversationsGet**](docs/ConversationApi.md#userConversationConversationsGet)               | **GET** /user/conversation/conversations           | Retrieve all conversations (headers) between the current user and others                                      |
+| *ConversationApi*   | [**userConversationLoginDelete**](docs/ConversationApi.md#userConversationLoginDelete)                         | **DELETE** /user/conversation/{login}              | Delete an existing conversation (the header and all contained messages) with a given user                     |
+| *ConversationApi*   | [**userConversationLoginGet**](docs/ConversationApi.md#userConversationLoginGet)                               | **GET** /user/conversation/{login}                 | Search an existing conversation (the header) with a given user                                                |
+| *ConversationApi*   | [**userConversationNewConversationUserPost**](docs/ConversationApi.md#userConversationNewConversationUserPost) | **POST** /user/conversation/newConversation/{user} | Create a new (empty) conversation with a given user                                                           |
+| *MessageApi*        | [**userMessageMsgIDDelete**](docs/MessageApi.md#userMessageMsgIDDelete)                                        | **DELETE** /user/message/{msgID}                   | Delete a message already sent                                                                                 |
+| *MessageApi*        | [**userMessageMsgIDPatch**](docs/MessageApi.md#userMessageMsgIDPatch)                                          | **PATCH** /user/message/{msgID}                    | Modify a certain message already sent                                                                         |
+| *MessageApi*        | [**userMessageNewMessageRecipientPost**](docs/MessageApi.md#userMessageNewMessageRecipientPost)                | **POST** /user/message/newMessage/{recipient}      | Send a new message to a given user                                                                            |
+| *MessageApi*        | [**userMessageUserIDMessagesGet**](docs/MessageApi.md#userMessageUserIDMessagesGet)                            | **GET** /user/message/{userID}/messages            | Retrieve all messages in a given conversation                                                                 |
+| *ProfileApi*        | [**userProfileGet**](docs/ProfileApi.md#userProfileGet)                                                        | **GET** /user/profile                              | Get the current information about the logged user                                                             |
+| *ProfileApi*        | [**userProfilePatch**](docs/ProfileApi.md#userProfilePatch)                                                    | **PATCH** /user/profile                            | Update information about the user                                                                             |
+| *ProfileApi*        | [**userShareMessageDelete**](docs/ProfileApi.md#userShareMessageDelete)                                        | **DELETE** /user/shareMessage                      | Remove the previous shared message to make it empty                                                           |
+| *ProfileApi*        | [**userShareMessagePost**](docs/ProfileApi.md#userShareMessagePost)                                            | **POST** /user/shareMessage                        | Post a new public message (\&quot;status\&quot;) for all the current user friends and remove the previous one |
 
 ## Documentation for Models
 

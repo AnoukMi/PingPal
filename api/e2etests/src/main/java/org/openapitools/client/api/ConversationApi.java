@@ -195,8 +195,8 @@ public class ConversationApi {
         return localVarCall;
     }
     /**
-     * Build call for userConversationUserDelete
-     * @param user Username or peer address of the interlocutor from whom we want to delete the conversation (required)
+     * Build call for userConversationLoginDelete
+     * @param login Username or peer address of the interlocutor from whom we want to delete the conversation (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -208,7 +208,7 @@ public class ConversationApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userConversationUserDeleteCall(String user, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call userConversationLoginDeleteCall(String login, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -225,8 +225,8 @@ public class ConversationApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/user/conversation/{user}"
-            .replace("{" + "user" + "}", localVarApiClient.escapeString(user.toString()));
+        String localVarPath = "/user/conversation/{login}"
+            .replace("{" + "login" + "}", localVarApiClient.escapeString(login.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -254,20 +254,20 @@ public class ConversationApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call userConversationUserDeleteValidateBeforeCall(String user, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'user' is set
-        if (user == null) {
-            throw new ApiException("Missing the required parameter 'user' when calling userConversationUserDelete(Async)");
+    private okhttp3.Call userConversationLoginDeleteValidateBeforeCall(String login, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'login' is set
+        if (login == null) {
+            throw new ApiException("Missing the required parameter 'login' when calling userConversationLoginDelete(Async)");
         }
 
-        return userConversationUserDeleteCall(user, _callback);
+        return userConversationLoginDeleteCall(login, _callback);
 
     }
 
     /**
      * Delete an existing conversation (the header and all contained messages) with a given user
      * 
-     * @param user Username or peer address of the interlocutor from whom we want to delete the conversation (required)
+     * @param login Username or peer address of the interlocutor from whom we want to delete the conversation (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -277,14 +277,14 @@ public class ConversationApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public void userConversationUserDelete(String user) throws ApiException {
-        userConversationUserDeleteWithHttpInfo(user);
+    public void userConversationLoginDelete(String login) throws ApiException {
+        userConversationLoginDeleteWithHttpInfo(login);
     }
 
     /**
      * Delete an existing conversation (the header and all contained messages) with a given user
      * 
-     * @param user Username or peer address of the interlocutor from whom we want to delete the conversation (required)
+     * @param login Username or peer address of the interlocutor from whom we want to delete the conversation (required)
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -295,15 +295,15 @@ public class ConversationApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> userConversationUserDeleteWithHttpInfo(String user) throws ApiException {
-        okhttp3.Call localVarCall = userConversationUserDeleteValidateBeforeCall(user, null);
+    public ApiResponse<Void> userConversationLoginDeleteWithHttpInfo(String login) throws ApiException {
+        okhttp3.Call localVarCall = userConversationLoginDeleteValidateBeforeCall(login, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      * Delete an existing conversation (the header and all contained messages) with a given user (asynchronously)
      * 
-     * @param user Username or peer address of the interlocutor from whom we want to delete the conversation (required)
+     * @param login Username or peer address of the interlocutor from whom we want to delete the conversation (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -315,15 +315,15 @@ public class ConversationApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userConversationUserDeleteAsync(String user, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call userConversationLoginDeleteAsync(String login, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = userConversationUserDeleteValidateBeforeCall(user, _callback);
+        okhttp3.Call localVarCall = userConversationLoginDeleteValidateBeforeCall(login, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
     /**
-     * Build call for userConversationUserGet
-     * @param user Username or peer address of the interlocutor from whom we want to retrieve the conversation (required)
+     * Build call for userConversationLoginGet
+     * @param login Username or peer address of the interlocutor from whom we want to retrieve the conversation (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -336,7 +336,7 @@ public class ConversationApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userConversationUserGetCall(String user, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call userConversationLoginGetCall(String login, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -353,8 +353,8 @@ public class ConversationApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/user/conversation/{user}"
-            .replace("{" + "user" + "}", localVarApiClient.escapeString(user.toString()));
+        String localVarPath = "/user/conversation/{login}"
+            .replace("{" + "login" + "}", localVarApiClient.escapeString(login.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -382,20 +382,20 @@ public class ConversationApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call userConversationUserGetValidateBeforeCall(String user, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'user' is set
-        if (user == null) {
-            throw new ApiException("Missing the required parameter 'user' when calling userConversationUserGet(Async)");
+    private okhttp3.Call userConversationLoginGetValidateBeforeCall(String login, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'login' is set
+        if (login == null) {
+            throw new ApiException("Missing the required parameter 'login' when calling userConversationLoginGet(Async)");
         }
 
-        return userConversationUserGetCall(user, _callback);
+        return userConversationLoginGetCall(login, _callback);
 
     }
 
     /**
      * Search an existing conversation (the header) with a given user
      * 
-     * @param user Username or peer address of the interlocutor from whom we want to retrieve the conversation (required)
+     * @param login Username or peer address of the interlocutor from whom we want to retrieve the conversation (required)
      * @return ConversationDTO
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -407,15 +407,15 @@ public class ConversationApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public ConversationDTO userConversationUserGet(String user) throws ApiException {
-        ApiResponse<ConversationDTO> localVarResp = userConversationUserGetWithHttpInfo(user);
+    public ConversationDTO userConversationLoginGet(String login) throws ApiException {
+        ApiResponse<ConversationDTO> localVarResp = userConversationLoginGetWithHttpInfo(login);
         return localVarResp.getData();
     }
 
     /**
      * Search an existing conversation (the header) with a given user
      * 
-     * @param user Username or peer address of the interlocutor from whom we want to retrieve the conversation (required)
+     * @param login Username or peer address of the interlocutor from whom we want to retrieve the conversation (required)
      * @return ApiResponse&lt;ConversationDTO&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -427,8 +427,8 @@ public class ConversationApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<ConversationDTO> userConversationUserGetWithHttpInfo(String user) throws ApiException {
-        okhttp3.Call localVarCall = userConversationUserGetValidateBeforeCall(user, null);
+    public ApiResponse<ConversationDTO> userConversationLoginGetWithHttpInfo(String login) throws ApiException {
+        okhttp3.Call localVarCall = userConversationLoginGetValidateBeforeCall(login, null);
         Type localVarReturnType = new TypeToken<ConversationDTO>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -436,7 +436,7 @@ public class ConversationApi {
     /**
      * Search an existing conversation (the header) with a given user (asynchronously)
      * 
-     * @param user Username or peer address of the interlocutor from whom we want to retrieve the conversation (required)
+     * @param login Username or peer address of the interlocutor from whom we want to retrieve the conversation (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -449,15 +449,15 @@ public class ConversationApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userConversationUserGetAsync(String user, final ApiCallback<ConversationDTO> _callback) throws ApiException {
+    public okhttp3.Call userConversationLoginGetAsync(String login, final ApiCallback<ConversationDTO> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = userConversationUserGetValidateBeforeCall(user, _callback);
+        okhttp3.Call localVarCall = userConversationLoginGetValidateBeforeCall(login, _callback);
         Type localVarReturnType = new TypeToken<ConversationDTO>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
-     * Build call for userConversationUserPost
+     * Build call for userConversationNewConversationUserPost
      * @param user Username or peer address of the new interlocutor with whom to start a discussion (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -471,7 +471,7 @@ public class ConversationApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userConversationUserPostCall(String user, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call userConversationNewConversationUserPostCall(String user, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -488,7 +488,7 @@ public class ConversationApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/user/conversation/{user}"
+        String localVarPath = "/user/conversation/newConversation/{user}"
             .replace("{" + "user" + "}", localVarApiClient.escapeString(user.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -517,13 +517,13 @@ public class ConversationApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call userConversationUserPostValidateBeforeCall(String user, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call userConversationNewConversationUserPostValidateBeforeCall(String user, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'user' is set
         if (user == null) {
-            throw new ApiException("Missing the required parameter 'user' when calling userConversationUserPost(Async)");
+            throw new ApiException("Missing the required parameter 'user' when calling userConversationNewConversationUserPost(Async)");
         }
 
-        return userConversationUserPostCall(user, _callback);
+        return userConversationNewConversationUserPostCall(user, _callback);
 
     }
 
@@ -542,8 +542,8 @@ public class ConversationApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public ConversationDTO userConversationUserPost(String user) throws ApiException {
-        ApiResponse<ConversationDTO> localVarResp = userConversationUserPostWithHttpInfo(user);
+    public ConversationDTO userConversationNewConversationUserPost(String user) throws ApiException {
+        ApiResponse<ConversationDTO> localVarResp = userConversationNewConversationUserPostWithHttpInfo(user);
         return localVarResp.getData();
     }
 
@@ -562,8 +562,8 @@ public class ConversationApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<ConversationDTO> userConversationUserPostWithHttpInfo(String user) throws ApiException {
-        okhttp3.Call localVarCall = userConversationUserPostValidateBeforeCall(user, null);
+    public ApiResponse<ConversationDTO> userConversationNewConversationUserPostWithHttpInfo(String user) throws ApiException {
+        okhttp3.Call localVarCall = userConversationNewConversationUserPostValidateBeforeCall(user, null);
         Type localVarReturnType = new TypeToken<ConversationDTO>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -584,9 +584,9 @@ public class ConversationApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userConversationUserPostAsync(String user, final ApiCallback<ConversationDTO> _callback) throws ApiException {
+    public okhttp3.Call userConversationNewConversationUserPostAsync(String user, final ApiCallback<ConversationDTO> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = userConversationUserPostValidateBeforeCall(user, _callback);
+        okhttp3.Call localVarCall = userConversationNewConversationUserPostValidateBeforeCall(user, _callback);
         Type localVarReturnType = new TypeToken<ConversationDTO>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

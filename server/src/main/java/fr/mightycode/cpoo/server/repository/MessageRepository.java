@@ -9,7 +9,7 @@ import java.util.UUID;
 import java.util.List;
 @Repository
 public interface MessageRepository extends JpaRepository<Message, UUID>{
-  List<Message> findByConversation(Conversation conversation);
+  List<Message> findAllByConversationOrderByDateDesc(Conversation conversation);
   Message findByMsgID(UUID id);
-  void deleteByMsgID(UUID id);
+
 }

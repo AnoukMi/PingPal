@@ -2,12 +2,10 @@ package fr.mightycode.cpoo.server.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
-
-import fr.mightycode.cpoo.server.model.UserData;
-import fr.mightycode.cpoo.server.model.Message;
 
 
 @Data
@@ -15,12 +13,12 @@ import fr.mightycode.cpoo.server.model.Message;
 @Table(name = "conversations")
 public class Conversation {
   @Id
-  @Column(name = "user", nullable = false)
-  private String user;
+  @Column(name = "id", nullable = false)
+  private String id;
   @Column(name = "peerAddress", nullable = false)
   private String peerAddress;
   @Column(name = "lastMessageDate", nullable = false)
-  private LocalDate lastMsgDate;
+  private LocalDateTime lastMsgDate;
 
   @ManyToOne
   @JoinColumn(name = "user_data_id")
@@ -30,22 +28,21 @@ public class Conversation {
   private List<Message> messages;
 
   public Conversation(){
-
   }
 
-  public Conversation(String user, String peerAddress, LocalDate lastMsgDate, UserData userData){
-    this.user = user;
+  public Conversation(String id, String peerAddress, LocalDateTime lastMsgDate, UserData userData){
+    this.id = id;
     this.peerAddress = peerAddress;
     this.lastMsgDate = lastMsgDate;
     this.userData = userData;
     this.messages = new ArrayList<>();
   }
 
-  public String getUser(){
-    return this.user;
+  public String getId(){
+    return this.id;
   }
-  public void setUser(String user){
-    this.user = user;
+  public void setId(String id){
+    this.id = id;
   }
   public String getPeerAddress(){
     return this.peerAddress;
@@ -53,10 +50,10 @@ public class Conversation {
   public void setPeerAddress(String peerAddress){
     this.peerAddress = peerAddress;
   }
-  public LocalDate getLastMsgDate() {
+  public LocalDateTime getLastMsgDate() {
     return this.lastMsgDate;
   }
-  public void setLastMsgDate(LocalDate lastMsgDate){
+  public void setLastMsgDate(LocalDateTime lastMsgDate){
     this.lastMsgDate = lastMsgDate;
   }
   public UserData getUserData() {

@@ -6,7 +6,7 @@ All URIs are relative to *http://localhost:8080*
 |------------- | ------------- | -------------|
 | [**userMessageMsgIDDelete**](MessageApi.md#userMessageMsgIDDelete) | **DELETE** /user/message/{msgID} | Delete a message already sent |
 | [**userMessageMsgIDPatch**](MessageApi.md#userMessageMsgIDPatch) | **PATCH** /user/message/{msgID} | Modify a certain message already sent |
-| [**userMessageNewMessagePost**](MessageApi.md#userMessageNewMessagePost) | **POST** /user/message/newMessage | Send a new message to a given user |
+| [**userMessageNewMessageRecipientPost**](MessageApi.md#userMessageNewMessageRecipientPost) | **POST** /user/message/newMessage/{recipient} | Send a new message to a given user |
 | [**userMessageUserIDMessagesGet**](MessageApi.md#userMessageUserIDMessagesGet) | **GET** /user/message/{userID}/messages | Retrieve all messages in a given conversation |
 
 
@@ -151,9 +151,9 @@ public class Example {
 | **404** | msgID not found in the list of messages |  -  |
 | **0** | Error |  -  |
 
-<a id="userMessageNewMessagePost"></a>
-# **userMessageNewMessagePost**
-> List&lt;MessageDTO&gt; userMessageNewMessagePost(messageReducedDTO)
+<a id="userMessageNewMessageRecipientPost"></a>
+# **userMessageNewMessageRecipientPost**
+> List&lt;MessageDTO&gt; userMessageNewMessageRecipientPost(recipient, body)
 
 Send a new message to a given user
 
@@ -179,12 +179,13 @@ public class Example {
     //CookieAuth.setApiKeyPrefix("Token");
 
     MessageApi apiInstance = new MessageApi(defaultClient);
-    MessageReducedDTO messageReducedDTO = new MessageReducedDTO(); // MessageReducedDTO | 
+    String recipient = "recipient_example"; // String | Username of the interlocutor with whom the messages of the conversation are exchanged
+    Object body = null; // Object | 
     try {
-      List<MessageDTO> result = apiInstance.userMessageNewMessagePost(messageReducedDTO);
+      List<MessageDTO> result = apiInstance.userMessageNewMessageRecipientPost(recipient, body);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling MessageApi#userMessageNewMessagePost");
+      System.err.println("Exception when calling MessageApi#userMessageNewMessageRecipientPost");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -198,7 +199,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **messageReducedDTO** | [**MessageReducedDTO**](MessageReducedDTO.md)|  | |
+| **recipient** | **String**| Username of the interlocutor with whom the messages of the conversation are exchanged | |
+| **body** | **Object**|  | |
 
 ### Return type
 

@@ -142,67 +142,7 @@ paths:
       tags:
       - conversation
       x-accepts: application/json
-  /user/conversation/{user}:
-    delete:
-      parameters:
-      - description: Username or peer address of the interlocutor from whom we want
-          to delete the conversation
-        explode: false
-        in: path
-        name: user
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          description: "Success, conversation deleted"
-        "404":
-          description: UserID not found in the current user's list of conversations
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorDTO'
-          description: Error
-      summary: Delete an existing conversation (the header and all contained messages)
-        with a given user
-      tags:
-      - conversation
-      x-accepts: application/json
-    get:
-      parameters:
-      - description: Username or peer address of the interlocutor from whom we want
-          to retrieve the conversation
-        explode: false
-        in: path
-        name: user
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ConversationDTO'
-          description: Provide the header of the found conversation with the given
-            user
-        "410":
-          description: "The conversation is no more available, has been deleted"
-        "404":
-          description: UserID not found in the current user's list of conversations
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorDTO'
-          description: Error
-      summary: Search an existing conversation (the header) with a given user
-      tags:
-      - conversation
-      x-accepts: application/json
+  /user/conversation/newConversation/{user}:
     post:
       parameters:
       - description: Username or peer address of the new interlocutor with whom to
@@ -232,6 +172,67 @@ paths:
                 $ref: '#/components/schemas/ErrorDTO'
           description: Error
       summary: Create a new (empty) conversation with a given user
+      tags:
+      - conversation
+      x-accepts: application/json
+  /user/conversation/{login}:
+    delete:
+      parameters:
+      - description: Username or peer address of the interlocutor from whom we want
+          to delete the conversation
+        explode: false
+        in: path
+        name: login
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: "Success, conversation deleted"
+        "404":
+          description: UserID not found in the current user's list of conversations
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+          description: Error
+      summary: Delete an existing conversation (the header and all contained messages)
+        with a given user
+      tags:
+      - conversation
+      x-accepts: application/json
+    get:
+      parameters:
+      - description: Username or peer address of the interlocutor from whom we want
+          to retrieve the conversation
+        explode: false
+        in: path
+        name: login
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationDTO'
+          description: Provide the header of the found conversation with the given
+            user
+        "410":
+          description: "The conversation is no more available, has been deleted"
+        "404":
+          description: UserID not found in the current user's list of conversations
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+          description: Error
+      summary: Search an existing conversation (the header) with a given user
       tags:
       - conversation
       x-accepts: application/json
@@ -271,13 +272,23 @@ paths:
       tags:
       - message
       x-accepts: application/json
-  /user/message/newMessage:
+  /user/message/newMessage/{recipient}:
     post:
+      parameters:
+      - description: Username of the interlocutor with whom the messages of the conversation
+          are exchanged
+        explode: false
+        in: path
+        name: recipient
+        required: true
+        schema:
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MessageReducedDTO'
+              format: string
         required: true
       responses:
         "200":
@@ -658,9 +669,6 @@ components:
       - peerAddress
       type: object
     MessageReducedDTO:
-      example:
-        recipientID: anouk20 OR anouKmi@domain
-        content: Hello friend
       properties:
         recipientID:
           description: Username (userID) of the interlocutor or the peerAddress

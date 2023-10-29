@@ -17,8 +17,8 @@ import org.springframework.web.socket.messaging.WebSocketStompClient;
 
 import fr.mightycode.cpoo.server.model.Message;
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
 import java.util.UUID;
-import java.time.LocalDate;
 
 @Service
 @Slf4j
@@ -34,7 +34,7 @@ public class RouterService {
           String content, // content of the message
           String author,    // sender login
           String authorAddress, // sender address
-          LocalDate date,  // date when the message was sent
+          LocalDateTime date,  // date when the message was sent
           boolean edited // true if the message was edited by the sender
   ) {
   }

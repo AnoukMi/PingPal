@@ -2,10 +2,9 @@ package fr.mightycode.cpoo.server.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import java.time.LocalDate;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
-import java.util.List;
 
 import fr.mightycode.cpoo.server.service.RouterService;
 
@@ -26,7 +25,7 @@ public class Message {
   @Column(name = "authorAddress", nullable = false)
   private String authorAddress;
   @Column(name = "date", nullable = false)
-  private LocalDate date;
+  private LocalDateTime date;
   @Column(name = "edited", nullable = false)
   private boolean edited;
 
@@ -46,6 +45,7 @@ public class Message {
     this.authorAddress = message.authorAddress();
     this.date = message.date();
     this.edited = message.edited();
+    this.conversation=null;
   }
 
 //  public Message(Long msgID, String recipientID, String content, String autorID, String autorAddress,
@@ -90,10 +90,10 @@ public class Message {
   public void setAuthorAddress(String authorAddress){
     this.authorAddress = authorAddress;
   }
-  public LocalDate getDate() {
+  public LocalDateTime getDate() {
     return this.date;
   }
-  public void setDate(LocalDate date){
+  public void setDate(LocalDateTime date){
     this.date = date;
   }
   public boolean isEdited() {
