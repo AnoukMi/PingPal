@@ -19,7 +19,6 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.time.OffsetDateTime;
 import java.util.Arrays;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -39,14 +38,6 @@ public class FullUserDTOTest {
     }
 
     /**
-     * Test the property 'icon'
-     */
-    @Test
-    public void iconTest() {
-        // TODO: test icon
-    }
-
-    /**
      * Test the property 'login'
      */
     @Test
@@ -60,6 +51,22 @@ public class FullUserDTOTest {
     @Test
     public void passwordTest() {
         // TODO: test password
+    }
+
+    /**
+     * Test the property 'remember'
+     */
+    @Test
+    public void rememberTest() {
+        // TODO: test remember
+    }
+
+    /**
+     * Test the property 'icon'
+     */
+    @Test
+    public void iconTest() {
+        // TODO: test icon
     }
 
     /**
@@ -84,6 +91,14 @@ public class FullUserDTOTest {
     @Test
     public void birthdayTest() {
         // TODO: test birthday
+    }
+
+    /**
+     * Test the property 'address'
+     */
+    @Test
+    public void addressTest() {
+        // TODO: test address
     }
 
 }

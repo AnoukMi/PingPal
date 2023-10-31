@@ -13,17 +13,26 @@
 
 package org.openapitools.client.api;
 
+import okhttp3.OkHttpClient;
+import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.model.ConversationDTO;
 import org.openapitools.client.model.ErrorDTO;
-import org.openapitools.client.model.MessageDTO;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.openapitools.client.model.FullUserDTO;
+import org.openapitools.client.model.UserDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * API tests for ConversationApi
@@ -32,93 +41,15 @@ import java.util.Map;
 public class ConversationApiTest {
 
     private final ConversationApi api = new ConversationApi();
-
+    private final AuthenticationApi authApi = new AuthenticationApi();
     @BeforeEach
-    public void init() throws ApiException {
+    public void init() {
+        // Simulate the behavior of a web browser by remembering cookies set by the server
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        api.setApiClient(new ApiClient(okHttpClient));
-    }
-
-
-    /**
-     * Delete a message already sent
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void userConversationMsgIDDeleteTest() throws ApiException {
-        Long msgID = null;
-        api.userConversationMsgIDDelete(msgID);
-
-        // TODO: test validations
-    }
-
-    /**
-     * Modify a certain message already sent
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void userConversationMsgIDPatchTest() throws ApiException {
-        Long msgID = null;
-        String body = null;
-        MessageDTO response = api.userConversationMsgIDPatch(msgID, body);
-        // TODO: test validations
-    }
-
-    /**
-     * Delete an existing conversation (the header and all contained messages) with a given user
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void userConversationUserDeleteTest() throws ApiException {
-        String user = null;
-        api.userConversationUserDelete(user);
-        // TODO: test validations
-    }
-
-    /**
-     * Search an existing conversation (the header) with a given user
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void userConversationUserGetTest() throws ApiException {
-        String user = null;
-        ConversationDTO response = api.userConversationUserGet(user);
-        // TODO: test validations
-    }
-
-    /**
-     * Create a new (empty) conversation with a given user
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void userConversationUserPostTest() throws ApiException {
-        // Creating a new friend with whom you want to create a new conversation
-        ContactProfileDTO contactProfileDTO = new ContactProfileDTO("vincentimes","vince@insa.fr", 2,"Vincent", "Barat", "10/10/1970", "");
-        ConversationDTO newConv = new ConversationDTO(contactProfileDTO.getUserID(),contactProfileDTO.getPeerAddress(),"");
-
-        // If we try to create the same conversation again, it fails
-        try {
-            ConversationDTO newConvBis = new ConversationDTO(contactProfileDTO.getUserID(),contactProfileDTO.getPeerAddress(),"");
-            api.userConversationUserPost(newConvBis);
-            Assertions.fail();
-        } catch (ApiException e) {
-            Assertions.assertEquals(HttpStatus.SC_CONFLICT, e.getCode());
-        }
-
-        // If we try to create a conversation with a user that doesn't exist, it should also fail
-        try {
-            String nonExistentUser = "nonexistentuser";
-            ConversationDTO newConvNonExistent = new ConversationDTO(nonExistentUser,"", "");
-            api.userConversationUserPost(newConvNonExistent);
-            Assertions.fail();
-        } catch (ApiException e) {
-            Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
-        }
+        OkHttpClient okHttpClient = builder.cookieJar(new MyCookieJar()).build();
+        ApiClient apiClient = new ApiClient(okHttpClient);
+        api.setApiClient(apiClient);
+        authApi.setApiClient(apiClient);
     }
 
     /**
@@ -127,34 +58,154 @@ public class ConversationApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void userConversationsGetTest() throws ApiException {
-        List<ConversationDTO> response = api.userConversationsGet();
-        // TODO: test validations
+    public void userConversationConversationsGetTest() throws ApiException {
+        // Getting the conversations without being signed in should fail with FORBIDDEN
+        try {
+            api.userConversationConversationsGet();
+            Assertions.fail();
+        }
+        catch (ApiException e) {
+            Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
+        }
+
+        // Signing up and in
+        FullUserDTO user = new FullUserDTO().login("testerConvGetAll").password("test").remember(true).icon(1).firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
+        authApi.userSignupPost(user);
+        authApi.userSigninPost(new UserDTO().login("testerConvGetAll").password("test").remember(false));
+
+        // The conversations should first be empty
+        List<ConversationDTO> conv = api.userConversationConversationsGet();
+        Assertions.assertTrue(conv.isEmpty());
+
+        // Creating a new conversation
+        api.userConversationLoginGet("friendGetAll");
+        // Now there should be one conversation
+        List<ConversationDTO> conv2 = api.userConversationConversationsGet();
+        Assertions.assertEquals(1,conv2.size());
+
+        //deleting instances
+        api.userConversationLoginDelete("friendGetAll");
+        authApi.userDeleteDelete(new UserDTO().login("testerConvGetAll").password("test").remember(false));
     }
 
     /**
-     * Send a new message to a given user
+     * Delete an existing conversation (the header and all contained messages) with a given user
      *
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void userUserIDMessagePostTest() throws ApiException {
-        String userID = null;
-        MessageDTO messageDTO = null;
-        List<MessageDTO> response = api.userUserIDMessagePost(userID, messageDTO);
-        // TODO: test validations
+    public void userConversationLoginDeleteTest() throws ApiException {
+        // Deleting conversation without being signed in should fail with FORBIDDEN
+        try {
+            api.userConversationLoginDelete("user");
+            Assertions.fail();
+        }
+        catch (ApiException e) {
+            Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
+        }
+
+        // Signing up and in
+        FullUserDTO user = new FullUserDTO().login("testerConvDel").password("test").remember(true).icon(1).firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
+        authApi.userSignupPost(user);
+        authApi.userSigninPost(new UserDTO().login("testerConvDel").password("test").remember(false));
+
+        // Deleting an inexisting conversation should fail with NOT FOUND
+        try {
+            api.userConversationLoginDelete("inexistant");
+            Assertions.fail();
+        }
+        catch (ApiException e) {
+            Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
+        }
+
+        // Creating a conversation
+        api.userConversationLoginGet("friendDel");
+        // Deleting the conversation should now work
+        api.userConversationLoginDelete("friendDel");
+
+        //deleting instance
+        authApi.userDeleteDelete(new UserDTO().login("testerConvDel").password("test").remember(false));
     }
 
     /**
-     * Retrieve all messages in a given conversation
+     * Search an existing conversation (the header) with a given user
      *
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void userUserIDMessagesGetTest() throws ApiException {
-        String userID = null;
-        List<MessageDTO> response = api.userUserIDMessagesGet(userID);
-        // TODO: test validations
+    public void userConversationLoginGetTest() throws ApiException {
+        // Getting conversation without being signed in should fail with FORBIDDEN
+        try {
+            api.userConversationLoginGet("user");
+            Assertions.fail();
+        }
+        catch (ApiException e) {
+            Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
+        }
+
+        // Signing up and in
+        FullUserDTO user = new FullUserDTO().login("testerConvGet").password("test").remember(true).icon(1).firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
+        authApi.userSignupPost(user);
+        authApi.userSigninPost(new UserDTO().login("testerConvGet").password("test").remember(false));
+
+        // Getting conversation with an inexistant user should fail with NOT FOUND
+        try {
+            api.userConversationLoginGet("inexistant");
+            Assertions.fail();
+        }
+        catch (ApiException e) {
+            Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
+        }
+
+        // Create a new conversation
+        api.userConversationNewConversationInterlocutorPost("friendGet");
+        // Now getting the conversation should work
+        ConversationDTO conv = api.userConversationLoginGet("friendGet");
+        // The conversation should be so
+        Assertions.assertEquals("friendGet", conv.getUserID());
+
+        //deleting instances
+        api.userConversationLoginDelete("friendGet");
+        authApi.userDeleteDelete(new UserDTO().login("testerConvGet").password("test").remember(false));
+    }
+
+    /**
+     * Create a new (empty) conversation with a given user
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void userConversationNewConversationInterlocutorPostTest() throws ApiException {
+        // Creating a new conversation without signing in should fail with FORBIDDEN
+        try {
+            api.userConversationNewConversationInterlocutorPost("user");
+            Assertions.fail();
+        }
+        catch (ApiException e) {
+            Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
+        }
+
+        // Signing up and in
+        FullUserDTO user = new FullUserDTO().login("testerConv").password("test").remember(true).icon(1).firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
+        authApi.userSignupPost(user);
+        authApi.userSigninPost(new UserDTO().login("testerConv").password("test").remember(false));
+        //Creating a new conversation should work
+        ConversationDTO conv= api.userConversationNewConversationInterlocutorPost("user");
+        //The conversation should be so
+        Assertions.assertEquals("friendNew", conv.getUserID());
+
+        // Creating again the conversation should fail with CONFLICT
+        try {
+            api.userConversationNewConversationInterlocutorPost("friendNew");
+            Assertions.fail();
+        }
+        catch (ApiException e) {
+            Assertions.assertEquals(HttpStatus.SC_CONFLICT, e.getCode());
+        }
+
+        //deleting instances
+        api.userConversationLoginDelete("friendNew");
+        authApi.userDeleteDelete(new UserDTO().login("testerConv").password("test").remember(false));
     }
 
 }

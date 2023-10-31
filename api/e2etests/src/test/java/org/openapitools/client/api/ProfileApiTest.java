@@ -16,7 +16,6 @@ package org.openapitools.client.api;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.model.ErrorDTO;
 import org.openapitools.client.model.FullUserDTO;
-import org.openapitools.client.model.PublicMessageDTO;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -34,7 +33,7 @@ public class ProfileApiTest {
     private final ProfileApi api = new ProfileApi();
 
     /**
-     * Get the current information about the user
+     * Get the current information about the logged user
      *
      * @throws ApiException if the Api call fails
      */
@@ -52,7 +51,7 @@ public class ProfileApiTest {
     @Test
     public void userProfilePatchTest() throws ApiException {
         FullUserDTO fullUserDTO = null;
-        FullUserDTO response = api.userProfilePatch(fullUserDTO);
+        api.userProfilePatch(fullUserDTO);
         // TODO: test validations
     }
 
@@ -74,8 +73,8 @@ public class ProfileApiTest {
      */
     @Test
     public void userShareMessagePostTest() throws ApiException {
-        PublicMessageDTO publicMessageDTO = null;
-        api.userShareMessagePost(publicMessageDTO);
+        String body = null;
+        api.userShareMessagePost(body);
         // TODO: test validations
     }
 

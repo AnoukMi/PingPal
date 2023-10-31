@@ -20,7 +20,6 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -75,7 +74,7 @@ public class MessageDTO {
 
   public static final String SERIALIZED_NAME_DATE = "date";
   @SerializedName(SERIALIZED_NAME_DATE)
-  private OffsetDateTime date;
+  private String date;
 
   public static final String SERIALIZED_NAME_EDITED = "edited";
   @SerializedName(SERIALIZED_NAME_EDITED)
@@ -189,7 +188,7 @@ public class MessageDTO {
   }
 
 
-  public MessageDTO date(OffsetDateTime date) {
+  public MessageDTO date(String date) {
     
     this.date = date;
     return this;
@@ -200,12 +199,12 @@ public class MessageDTO {
    * @return date
   **/
   @javax.annotation.Nonnull
-  public OffsetDateTime getDate() {
+  public String getDate() {
     return date;
   }
 
 
-  public void setDate(OffsetDateTime date) {
+  public void setDate(String date) {
     this.date = date;
   }
 
@@ -348,6 +347,9 @@ public class MessageDTO {
       }
       if (!jsonObj.get("authorAddress").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `authorAddress` to be a primitive type in the JSON string but got `%s`", jsonObj.get("authorAddress").toString()));
+      }
+      if (!jsonObj.get("date").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `date` to be a primitive type in the JSON string but got `%s`", jsonObj.get("date").toString()));
       }
   }
 

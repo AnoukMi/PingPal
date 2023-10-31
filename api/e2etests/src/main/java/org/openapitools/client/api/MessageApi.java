@@ -347,7 +347,7 @@ public class MessageApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Add the message to the list of messages with the given user and return the updated list </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Add the message to the list of messages with the given user and return the new message </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> UserID not found </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
@@ -424,7 +424,7 @@ public class MessageApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Add the message to the list of messages with the given user and return the updated list </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Add the message to the list of messages with the given user and return the new message </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> UserID not found </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
@@ -444,7 +444,7 @@ public class MessageApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Add the message to the list of messages with the given user and return the updated list </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Add the message to the list of messages with the given user and return the new message </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> UserID not found </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
@@ -466,7 +466,7 @@ public class MessageApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Add the message to the list of messages with the given user and return the updated list </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Add the message to the list of messages with the given user and return the new message </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> UserID not found </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>

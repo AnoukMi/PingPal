@@ -19,8 +19,8 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.time.OffsetDateTime;
 import java.util.Arrays;
+import java.util.UUID;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -39,22 +39,6 @@ public class MessageDTOTest {
     }
 
     /**
-     * Test the property 'msgID'
-     */
-    @Test
-    public void msgIDTest() {
-        // TODO: test msgID
-    }
-
-    /**
-     * Test the property 'autorID'
-     */
-    @Test
-    public void autorIDTest() {
-        // TODO: test autorID
-    }
-
-    /**
      * Test the property 'recipientID'
      */
     @Test
@@ -68,6 +52,30 @@ public class MessageDTOTest {
     @Test
     public void contentTest() {
         // TODO: test content
+    }
+
+    /**
+     * Test the property 'msgID'
+     */
+    @Test
+    public void msgIDTest() {
+        // TODO: test msgID
+    }
+
+    /**
+     * Test the property 'authorID'
+     */
+    @Test
+    public void authorIDTest() {
+        // TODO: test authorID
+    }
+
+    /**
+     * Test the property 'authorAddress'
+     */
+    @Test
+    public void authorAddressTest() {
+        // TODO: test authorAddress
     }
 
     /**
