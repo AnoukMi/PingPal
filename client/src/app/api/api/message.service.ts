@@ -22,8 +22,6 @@ import { Observable }                                        from 'rxjs';
 import { ErrorDTO } from '../model/errorDTO';
 // @ts-ignore
 import { MessageDTO } from '../model/messageDTO';
-// @ts-ignore
-import { MessageReducedDTO } from '../model/messageReducedDTO';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -236,16 +234,20 @@ export class MessageService {
 
     /**
      * Send a new message to a given user
-     * @param messageReducedDTO 
+     * @param recipient Username of the interlocutor with whom the messages of the conversation are exchanged
+     * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public userMessageNewMessagePost(messageReducedDTO: MessageReducedDTO, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<MessageDTO>>;
-    public userMessageNewMessagePost(messageReducedDTO: MessageReducedDTO, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<MessageDTO>>>;
-    public userMessageNewMessagePost(messageReducedDTO: MessageReducedDTO, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<MessageDTO>>>;
-    public userMessageNewMessagePost(messageReducedDTO: MessageReducedDTO, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (messageReducedDTO === null || messageReducedDTO === undefined) {
-            throw new Error('Required parameter messageReducedDTO was null or undefined when calling userMessageNewMessagePost.');
+    public userMessageNewMessageRecipientPost(recipient: string, body: any, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<MessageDTO>>;
+    public userMessageNewMessageRecipientPost(recipient: string, body: any, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<MessageDTO>>>;
+    public userMessageNewMessageRecipientPost(recipient: string, body: any, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<MessageDTO>>>;
+    public userMessageNewMessageRecipientPost(recipient: string, body: any, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (recipient === null || recipient === undefined) {
+            throw new Error('Required parameter recipient was null or undefined when calling userMessageNewMessageRecipientPost.');
+        }
+        if (body === null || body === undefined) {
+            throw new Error('Required parameter body was null or undefined when calling userMessageNewMessageRecipientPost.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -294,11 +296,11 @@ export class MessageService {
             }
         }
 
-        let localVarPath = `/user/message/newMessage`;
+        let localVarPath = `/user/message/newMessage/${this.configuration.encodeParam({name: "recipient", value: recipient, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<Array<MessageDTO>>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: messageReducedDTO,
+                body: body,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
