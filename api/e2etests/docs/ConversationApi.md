@@ -73,6 +73,7 @@ This endpoint does not need any parameter.
 |-------------|-------------|------------------|
 | **200** | Provide the list of the conversations between the user and others |  -  |
 | **400** | Bad request |  -  |
+| **404** | Current user not found or conversations not found |  -  |
 | **0** | Error |  -  |
 
 <a id="userConversationLoginDelete"></a>

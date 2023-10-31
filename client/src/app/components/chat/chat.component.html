@@ -1,24 +1,29 @@
 
 <div style="width:100%; top: 21%; left: 40%;">
 
-    <app-user-bubble [date] = "'Monday, 25th 3:55pm'" [user]="'Ambre'" [content] =
-                       "'Hi Vince, I’m working on a project for school right now but are you available tomorrow ' +
-                            'to get coffee?'"></app-user-bubble>
-  <br>
-  <br>
-    <app-interlocutor-bubble [date] = "'Monday, 25th 3:55pm'" [user]="'Vincent'" [content] = "'Sure! But I don’t really like coffee,' +
-       ' I would rather take a bubble tea, would you like that?'"></app-interlocutor-bubble>
-  <br>
-  <br>
-    <app-user-bubble [date] = "'Monday, 25th 3:55pm'" [user]="'Ambre'" [content] = "'Sure, see you tomorrow then'"></app-user-bubble>
-    <app-user-bubble [date] = "'Tuesday, 26th 8:42pm'" [user]="'Ambre'"
-                     [content]= "'I’m so sorry i feel sick, let’s reschedule the meeting?'"></app-user-bubble>
-  <br>
-  <br>
-    <app-interlocutor-bubble [date] = "'Tuesday, 26th 8:42pm'" [user]="'Vincent'" [content] = "'Omg you always stand me up.' +
-     ' Im done, just say you dont wanna see me'"></app-interlocutor-bubble>
-  <br>
-  <br>
-    <app-user-bubble [date] = "'Tuesday, 26th 8:42pm'" [user]="'Ambre'" [content]= "'So im not even allowed to be sick lol ok'"></app-user-bubble>
+<!--  <app-user-bubble [date] = "'Monday, 25th 3:55pm'" [author]="'Me'"-->
+<!--                   [content] = "'hello everybody'"></app-user-bubble>-->
 
+<!--  <app-interlocutor-bubble [date] = "'Wednesday, 23th, 5:44pm'" [author]="discussion.interlocutor"-->
+<!--                           [content]="'hi'"></app-interlocutor-bubble>-->
+
+  <div class="chat w3-round-xlarge">
+    <div class="toscroll">
+      <!-- Gérer l'apparence du message, s'il est envoyé par l'utilisateur connecté ou l'utilisateur en face-->
+      <div *ngFor="let message of messages">
+
+        <ng-container [ngSwitch]="message.authorID">
+          <!-- Si c'est un message reçu, on l'affiche à gauche, comme un message reçu -->
+          <app-interlocutor-bubble *ngSwitchCase="discussion.interlocutor"
+                                   [author] = "discussion.interlocutor" [content] = "message.content"
+                                   [date]="message.date"></app-interlocutor-bubble>
+
+          <!-- Sinon, c'est l'utilisateur connecté ('Me') qui envoie le message donc à droite -->
+          <app-user-bubble *ngSwitchDefault
+                           [author] ="'Me'" [content] = "message.content"
+                           [date]="message.date"></app-user-bubble>
+        </ng-container>
+      </div>
+    </div>
+  </div>
 </div>

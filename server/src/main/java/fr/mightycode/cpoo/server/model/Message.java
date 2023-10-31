@@ -14,7 +14,7 @@ import fr.mightycode.cpoo.server.service.RouterService;
 @Table(name = "messages")
 public class Message {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.UUID)
   @Column(name = "msgID", nullable = false)
   private UUID msgID;
   @Column(name = "idRecip", nullable = false)
@@ -33,7 +33,7 @@ public class Message {
   private boolean edited;
 
   @ManyToOne
-  @JoinColumn(name = "conversation_id")
+  @JoinColumn(name = "id")
   private Conversation conversation;
 
   public Message(){

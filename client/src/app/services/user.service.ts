@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, Subject } from "rxjs";
-import { AuthenticationService, ProfileService, FullUserDTO, UserDTO } from "../api";
+import { AuthenticationService, ProfileService, FullUserDTO } from "../api";
 
 
 // Information about the current user of the app:

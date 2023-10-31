@@ -1,6 +1,8 @@
-import {Component } from '@angular/core';
-import { UserBubbleComponent } from "../user-bubble/user-bubble.component";
-import { InterlocutorBubbleComponent } from "../interlocutor-bubble/interlocutor-bubble.component";
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import { MessageDTO } from "../../api";
+import {Discussion, DiscussionService} from "../../services/discussion.service";
+import {UserService} from "../../services/user.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-chat',
@@ -8,8 +10,11 @@ import { InterlocutorBubbleComponent } from "../interlocutor-bubble/interlocutor
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent {
-  messages = [
-    { UserBubbleComponent, InterlocutorBubbleComponent }
-  ];
+  @Input() discussion!: Discussion;
+  @Input() messages!: MessageDTO[];
+
+  constructor() {
+
+  }
 
 }

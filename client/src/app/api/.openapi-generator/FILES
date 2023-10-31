@@ -4,7 +4,7 @@ api.module.ts
 api/api.ts
 api/authentication.service.ts
 api/contact.service.ts
-api/discussion.service.ts
+api/conversation.service.ts
 api/message.service.ts
 api/profile.service.ts
 configuration.ts

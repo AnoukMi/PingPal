@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,39 +32,20 @@ public class ConversationService {
      * @param login The current user logged in
      * @return The list of conversations
      */
-    public List<ConversationDTO> getConversations(String login){
-      List<ConversationDTO> conversationDTOS = new ArrayList<>();
+    public List<ConversationDTO> getConversations(String login) {
       UserData userData = userRepository.findByLogin(login);
       List<Conversation> conversations = conversationRepository.findByUserDataOrderByLastMsgDateDesc(userData);
-      for(Conversation conv : conversations){
-          ConversationDTO conversationDTO = new ConversationDTO(conv);
-          conversationDTOS.add(conversationDTO);
+
+      List<ConversationDTO> conversationDTOS = conversations.stream()
+        .map(ConversationDTO::new)
+        .collect(Collectors.toList());
+
+      if (conversationDTOS.isEmpty()) {
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Current user not found or conversations not found");
       }
+
       return conversationDTOS;
     }
-
-  /**
-   * Search and get an existing conversation with a given user
-   *
-   * @param loggedUser The current user logged in
-   * @param address The given user address (interlocutor)
-   * @return The conversationDTO that corresponds
-   */
-  public ConversationDTO getOneConversation(String loggedUser, String address){
-    UserData userData = userRepository.findByLogin(loggedUser);
-    List<Conversation> conversations = conversationRepository.findByUserData(userData);
-    ConversationDTO conversationDTO = null;
-    for(Conversation conversation : conversations){
-      if(conversation.getPeerAddress().equals(address)){
-        conversationDTO = new ConversationDTO(conversation);
-        break;
-      }
-    }
-    if(conversationDTO == null){
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversation not found with this user");
-    }
-    return conversationDTO;
-  }
 
 
     /**
@@ -72,7 +54,7 @@ public class ConversationService {
      * @param user The current user
      */
     public ConversationDTO createEmptyConversation(String user, String address){
-      if(conversationRepository.findById(user + address).isPresent()){
+      if(conversationRepository.findById(user + address).isPresent()){ //user+recipient+@pingpal
         throw new ResponseStatusException(HttpStatus.CONFLICT, "A conversation with this user already exists");
       }
 
@@ -100,7 +82,32 @@ public class ConversationService {
       return new ConversationDTO(conversation);
     }
 
-    /**
+
+  /**
+   * Search and get an existing conversation with a given user
+   *
+   * @param loggedUser The current user logged in
+   * @param address The given user address (interlocutor)
+   * @return The conversationDTO that corresponds
+   */
+  public ConversationDTO getOneConversation(String loggedUser, String address){
+    UserData userData = userRepository.findByLogin(loggedUser);
+    List<Conversation> conversations = conversationRepository.findByUserData(userData);
+    ConversationDTO conversationDTO = null;
+    for(Conversation conversation : conversations){
+      if(conversation.getPeerAddress().equals(address)){
+        conversationDTO = new ConversationDTO(conversation);
+        break;
+      }
+    }
+    if(conversationDTO == null){
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversation not found with this user");
+    }
+    return conversationDTO;
+  }
+
+
+  /**
      * Delete an existing conversation with a given user
      * @param address The given user (interlocutor) address
      * @param loggedUser The current user login
@@ -140,6 +147,5 @@ public class ConversationService {
     }
     return login;
   }
-
 
 }

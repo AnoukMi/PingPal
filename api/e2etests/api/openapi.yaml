@@ -132,6 +132,8 @@ paths:
             others
         "400":
           description: Bad request
+        "404":
+          description: Current user not found or conversations not found
         default:
           content:
             application/json:
@@ -261,7 +263,7 @@ paths:
         "410":
           description: "The messages are no more available, have been deleted"
         "404":
-          description: UserID not found in the current user conversations
+          description: No conversation with this user
         default:
           content:
             application/json:
@@ -295,9 +297,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/MessageDTO'
-                type: array
+                $ref: '#/components/schemas/MessageDTO'
           description: Add the message to the list of messages with the given user
             and return the updated list
         "404":

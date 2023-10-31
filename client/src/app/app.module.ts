@@ -39,6 +39,7 @@ import { LeftSideComponent } from './components/left-side/left-side.component';
 import {UserService} from "./services/user.service";
 import {ScrollBarComponent} from "./components/scroll-bar/scroll-bar.component";
 import { ListAvatarsComponent } from './components/list-avatars/list-avatars.component';
+// import { PopupComponent } from './popup/popup.component';
 // import { MouseComponent } from './components/mouse/mouse.component';
 
 @NgModule({
@@ -67,6 +68,7 @@ import { ListAvatarsComponent } from './components/list-avatars/list-avatars.com
     UserBubbleComponent,
     UserWritingFrameComponent,
     ListAvatarsComponent,
+    // PopupComponent,
      //MouseComponent,
   ],
   imports: [

@@ -126,6 +126,8 @@ paths:
                   $ref: '#/components/schemas/ConversationDTO'
         '400':
           description: Bad request
+        '404':
+          description: Current user not found or conversations not found
         default:
           description: Error
           content:
@@ -237,7 +239,7 @@ paths:
         '410':
           description: The messages are no more available, have been deleted
         '404':
-          description: UserID not found in the current user conversations
+          description: No conversation with this user
         default:
           description: Error
           content:
@@ -268,9 +270,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/MessageDTO'
+                $ref: '#/components/schemas/MessageDTO'
         '404':
           description: UserID not found
         default:
