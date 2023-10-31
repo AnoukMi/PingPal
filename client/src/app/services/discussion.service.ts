@@ -34,7 +34,7 @@ export class Discussion {
 export class DiscussionService {
 
   public discussions: Discussion[] = []; // array of discussion (this object must never be reassigned)
-  private apiUrl = 'user/conversations'
+  private apiUrl = 'user/conversation/conversations'
 
   constructor(private messageService: MessageService,
               private conversationService: ConversationService,
@@ -105,17 +105,15 @@ export class DiscussionService {
     if (discussion){
       console.debug(`### the discussion with ${recipientAddress} already exists!`)
       return;
-    }
-
-    // Otherwise, create a new one and add it to the array of discussions
-    discussion = new Discussion({ interlocutor: recipientAddress, messages: [] });
-    this.discussions.push(discussion);
-
-    // Also add new conversation to the server
-    this.conversationService.userConversationNewConversationInterlocutorPost(recipientAddress)
-      .subscribe(conversation => {
+    } else {
+      // Also add new conversation to the server : return a DTO
+      this.conversationService.userConversationNewConversationInterlocutorPost(recipientAddress)
+        .subscribe(conversation => {
+          discussion = new Discussion({interlocutor : conversation.peerAddress, messages : []})
           console.log(`### ${conversation} added to the server`);
-      });
+          this.discussions.push(discussion);
+        });
+    }
   }
 
 
