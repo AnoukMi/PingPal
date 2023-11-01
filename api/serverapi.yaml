@@ -270,7 +270,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MessageDTO'
+                  $ref: '#/components/schemas/MessageDTO'
         '404':
           description: UserID not found
         default:
