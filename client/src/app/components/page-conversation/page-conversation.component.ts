@@ -4,6 +4,7 @@ import { Discussion, DiscussionService } from "../../services/discussion.service
 import { ActivatedRoute, Router } from "@angular/router";
 import {UserService} from "../../services/user.service";
 import { FormBuilder, FormControl } from "@angular/forms";
+import { v4 as uuidv4 } from 'uuid';
 import {HttpClient} from "@angular/common/http";
 import {WebSocketSubject} from "rxjs/internal/observable/dom/WebSocketSubject";
 import {webSocket} from "rxjs/webSocket";
@@ -61,4 +62,3 @@ export class PageConversationComponent {
     this.message = '';
   }
 }
-

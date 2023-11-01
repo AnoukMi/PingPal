@@ -42,20 +42,20 @@ export class DiscussionService {
 
 
   sendMessage(discussion: Discussion, content: string) {
-    // if (this.discussions.find(discussiontofind => discussion === discussiontofind)) {
-    //  // Send the message to the recipient by posting it into the server
-    //   console.log(`### Sending message in the discussion ${discussion}`);
-    //  this.messageService.userMessageNewMessageRecipientPost(discussion.interlocutor, content)
-    //    .subscribe(message => {
-    //      console.log(`### Message added to the server`);
-    //      // Add the message to the discussion (once completed by the server)
-    //      discussion.messages.push(message);
-    //    });
+     // if (this.discussions.find(discussiontofind => discussion === discussiontofind)) {
+     //  // Send the message to the recipient by posting it into the server
+     //   console.log(`### Sending message in the discussion ${discussion}`);
+     //  this.messageService.userMessageNewMessageRecipientPost(discussion.interlocutor, content)
+     //    .subscribe(message => {
+     //      console.log(`### Message added to the server`);
+     //      // Add the message to the discussion (once completed by the server)
+     //      discussion.messages.push(message);
+     //    });
     if (this.discussions.find(discussiontofind => discussion === discussiontofind)) {
-      console.log(`### send message to the server`)
-      // Envoyer le message au backend
-      return this.http.post<MessageDTO>(`http://localhost:8080/user/message/newMessage/${discussion.interlocutor}`,
-        content);
+    console.log(`### send message to the server`)
+    // Envoyer le message au backend
+    return this.http.post<MessageDTO>(`http://localhost:8080/user/message/newMessage/${discussion.interlocutor}`,
+      content);
     }else {
       return null;
     }
@@ -71,7 +71,7 @@ export class DiscussionService {
 
     // Search for an existing discussion with the interlocutor
     let discussion = this.discussions
-      .find(discussion => discussion.interlocutor === recipientAddress);
+       .find(discussion => discussion.interlocutor === recipientAddress);
 
     // If a discussion already exists, nothing to do
     if (discussion){
