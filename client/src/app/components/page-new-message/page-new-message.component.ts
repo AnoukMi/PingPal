@@ -15,11 +15,11 @@ export class PageNewMessageComponent {
   constructor(private formBuilder: FormBuilder,
               private discussionService: DiscussionService, private router: Router) {
 
-  this.newMsgForm = this.formBuilder.group({
-    recipient: ['', Validators.required],
-    content: ['', Validators.required]
-  });
-}
+    this.newMsgForm = this.formBuilder.group({
+      recipient: ['', Validators.required],
+      content: ['', Validators.required]
+    });
+  }
 
   /**
    * Get a given field of the signup form by its name.
@@ -37,7 +37,7 @@ export class PageNewMessageComponent {
    */
   sendNewMessage(){
     this.discussionService.newDiscussion(this.getField('recipient').value);
-    this.router.navigate(['/conversation', this.getField('recipient').value]);
+    this.router.navigate(['/conversation/', this.getField('recipient').value]);
     this.discussionService.sendMessage(this.discussion, this.getField('content').value);
   }
 

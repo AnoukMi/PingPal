@@ -64,7 +64,9 @@ public class ConversationController {
       try{
         return conversationService.createEmptyConversation(user.getName(),address);
       }catch(final Exception ex){
+        System.out.println("probleme");
         throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+
       }
     }
 

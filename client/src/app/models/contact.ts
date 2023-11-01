@@ -1,7 +1,5 @@
 export class Contact {
-  constructor(public username: string = 'undefined',
-              public firstName: string = 'undefined',
-              public lastName: string = 'undefined',
-              public avatar: string = 'undefined',
+  constructor(public firstName: string = 'undefined', public lastName: string = 'undefined',
+              public avatar: string = 'undefined', public username: string = 'undefined',
               public birthday: Date = new Date()) {}
 }

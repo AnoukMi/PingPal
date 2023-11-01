@@ -266,11 +266,11 @@ paths:
               format: string
       responses:
         '200':
-          description: Add the message to the list of messages with the given user and return the updated list
+          description: Add the message to the list of messages with the given user and return the new message
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MessageDTO'
+                  $ref: '#/components/schemas/MessageDTO'
         '404':
           description: UserID not found
         default:
@@ -460,7 +460,7 @@ paths:
             type: string
       responses:
         '200':
-          description: Provide the header of the found contact profil of the given username
+          description: Provide the header of the found contact profile of the given username
           content:
             application/json:
               schema:
@@ -567,8 +567,7 @@ components:
               example: Migliavacca
             birthday:
               type: string
-              format: date-time
-              example: 06/20/2001
+              example: 06-20-2001
             address:
               type: string
               example: anouk.mi@domain
@@ -590,9 +589,8 @@ components:
           example: alv@domain
         lastMessageDate:
           type: string
-          format: date-time
           description : Date of the last sent message to be able to sort conversations from the newest to the oldest
-          example: 10/10/2023 12:30:22
+          example: 10-10-2023 12:30:22
       required:
         - peerAddress
         - lastMessageDate
@@ -630,9 +628,8 @@ components:
               example: alv@domain
             date:
               type: string
-              format: date-time
               description: Date of the message to be able to sort messages from the newest to the oldest
-              example: 10/10/2023 12:30:22
+              example: 10-10-2023 12:30:22
             edited:
               type: boolean
               description: True if message has been edited, false otherwise
@@ -665,8 +662,7 @@ components:
           example: Leveille
         birthday:
           type: string
-          format: date-time
-          example: 01/05/2003
+          example: 01-05-2003
         sharedMessage:
           type: string
           description: Content of the public message (status) shared by the contact (can be empty)

@@ -34,6 +34,7 @@ public class SecurityConfiguration {
             authorizeRequests
                     .requestMatchers(antMatcher("/user/signup")).permitAll()
                     .requestMatchers(antMatcher("/user/signin")).permitAll()
+                    .requestMatchers(antMatcher("user/conversation/conversations")).authenticated()
                     //.requestMatchers(antMatcher(HttpMethod.DELETE, "/user/*")).hasRole("ADMIN")
                     .requestMatchers(antMatcher("/error")).permitAll()
                     .anyRequest().authenticated());
