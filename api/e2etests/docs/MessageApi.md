@@ -216,7 +216,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Add the message to the list of messages with the given user and return the updated list |  -  |
+| **200** | Add the message to the list of messages with the given user and return the new message |  -  |
 | **404** | UserID not found |  -  |
 | **0** | Error |  -  |
 

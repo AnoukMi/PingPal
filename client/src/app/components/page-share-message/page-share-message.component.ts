@@ -7,6 +7,6 @@ import {Contact} from "../../models/contact";
   styleUrls: ['./page-share-message.component.css']
 })
 export class PageShareMessageComponent {
-  myself: Contact = new Contact("Ambre", "Léveillé",
-    "assets/avatar/3.png", "ivambre", new Date(2003, 10, 5))
+  myself: Contact = new Contact("ivambre", "Ambre", "Léveillé",
+    "assets/avatar/3.png", new Date(2003, 10, 5))
 }

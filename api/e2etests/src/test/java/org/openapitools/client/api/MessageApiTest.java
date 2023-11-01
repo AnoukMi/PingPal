@@ -16,7 +16,7 @@ package org.openapitools.client.api;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.model.ErrorDTO;
 import org.openapitools.client.model.MessageDTO;
-import org.openapitools.client.model.MessageReducedDTO;
+import java.util.UUID;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -39,10 +39,9 @@ public class MessageApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void userConversationUserIDMsgIDDeleteTest() throws ApiException {
-        String userID = null;
-        Long msgID = null;
-        api.userConversationUserIDMsgIDDelete(userID, msgID);
+    public void userMessageMsgIDDeleteTest() throws ApiException {
+        UUID msgID = null;
+        api.userMessageMsgIDDelete(msgID);
         // TODO: test validations
     }
 
@@ -52,11 +51,10 @@ public class MessageApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void userConversationUserIDMsgIDPatchTest() throws ApiException {
-        String userID = null;
-        Long msgID = null;
+    public void userMessageMsgIDPatchTest() throws ApiException {
+        UUID msgID = null;
         String body = null;
-        MessageDTO response = api.userConversationUserIDMsgIDPatch(userID, msgID, body);
+        MessageDTO response = api.userMessageMsgIDPatch(msgID, body);
         // TODO: test validations
     }
 
@@ -66,10 +64,10 @@ public class MessageApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void userUserIDMessagePostTest() throws ApiException {
-        String userID = null;
-        MessageReducedDTO messageReducedDTO = null;
-        List<MessageDTO> response = api.userUserIDMessagePost(userID, messageReducedDTO);
+    public void userMessageNewMessageRecipientPostTest() throws ApiException {
+        String recipient = null;
+        Object body = null;
+        MessageDTO response = api.userMessageNewMessageRecipientPost(recipient, body);
         // TODO: test validations
     }
 
@@ -79,9 +77,9 @@ public class MessageApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void userUserIDMessagesGetTest() throws ApiException {
+    public void userMessageUserIDMessagesGetTest() throws ApiException {
         String userID = null;
-        List<MessageDTO> response = api.userUserIDMessagesGet(userID);
+        List<MessageDTO> response = api.userMessageUserIDMessagesGet(userID);
         // TODO: test validations
     }
 

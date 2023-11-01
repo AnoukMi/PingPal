@@ -143,7 +143,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Provide the header of the found contact profil of the given username |  -  |
+| **200** | Provide the header of the found contact profile of the given username |  -  |
 | **410** | The user has been deleted |  -  |
 | **404** | UserID not found in the current user&#39;s list of friends |  -  |
 | **0** | Error |  -  |

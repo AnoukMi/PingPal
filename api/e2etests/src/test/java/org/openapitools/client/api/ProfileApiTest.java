@@ -51,8 +51,8 @@ public class ProfileApiTest {
      */
     @Test
     public void userProfilePatchTest() throws ApiException {
-        FullUserDTO fullUserDTO = null;
-        FullUserDTO response = api.userProfilePatch(fullUserDTO);
+        FullUserDTO fullUserDTO = new FullUserDTO();
+        api.userProfilePatch(fullUserDTO);
         // TODO: test validations
     }
 

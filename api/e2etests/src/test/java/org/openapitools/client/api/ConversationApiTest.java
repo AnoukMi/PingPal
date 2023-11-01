@@ -16,7 +16,6 @@ package org.openapitools.client.api;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.model.ConversationDTO;
 import org.openapitools.client.model.ErrorDTO;
-import org.openapitools.client.model.MessageDTO;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -33,36 +32,14 @@ public class ConversationApiTest {
 
     private final ConversationApi api = new ConversationApi();
 
-    @BeforeEach
-    public void init() throws ApiException {
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        api.setApiClient(new ApiClient(okHttpClient));
-    }
-
-
     /**
-     * Delete a message already sent
+     * Retrieve all conversations (headers) between the current user and others
      *
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void userConversationMsgIDDeleteTest() throws ApiException {
-        Long msgID = null;
-        api.userConversationMsgIDDelete(msgID);
-
-        // TODO: test validations
-    }
-
-    /**
-     * Modify a certain message already sent
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void userConversationMsgIDPatchTest() throws ApiException {
-        Long msgID = null;
-        String body = null;
-        MessageDTO response = api.userConversationMsgIDPatch(msgID, body);
+    public void userConversationConversationsGetTest() throws ApiException {
+        List<ConversationDTO> response = api.userConversationConversationsGet();
         // TODO: test validations
     }
 
@@ -72,9 +49,9 @@ public class ConversationApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void userConversationUserDeleteTest() throws ApiException {
-        String user = null;
-        api.userConversationUserDelete(user);
+    public void userConversationLoginDeleteTest() throws ApiException {
+        String login = null;
+        api.userConversationLoginDelete(login);
         // TODO: test validations
     }
 
@@ -84,9 +61,9 @@ public class ConversationApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void userConversationUserGetTest() throws ApiException {
-        String user = null;
-        ConversationDTO response = api.userConversationUserGet(user);
+    public void userConversationLoginGetTest() throws ApiException {
+        String login = null;
+        ConversationDTO response = api.userConversationLoginGet(login);
         // TODO: test validations
     }
 
@@ -96,64 +73,9 @@ public class ConversationApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void userConversationUserPostTest() throws ApiException {
-        // Creating a new friend with whom you want to create a new conversation
-        ContactProfileDTO contactProfileDTO = new ContactProfileDTO("vincentimes","vince@insa.fr", 2,"Vincent", "Barat", "10/10/1970", "");
-        ConversationDTO newConv = new ConversationDTO(contactProfileDTO.getUserID(),contactProfileDTO.getPeerAddress(),"");
-
-        // If we try to create the same conversation again, it fails
-        try {
-            ConversationDTO newConvBis = new ConversationDTO(contactProfileDTO.getUserID(),contactProfileDTO.getPeerAddress(),"");
-            api.userConversationUserPost(newConvBis);
-            Assertions.fail();
-        } catch (ApiException e) {
-            Assertions.assertEquals(HttpStatus.SC_CONFLICT, e.getCode());
-        }
-
-        // If we try to create a conversation with a user that doesn't exist, it should also fail
-        try {
-            String nonExistentUser = "nonexistentuser";
-            ConversationDTO newConvNonExistent = new ConversationDTO(nonExistentUser,"", "");
-            api.userConversationUserPost(newConvNonExistent);
-            Assertions.fail();
-        } catch (ApiException e) {
-            Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
-        }
-    }
-
-    /**
-     * Retrieve all conversations (headers) between the current user and others
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void userConversationsGetTest() throws ApiException {
-        List<ConversationDTO> response = api.userConversationsGet();
-        // TODO: test validations
-    }
-
-    /**
-     * Send a new message to a given user
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void userUserIDMessagePostTest() throws ApiException {
-        String userID = null;
-        MessageDTO messageDTO = null;
-        List<MessageDTO> response = api.userUserIDMessagePost(userID, messageDTO);
-        // TODO: test validations
-    }
-
-    /**
-     * Retrieve all messages in a given conversation
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void userUserIDMessagesGetTest() throws ApiException {
-        String userID = null;
-        List<MessageDTO> response = api.userUserIDMessagesGet(userID);
+    public void userConversationNewConversationInterlocutorPostTest() throws ApiException {
+        String interlocutor = null;
+        ConversationDTO response = api.userConversationNewConversationInterlocutorPost(interlocutor);
         // TODO: test validations
     }
 

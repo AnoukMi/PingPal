@@ -266,11 +266,11 @@ paths:
               format: string
       responses:
         '200':
-          description: Add the message to the list of messages with the given user and return the updated list
+          description: Add the message to the list of messages with the given user and return the new message
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MessageDTO'
+                  $ref: '#/components/schemas/MessageDTO'
         '404':
           description: UserID not found
         default:
@@ -460,7 +460,7 @@ paths:
             type: string
       responses:
         '200':
-          description: Provide the header of the found contact profil of the given username
+          description: Provide the header of the found contact profile of the given username
           content:
             application/json:
               schema:
