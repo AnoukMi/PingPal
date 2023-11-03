@@ -92,9 +92,6 @@ public class MessageController extends TextWebSocketHandler {
             false
             );
 
-            // Add the messages to the conversations
-            UserData currentUser = userRepository.findByLogin(user.getName());
-
             Message message = new Message(routerMessage);
 
             // Route the message

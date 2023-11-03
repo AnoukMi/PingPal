@@ -76,10 +76,10 @@ public class ConversationApiTest {
 
         // The conversations should first be empty
         List<ConversationDTO> conv = api.userConversationConversationsGet();
-        Assertions.assertTrue(conv.isEmpty());
+       Assertions.assertTrue(conv.isEmpty());
 
         // Creating a new conversation
-        api.userConversationLoginGet("friendGetAll");
+        api.userConversationNewConversationInterlocutorPost("friendGetAll");
         // Now there should be one conversation
         List<ConversationDTO> conv2 = api.userConversationConversationsGet();
         Assertions.assertEquals(1,conv2.size());
@@ -121,7 +121,7 @@ public class ConversationApiTest {
         }
 
         // Creating a conversation
-        api.userConversationLoginGet("friendDel");
+        api.userConversationNewConversationInterlocutorPost("friendDel");
         // Deleting the conversation should now work
         api.userConversationLoginDelete("friendDel");
 

@@ -108,7 +108,9 @@ public class ConversationController {
       address = login + "@pingpal";
     }
     try {
-      conversationService.deleteConversation(user.getName(), address);
+      if(!conversationService.deleteConversation(user.getName(), address)){
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversation not found with this user");
+      }
     }catch (final Exception ex) {
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
     }
