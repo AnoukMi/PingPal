@@ -194,9 +194,9 @@ public class ConversationApiTest {
         authApi.userSignupPost(user);
         authApi.userSigninPost(new UserDTO().login("testerConv").password("test").remember(false));
         //Creating a new conversation should work
-        ConversationDTO conv= api.userConversationNewConversationInterlocutorPost("user");
+        ConversationDTO conv= api.userConversationNewConversationInterlocutorPost("friendNew");
         //The conversation should be so
-        Assertions.assertEquals("friendNew", conv.getUserID());
+        Assertions.assertEquals("friendNew@pingpal", conv.getPeerAddress());
 
         // Creating again the conversation should fail with CONFLICT
         try {
