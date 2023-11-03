@@ -236,8 +236,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/MessageDTO'
-        '410':
-          description: The messages are no more available, have been deleted
         '404':
           description: No conversation with this user
         default:

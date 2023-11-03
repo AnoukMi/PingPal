@@ -5,12 +5,7 @@ import java.util.UUID;
 
 import fr.mightycode.cpoo.server.service.RouterService;
 
-public record MessageDTO(UUID msgID, String recipient, String content, String autorID, String autorAddress,
+public record MessageDTO(UUID msgID, String recipientID, String content, String authorID, String authorAddress,
                          LocalDateTime date, boolean edited){
-
-  public MessageDTO(RouterService.Message message){
-    this(message.id(), message.recipient(), message.content(), message.author(), message.authorAddress(),
-      message.date(), message.edited());
-  }
 
 }

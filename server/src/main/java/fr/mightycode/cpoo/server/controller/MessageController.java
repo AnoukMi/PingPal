@@ -56,8 +56,12 @@ public class MessageController extends TextWebSocketHandler {
         String loggedUser = user.getName();
         try {
             return messageService.getMessages(userID, loggedUser);
-        }catch(final Exception ex){
-          throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+        }catch(final ResponseStatusException ex) {
+            if (ex.getStatusCode() == HttpStatus.NOT_FOUND) {
+                throw ex;
+            } else {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+            }
         }
     }
 
@@ -83,13 +87,8 @@ public class MessageController extends TextWebSocketHandler {
         try {
             // Build a router message from the given information in parameters
             RouterService.Message routerMessage = new RouterService.Message(
-            UUID.randomUUID(), UUID.randomUUID(),
-            recipAddr,
-            content,
-            user.getName(),
-            user.getName() + "@pingpal",
-            LocalDateTime.now(),
-            false
+            UUID.randomUUID(), System.currentTimeMillis(),user.getName() + "@pingpal",
+            recipAddr, "mime",content
             );
 
             Message message = new Message(routerMessage);
@@ -101,10 +100,14 @@ public class MessageController extends TextWebSocketHandler {
             messageService.storeMessage(message);
 
             // Return the message as a DTO
-            return new MessageDTO(routerMessage);
+            return new MessageDTO(message.getMsgId(),message.getRecipient(),message.getContent(),message.getAuthor(),message.getAuthorAddress(),message.getDate(),false);
 
-        }catch (final Exception ex) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+        }catch (final ResponseStatusException ex) {
+            if (ex.getStatusCode() == HttpStatus.NOT_FOUND) {
+                throw ex;
+            } else {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+            }
         }
     }
 

@@ -29,14 +29,13 @@ public class RouterService {
    */
 
   public record Message(
-          UUID id,      // unique id of the message
-          UUID idRecip,      // unique id of the message for the recipient
-          String recipient, // recipient address
-          String content, // content of the message
-          String author,    // sender login
-          String authorAddress, // sender address
-          LocalDateTime date,  // date when the message was sent
-          boolean edited // true if the message was edited by the sender
+          UUID id,        // unique id of the message
+          long timestamp, // timestamp of the message
+          String from,    // sender address
+          String to,      // recipient address
+          String type,    // MIME type of the body
+          String body     // body (BASE64 encoded for binary types)
+
   ) {
   }
 

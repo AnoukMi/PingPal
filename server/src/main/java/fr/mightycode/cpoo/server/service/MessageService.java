@@ -8,6 +8,8 @@ import fr.mightycode.cpoo.server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -45,9 +47,6 @@ public class MessageService {
   public List<MessageDTO> getMessages(String login, String interlocutor) {
     //liste de DTO de messages à retourner
     List<MessageDTO> msgDTOS = new ArrayList<>();
-    UserData userData = userRepository.findByLogin(login);
-    //récupère tous les headers de conversations de l'utilisateur connecté
-    List<Conversation> conversations = conversationRepository.findByUserData(userData);
     String userAddress ="";
     if (isAddress(interlocutor)) { // Vérifie si interlocutor correspond au format d'adresse
       //si oui, userAddress prend directement la valeur de interlocutor
@@ -56,29 +55,22 @@ public class MessageService {
       // Sinon, login est l'username d'un user inscrit : on convertit avec l'addresse pingpal
       userAddress = interlocutor + "@" + "pingpal";
     }
-    Conversation conversationToFind = null;
-    //récupère parmi les conversations de l'utilisateur connecté, celle associée à l'interlocuteur souhaité
-    for (Conversation conversation : conversations) {
-      if (userAddress.equals(conversation.getPeerAddress())) {
-        conversationToFind = conversation;
-        break; //sort de la boucle for une fois que la conversation est trouvée
+    //récupère la conversation si elle existe
+    Optional<Conversation> conversationOptional = conversationRepository.findById(login + userAddress);
+      if (conversationOptional.isPresent()) {
+          // La valeur est présente dans l'Optional
+          Conversation conversationToFind = conversationOptional.get();
+          //récupère les messages associés à la conversation avec l'interlocuteur, ordonnés par le plus récent
+          List<Message> messages = messageRepository.findAllByConversationOrderByDateDesc(conversationToFind);
+          for(Message msg : messages) {
+              MessageDTO msgDTO = new MessageDTO(msg.getMsgId(), msg.getRecipient(), msg.getContent(), msg.getAuthor(),
+                      msg.getAuthorAddress(), msg.getDate(), msg.isEdited());
+              msgDTOS.add(msgDTO); //remplit liste de messages convertis en DTO à retourner
+          }
+          return msgDTOS;
+      } else {
+          throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No conversation with this user");
       }
-    }
-    if (conversationToFind == null) { //si aucune conversation n'a été trouvée
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No conversation with this user");
-    } else {
-      //récupère les messages associés à la conversation avec l'interlocuteur, ordonnés par le plus récent
-      List<Message> messages = messageRepository.findAllByConversationOrderByDateDesc(conversationToFind);
-      for(Message msg : messages) {
-        MessageDTO msgDTO = new MessageDTO(msg.getMsgId(), msg.getRecipient(), msg.getContent(), msg.getAuthor(),
-          msg.getAuthorAddress(), msg.getDate(), msg.isEdited());
-        msgDTOS.add(msgDTO); //remplit liste de messages convertis en DTO à retourner
-      }
-      if(msgDTOS.isEmpty()){
-        throw new ResponseStatusException(HttpStatus.GONE, "The messages are no more available, have been deleted");
-      }
-      return msgDTOS;
-    }
   }
 
     /**
@@ -132,37 +124,29 @@ public class MessageService {
      */
     public void storeMessage(Message msg){
         String login = logMember(msg.getAuthor());
-        UserData userData = userRepository.findByLogin(login);
-        List<Conversation> conversations = conversationRepository.findByUserData(userData);
-        Conversation conv = null;
-        for(Conversation conversation : conversations){
-            if(conversation.getPeerAddress().equals(msg.getRecipient())){
-                conv = conversation;
-                break;
-            }
-        }
-        assert conv != null; //car côté client, si aucune conv existe on en crée une vide
-        msg.setConversation(conv);
-        conv.setLastMsgDate(msg.getDate());
-        messageRepository.save(msg);
         String recipient = msg.getRecipient();
+        Optional<Conversation> conversationOptional = conversationRepository.findById(login+recipient);
+        if (conversationOptional.isPresent()) {
+            Conversation conv = conversationOptional.get();
+            msg.setConversation(conv);
+            conv.setLastMsgDate(msg.getDate());
+            messageRepository.save(msg);
+            conversationRepository.save(conv);
+        } else {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         String userPing =logMember(recipient);
         if(userPing!=null){ //stocke aussi pour le destinataire si appartient à l'appli
-            UserData userRecip = userRepository.findByLogin(userPing);
-            List<Conversation> conversationsRec = conversationRepository.findByUserData(userRecip);
             Conversation convRec = null;
-            for(Conversation conversation : conversationsRec){
-                if(conversation.getPeerAddress().equals(msg.getAuthorAddress())){
-                    convRec = conversation;
-                    break;
-                }
-            }
-            if(convRec==null){ //si aucune conv existe chez l'autre, il faut la créer
+            Optional<Conversation> conversationOptional2 = conversationRepository.findById(userPing+msg.getAuthorAddress());
+            if (conversationOptional2.isPresent()) {
+                convRec = conversationOptional2.get();
+            }else{
                 conversationService.createEmptyConversation(userPing,msg.getAuthorAddress());
                 convRec = conversationRepository.findById(userPing+msg.getAuthorAddress()).get();
             }
             Message msgRecip = new Message(msg.getIdRecip(),msg.getMsgId(),msg.getRecipient(),msg.getContent(),
-                    msg.getAuthor(),msg.getAuthorAddress(),msg.getDate(),msg.isEdited(),convRec);
+                    login,msg.getAuthorAddress(),msg.getDate(),msg.isEdited(),convRec);
             convRec.setLastMsgDate(msgRecip.getDate());
             messageRepository.save(msgRecip);
         }

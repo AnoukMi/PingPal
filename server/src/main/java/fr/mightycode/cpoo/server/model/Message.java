@@ -3,7 +3,9 @@ package fr.mightycode.cpoo.server.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.UUID;
 
 import fr.mightycode.cpoo.server.service.RouterService;
@@ -13,7 +15,6 @@ import fr.mightycode.cpoo.server.service.RouterService;
 @Table(name = "messages")
 public class Message {
   @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
   @Column(name = "msgID", nullable = false)
   private UUID msgID;
   @Column(name = "idRecip", nullable = false)
@@ -41,13 +42,14 @@ public class Message {
 
   public Message(RouterService.Message message){
     this.msgID = message.id();
-    this.idRecip = message.idRecip();
-    this.recipient = message.recipient();
-    this.content = message.content();
-    this.author = message.author();
-    this.authorAddress = message.authorAddress();
-    this.date = message.date();
-    this.edited = message.edited();
+    this.idRecip =  UUID.randomUUID();
+    this.recipient = message.to();
+    this.content = message.body();
+    this.author = message.from();
+    this.authorAddress = message.from();
+    Instant instant = Instant.ofEpochMilli(message.timestamp());
+    this.date = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+    this.edited = false;
     this.conversation=null;
   }
 
