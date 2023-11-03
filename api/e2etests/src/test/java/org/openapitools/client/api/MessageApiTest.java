@@ -56,11 +56,24 @@ public class MessageApiTest {
     // All of these commands are executed before the tests are run
     @BeforeEach
     public void setUp() throws ApiException {
-        sender = new FullUserDTO().login("lvhoa").password("test").remember(true).icon(1)
-                .firstname("hoa").lastname("leveille").birthday("10-10-2000").address("lvhoa@pingpal");
+        sender = new FullUserDTO()
+                .login("lvhoa")
+                .password("test")
+                .remember(true).icon(1)
+                .firstname("hoa")
+                .lastname("leveille")
+                .birthday("10-10-2000")
+                .address("lvhoa@pingpal");
 
-        receiver = new FullUserDTO().login("anouk").password("test").remember(false).icon(2)
-                .firstname("anouk").lastname("mi").birthday("10-10-2000").address("anouk@pingpal");
+        receiver = new FullUserDTO()
+                .login("anouk")
+                .password("test")
+                .remember(false)
+                .icon(2)
+                .firstname("anouk")
+                .lastname("mi")
+                .birthday("10-10-2000")
+                .address("anouk@pingpal");
 
         msg = new MessageDTO().recipientID(receiver.getLogin())
                 .content("Hello, this is a test")

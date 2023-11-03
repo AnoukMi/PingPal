@@ -69,7 +69,8 @@ public class ConversationApiTest {
         }
 
         // Signing up and in
-        FullUserDTO user = new FullUserDTO().login("testerConvGetAll").password("test").remember(true).icon(1).firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
+        FullUserDTO user = new FullUserDTO().login("testerConvGetAll").password("test").remember(true).icon(1)
+                .firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
         authApi.userSignupPost(user);
         authApi.userSigninPost(new UserDTO().login("testerConvGetAll").password("test").remember(false));
 
@@ -105,7 +106,8 @@ public class ConversationApiTest {
         }
 
         // Signing up and in
-        FullUserDTO user = new FullUserDTO().login("testerConvDel").password("test").remember(true).icon(1).firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
+        FullUserDTO user = new FullUserDTO().login("testerConvDel").password("test").remember(true).icon(1)
+                .firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
         authApi.userSignupPost(user);
         authApi.userSigninPost(new UserDTO().login("testerConvDel").password("test").remember(false));
 
@@ -144,7 +146,8 @@ public class ConversationApiTest {
         }
 
         // Signing up and in
-        FullUserDTO user = new FullUserDTO().login("testerConvGet").password("test").remember(true).icon(1).firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
+        FullUserDTO user = new FullUserDTO().login("testerConvGet").password("test").remember(true).icon(1)
+                .firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
         authApi.userSignupPost(user);
         authApi.userSigninPost(new UserDTO().login("testerConvGet").password("test").remember(false));
 
@@ -186,7 +189,8 @@ public class ConversationApiTest {
         }
 
         // Signing up and in
-        FullUserDTO user = new FullUserDTO().login("testerConv").password("test").remember(true).icon(1).firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
+        FullUserDTO user = new FullUserDTO().login("testerConv").password("test").remember(true).icon(1)
+                .firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
         authApi.userSignupPost(user);
         authApi.userSigninPost(new UserDTO().login("testerConv").password("test").remember(false));
         //Creating a new conversation should work
