@@ -44,13 +44,6 @@ public class MessageApiTest {
     private final ConversationApi convApi = new ConversationApi();
 
     private final AuthenticationApi authApi = new AuthenticationApi();
-
-    FullUserDTO sender, receiver;
-    UserDTO uSender, uReceiver;
-    MessageDTO msg;
-    ConversationDTO conv;
-    List<MessageDTO> messages;
-
     @BeforeEach
     public void init() {
         // Simulate the behavior of a web browser by remembering cookies set by the server
@@ -76,16 +69,17 @@ public class MessageApiTest {
             Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
         }
 
-        sender = new FullUserDTO()
+        FullUserDTO sender = new FullUserDTO()
                 .login("lvhoa")
                 .password("test")
-                .remember(true).icon(1)
+                .remember(true)
+                .icon(1)
                 .firstname("hoa")
                 .lastname("leveille")
                 .birthday("10-10-2000")
                 .address("lvhoa@pingpal");
 
-        receiver = new FullUserDTO()
+        FullUserDTO receiver = new FullUserDTO()
                 .login("anouk")
                 .password("test")
                 .remember(false)
@@ -95,17 +89,17 @@ public class MessageApiTest {
                 .birthday("10-10-2000")
                 .address("anouk@pingpal");
 
-        uSender = new UserDTO()
+        UserDTO uSender = new UserDTO()
                 .login(sender.getLogin())
                 .remember(true)
                 .password(sender.getPassword());
 
-        uReceiver = new UserDTO()
+        UserDTO uReceiver = new UserDTO()
                 .login(receiver.getLogin())
                 .remember(false)
                 .password(receiver.getPassword());
 
-        msg = new MessageDTO().recipientID(receiver.getLogin())
+        MessageDTO msg = new MessageDTO().recipientID(receiver.getLogin())
                 .content("Hello, this is a test")
                 .msgID(UUID.randomUUID())
                 .authorID(sender.getLogin())
@@ -118,10 +112,10 @@ public class MessageApiTest {
         authApi.userSigninPost(uSender);
 
         // Create the conversation between sender and receiver
-        conv = convApi.userConversationNewConversationInterlocutorPost(receiver.getLogin());
+        ConversationDTO conv = convApi.userConversationNewConversationInterlocutorPost(receiver.getLogin());
 
         // Create the list of messages exchanged between sender and receiver
-        messages = api.userMessageUserIDMessagesGet(receiver.getLogin());
+        List<MessageDTO> messages = api.userMessageUserIDMessagesGet(receiver.getLogin());
 
         // Check the size of messages is initially 0
         Assertions.assertTrue(messages.isEmpty());
@@ -152,16 +146,17 @@ public class MessageApiTest {
             Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
         }
 
-        sender = new FullUserDTO()
+        FullUserDTO sender = new FullUserDTO()
                 .login("lvhoa")
                 .password("test")
-                .remember(true).icon(1)
+                .remember(true)
+                .icon(1)
                 .firstname("hoa")
                 .lastname("leveille")
                 .birthday("10-10-2000")
                 .address("lvhoa@pingpal");
 
-        receiver = new FullUserDTO()
+        FullUserDTO receiver = new FullUserDTO()
                 .login("anouk")
                 .password("test")
                 .remember(false)
@@ -171,17 +166,17 @@ public class MessageApiTest {
                 .birthday("10-10-2000")
                 .address("anouk@pingpal");
 
-        uSender = new UserDTO()
+        UserDTO uSender = new UserDTO()
                 .login(sender.getLogin())
                 .remember(true)
                 .password(sender.getPassword());
 
-        uReceiver = new UserDTO()
+        UserDTO uReceiver = new UserDTO()
                 .login(receiver.getLogin())
                 .remember(false)
                 .password(receiver.getPassword());
 
-        msg = new MessageDTO().recipientID(receiver.getLogin())
+        MessageDTO msg = new MessageDTO().recipientID(receiver.getLogin())
                 .content("Hello, this is a test")
                 .msgID(UUID.randomUUID())
                 .authorID(sender.getLogin())
@@ -194,10 +189,10 @@ public class MessageApiTest {
         authApi.userSigninPost(uSender);
 
         // Create the conversation between sender and receiver
-        conv = convApi.userConversationNewConversationInterlocutorPost(receiver.getLogin());
+        ConversationDTO conv = convApi.userConversationNewConversationInterlocutorPost(receiver.getLogin());
 
         // Create the list of messages exchanged between sender and receiver
-        messages = api.userMessageUserIDMessagesGet(receiver.getLogin());
+        List<MessageDTO> messages = api.userMessageUserIDMessagesGet(receiver.getLogin());
 
         // List of messages in the conversation should be empty
         Assertions.assertTrue(messages.isEmpty());
@@ -239,36 +234,37 @@ public class MessageApiTest {
             Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
         }
 
-        sender = new FullUserDTO()
-                .login("lvambre")
+        FullUserDTO sender = new FullUserDTO()
+                .login("lvhoa")
                 .password("test")
-                .remember(true).icon(1)
-                .firstname("ambre")
+                .remember(true)
+                .icon(1)
+                .firstname("hoa")
                 .lastname("leveille")
-                .birthday("10-15-2000")
-                .address("lvambre@pingpal");
+                .birthday("10-10-2000")
+                .address("lvhoa@pingpal");
 
-        receiver = new FullUserDTO()
-                .login("anoukmi")
+        FullUserDTO receiver = new FullUserDTO()
+                .login("anouk")
                 .password("test")
                 .remember(false)
                 .icon(2)
                 .firstname("anouk")
                 .lastname("mi")
                 .birthday("10-10-2000")
-                .address("anoukmi@pingpal");
+                .address("anouk@pingpal");
 
-        uSender = new UserDTO()
+        UserDTO uSender = new UserDTO()
                 .login(sender.getLogin())
                 .remember(true)
                 .password(sender.getPassword());
 
-        uReceiver = new UserDTO()
+        UserDTO uReceiver = new UserDTO()
                 .login(receiver.getLogin())
                 .remember(false)
                 .password(receiver.getPassword());
 
-        msg = new MessageDTO().recipientID(receiver.getLogin())
+        MessageDTO msg = new MessageDTO().recipientID(receiver.getLogin())
                 .content("Hello, this is a test")
                 .msgID(UUID.randomUUID())
                 .authorID(sender.getLogin())
@@ -281,10 +277,10 @@ public class MessageApiTest {
         authApi.userSigninPost(uSender);
 
         // Create the conversation between sender and receiver
-        conv = convApi.userConversationNewConversationInterlocutorPost(receiver.getLogin());
+        ConversationDTO conv = convApi.userConversationNewConversationInterlocutorPost(receiver.getLogin());
 
         // Create the list of messages exchanged between sender and receiver
-        messages = api.userMessageUserIDMessagesGet(receiver.getLogin());
+        List<MessageDTO> messages = api.userMessageUserIDMessagesGet(receiver.getLogin());
 
         // Check the size of messages is initially 0
         Assertions.assertTrue(messages.isEmpty());
@@ -318,36 +314,37 @@ public class MessageApiTest {
             Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
         }
 
-        sender = new FullUserDTO()
-                .login("hoa")
+        FullUserDTO sender = new FullUserDTO()
+                .login("lvhoa")
                 .password("test")
-                .remember(true).icon(1)
+                .remember(true)
+                .icon(1)
                 .firstname("hoa")
-                .lastname("hoa")
+                .lastname("leveille")
                 .birthday("10-10-2000")
-                .address("hoa@pingpal");
+                .address("lvhoa@pingpal");
 
-        receiver = new FullUserDTO()
-                .login("anouket")
+        FullUserDTO receiver = new FullUserDTO()
+                .login("anouk")
                 .password("test")
                 .remember(false)
                 .icon(2)
-                .firstname("anouket")
+                .firstname("anouk")
                 .lastname("mi")
                 .birthday("10-10-2000")
-                .address("anouket@pingpal");
+                .address("anouk@pingpal");
 
-        uSender = new UserDTO()
+        UserDTO uSender = new UserDTO()
                 .login(sender.getLogin())
                 .remember(true)
                 .password(sender.getPassword());
 
-        uReceiver = new UserDTO()
+        UserDTO uReceiver = new UserDTO()
                 .login(receiver.getLogin())
                 .remember(false)
                 .password(receiver.getPassword());
 
-        msg = new MessageDTO().recipientID(receiver.getLogin())
+        MessageDTO msg = new MessageDTO().recipientID(receiver.getLogin())
                 .content("Hello, this is a test")
                 .msgID(UUID.randomUUID())
                 .authorID(sender.getLogin())
@@ -360,10 +357,10 @@ public class MessageApiTest {
         authApi.userSigninPost(uSender);
 
         // Create the conversation between sender and receiver
-        conv = convApi.userConversationNewConversationInterlocutorPost(receiver.getLogin());
+        ConversationDTO conv = convApi.userConversationNewConversationInterlocutorPost(receiver.getLogin());
 
         // Create the list of messages exchanged between sender and receiver
-        messages = api.userMessageUserIDMessagesGet(receiver.getLogin());
+        List<MessageDTO> messages = api.userMessageUserIDMessagesGet(receiver.getLogin());
 
         // Add the message to the conversation (to the list of messages)
         api.userMessageNewMessageRecipientPost(msg.getRecipientID(), msg.getContent());
