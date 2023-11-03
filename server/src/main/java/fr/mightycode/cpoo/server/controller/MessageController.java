@@ -128,8 +128,12 @@ public class MessageController extends TextWebSocketHandler {
     public void deleteSentMessage(@PathVariable final UUID msgID) {
       try{
         messageService.deleteSentMessage(msgID);
-      }catch(final Exception ex){
-        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+      }catch(final ResponseStatusException ex) {
+          if (ex.getStatusCode() == HttpStatus.NOT_FOUND) {
+              throw ex;
+          } else {
+              throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+          }
       }
     }
 

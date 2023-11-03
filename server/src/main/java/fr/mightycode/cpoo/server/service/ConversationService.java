@@ -72,7 +72,7 @@ public class ConversationService {
         //seulement si n'existe pas déjà dans BDD du destinataire
         if(conversationRepository.findById(interlocutor + user + "@pingpal").isEmpty()) {
           UserData user2 = userRepository.findByLogin(interlocutor); //le fait de charger l'user devrait màj automatiquement sa liste de conv
-          Conversation conversationDest = new Conversation(interlocutor+user+"@pingpal",user+"@pingpal",null,user2);
+          Conversation conversationDest = new Conversation(interlocutor+user+"@pingpal",user+"@pingpal",conversation.getLastMsgDate(),user2);
           conversationRepository.save(conversationDest);
         }
       }
