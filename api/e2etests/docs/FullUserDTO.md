@@ -13,7 +13,7 @@
 |**icon** | **Integer** | Number (ref) of the profile icon (image) of the user |  |
 |**firstname** | **String** |  |  |
 |**lastname** | **String** |  |  |
-|**birthday** | **OffsetDateTime** |  |  |
+|**birthday** | **String** |  |  |
 |**address** | **String** |  |  |
 
 

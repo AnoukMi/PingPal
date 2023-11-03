@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-interlocutor-bubble',
@@ -6,7 +6,9 @@ import {Component, Input} from '@angular/core';
   styleUrls: ['./interlocutor-bubble.component.css']
 })
 export class InterlocutorBubbleComponent {
+
+  @Input() author: string = '';
   @Input() content: string = '';
-  @Input() date : string='';
-  @Input() user : string='';
+  @Input() date: string = '';
+
 }

@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, forwardRef } from '@angular/core';
+import {Component, Input, OnInit, forwardRef, Output, EventEmitter, ViewChild, ElementRef} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {MessageService} from "../../api";
 
 @Component({
   selector: 'app-user-writing-frame',
@@ -18,6 +19,12 @@ export class UserWritingFrameComponent implements ControlValueAccessor, OnInit {
   @Input() type: string = '';
 
   private innerValue: any = '';
+
+  @Output() messageSent = new EventEmitter<string>();
+
+  sendMessage(message: string) {
+    this.messageSent.emit(message);
+  }
 
   onChange: any = () => {};
   onTouched: any = () => {};

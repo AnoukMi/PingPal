@@ -20,7 +20,6 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.time.OffsetDateTime;
 import java.util.Arrays;
 
 import com.google.gson.Gson;
@@ -78,7 +77,7 @@ public class FullUserDTO {
 
   public static final String SERIALIZED_NAME_BIRTHDAY = "birthday";
   @SerializedName(SERIALIZED_NAME_BIRTHDAY)
-  private OffsetDateTime birthday;
+  private String birthday;
 
   public static final String SERIALIZED_NAME_ADDRESS = "address";
   @SerializedName(SERIALIZED_NAME_ADDRESS)
@@ -213,7 +212,7 @@ public class FullUserDTO {
   }
 
 
-  public FullUserDTO birthday(OffsetDateTime birthday) {
+  public FullUserDTO birthday(String birthday) {
     
     this.birthday = birthday;
     return this;
@@ -224,12 +223,12 @@ public class FullUserDTO {
    * @return birthday
   **/
   @javax.annotation.Nonnull
-  public OffsetDateTime getBirthday() {
+  public String getBirthday() {
     return birthday;
   }
 
 
-  public void setBirthday(OffsetDateTime birthday) {
+  public void setBirthday(String birthday) {
     this.birthday = birthday;
   }
 
@@ -374,6 +373,9 @@ public class FullUserDTO {
       }
       if (!jsonObj.get("lastname").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `lastname` to be a primitive type in the JSON string but got `%s`", jsonObj.get("lastname").toString()));
+      }
+      if (!jsonObj.get("birthday").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `birthday` to be a primitive type in the JSON string but got `%s`", jsonObj.get("birthday").toString()));
       }
       if (!jsonObj.get("address").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `address` to be a primitive type in the JSON string but got `%s`", jsonObj.get("address").toString()));

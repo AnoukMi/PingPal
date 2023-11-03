@@ -20,7 +20,6 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.time.OffsetDateTime;
 import java.util.Arrays;
 
 import com.google.gson.Gson;
@@ -62,7 +61,7 @@ public class ConversationDTO {
 
   public static final String SERIALIZED_NAME_LAST_MESSAGE_DATE = "lastMessageDate";
   @SerializedName(SERIALIZED_NAME_LAST_MESSAGE_DATE)
-  private OffsetDateTime lastMessageDate;
+  private String lastMessageDate;
 
   public ConversationDTO() {
   }
@@ -109,7 +108,7 @@ public class ConversationDTO {
   }
 
 
-  public ConversationDTO lastMessageDate(OffsetDateTime lastMessageDate) {
+  public ConversationDTO lastMessageDate(String lastMessageDate) {
     
     this.lastMessageDate = lastMessageDate;
     return this;
@@ -120,12 +119,12 @@ public class ConversationDTO {
    * @return lastMessageDate
   **/
   @javax.annotation.Nonnull
-  public OffsetDateTime getLastMessageDate() {
+  public String getLastMessageDate() {
     return lastMessageDate;
   }
 
 
-  public void setLastMessageDate(OffsetDateTime lastMessageDate) {
+  public void setLastMessageDate(String lastMessageDate) {
     this.lastMessageDate = lastMessageDate;
   }
 
@@ -222,6 +221,9 @@ public class ConversationDTO {
       }
       if (!jsonObj.get("peerAddress").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `peerAddress` to be a primitive type in the JSON string but got `%s`", jsonObj.get("peerAddress").toString()));
+      }
+      if (!jsonObj.get("lastMessageDate").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `lastMessageDate` to be a primitive type in the JSON string but got `%s`", jsonObj.get("lastMessageDate").toString()));
       }
   }
 

@@ -1,11 +1,11 @@
-<a routerLink="conversation">
+<a routerLink="conversation/{{contact.username}}">
 <button class="w3-button hover-effect" [ngClass]="{'conv_unread': !statusMessage, 'conv_read':statusMessage}">
   <div *ngIf="!statusMessage">
-    <div class="nameContact"><b>{{ contact.firstName }} {{ contact.lastName }}</b></div>
+    <div class="nameContact"><b>{{ contact.firstName }} {{ contact.firstName }}</b></div>
     <div class="messageStatus"><b>Unread message</b></div>
   </div>
   <div *ngIf="statusMessage">
-    <div class="nameContact">{{ contact.firstName }} {{ contact.lastName }}</div>
+    <div class="nameContact">{{ contact.lastName }} {{ contact.lastName }}</div>
     <div class="messageStatus">Read message</div>
   </div>
 

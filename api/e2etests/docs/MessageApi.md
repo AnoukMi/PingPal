@@ -151,7 +151,7 @@ public class Example {
 
 <a id="userMessageNewMessageRecipientPost"></a>
 # **userMessageNewMessageRecipientPost**
-> List&lt;MessageDTO&gt; userMessageNewMessageRecipientPost(recipient, body)
+> MessageDTO userMessageNewMessageRecipientPost(recipient, body)
 
 Send a new message to a given user
 
@@ -180,7 +180,7 @@ public class Example {
     String recipient = "recipient_example"; // String | Username of the interlocutor with whom the messages of the conversation are exchanged
     Object body = null; // Object | 
     try {
-      List<MessageDTO> result = apiInstance.userMessageNewMessageRecipientPost(recipient, body);
+      MessageDTO result = apiInstance.userMessageNewMessageRecipientPost(recipient, body);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling MessageApi#userMessageNewMessageRecipientPost");
@@ -202,7 +202,7 @@ public class Example {
 
 ### Return type
 
-[**List&lt;MessageDTO&gt;**](MessageDTO.md)
+[**MessageDTO**](MessageDTO.md)
 
 ### Authorization
 
@@ -216,7 +216,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Add the message to the list of messages with the given user and return the updated list |  -  |
+| **200** | Add the message to the list of messages with the given user and return the new message |  -  |
 | **404** | UserID not found |  -  |
 | **0** | Error |  -  |
 
@@ -287,6 +287,6 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Provide the list of messages sent both by the user and his interlocutor for a given interlocutor |  -  |
 | **410** | The messages are no more available, have been deleted |  -  |
-| **404** | UserID not found in the current user conversations |  -  |
+| **404** | No conversation with this user |  -  |
 | **0** | Error |  -  |
 

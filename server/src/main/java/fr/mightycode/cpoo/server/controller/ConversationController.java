@@ -3,6 +3,7 @@
 import fr.mightycode.cpoo.server.dto.ConversationDTO;
 import fr.mightycode.cpoo.server.service.ConversationService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +15,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
- @RestController
+@RestController
 @RequestMapping("user/conversation")
 @RequiredArgsConstructor
 @CrossOrigin
+@Slf4j
 public class ConversationController {
 
   private final ConversationService conversationService;
@@ -54,6 +55,7 @@ public class ConversationController {
    */
     @PostMapping(value = "newConversation/{interlocutor}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ConversationDTO createEmptyConversation(final Principal user, @PathVariable final String interlocutor) {
+      log.info("Create new conversation");
       String address = interlocutor;
       if (!isAddress(interlocutor)) { // Vérifie si login ne correspond pas au format d'address
         //càd le login est supposé être un user de l'application
@@ -62,7 +64,9 @@ public class ConversationController {
       try{
         return conversationService.createEmptyConversation(user.getName(),address);
       }catch(final Exception ex){
+        System.out.println("probleme");
         throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+
       }
     }
 
@@ -81,7 +85,7 @@ public class ConversationController {
       if(conversationService.logMember(login)==null){
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipient user does not exist");
       }
-      address = login + "@pingpal"; //si existe on rend son adresse
+      address = login + "@pingpal"; // si existe on rend son adresse
     }
     try {
       return conversationService.getOneConversation(user.getName(), address);
@@ -104,7 +108,9 @@ public class ConversationController {
       address = login + "@pingpal";
     }
     try {
-      conversationService.deleteConversation(user.getName(), address);
+      if(!conversationService.deleteConversation(user.getName(), address)){
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversation not found with this user");
+      }
     }catch (final Exception ex) {
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
     }

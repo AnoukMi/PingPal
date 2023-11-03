@@ -63,7 +63,8 @@ export class PageSignInComponent {
 
     // Sign in using form values
     this.loading = true;
-    this.userService.signin(this.getField('login').value, this.getField('password').value, false).subscribe({
+    this.userService.signin(this.getField('login').value, this.getField('password').value,
+      false).subscribe({
       next: _ => {
 
         // Redirect to the return URL or to home page

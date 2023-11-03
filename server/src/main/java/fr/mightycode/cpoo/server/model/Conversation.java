@@ -38,6 +38,7 @@ public class Conversation {
     this.messages = new ArrayList<>();
   }
 
+
   public String getId(){
     return this.id;
   }

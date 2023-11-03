@@ -53,4 +53,12 @@ public class UserDTOTest {
         // TODO: test password
     }
 
+    /**
+     * Test the property 'remember'
+     */
+    @Test
+    public void rememberTest() {
+        // TODO: test remember
+    }
+
 }

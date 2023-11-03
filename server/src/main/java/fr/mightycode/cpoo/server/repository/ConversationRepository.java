@@ -16,4 +16,5 @@ public interface ConversationRepository extends JpaRepository<Conversation, Stri
   List<Conversation> findByUserDataOrderByLastMsgDateDesc(UserData userData);
   @Query("SELECT c FROM Conversation c WHERE c.userData = :userData")
   List<Conversation> findByUserData(UserData userData);
+
 }

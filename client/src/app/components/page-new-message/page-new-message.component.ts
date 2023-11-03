@@ -37,7 +37,7 @@ export class PageNewMessageComponent {
    */
   sendNewMessage(){
     this.discussionService.newDiscussion(this.getField('recipient').value);
-    this.router.navigate(['/conversation', this.getField('recipient').value]);
+    this.router.navigate(['/conversation/', this.getField('recipient').value]);
     this.discussionService.sendMessage(this.discussion, this.getField('content').value);
   }
 

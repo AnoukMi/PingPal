@@ -347,7 +347,7 @@ public class MessageApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Add the message to the list of messages with the given user and return the updated list </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Add the message to the list of messages with the given user and return the new message </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> UserID not found </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
@@ -419,18 +419,18 @@ public class MessageApi {
      * 
      * @param recipient Username of the interlocutor with whom the messages of the conversation are exchanged (required)
      * @param body  (required)
-     * @return List&lt;MessageDTO&gt;
+     * @return MessageDTO
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Add the message to the list of messages with the given user and return the updated list </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Add the message to the list of messages with the given user and return the new message </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> UserID not found </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public List<MessageDTO> userMessageNewMessageRecipientPost(String recipient, Object body) throws ApiException {
-        ApiResponse<List<MessageDTO>> localVarResp = userMessageNewMessageRecipientPostWithHttpInfo(recipient, body);
+    public MessageDTO userMessageNewMessageRecipientPost(String recipient, Object body) throws ApiException {
+        ApiResponse<MessageDTO> localVarResp = userMessageNewMessageRecipientPostWithHttpInfo(recipient, body);
         return localVarResp.getData();
     }
 
@@ -439,19 +439,19 @@ public class MessageApi {
      * 
      * @param recipient Username of the interlocutor with whom the messages of the conversation are exchanged (required)
      * @param body  (required)
-     * @return ApiResponse&lt;List&lt;MessageDTO&gt;&gt;
+     * @return ApiResponse&lt;MessageDTO&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Add the message to the list of messages with the given user and return the updated list </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Add the message to the list of messages with the given user and return the new message </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> UserID not found </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<List<MessageDTO>> userMessageNewMessageRecipientPostWithHttpInfo(String recipient, Object body) throws ApiException {
+    public ApiResponse<MessageDTO> userMessageNewMessageRecipientPostWithHttpInfo(String recipient, Object body) throws ApiException {
         okhttp3.Call localVarCall = userMessageNewMessageRecipientPostValidateBeforeCall(recipient, body, null);
-        Type localVarReturnType = new TypeToken<List<MessageDTO>>(){}.getType();
+        Type localVarReturnType = new TypeToken<MessageDTO>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -466,15 +466,15 @@ public class MessageApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Add the message to the list of messages with the given user and return the updated list </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Add the message to the list of messages with the given user and return the new message </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> UserID not found </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userMessageNewMessageRecipientPostAsync(String recipient, Object body, final ApiCallback<List<MessageDTO>> _callback) throws ApiException {
+    public okhttp3.Call userMessageNewMessageRecipientPostAsync(String recipient, Object body, final ApiCallback<MessageDTO> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = userMessageNewMessageRecipientPostValidateBeforeCall(recipient, body, _callback);
-        Type localVarReturnType = new TypeToken<List<MessageDTO>>(){}.getType();
+        Type localVarReturnType = new TypeToken<MessageDTO>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -489,7 +489,7 @@ public class MessageApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Provide the list of messages sent both by the user and his interlocutor for a given interlocutor </td><td>  -  </td></tr>
         <tr><td> 410 </td><td> The messages are no more available, have been deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> UserID not found in the current user conversations </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> No conversation with this user </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -560,7 +560,7 @@ public class MessageApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Provide the list of messages sent both by the user and his interlocutor for a given interlocutor </td><td>  -  </td></tr>
         <tr><td> 410 </td><td> The messages are no more available, have been deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> UserID not found in the current user conversations </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> No conversation with this user </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -580,7 +580,7 @@ public class MessageApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Provide the list of messages sent both by the user and his interlocutor for a given interlocutor </td><td>  -  </td></tr>
         <tr><td> 410 </td><td> The messages are no more available, have been deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> UserID not found in the current user conversations </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> No conversation with this user </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -602,7 +602,7 @@ public class MessageApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Provide the list of messages sent both by the user and his interlocutor for a given interlocutor </td><td>  -  </td></tr>
         <tr><td> 410 </td><td> The messages are no more available, have been deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> UserID not found in the current user conversations </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> No conversation with this user </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */

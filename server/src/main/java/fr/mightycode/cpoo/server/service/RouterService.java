@@ -148,6 +148,6 @@ public class RouterService {
       log.error("Not connected to router");
       return;
     }
-    stompSession.send("/router/route", message);
+    stompSession.send("/conversation", message);
   }
 }
