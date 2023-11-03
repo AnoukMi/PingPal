@@ -1,14 +1,11 @@
 package fr.mightycode.cpoo.server.model;
 
-import fr.mightycode.cpoo.server.dto.ConversationDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.UUID;
 
 
 @Data
