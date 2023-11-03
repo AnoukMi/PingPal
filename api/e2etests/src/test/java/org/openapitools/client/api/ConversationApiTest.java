@@ -20,19 +20,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.model.ConversationDTO;
-import org.openapitools.client.model.ErrorDTO;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openapitools.client.model.FullUserDTO;
 import org.openapitools.client.model.UserDTO;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 /**
  * API tests for ConversationApi
