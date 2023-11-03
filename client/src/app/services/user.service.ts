@@ -73,9 +73,11 @@ export class UserService {
    * @param birthday
    * @param address
    */
-  signup(login: string, password: string, remember: boolean, icon: number, firstname: string, lastname: string, birthday: string, address: string) {
+  signup(login: string, password: string, remember: boolean, icon: number, firstname: string, lastname: string,
+         birthday: string, address: string) {
     console.debug(`### signing up as ${login}...`);
-    return this.authenticationService.userSignupPost({ login, password, remember, icon, firstname, lastname, birthday, address }).pipe(
+    return this.authenticationService.userSignupPost({ login, password, remember, icon, firstname, lastname,
+      birthday, address }).pipe(
       map(_ => console.debug('### signed up as', login))
     );
   }

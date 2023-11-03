@@ -30,7 +30,8 @@ public class UserController {
       throw new ResponseStatusException(HttpStatus.CONFLICT, "User already exists");
     String birthday = user.birthday();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy"); //to convert string date to LocalDate type
-    userService.createUser(user.login(), user.icon(), user.firstname(), user.lastname(), LocalDate.parse(birthday, formatter), user.address()); //to add new user in database
+    userService.createUser(user.login(), user.icon(), user.firstname(), user.lastname(),
+      LocalDate.parse(birthday, formatter), user.address()); //to add new user in database
   }
 
   @PostMapping(value = "signin", consumes = MediaType.APPLICATION_JSON_VALUE) //login user
