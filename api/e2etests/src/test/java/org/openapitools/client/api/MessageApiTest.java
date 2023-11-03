@@ -33,7 +33,6 @@ import org.junit.jupiter.api.Test;
 public class MessageApiTest {
 
     private final MessageApi api = new MessageApi();
-
     private final ConversationApi convApi = new ConversationApi();
     private final AuthenticationApi authApi = new AuthenticationApi();
 
@@ -85,7 +84,7 @@ public class MessageApiTest {
 
         authApi.userSignupPost(sender);
         authApi.userSignupPost(receiver);
-        authApi.userSigninPost(new UserDTO().login(sender.getLogin()).remember(true).password("test"));
+        authApi.userSigninPost(new UserDTO().login(sender.getLogin()).remember(true).password(sender.getPassword()));
 
 
         // Create the conversation between sender and receiver

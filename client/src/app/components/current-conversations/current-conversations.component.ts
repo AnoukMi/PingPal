@@ -19,7 +19,7 @@ export class CurrentConversationsComponent implements OnInit {
   ngOnInit() {
     this.getConversations();
 
-    // Rafraîchir la liste des conversations toutes les 3 secondes
+    // Rafraîchir la liste des conversations toutes les 5 secondes
     setInterval(() => {
       this.getConversations();
     }, 5000);
