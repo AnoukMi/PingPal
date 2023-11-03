@@ -7,10 +7,9 @@ import {Contact} from "../../models/contact";
   styleUrls: ['./current-friends.component.css']
 })
 export class CurrentFriendsComponent {
-  friends: Contact[];
+  friends: Contact[] = [];
 
   constructor(){
-    this.friends = [new Contact("Anouk", "Migliavacca", "assets/avatar/5.png",
-        "anouka", new Date(2001, 5, 20))];
+
   }
 }

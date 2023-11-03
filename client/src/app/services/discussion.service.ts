@@ -12,17 +12,6 @@ export class Discussion {
     this.interlocutor = props.interlocutor;
     this.messages = props.messages;
   }
-
-  /**
-   * @return the id of the discussions (built from the address of the interlocutor)
-   */
-  getId() {
-    return this.interlocutor.replace('@', '');
-  }
-
-  getInterlocutor(): string{
-    return this.interlocutor;
-  }
 }
 
 @Injectable({
@@ -31,12 +20,9 @@ export class Discussion {
 export class DiscussionService {
 
   public discussions: Discussion[] = []; // array of discussion (this object must never be reassigned)
-  // private apiUrl = 'http://serverapi/user/conversation'
 
   constructor(private messageService: MessageService,
-              private conversationService: ConversationService,
-              private userService: UserService,
-              private http: HttpClient) {
+              private conversationService: ConversationService) {
     console.debug('### DiscussionService()');
   }
 
@@ -53,17 +39,6 @@ export class DiscussionService {
           // Add the message to the discussion (once completed by the server)
           discussion.messages.push(message);
         });
-
-
-      // Méthode avec HttpClient
-      // if (this.discussions.find(discussiontofind => discussion === discussiontofind)) {
-      // console.log(`### send message to the server`)
-      // // Envoyer le message au backend
-      // return this.http.post<MessageDTO>(`http://serverapi/user/message/newMessage/${discussion.interlocutor}`,
-      //   content);
-      // }else {
-      //   return null;
-      // }
     }
   }
 
@@ -85,8 +60,6 @@ export class DiscussionService {
       return;
     }
 
-    // return this.http.post<ConversationDTO>(`${this.apiUrl}/newConversation/${recipientAddress}`, recipientAddress);
-
     // Also add new conversation to the server : return a DTO
     this.conversationService.userConversationNewConversationInterlocutorPost(recipientAddress)
       .subscribe(conversation => {
@@ -95,7 +68,8 @@ export class DiscussionService {
         this.discussions.push(discussion);
       });
   }
-  getConversation(recipient: string){
+
+  getConversation(recipient: string) {
     return this.conversationService.userConversationLoginGet(recipient);
   }
 
@@ -103,11 +77,7 @@ export class DiscussionService {
     return this.conversationService.userConversationConversationsGet();
   }
 
-  /* getConversation(recipient: string): Observable<ConversationDTO>{
-    return this.http.get<ConversationDTO>(`${this.apiUrl}/${recipient}`);
+  getMessages(recipient: string){
+    return this.messageService.userMessageUserIDMessagesGet(recipient);
   }
-
-  getConversations(): Observable<ConversationDTO[]> {
-    return this.http.get<ConversationDTO[]>(`${this.apiUrl}/conversations`);
-  } */
 }

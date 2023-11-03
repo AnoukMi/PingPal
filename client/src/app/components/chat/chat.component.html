@@ -1,12 +1,5 @@
 
 <div style="width:100%; top: 21%; left: 40%;">
-
-<!--  <app-user-bubble [date] = "'Monday, 25th 3:55pm'" [author]="'Me'"-->
-<!--                   [content] = "'hello everybody'"></app-user-bubble>-->
-
-<!--  <app-interlocutor-bubble [date] = "'Wednesday, 23th, 5:44pm'" [author]="discussion.interlocutor"-->
-<!--                           [content]="'hi'"></app-interlocutor-bubble>-->
-
   <div class="chat w3-round-xlarge">
     <div class="toscroll">
       <!-- Gérer l'apparence du message, s'il est envoyé par l'utilisateur connecté ou l'utilisateur en face-->
@@ -18,9 +11,9 @@
                                    [author] = "discussion.interlocutor" [content] = "message.content"
                                    [date]="message.date"></app-interlocutor-bubble>
 
-          <!-- Sinon, c'est l'utilisateur connecté ('Me') qui envoie le message donc à droite -->
+          <!-- Sinon, c'est l'utilisateur connecté ('me') qui envoie le message donc à droite -->
           <app-user-bubble *ngSwitchDefault
-                           [author] ="'Me'" [content] = "message.content"
+                           [author] ="'me'" [content] = "message.content"
                            [date]="message.date"></app-user-bubble>
         </ng-container>
       </div>

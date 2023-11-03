@@ -1,15 +1,17 @@
-<a routerLink="conversation/{{contact.username}}">
-<button class="w3-button hover-effect" [ngClass]="{'conv_unread': !statusMessage, 'conv_read':statusMessage}">
+<a routerLink="conversation/{{ contact.username }}">
+<button class="w3-button hover-effect" [ngClass]="{'conv_unread': !statusMessage, 'conv_read': statusMessage}"
+        (click)="changeStatus()">
+
   <div *ngIf="!statusMessage">
-    <div class="nameContact"><b>{{ contact.firstName }} {{ contact.firstName }}</b></div>
+    <div class="nameContact"><b>{{ contact.username }}</b></div>
     <div class="messageStatus"><b>Unread message</b></div>
   </div>
   <div *ngIf="statusMessage">
-    <div class="nameContact">{{ contact.lastName }} {{ contact.lastName }}</div>
+    <div class="nameContact">{{ contact.username }}</div>
     <div class="messageStatus">Read message</div>
   </div>
 
-  <div class="timeMsg">Just now</div>
-  <img class="avatar" src="{{contact.avatar}}" />
+  <div class="timeMsg">{{ contact.lastMsgDate }}</div>
+  <img class="avatar" src="{{ contact.icon }}" />
 </button>
 </a>

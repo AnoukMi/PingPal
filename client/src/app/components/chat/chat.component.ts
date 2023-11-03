@@ -1,20 +1,37 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import { MessageDTO } from "../../api";
+import {Component, Input, OnInit} from '@angular/core';
+import {MessageDTO} from "../../api";
 import {Discussion, DiscussionService} from "../../services/discussion.service";
-import {UserService} from "../../services/user.service";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent {
+export class ChatComponent implements OnInit{
   @Input() discussion!: Discussion;
   @Input() messages!: MessageDTO[];
 
-  constructor() {
-
+  constructor(private discussionService: DiscussionService) {
   }
 
+    ngOnInit() {
+        this.getMessages();
+
+        // Rafraîchir la liste des messages toutes les secondes
+        setInterval(() => {
+            this.getMessages();
+        }, 1000);
+    }
+
+    getMessages() {
+        this.discussionService.getMessages(this.discussion.interlocutor)
+            .subscribe(newMessages => {
+                    for (let message of newMessages) {
+                        if (!this.messages.includes(message)) {
+                            this.messages.push(message);
+                        }
+                    }
+                }
+            );
+    }
 }

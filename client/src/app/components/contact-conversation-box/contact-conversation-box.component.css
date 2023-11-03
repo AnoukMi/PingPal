@@ -18,7 +18,7 @@
 
 .nameContact {
   position: absolute;
-  top: 1.5vh;
+  top: 1vh;
   left: 7vw;
   font-family: "Alata-Regular", Helvetica;
   color: #813641;
@@ -28,7 +28,7 @@
 
 .messageStatus {
   position: absolute;
-  top: 4.5vh;
+  top: 4vh;
   left: 7vw;
   font-family: "Alata-Regular", Helvetica;
   color: #5E5E5E;
@@ -38,7 +38,7 @@
 
 .timeMsg {
   position: absolute;
-  top: 2vh;
+  top: 1.5vh;
   right: 1vw;
   font-family: "Alata-Regular", Helvetica;
   color: #5E5E5E;

@@ -1,13 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MessageDTO } from "../../api";
 import { Discussion, DiscussionService } from "../../services/discussion.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import {UserService} from "../../services/user.service";
-import { FormBuilder, FormControl } from "@angular/forms";
-import { v4 as uuidv4 } from 'uuid';
-import {HttpClient} from "@angular/common/http";
-import {WebSocketSubject} from "rxjs/internal/observable/dom/WebSocketSubject";
-import {webSocket} from "rxjs/webSocket";
+import {ActivatedRoute, Router} from "@angular/router";
+import { FormControl } from "@angular/forms";
 
 @Component({
   selector: 'app-page-conversation',
@@ -16,13 +11,13 @@ import {webSocket} from "rxjs/webSocket";
 })
 export class PageConversationComponent {
   discussion!: Discussion;
-  messages: MessageDTO[];
+  messages: MessageDTO[] = [];
   messageInput = new FormControl();
   message: string = '';
 
   constructor(private discussionService: DiscussionService,
-              private userService: UserService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private router: Router) {
 
     // Know which conversation to display
     let recipient = '';
@@ -31,8 +26,10 @@ export class PageConversationComponent {
       console.log(`### current conversation with ${recipient}`);
     })
     this.discussionService.newDiscussion(recipient);
-    this.discussion = new Discussion({interlocutor: recipient, messages: []})
+    this.router.navigate(['/conversation/', recipient]);
+    this.discussion = new Discussion({interlocutor: recipient+"@pingpal", messages: []})
     this.messages = this.discussion.messages;
+
   }
 
   // uuidv4() generates a random uuid

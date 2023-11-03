@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Contact} from "../../models/contact";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-contact-conversation-frame',
@@ -12,6 +13,11 @@ export class ContactConversationBoxComponent {
   @Input() contact: Contact = new Contact();
   @Input() statusMessage: boolean = false;
 
-  constructor() {
+  constructor(private router: Router) {
+  }
+
+  changeStatus(){
+    this.statusMessage = !this.statusMessage;
+    this.router.navigate(['/conversation/', this.contact.username]);
   }
 }

@@ -19,10 +19,10 @@ export class CurrentConversationsComponent implements OnInit {
   ngOnInit() {
     this.getConversations();
 
-    // Rafraîchir la liste des conversations toutes les 5 secondes
+    // Rafraîchir la liste des conversations toutes les secondes
     setInterval(() => {
       this.getConversations();
-    }, 5000);
+    }, 1000);
   }
 
   getConversations(){
@@ -30,8 +30,17 @@ export class CurrentConversationsComponent implements OnInit {
       .subscribe(conversations => {
         this.recentConv = conversations;
         for (let conversation of this.recentConv) {
-          let contact = new Contact(conversation.userID);
-          this.contacts.push(contact);
+          // Par la suite, chercher dans la base de données de nos utilisateurs l'user correspondant au PeerAddress pour
+          // récupérer ses infos telles que le prénom, l'icon associé...
+
+          let contact = new Contact(conversation.peerAddress,
+            "assets/avatar/1.png", new Date().toLocaleDateString());
+
+          if (!this.contacts.some(existingContact => existingContact.username === contact.username)) {
+            this.contacts.push(contact);
+            // reverse permet d'afficher du plus récent au plus ancien
+            this.contacts= this.contacts.reverse();
+          }
         }
       });
   }
