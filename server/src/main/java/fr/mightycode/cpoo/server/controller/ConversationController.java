@@ -84,8 +84,12 @@ public class ConversationController {
     }
     try {
       return conversationService.getOneConversation(user.getName(), address);
-    } catch (final Exception ex) {
-      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+    } catch (ResponseStatusException ex) {
+      if (ex.getStatusCode() == HttpStatus.NOT_FOUND) {
+        throw ex;
+      } else {
+        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+      }
     }
   }
 

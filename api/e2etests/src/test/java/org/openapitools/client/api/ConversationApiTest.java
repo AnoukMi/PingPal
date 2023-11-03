@@ -156,14 +156,14 @@ public class ConversationApiTest {
         }
 
         // Create a new conversation
-        api.userConversationNewConversationInterlocutorPost("friendGet");
+        api.userConversationNewConversationInterlocutorPost("friendGet@domain");
         // Now getting the conversation should work
-        ConversationDTO conv = api.userConversationLoginGet("friendGet");
+        ConversationDTO conv = api.userConversationLoginGet("friendGet@domain");
         // The conversation should be so
-        Assertions.assertEquals("friendGet", conv.getUserID());
+        Assertions.assertEquals("friendGet@domain", conv.getPeerAddress());
 
         //deleting instances
-        api.userConversationLoginDelete("friendGet");
+        api.userConversationLoginDelete("friendGet@domain");
         authApi.userDeleteDelete(new UserDTO().login("testerConvGet").password("test").remember(false));
     }
 
