@@ -20,7 +20,7 @@ public class Conversation {
   private String id;
   @Column(name = "peerAddress", nullable = false)
   private String peerAddress;
-  @Column(name = "lastMessageDate", nullable = false)
+  @Column(name = "lastMessageDate", nullable = true)
   private LocalDateTime lastMsgDate;
 
   @ManyToOne

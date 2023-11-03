@@ -92,26 +92,10 @@ public class MessageController extends TextWebSocketHandler {
             false
             );
 
-            Message message = new Message(routerMessage);
-
-            ConversationDTO currentConv = conversationService.getOneConversation(user.getName(), recipient);
-            if(currentConv == null){
-              currentConv = new ConversationDTO(recipient, recipAddr, message.getDate());
-            }
-
             // Add the messages to the conversations
             UserData currentUser = userRepository.findByLogin(user.getName());
-            Conversation userCurrentConv = new Conversation(user.getName()+recipient+"@pingpal",
-              recipAddr, message.getDate(), currentUser);
-            message.setConversation(userCurrentConv);
 
-          UserData userRecipient = userRepository.findByLogin(recipient);
-          Conversation recipientCurrentConv = new Conversation(recipient+user.getName()+"@pingpal",
-            user.getName()+"@pingpal", message.getDate(), userRecipient);
-            // Recipient message, the msg ids are inverted
-            Message messageRecip = new Message(routerMessage.idRecip(), routerMessage.id(), recipient,
-              content, user.getName(), user.getName()+"@pingpal", message.getDate(), false,
-              recipientCurrentConv);
+            Message message = new Message(routerMessage);
 
             // Route the message
             routerService.routeMessage(routerMessage);

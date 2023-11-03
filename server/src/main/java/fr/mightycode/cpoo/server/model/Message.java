@@ -49,6 +49,7 @@ public class Message {
     this.authorAddress = message.authorAddress();
     this.date = message.date();
     this.edited = message.edited();
+    this.conversation=null;
   }
 
   public Message(UUID msgID,UUID idRecip, String recipientID, String content, String autorID, String autorAddress,

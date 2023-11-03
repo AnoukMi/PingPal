@@ -50,7 +50,8 @@ public class AuthenticationApiTest {
     @Test
     public void userDeleteDeleteTest() throws ApiException {
         // Deleting an existing account without being signed in should fail with FORBIDDEN
-        FullUserDTO user = new FullUserDTO().login("testDele").password("test").remember(true).icon(1).firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
+        FullUserDTO user = new FullUserDTO().login("testDele").password("test").remember(true).icon(1)
+                .firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
         api.userSignupPost(user);
         try {
             api.userDeleteDelete(new UserDTO().login("testDele").password("test").remember(false));
@@ -89,11 +90,11 @@ public class AuthenticationApiTest {
         FullUserDTO user2 = new FullUserDTO()
                 .login("testerIn")
                 .password("test")
-                .remember(true) // true ou false selon votre besoin
-                .icon(1) // Numéro d'icône, à ajuster
+                .remember(true)
+                .icon(1)
                 .firstname("test")
                 .lastname("test")
-                .birthday("10-10-2000") // Date de naissance, à ajuster
+                .birthday("10-10-2000")
                 .address("test@test");
         api.userSignupPost(user2);
         api.userSigninPost(new UserDTO().login("testerIn").password("test").remember(false));
@@ -127,7 +128,8 @@ public class AuthenticationApiTest {
         }
 
         // Signing out while signed in should work
-        FullUserDTO user = new FullUserDTO().login("testerOut").password("test").remember(true).icon(1).firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
+        FullUserDTO user = new FullUserDTO().login("testerOut").password("test").remember(true).icon(1)
+                .firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
         api.userSignupPost(user);
         api.userSigninPost(new UserDTO().login("testerOut").password("test").remember(false));
         api.userSignoutPost();

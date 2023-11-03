@@ -59,22 +59,17 @@ public class ConversationService {
       }
 
       //si aucune conv avec cet utilisateur n'existe, on la crée
-      Conversation conversation = new Conversation();
-      conversation.setId(user+address); //id unique composé des 2 utilisateurs (avec le domaine du second)
       UserData user1 = userRepository.findByLogin(user); //le fait de charger l'user devrait màj automatiquement sa liste de conv
-      conversation.setUserData(user1);
-      conversation.setPeerAddress(address);
+      Conversation conversation = new Conversation(user+address,address,null,user1);
+      //id unique composé des 2 utilisateurs (avec le domaine du second)
       conversationRepository.save(conversation);
 
       String interlocutor = logMember(address); //renvoie null si pas membre de Pingpal, sinon son username
       if (interlocutor!=null) { //si appartient à l'application, il faut aussi ajouter la conversation dans la BDD pour l'interlocuteur
         //seulement si n'existe pas déjà dans BDD du destinataire
         if(conversationRepository.findById(interlocutor + user + "@pingpal").isEmpty()) {
-          Conversation conversationDest = new Conversation();
-          conversationDest.setPeerAddress(user+"@pingpal");
-          conversationDest.setId(interlocutor+user+"@pingpal"); //id unique composé des 2 utilisateurs (avec le domaine du second)
           UserData user2 = userRepository.findByLogin(interlocutor); //le fait de charger l'user devrait màj automatiquement sa liste de conv
-          conversationDest.setUserData(user2);
+          Conversation conversationDest = new Conversation(interlocutor+user+"@pingpal",user+"@pingpal",null,user2);
           conversationRepository.save(conversationDest);
         }
       }

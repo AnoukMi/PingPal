@@ -26,6 +26,7 @@ import org.springframework.web.server.ResponseStatusException;
 @Service
 @RequiredArgsConstructor
 public class MessageService {
+    private ConversationService conversationService;
     @Autowired
     private final MessageRepository messageRepository;
     @Autowired
@@ -140,9 +141,10 @@ public class MessageService {
                 break;
             }
         }
+        assert conv != null; //car côté client, si aucune conv existe on en crée une vide
         msg.setConversation(conv);
+        conv.setLastMsgDate(msg.getDate());
         messageRepository.save(msg);
-
         String recipient = msg.getRecipient();
         String userPing =logMember(recipient);
         if(userPing!=null){ //stocke aussi pour le destinataire si appartient à l'appli
@@ -155,8 +157,13 @@ public class MessageService {
                     break;
                 }
             }
+            if(convRec==null){ //si aucune conv existe chez l'autre, il faut la créer
+                conversationService.createEmptyConversation(userPing,msg.getAuthorAddress());
+                convRec = conversationRepository.findById(userPing+msg.getAuthorAddress()).get();
+            }
             Message msgRecip = new Message(msg.getIdRecip(),msg.getMsgId(),msg.getRecipient(),msg.getContent(),
                     msg.getAuthor(),msg.getAuthorAddress(),msg.getDate(),msg.isEdited(),convRec);
+            convRec.setLastMsgDate(msgRecip.getDate());
             messageRepository.save(msgRecip);
         }
     }
