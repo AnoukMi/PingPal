@@ -27,7 +27,7 @@ export class PageConversationComponent {
     })
     this.discussionService.newDiscussion(recipient);
     this.router.navigate(['/conversation/', recipient]);
-    this.discussion = new Discussion({interlocutor: recipient+"@pingpal", messages: []})
+    this.discussion = new Discussion({interlocutor: recipient, messages: []})
     this.messages = this.discussion.messages;
 
   }
