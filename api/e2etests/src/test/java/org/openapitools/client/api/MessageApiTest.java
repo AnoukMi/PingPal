@@ -26,6 +26,14 @@ import java.util.*;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+
+import org.openapitools.client.model.ConversationDTO;
+import org.openapitools.client.model.FullUserDTO;
+import org.openapitools.client.model.UserDTO;
+
+import java.util.List;
+
+
 /**
  * API tests for MessageApi
  */
@@ -34,9 +42,11 @@ public class MessageApiTest {
 
     private final MessageApi api = new MessageApi();
     private final ConversationApi convApi = new ConversationApi();
+
     private final AuthenticationApi authApi = new AuthenticationApi();
 
     FullUserDTO sender, receiver;
+    UserDTO uSender, uReceiver;
     MessageDTO msg;
     ConversationDTO conv;
     List<MessageDTO> messages;
@@ -52,9 +62,20 @@ public class MessageApiTest {
         authApi.setApiClient(apiClient);
     }
 
-    // All of these commands are executed before the tests are run
-    @BeforeEach
-    public void setUp() throws ApiException {
+    /**
+     * Send a new message to a given user
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void userMessageNewMessageRecipientPostTest() throws ApiException {
+        // Send a message to someone who does not exist should fail
+        try{
+            api.userMessageNewMessageRecipientPost("IdontExist", "Hello, this is a test");
+        }catch (ApiException e){
+            Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
+        }
+
         sender = new FullUserDTO()
                 .login("lvhoa")
                 .password("test")
@@ -74,6 +95,16 @@ public class MessageApiTest {
                 .birthday("10-10-2000")
                 .address("anouk@pingpal");
 
+        uSender = new UserDTO()
+                .login(sender.getLogin())
+                .remember(true)
+                .password(sender.getPassword());
+
+        uReceiver = new UserDTO()
+                .login(receiver.getLogin())
+                .remember(false)
+                .password(receiver.getPassword());
+
         msg = new MessageDTO().recipientID(receiver.getLogin())
                 .content("Hello, this is a test")
                 .msgID(UUID.randomUUID())
@@ -84,16 +115,113 @@ public class MessageApiTest {
 
         authApi.userSignupPost(sender);
         authApi.userSignupPost(receiver);
-        authApi.userSigninPost(new UserDTO().login(sender.getLogin()).remember(true).password(sender.getPassword()));
-
+        authApi.userSigninPost(uSender);
 
         // Create the conversation between sender and receiver
         conv = convApi.userConversationNewConversationInterlocutorPost(receiver.getLogin());
 
         // Create the list of messages exchanged between sender and receiver
         messages = api.userMessageUserIDMessagesGet(receiver.getLogin());
+
+        // Check the size of messages is initially 0
+        Assertions.assertTrue(messages.isEmpty());
+
+        // Add the message to the conversation, size of messages should be 1
+        api.userMessageNewMessageRecipientPost(msg.getRecipientID(), msg.getContent());
+        Assertions.assertEquals(1, messages.size());
+
+        // Delete everything : message, conversation and users
+        convApi.userConversationLoginDelete(msg.getRecipientID());
+        api.userMessageMsgIDDelete(msg.getMsgID());
+        authApi.userDeleteDelete(uSender);
+        authApi.userSigninPost(uReceiver);
+        authApi.userDeleteDelete(uReceiver);
     }
 
+    /**
+     * Retrieve all messages in a given conversation
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void userMessageUserIDMessagesGetTest() throws ApiException {
+        // Get the messages of a non-existing conversation should fail
+        try{
+            api.userMessageUserIDMessagesGet("IdontExist");
+        }catch (ApiException e){
+            Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
+        }
+
+        sender = new FullUserDTO()
+                .login("lvhoa")
+                .password("test")
+                .remember(true).icon(1)
+                .firstname("hoa")
+                .lastname("leveille")
+                .birthday("10-10-2000")
+                .address("lvhoa@pingpal");
+
+        receiver = new FullUserDTO()
+                .login("anouk")
+                .password("test")
+                .remember(false)
+                .icon(2)
+                .firstname("anouk")
+                .lastname("mi")
+                .birthday("10-10-2000")
+                .address("anouk@pingpal");
+
+        uSender = new UserDTO()
+                .login(sender.getLogin())
+                .remember(true)
+                .password(sender.getPassword());
+
+        uReceiver = new UserDTO()
+                .login(receiver.getLogin())
+                .remember(false)
+                .password(receiver.getPassword());
+
+        msg = new MessageDTO().recipientID(receiver.getLogin())
+                .content("Hello, this is a test")
+                .msgID(UUID.randomUUID())
+                .authorID(sender.getLogin())
+                .authorAddress(sender.getAddress())
+                .date(new Date().toString())
+                .edited(false);
+
+        authApi.userSignupPost(sender);
+        authApi.userSignupPost(receiver);
+        authApi.userSigninPost(uSender);
+
+        // Create the conversation between sender and receiver
+        conv = convApi.userConversationNewConversationInterlocutorPost(receiver.getLogin());
+
+        // Create the list of messages exchanged between sender and receiver
+        messages = api.userMessageUserIDMessagesGet(receiver.getLogin());
+
+        // List of messages in the conversation should be empty
+        Assertions.assertTrue(messages.isEmpty());
+
+        // Add the message to the conversation, list of messages should be size of 1
+        api.userMessageNewMessageRecipientPost(msg.getRecipientID(), msg.getContent());
+        Assertions.assertEquals(1, messages.size());
+
+        // Add another the message, size of messages should be 2
+        api.userMessageNewMessageRecipientPost(receiver.getLogin(), "This is a second message");
+        Assertions.assertEquals(2, messages.size());
+
+        List<MessageDTO> messagesExchanged = api.userMessageUserIDMessagesGet(receiver.getLogin());
+
+        Assertions.assertEquals(messages, messagesExchanged);
+
+
+        // Delete everything : message, conversation and users
+        api.userMessageMsgIDDelete(msg.getMsgID());
+        convApi.userConversationLoginDelete(msg.getRecipientID());
+        authApi.userDeleteDelete(uSender);
+        authApi.userSigninPost(uReceiver);
+        authApi.userDeleteDelete(uReceiver);
+    }
 
     /**
      * Delete a message already sent
@@ -111,6 +239,53 @@ public class MessageApiTest {
             Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
         }
 
+        sender = new FullUserDTO()
+                .login("lvambre")
+                .password("test")
+                .remember(true).icon(1)
+                .firstname("ambre")
+                .lastname("leveille")
+                .birthday("10-15-2000")
+                .address("lvambre@pingpal");
+
+        receiver = new FullUserDTO()
+                .login("anoukmi")
+                .password("test")
+                .remember(false)
+                .icon(2)
+                .firstname("anouk")
+                .lastname("mi")
+                .birthday("10-10-2000")
+                .address("anoukmi@pingpal");
+
+        uSender = new UserDTO()
+                .login(sender.getLogin())
+                .remember(true)
+                .password(sender.getPassword());
+
+        uReceiver = new UserDTO()
+                .login(receiver.getLogin())
+                .remember(false)
+                .password(receiver.getPassword());
+
+        msg = new MessageDTO().recipientID(receiver.getLogin())
+                .content("Hello, this is a test")
+                .msgID(UUID.randomUUID())
+                .authorID(sender.getLogin())
+                .authorAddress(sender.getAddress())
+                .date(new Date().toString())
+                .edited(false);
+
+        authApi.userSignupPost(sender);
+        authApi.userSignupPost(receiver);
+        authApi.userSigninPost(uSender);
+
+        // Create the conversation between sender and receiver
+        conv = convApi.userConversationNewConversationInterlocutorPost(receiver.getLogin());
+
+        // Create the list of messages exchanged between sender and receiver
+        messages = api.userMessageUserIDMessagesGet(receiver.getLogin());
+
         // Check the size of messages is initially 0
         Assertions.assertTrue(messages.isEmpty());
 
@@ -118,6 +293,13 @@ public class MessageApiTest {
         api.userMessageNewMessageRecipientPost(msg.getRecipientID(), msg.getContent());
         api.userMessageMsgIDDelete(msg.getMsgID());
         Assertions.assertEquals(0, messages.size());
+
+        // Delete everything : message, conversation and users
+        api.userMessageMsgIDDelete(msg.getMsgID());
+        convApi.userConversationLoginDelete(msg.getRecipientID());
+        authApi.userDeleteDelete(uSender);
+        authApi.userSigninPost(uReceiver);
+        authApi.userDeleteDelete(uReceiver);
     }
 
     /**
@@ -136,6 +318,53 @@ public class MessageApiTest {
             Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
         }
 
+        sender = new FullUserDTO()
+                .login("hoa")
+                .password("test")
+                .remember(true).icon(1)
+                .firstname("hoa")
+                .lastname("hoa")
+                .birthday("10-10-2000")
+                .address("hoa@pingpal");
+
+        receiver = new FullUserDTO()
+                .login("anouket")
+                .password("test")
+                .remember(false)
+                .icon(2)
+                .firstname("anouket")
+                .lastname("mi")
+                .birthday("10-10-2000")
+                .address("anouket@pingpal");
+
+        uSender = new UserDTO()
+                .login(sender.getLogin())
+                .remember(true)
+                .password(sender.getPassword());
+
+        uReceiver = new UserDTO()
+                .login(receiver.getLogin())
+                .remember(false)
+                .password(receiver.getPassword());
+
+        msg = new MessageDTO().recipientID(receiver.getLogin())
+                .content("Hello, this is a test")
+                .msgID(UUID.randomUUID())
+                .authorID(sender.getLogin())
+                .authorAddress(sender.getAddress())
+                .date(new Date().toString())
+                .edited(false);
+
+        authApi.userSignupPost(sender);
+        authApi.userSignupPost(receiver);
+        authApi.userSigninPost(uSender);
+
+        // Create the conversation between sender and receiver
+        conv = convApi.userConversationNewConversationInterlocutorPost(receiver.getLogin());
+
+        // Create the list of messages exchanged between sender and receiver
+        messages = api.userMessageUserIDMessagesGet(receiver.getLogin());
+
         // Add the message to the conversation (to the list of messages)
         api.userMessageNewMessageRecipientPost(msg.getRecipientID(), msg.getContent());
 
@@ -145,49 +374,12 @@ public class MessageApiTest {
         // Now, response should be in the list of messages, and msg should not
         Assertions.assertTrue(messages.contains(response));
         Assertions.assertFalse(messages.contains(msg));
-    }
 
-    /**
-     * Send a new message to a given user
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void userMessageNewMessageRecipientPostTest() throws ApiException {
-        // Send a message to someone who does not exist should fail
-        try{
-            api.userMessageNewMessageRecipientPost("IdontExist", "Hello, this is a test");
-        }catch (ApiException e){
-            Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
-        }
-
-        // Check the size of messages is initially 0
-        Assertions.assertTrue(messages.isEmpty());
-
-        // Add the message to the conversation, size of messages should be 1
-        api.userMessageNewMessageRecipientPost(msg.getRecipientID(), msg.getContent());
-        Assertions.assertEquals(1, messages.size());
-    }
-
-    /**
-     * Retrieve all messages in a given conversation
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void userMessageUserIDMessagesGetTest() throws ApiException {
-        // Get the messages of a non-existing conversation should fail
-        try{
-            api.userMessageUserIDMessagesGet("IdontExist");
-        }catch (ApiException e){
-            Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
-        }
-
-        // List of messages in the conversation should be empty
-        Assertions.assertTrue(messages.isEmpty());
-
-        // Add the message to the conversation, list of messages should be size of 1
-        api.userMessageNewMessageRecipientPost(msg.getRecipientID(), msg.getContent());
-        Assertions.assertEquals(1, messages.size());
+        // Delete everything : message, conversation and users
+        api.userMessageMsgIDDelete(msg.getMsgID());
+        convApi.userConversationLoginDelete(msg.getRecipientID());
+        authApi.userDeleteDelete(uSender);
+        authApi.userSigninPost(uReceiver);
+        authApi.userDeleteDelete(uReceiver);
     }
 }
