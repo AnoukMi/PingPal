@@ -61,7 +61,8 @@ public class UserService {
   public boolean signup(final String login, final String password) { //create account
     if (userDetailsManager.userExists(login)) //if already exists
       return false;
-    final UserDetails user = new User(login, passwordEncoder.encode(password), List.of(new SimpleGrantedAuthority("ROLE_USER"))); //create user account
+    final UserDetails user = new User(login, passwordEncoder.encode(password),
+      List.of(new SimpleGrantedAuthority("ROLE_USER"))); //create user account
     userDetailsManager.createUser(user);
     return true;
   }

@@ -23,7 +23,7 @@ const routes: Routes = [
     component:PageMyFriendsComponent}, //page des contacts amis enregistrés
   {path: 'newMessage', //page pour commencer une nouvelle conversation
     component:PageNewMessageComponent},
-  {path: 'conversation', //page conversation avec un ami
+  {path: 'conversation/:recipient', //page conversation avec un ami
     component:PageConversationComponent},
   {path: 'editProfile', //page modification du profil
     component:PageEditProfileComponent},
@@ -32,7 +32,7 @@ const routes: Routes = [
   {path: 'signIn/home',  redirectTo:'home', pathMatch:'full'},//renvoie sur home par le clique à partir de signIn
   {path: 'signUp/home', redirectTo:'home', pathMatch:'full'}, //renvoie sur home par le clique à partir de signUn
   {path: 'signIn/signUp', redirectTo:'signUp', pathMatch:'full'},  //renvoie sur signUp par le clique à partir de signIn
-  {path: 'conversation/conversation', redirectTo:'conversation', pathMatch:'full'}, //reste sur mm conv qd clique "send"
+  {path: 'conversation/:recipient/conversation', redirectTo:'conversation/:recipient', pathMatch:'full'}, //reste sur mm conv qd clique "send"
   {path: 'newMessage/conversation', redirectTo:'conversation', pathMatch:'full'}, //renvoie sur conv crée pour new msg
   {path: '', //quand l'utilisateur est sur la racine
     redirectTo:'signIn',

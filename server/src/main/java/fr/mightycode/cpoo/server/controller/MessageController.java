@@ -1,14 +1,14 @@
 package fr.mightycode.cpoo.server.controller;
 
+import fr.mightycode.cpoo.server.dto.ConversationDTO;
+import fr.mightycode.cpoo.server.model.Conversation;
 import fr.mightycode.cpoo.server.model.Message;
 import fr.mightycode.cpoo.server.model.UserData;
 import fr.mightycode.cpoo.server.repository.UserRepository;
+import fr.mightycode.cpoo.server.service.ConversationService;
 import fr.mightycode.cpoo.server.service.RouterService;
 
-import java.time.LocalDate;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 
 import fr.mightycode.cpoo.server.dto.MessageDTO;
 import fr.mightycode.cpoo.server.service.MessageService;
@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.lang.Exception;
 
@@ -34,22 +35,24 @@ import java.util.regex.Pattern;
 @RequestMapping("user/message")
 @RequiredArgsConstructor
 @CrossOrigin
-public class MessageController {
-    @Value("pingpal")
-    private String serverDomain;
+public class MessageController extends TextWebSocketHandler {
 
     private final MessageService messageService;
     private final RouterService routerService;
+    private final ConversationService conversationService;
+
     @Autowired
     private final UserRepository userRepository;
 
 
     /**
      * Retrieve all messages in a given conversation (with a given user)
+     * @param user The current user logged in
+     * @param userID The userID with whom to retrieve the messages
      * @return The list of all messages
      */
     @GetMapping(value = "{userID}/messages", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<MessageDTO> listMessagesGet(@PathVariable final String userID, final Principal user) {
+    public List<MessageDTO> listMessagesGet(final Principal user, @PathVariable final String userID) {
         String loggedUser = user.getName();
         try {
             return messageService.getMessages(userID, loggedUser);
@@ -84,7 +87,7 @@ public class MessageController {
             recipAddr,
             content,
             user.getName(),
-            user.getName() + "@" + serverDomain,
+            user.getName() + "@pingpal",
             LocalDateTime.now(),
             false
             );
@@ -99,10 +102,24 @@ public class MessageController {
 
             // Return the message as a DTO
             return new MessageDTO(routerMessage);
+
         }catch (final Exception ex) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
         }
     }
+
+
+  /**
+   * Modify a message already sent
+   */
+  @PatchMapping(value = "{msgID}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public MessageDTO modifySentMessage(@PathVariable final UUID msgID, @RequestBody final String content) {
+    try{
+      return messageService.modifySentMessage(msgID, content);
+    }catch(final Exception ex){
+      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+    }
+  }
 
     /**
      * Delete a message already sent
@@ -116,16 +133,4 @@ public class MessageController {
       }
     }
 
-
-  /**
-     * Modify a message already sent
-     */
-  @PatchMapping(value = "{msgID}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public MessageDTO modifySentMessage(@PathVariable final UUID msgID, @RequestBody final String content) {
-    try{
-      return messageService.modifySentMessage(msgID, content);
-    }catch(final Exception ex){
-      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
-    }
-  }
 }

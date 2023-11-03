@@ -239,9 +239,9 @@ export class MessageService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public userMessageNewMessageRecipientPost(recipient: string, body: any, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<MessageDTO>>;
-    public userMessageNewMessageRecipientPost(recipient: string, body: any, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<MessageDTO>>>;
-    public userMessageNewMessageRecipientPost(recipient: string, body: any, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<MessageDTO>>>;
+    public userMessageNewMessageRecipientPost(recipient: string, body: any, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<MessageDTO>;
+    public userMessageNewMessageRecipientPost(recipient: string, body: any, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<MessageDTO>>;
+    public userMessageNewMessageRecipientPost(recipient: string, body: any, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<MessageDTO>>;
     public userMessageNewMessageRecipientPost(recipient: string, body: any, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (recipient === null || recipient === undefined) {
             throw new Error('Required parameter recipient was null or undefined when calling userMessageNewMessageRecipientPost.');
@@ -297,7 +297,7 @@ export class MessageService {
         }
 
         let localVarPath = `/user/message/newMessage/${this.configuration.encodeParam({name: "recipient", value: recipient, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
-        return this.httpClient.request<Array<MessageDTO>>('post', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<MessageDTO>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: body,

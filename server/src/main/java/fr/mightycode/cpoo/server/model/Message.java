@@ -3,7 +3,6 @@ package fr.mightycode.cpoo.server.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -14,7 +13,7 @@ import fr.mightycode.cpoo.server.service.RouterService;
 @Table(name = "messages")
 public class Message {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.UUID)
   @Column(name = "msgID", nullable = false)
   private UUID msgID;
   @Column(name = "idRecip", nullable = false)
@@ -33,7 +32,7 @@ public class Message {
   private boolean edited;
 
   @ManyToOne
-  @JoinColumn(name = "conversation_id")
+  @JoinColumn(name = "id")
   private Conversation conversation;
 
   public Message(){
@@ -49,6 +48,7 @@ public class Message {
     this.authorAddress = message.authorAddress();
     this.date = message.date();
     this.edited = message.edited();
+    this.conversation=null;
   }
 
   public Message(UUID msgID,UUID idRecip, String recipientID, String content, String autorID, String autorAddress,

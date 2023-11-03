@@ -11,4 +11,7 @@ import {Contact} from "../../models/contact";
 export class ContactConversationBoxComponent {
   @Input() contact: Contact = new Contact();
   @Input() statusMessage: boolean = false;
+
+  constructor() {
+  }
 }

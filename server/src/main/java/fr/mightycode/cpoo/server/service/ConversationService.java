@@ -11,10 +11,13 @@ import fr.mightycode.cpoo.server.repository.UserRepository;
 import fr.mightycode.cpoo.server.dto.ConversationDTO;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,16 +34,52 @@ public class ConversationService {
      * @param login The current user logged in
      * @return The list of conversations
      */
-    public List<ConversationDTO> getConversations(String login){
-      List<ConversationDTO> conversationDTOS = new ArrayList<>();
+    public List<ConversationDTO> getConversations(String login) {
       UserData userData = userRepository.findByLogin(login);
       List<Conversation> conversations = conversationRepository.findByUserDataOrderByLastMsgDateDesc(userData);
-      for(Conversation conv : conversations){
-          ConversationDTO conversationDTO = new ConversationDTO(conv);
-          conversationDTOS.add(conversationDTO);
+
+      List<ConversationDTO> conversationDTOS = conversations.stream()
+        .map(ConversationDTO::new)
+        .collect(Collectors.toList());
+
+      //si l'user a des conversations mais que la liste est toujours vide, pb
+      if (conversationDTOS.isEmpty()&&!userData.getConversations().isEmpty()) {
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversations not found");
       }
+
       return conversationDTOS;
     }
+
+
+    /**
+     * Create a new conversation with a given user
+     * @param address The interlocutor address
+     * @param user The current user
+     */
+    public ConversationDTO createEmptyConversation(String user, String address){
+      if(conversationRepository.findById(user + address).isPresent()){ //user+recipient+@pingpal
+        throw new ResponseStatusException(HttpStatus.CONFLICT, "A conversation with this user already exists");
+      }
+
+      //si aucune conv avec cet utilisateur n'existe, on la crée
+      UserData user1 = userRepository.findByLogin(user); //le fait de charger l'user devrait màj automatiquement sa liste de conv
+      Conversation conversation = new Conversation(user+address,address, LocalDateTime.now(),user1);
+      //id unique composé des 2 utilisateurs (avec le domaine du second)
+      conversationRepository.save(conversation);
+
+      String interlocutor = logMember(address); //renvoie null si pas membre de Pingpal, sinon son username
+      if (interlocutor!=null) { //si appartient à l'application, il faut aussi ajouter la conversation dans la BDD pour l'interlocuteur
+        //seulement si n'existe pas déjà dans BDD du destinataire
+        if(conversationRepository.findById(interlocutor + user + "@pingpal").isEmpty()) {
+          UserData user2 = userRepository.findByLogin(interlocutor); //le fait de charger l'user devrait màj automatiquement sa liste de conv
+          Conversation conversationDest = new Conversation(interlocutor+user+"@pingpal",user+"@pingpal",null,user2);
+          conversationRepository.save(conversationDest);
+        }
+      }
+
+      return new ConversationDTO(conversation);
+    }
+
 
   /**
    * Search and get an existing conversation with a given user
@@ -66,59 +105,18 @@ public class ConversationService {
   }
 
 
-    /**
-     * Create a new conversation with a given user
-     * @param address The interlocutor address
-     * @param user The current user
-     */
-    public ConversationDTO createEmptyConversation(String user, String address){
-      if(conversationRepository.findById(user + address).isPresent()){
-        throw new ResponseStatusException(HttpStatus.CONFLICT, "A conversation with this user already exists");
-      }
-
-      //si aucune conv avec cet utilisateur n'existe, on la crée
-      Conversation conversation = new Conversation();
-      conversation.setId(user+address); //id unique composé des 2 utilisateurs (avec le domaine du second)
-      UserData user1 = userRepository.findByLogin(user); //le fait de charger l'user devrait màj automatiquement sa liste de conv
-      conversation.setUserData(user1);
-      conversation.setPeerAddress(address);
-      conversationRepository.save(conversation);
-
-      String interlocutor = logMember(address); //renvoie null si pas membre de Pingpal, sinon son username
-      if (interlocutor!=null) { //si appartient à l'application, il faut aussi ajouter la conversation dans la BDD pour l'interlocuteur
-        //seulement si n'existe pas déjà dans BDD du destinataire
-        if(conversationRepository.findById(interlocutor + user + "@pingpal").isEmpty()) {
-          Conversation conversationDest = new Conversation();
-          conversationDest.setPeerAddress(user+"@pingpal");
-          conversationDest.setId(interlocutor+user+"@pingpal"); //id unique composé des 2 utilisateurs (avec le domaine du second)
-          UserData user2 = userRepository.findByLogin(interlocutor); //le fait de charger l'user devrait màj automatiquement sa liste de conv
-          conversationDest.setUserData(user2);
-          conversationRepository.save(conversationDest);
-        }
-      }
-
-      return new ConversationDTO(conversation);
-    }
-
-    /**
+  /**
      * Delete an existing conversation with a given user
      * @param address The given user (interlocutor) address
      * @param loggedUser The current user login
      */
-    public void deleteConversation(String loggedUser, String address){
-      UserData userData = userRepository.findByLogin(loggedUser);
-      List<Conversation> conversations = conversationRepository.findByUserData(userData);
-      Conversation conversationToDelete = null;
-      for(Conversation conversation : conversations){
-        if(conversation.getPeerAddress().equals(address)){
-          conversationToDelete = conversation;
-          break;
-        }
+    public boolean deleteConversation(String loggedUser, String address) {
+      Optional<Conversation> conversationToDelete = conversationRepository.findById(loggedUser + address);
+      if (conversationToDelete.isEmpty()) {
+        return false;
       }
-      if(conversationToDelete == null){
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversation not found with this user");
-      }
-      conversationRepository.delete(conversationToDelete);
+      conversationRepository.delete(conversationToDelete.get());
+      return true;
     }
 
   /**
@@ -140,6 +138,5 @@ public class ConversationService {
     }
     return login;
   }
-
 
 }

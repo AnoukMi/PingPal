@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, repeat, retry, share, takeUntil } from "rxjs";
-import { MessageDTO, MessageService, MessageReducedDTO } from "../api";
-import { UserService } from "./user.service";
+import {ConversationDTO, ConversationService, MessageDTO, MessageService} from "../api";
+import {firstValueFrom, map, Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
+import {UserService} from "./user.service";
 
 export class Discussion {
   interlocutor: string;           // address of the interlocutor
-  messages: MessageDTO[]; // messages of the discussion
+  messages: MessageDTO[];         // messages of the discussion
 
   constructor(props: { interlocutor: string, messages: MessageDTO[] }) {
     this.interlocutor = props.interlocutor;
@@ -18,119 +19,95 @@ export class Discussion {
   getId() {
     return this.interlocutor.replace('@', '');
   }
+
+  getInterlocutor(): string{
+    return this.interlocutor;
+  }
 }
 
 @Injectable({
   providedIn: 'root'
 })
-
-
 export class DiscussionService {
 
   public discussions: Discussion[] = []; // array of discussion (this object must never be reassigned)
+  // private apiUrl = 'http://serverapi/user/conversation'
 
-  constructor(private userService: UserService, private messageService: MessageService) {
+  constructor(private messageService: MessageService,
+              private conversationService: ConversationService,
+              private userService: UserService,
+              private http: HttpClient) {
     console.debug('### DiscussionService()');
   }
 
-  /**
-   * Initialize discussions related to the current user.
-   */
-  initializeDiscussions() {
 
-    // Get all messages related to the current user
-    this.messageService.messagesGet().subscribe(messages => {
+  sendMessage(discussion: Discussion, content: string) {
+    if (this.discussions.find(discussiontofind => discussion === discussiontofind)) {
 
-      // Reset all discussions (interlocutorout reassigning the array)
-      //supprime les discussions préalablement chargées
-      this.discussions.length = 0;
+      // Send the message to the recipient by posting it into the server
+      console.log(`### Sending message in the discussion ${discussion}`);
 
-      // récupère l'addresse de l'utilisateur courant
-      const currentUserAddress = this.userService.getCurrentUserAddress();
-      //Récupère tous les messages dont l'utilisateur est l'envoyeur ou le destinataire
-      // @ts-ignore
-      messages.forEach(message => {
-        //cherche si une discussion existe déjà avec l'interlocuteur
-        let _interlocutor = <string>(message.from === currentUserAddress ? message.to : message.from);
-        let discussion = this.discussions.find(discussion => discussion.interlocutor === _interlocutor);
-        // If no discussion has been found, create a new one and add it to the array of discussions
-        if (!discussion) {
-          discussion = new Discussion({ interlocutor: _interlocutor, messages: [] });
-          this.discussions.push(discussion);
-        }
+      this.messageService.userMessageNewMessageRecipientPost(discussion.interlocutor, content)
+        .subscribe(message => {
+          console.log(`### Message added to the server`);
+          // Add the message to the discussion (once completed by the server)
+          discussion.messages.push(message);
+        });
 
-        // Add the message to the discussion
-        discussion.messages.unshift(message);
-      });
-    });
+
+      // Méthode avec HttpClient
+      // if (this.discussions.find(discussiontofind => discussion === discussiontofind)) {
+      // console.log(`### send message to the server`)
+      // // Envoyer le message au backend
+      // return this.http.post<MessageDTO>(`http://serverapi/user/message/newMessage/${discussion.interlocutor}`,
+      //   content);
+      // }else {
+      //   return null;
+      // }
+    }
   }
 
   /**
-   * Start polling new messages and updating discussions.
-   * @param stopPolling Control observable: any event sent on this observable stop the polling
+   * Create a new empty discussion with a given interlocutor.
+   * If a discussion with the interlocutor already exists, no new discussion is created.
+   * @param recipientAddress The address of the interlocutor
    */
-  startPollingNewMessages(stopPolling: Observable<void>) {
+  newDiscussion(recipientAddress: string) {
+    console.debug(`### creation of the discussion with ${recipientAddress}`);
 
-    // Poll the next new message
-    this.messageService.messageGet().pipe(
-      map(message => {
-
-        // If no message yet, nothing to do
-        if (!message) return;
-
-        // If message is sent by current user: search for an existing discussion interlocutor the receiver,
-        // otherwise, if message is received by current user: search for an existing discussion interlocutor the sender
-        let discussion = this.discussions.find(discussion => discussion.interlocutor === message.from);
-
-        // If no discussion has been found, create a new one and add it to the array of discussions
-        if (!discussion) {
-          discussion = new Discussion({ interlocutor: <string>message.from, messages: [] });
-          this.discussions.push(discussion);
-        }
-
-        // Add the message to the discussion
-        discussion.messages.push(message);
-      }),
-      repeat(), // on success, repeat immediately
-      retry({ delay: 1000 }), // on error, retry after 1s
-      share(), // be sure to never duplicate this observable
-      takeUntil(stopPolling) // stop polling if an event is sent on control observable
-    ).subscribe();
-  }
-
-  /**
-   * Send a new message to an interlocutor.
-   * @param discussion The discussion
-   * @param body The message
-   */
-  sendMessage(discussion: Discussion, body: string) {
-
-    // Build a new message for the recipient
-    const newMessage: NewMessageDTO = { body: body, type: 'text/plain', to: discussion.interlocutor };
-
-    // Send the message to the recipient by posting it to the server
-    this.messageService.messagePost(newMessage).subscribe(message => {
-
-      // Add the message to the discussion (once completed by the server)
-      discussion.messages.push(message);
-    });
-  }
-
-  /**
-   * Create a new empty discussion interlocutor a given interlocutor.
-   * If a discussion interlocutor the interlocutor already exists, no new discussion is created.
-   * @param _interlocutor The address of the interlocutor
-   */
-  newDiscussion(_interlocutor: string) {
-
-    // Search for an existing discussion interlocutor the interlocutor
-    let discussion = this.discussions.find(discussion => discussion.interlocutor === _interlocutor);
+    // Search for an existing discussion with the interlocutor
+    let discussion = this.discussions
+      .find(discussion => discussion.interlocutor === recipientAddress);
 
     // If a discussion already exists, nothing to do
-    if (discussion) return;
+    if (discussion) {
+      console.debug(`### the discussion with ${recipientAddress} already exists!`)
+      return;
+    }
 
-    // Otherwise, create a new one and add it to the array of discussions
-    discussion = new Discussion({ interlocutor: _interlocutor, messages: [] });
-    this.discussions.push(discussion);
+    // return this.http.post<ConversationDTO>(`${this.apiUrl}/newConversation/${recipientAddress}`, recipientAddress);
+
+    // Also add new conversation to the server : return a DTO
+    this.conversationService.userConversationNewConversationInterlocutorPost(recipientAddress)
+      .subscribe(conversation => {
+        discussion = new Discussion({interlocutor: conversation.peerAddress, messages: []})
+        console.log(`### ${conversation} added to the server`);
+        this.discussions.push(discussion);
+      });
   }
+  getConversation(recipient: string){
+    return this.conversationService.userConversationLoginGet(recipient);
+  }
+
+  getConversations(){
+    return this.conversationService.userConversationConversationsGet();
+  }
+
+  /* getConversation(recipient: string): Observable<ConversationDTO>{
+    return this.http.get<ConversationDTO>(`${this.apiUrl}/${recipient}`);
+  }
+
+  getConversations(): Observable<ConversationDTO[]> {
+    return this.http.get<ConversationDTO[]>(`${this.apiUrl}/conversations`);
+  } */
 }
