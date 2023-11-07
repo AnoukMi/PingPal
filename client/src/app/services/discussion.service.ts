@@ -33,11 +33,12 @@ export class DiscussionService {
       // Send the message to the recipient by posting it into the server
       console.log(`### Sending message in the discussion ${discussion}`);
 
-      this.messageService.userMessageNewMessageRecipientPost(discussion.interlocutor, content)
+      this.messageService.userMessageNewMessageRecipientPost(encodeURIComponent(discussion.interlocutor), content)
         .subscribe(message => {
           console.log(`### Message added to the server`);
           // Add the message to the discussion (once completed by the server)
           discussion.messages.push(message);
+          // Mettre le statusMessage à false
         });
     }
   }
@@ -61,7 +62,7 @@ export class DiscussionService {
     }
 
     // Also add new conversation to the server : return a DTO
-    this.conversationService.userConversationNewConversationInterlocutorPost(recipientAddress)
+    this.conversationService.userConversationNewConversationInterlocutorPost(encodeURIComponent(recipientAddress))
       .subscribe(conversation => {
         discussion = new Discussion({interlocutor: conversation.peerAddress, messages: []})
         console.log(`### ${conversation} added to the server`);
@@ -78,6 +79,6 @@ export class DiscussionService {
   }
 
   getMessages(recipient: string){
-    return this.messageService.userMessageUserIDMessagesGet(recipient);
+    return this.messageService.userMessageUserIDMessagesGet(encodeURIComponent(recipient));
   }
 }

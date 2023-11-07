@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { MessageDTO } from "../../api";
 import { Discussion, DiscussionService } from "../../services/discussion.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -9,11 +9,11 @@ import { FormControl } from "@angular/forms";
   templateUrl: './page-conversation.component.html',
   styleUrls: ['./page-conversation.component.css']
 })
-export class PageConversationComponent {
+export class PageConversationComponent{
   discussion!: Discussion;
   messages: MessageDTO[] = [];
-  messageInput = new FormControl();
-  message: string = '';
+  // @ViewChild('messageInput') messageInput!: ElementRef;
+  message = new FormControl();
 
   constructor(private discussionService: DiscussionService,
               private activatedRoute: ActivatedRoute,
@@ -32,30 +32,17 @@ export class PageConversationComponent {
 
   }
 
-  // uuidv4() generates a random uuid
   onSend() {
     console.log(`### sending the message`);
-    // if (!this.messageInput.value?.trim()) return;
-    if(this.message == '') return;
+    if (!this.message.value?.trim()) return;
+    // if(this.message == '') return;
 
-    /* const msg: MessageDTO = {
-      recipientID: this.discussion.interlocutor,
-      content: this.messageInput.value,
-      msgID: uuidv4(),
-      authorAddress: this.userService.getCurrentUserAddress(),
-      date: new Date().toLocaleDateString(),
-      edited: false
-    } */
-
-    // Add the message to the conversation in the list of messages and in the server, also do the sending by web socket
-    // this.discussionService.sendMessage(this.discussion, this.messageInput.value);
-
-    this.discussionService.sendMessage(this.discussion, this.message);
+    this.discussionService.sendMessage(this.discussion, this.message.value);
 
     // Update the messages
     this.messages = this.discussion.messages;
 
     // Clear the box to write messages
-    this.message = '';
+    this.message.setValue('');
   }
 }

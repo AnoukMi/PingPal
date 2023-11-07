@@ -1,7 +1,5 @@
 package fr.mightycode.cpoo.server.controller;
 
-import fr.mightycode.cpoo.server.dto.ConversationDTO;
-import fr.mightycode.cpoo.server.model.Conversation;
 import fr.mightycode.cpoo.server.model.Message;
 import fr.mightycode.cpoo.server.model.UserData;
 import fr.mightycode.cpoo.server.repository.UserRepository;
@@ -18,11 +16,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.lang.Exception;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,7 +31,7 @@ import java.util.regex.Pattern;
 @RequestMapping("user/message")
 @RequiredArgsConstructor
 @CrossOrigin
-public class MessageController extends TextWebSocketHandler {
+public class MessageController {
 
     private final MessageService messageService;
     private final RouterService routerService;

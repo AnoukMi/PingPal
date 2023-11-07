@@ -18,9 +18,9 @@ export class ChatComponent implements OnInit{
         this.getMessages();
 
         // Rafraîchir la liste des messages toutes les secondes
-        setInterval(() => {
-            this.getMessages();
-        }, 1000);
+        // setInterval(() => {
+        //     this.getMessages();
+        // }, 1000);
     }
 
     getMessages() {

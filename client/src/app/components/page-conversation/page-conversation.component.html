@@ -7,10 +7,10 @@
         </div>
       </div>
         <div class="userWritingBox">
-            <app-user-writing-frame [(ngModel)]="message" [placeholder]="'Write your message'"
-                                    [type]="'text'"></app-user-writing-frame>
-          <!-- <app-user-writing-frame [formControl]="messageInput" [placeholder]="'Write your message'"
-                                  [type]="'text'"></app-user-writing-frame> -->
+            <!-- <app-user-writing-frame [(ngModel)]="message" [placeholder]="'Write your message'"
+                                    [type]="'text'"></app-user-writing-frame> -->
+          <app-user-writing-frame [formControl]="message" [placeholder]="'Write your message'"
+                                  [type]="'text'"></app-user-writing-frame>
         </div>
 
     <div class="send_button">
