@@ -59,7 +59,7 @@ export class DiscussionService {
     if (discussion) {
       console.debug(`### the discussion with ${recipientAddress} already exists!`)
       return;
-    }
+    }else{
 
     // Also add new conversation to the server : return a DTO
     this.conversationService.userConversationNewConversationInterlocutorPost(encodeURIComponent(recipientAddress))
@@ -68,6 +68,7 @@ export class DiscussionService {
         console.log(`### ${conversation} added to the server`);
         this.discussions.push(discussion);
       });
+    }
   }
 
   getConversation(recipient: string) {

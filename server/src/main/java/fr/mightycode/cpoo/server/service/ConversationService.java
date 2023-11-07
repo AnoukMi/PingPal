@@ -28,7 +28,6 @@ public class ConversationService {
     @Autowired
     private final UserRepository userRepository;
 
-
     /**
      * Retrieve a list of all conversations with the current logged user
      * @param login The current user logged in
@@ -57,7 +56,7 @@ public class ConversationService {
      * @param user The current user
      */
     public ConversationDTO createEmptyConversation(String user, String address){
-      if(conversationRepository.findById(user + address).isPresent()){ //user+recipient+@pingpal
+      if(conversationRepository.findById(user + address).isPresent()){ //user+recipient+0at0pingpal
         throw new ResponseStatusException(HttpStatus.CONFLICT, "A conversation with this user already exists");
       }
 
@@ -70,9 +69,9 @@ public class ConversationService {
       String interlocutor = logMember(address); //renvoie null si pas membre de Pingpal, sinon son username
       if (interlocutor!=null) { //si appartient à l'application, il faut aussi ajouter la conversation dans la BDD pour l'interlocuteur
         //seulement si n'existe pas déjà dans BDD du destinataire
-        if(conversationRepository.findById(interlocutor + user + "@pingpal").isEmpty()) {
+        if(conversationRepository.findById(interlocutor + user + "0at0pingpal").isEmpty()) {
           UserData user2 = userRepository.findByLogin(interlocutor); //le fait de charger l'user devrait màj automatiquement sa liste de conv
-          Conversation conversationDest = new Conversation(interlocutor+user+"@pingpal",user+"@pingpal",conversation.getLastMsgDate(),user2);
+          Conversation conversationDest = new Conversation(interlocutor+user+"0at0pingpal",user+"0at0pingpal",conversation.getLastMsgDate(),user2);
           conversationRepository.save(conversationDest);
         }
       }
@@ -127,7 +126,7 @@ public class ConversationService {
    */
   public String logMember(String user){
     String login = user;
-    Pattern formatAddress = Pattern.compile("(.+)@pingpal"); //parenthèses pour capturer ce qui se trouve avant "@"
+    Pattern formatAddress = Pattern.compile("(.+)0at0pingpal"); //parenthèses pour capturer ce qui se trouve avant "@"
     Matcher matcher = formatAddress.matcher(user); // Objet Matcher pour effectuer la correspondance
     if (matcher.matches()) { //si on est au format d'adresse du domaine pingpal
       //Récupère la valeur du groupe capturé (la partie avant "@pingpal")

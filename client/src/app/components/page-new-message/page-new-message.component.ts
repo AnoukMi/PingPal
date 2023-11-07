@@ -8,6 +8,7 @@ import { Router } from "@angular/router";
   templateUrl: './page-new-message.component.html',
   styleUrls: ['./page-new-message.component.css']
 })
+
 export class PageNewMessageComponent {
   newMsgForm: FormGroup;
   discussion!: Discussion;

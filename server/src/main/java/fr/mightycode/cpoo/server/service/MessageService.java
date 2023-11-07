@@ -53,7 +53,7 @@ public class MessageService {
       userAddress = interlocutor;
     } else {
       // Sinon, login est l'username d'un user inscrit : on convertit avec l'addresse pingpal
-      userAddress = interlocutor + "@" + "pingpal";
+      userAddress = interlocutor + "0at0" + "pingpal";
     }
     //récupère la conversation si elle existe
     Optional<Conversation> conversationOptional = conversationRepository.findById(login + userAddress);
@@ -160,7 +160,7 @@ public class MessageService {
      */
     public String logMember(String user){
         String login = user;
-        Pattern formatAddress = Pattern.compile("(.+)@pingpal"); //parenthèses pour capturer ce qui se trouve avant "@"
+        Pattern formatAddress = Pattern.compile("(.+)0at0pingpal"); //parenthèses pour capturer ce qui se trouve avant "@"
         Matcher matcher = formatAddress.matcher(user); // Objet Matcher pour effectuer la correspondance
         if (matcher.matches()) { //si on est au format d'adresse du domaine pingpal
             //Récupère la valeur du groupe capturé (la partie avant "@pingpal")
@@ -179,7 +179,7 @@ public class MessageService {
      * @return true if it is an address
      */
     public boolean isAddress(String log){
-        Pattern formatAddress = Pattern.compile(".+@.+");
+        Pattern formatAddress = Pattern.compile(".+0at0.+");
         Matcher matcher = formatAddress.matcher(log); // Objet Matcher pour effectuer la correspondance
         if (matcher.matches()) { //si on est au format d'adresse
             return true;

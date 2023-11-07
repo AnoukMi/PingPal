@@ -25,7 +25,6 @@ public class ConversationController {
 
   private final ConversationService conversationService;
 
-
   /**
    * Retrieve all conversations of a given user (the current user)
    *
@@ -60,7 +59,7 @@ public class ConversationController {
       String address = interlocutor;
       if (!isAddress(interlocutor)) { // Vérifie si login ne correspond pas au format d'address
         //càd le login est supposé être un user de l'application
-        address = interlocutor + "@pingpal";
+        address = interlocutor + "0at0pingpal";
       }
         return conversationService.createEmptyConversation(user.getName(),address);
     }
@@ -80,7 +79,7 @@ public class ConversationController {
       if(conversationService.logMember(login)==null){
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipient user does not exist");
       }
-      address = login + "@pingpal"; // si existe on rend son adresse
+      address = login + "0at0pingpal"; // si existe on rend son adresse
     }
     try {
       return conversationService.getOneConversation(user.getName(), address);
@@ -104,7 +103,7 @@ public class ConversationController {
     String address = login;
     if (!isAddress(login)) { // Vérifie si login ne correspond pas au format d'address
       //càd le login est supposé être un user de l'application
-      address = login + "@pingpal";
+      address = login + "0at0pingpal";
     }
      if (!conversationService.deleteConversation(user.getName(), address)) {
           throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversation not found with this user");
@@ -118,7 +117,7 @@ public class ConversationController {
     * @return true if it is an address
     */
    public boolean isAddress(String log){
-     Pattern formatAddress = Pattern.compile(".+@.+");
+     Pattern formatAddress = Pattern.compile(".+0at0.+");
      Matcher matcher = formatAddress.matcher(log); // Objet Matcher pour effectuer la correspondance
        //si on est au format d'adresse
        return matcher.matches();

@@ -72,9 +72,9 @@ public class MessageApiTest {
         }
 
        FullUserDTO sender = new FullUserDTO().login("lvhoa1").password("test").remember(false).icon(1).firstname("hoa")
-                .lastname("leveille").birthday("10-10-2000").address("lvhoa@pingpal");
+                .lastname("leveille").birthday("10-10-2000").address("lvhoa0at0pingpal");
        FullUserDTO receiver = new FullUserDTO().login("anouk1").password("test").remember(false).icon(2)
-               .firstname("anouk").lastname("mi").birthday("10-10-2000").address("anouk@pingpal");
+               .firstname("anouk").lastname("mi").birthday("10-10-2000").address("anouk0at0pingpal");
 
        UserDTO uSender = new UserDTO().login("lvhoa1").remember(false).password("test");
        UserDTO uReceiver = new UserDTO().login("anouk1").remember(false).password("test");
@@ -126,9 +126,9 @@ public class MessageApiTest {
         }
 
         FullUserDTO sender = new FullUserDTO().login("lvhoa2").password("test").remember(true).icon(1).firstname("hoa")
-                .lastname("leveille").birthday("10-10-2000").address("lvhoa@pingpal");
+                .lastname("leveille").birthday("10-10-2000").address("lvhoa0at0pingpal");
         FullUserDTO receiver = new FullUserDTO().login("anouk2").password("test").remember(false).icon(2)
-                .firstname("anouk").lastname("mi").birthday("10-10-2000").address("anouk@pingpal");
+                .firstname("anouk").lastname("mi").birthday("10-10-2000").address("anouk0at0pingpal");
 
         UserDTO uSender = new UserDTO().login(sender.getLogin()).remember(true).password("test");
         UserDTO uReceiver = new UserDTO().login(receiver.getLogin()).remember(false).password("test");
@@ -195,9 +195,9 @@ public class MessageApiTest {
         }
 
         FullUserDTO sender = new FullUserDTO().login("lvhoa3").password("test").remember(true).icon(1).firstname("hoa")
-                .lastname("leveille").birthday("10-10-2000").address("lvhoa@pingpal");
+                .lastname("leveille").birthday("10-10-2000").address("lvhoa0at0pingpal");
         FullUserDTO receiver = new FullUserDTO().login("anouk3").password("test").remember(false).icon(2)
-                .firstname("anouk").lastname("mi").birthday("10-10-2000").address("anouk@pingpal");
+                .firstname("anouk").lastname("mi").birthday("10-10-2000").address("anouk0at0pingpal");
 
         UserDTO uSender = new UserDTO().login(sender.getLogin()).remember(true).password("test");
         UserDTO uReceiver = new UserDTO().login(receiver.getLogin()).remember(false).password("test");

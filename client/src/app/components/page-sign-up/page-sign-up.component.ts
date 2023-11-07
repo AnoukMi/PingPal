@@ -75,7 +75,7 @@ export class PageSignUpComponent {
     this.loading = true;
     this.userService.signup(this.getField('login').value, this.getField('password').value,
       false, 0, this.getField('firstname').value, this.getField('lastname').value,
-      this.birthday, `${this.getField('login').value}@pingpal`)
+      this.birthday, `${this.getField('login').value}0at0pingpal`)
       .subscribe({
         next: _ => {
           // Return to signin

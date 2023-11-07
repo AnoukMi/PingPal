@@ -65,7 +65,7 @@ public class ConversationApiTest {
 
         // Signing up and in
         FullUserDTO user = new FullUserDTO().login("testerConvGetAll").password("test").remember(true).icon(1)
-                .firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
+                .firstname("test").lastname("test").birthday("10-10-2000").address("test0at0test");
         authApi.userSignupPost(user);
         authApi.userSigninPost(new UserDTO().login("testerConvGetAll").password("test").remember(false));
 
@@ -102,7 +102,7 @@ public class ConversationApiTest {
 
         // Signing up and in
         FullUserDTO user = new FullUserDTO().login("testerConvDel").password("test").remember(true).icon(1)
-                .firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
+                .firstname("test").lastname("test").birthday("10-10-2000").address("test0at0test");
         authApi.userSignupPost(user);
         authApi.userSigninPost(new UserDTO().login("testerConvDel").password("test").remember(false));
 
@@ -142,7 +142,7 @@ public class ConversationApiTest {
 
         // Signing up and in
         FullUserDTO user = new FullUserDTO().login("testerConvGet").password("test").remember(true).icon(1)
-                .firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
+                .firstname("test").lastname("test").birthday("10-10-2000").address("test0at0test");
         authApi.userSignupPost(user);
         authApi.userSigninPost(new UserDTO().login("testerConvGet").password("test").remember(false));
 
@@ -156,14 +156,14 @@ public class ConversationApiTest {
         }
 
         // Create a new conversation
-        api.userConversationNewConversationInterlocutorPost("friendGet@domain");
+        api.userConversationNewConversationInterlocutorPost("friendGet0at0domain");
         // Now getting the conversation should work
-        ConversationDTO conv = api.userConversationLoginGet("friendGet@domain");
+        ConversationDTO conv = api.userConversationLoginGet("friendGet0at0domain");
         // The conversation should be so
-        Assertions.assertEquals("friendGet@domain", conv.getPeerAddress());
+        Assertions.assertEquals("friendGet0at0domain", conv.getPeerAddress());
 
         //deleting instances
-        api.userConversationLoginDelete("friendGet@domain");
+        api.userConversationLoginDelete("friendGet0at0domain");
         authApi.userDeleteDelete(new UserDTO().login("testerConvGet").password("test").remember(false));
     }
 
@@ -185,13 +185,13 @@ public class ConversationApiTest {
 
         // Signing up and in
         FullUserDTO user = new FullUserDTO().login("testerConv").password("test").remember(true).icon(1)
-                .firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
+                .firstname("test").lastname("test").birthday("10-10-2000").address("test0at0test");
         authApi.userSignupPost(user);
         authApi.userSigninPost(new UserDTO().login("testerConv").password("test").remember(false));
         //Creating a new conversation should work
         ConversationDTO conv= api.userConversationNewConversationInterlocutorPost("friendNew");
         //The conversation should be so
-        Assertions.assertEquals("friendNew@pingpal", conv.getPeerAddress());
+        Assertions.assertEquals("friendNew0at0pingpal", conv.getPeerAddress());
 
         // Creating again the conversation should fail with CONFLICT
         try {

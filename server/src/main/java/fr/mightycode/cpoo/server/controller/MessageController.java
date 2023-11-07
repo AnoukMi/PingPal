@@ -70,7 +70,7 @@ public class MessageController {
     public MessageDTO sendNewMessage(final Principal user, @PathVariable final String recipient,
                                      @RequestBody final String content) {
         String recipAddr=recipient;
-        Pattern formatAddress = Pattern.compile(".+@.+"); // .+ signifie "n'importe quel caractère, une ou plusieurs fois"
+        Pattern formatAddress = Pattern.compile(".+0at0.+"); // .+ signifie "n'importe quel caractère, une ou plusieurs fois"
         Matcher matcher = formatAddress.matcher(recipient); //objet Matcher pour effectuer la correspondance
         if (!matcher.matches()) { // Vérifie si login ne correspond pas au format d'adresse (càd le login est censé correspondre
             //à un user de l'application appartenant à la base de donnée)
@@ -78,12 +78,12 @@ public class MessageController {
             if(userRecipient==null){
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipient user does not exist");
             }
-            recipAddr=recipient+"@pingpal";
+            recipAddr=recipient+"0at0pingpal";
         }
         try {
             // Build a router message from the given information in parameters
             RouterService.Message routerMessage = new RouterService.Message(
-            UUID.randomUUID(), System.currentTimeMillis(),user.getName() + "@pingpal",
+            UUID.randomUUID(), System.currentTimeMillis(),user.getName() + "0at0pingpal",
             recipAddr, "mime",content
             );
 
