@@ -238,18 +238,10 @@ paths:
       tags:
       - conversation
       x-accepts: application/json
-  /user/message/{userID}/messages:
+  /user/message/messages:
     get:
-      parameters:
-      - description: Username of the interlocutor with whom the messages of the conversation
-          are exchanged
-        explode: false
-        in: path
-        name: userID
-        required: true
-        schema:
-          type: string
-        style: simple
+      description: Get all messages sent to or by the signed-in user. Messages are
+        returned from the newest to the oldest.
       responses:
         "200":
           content:
@@ -258,10 +250,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/MessageDTO'
                 type: array
-          description: Provide the list of messages sent both by the user and his
-            interlocutor for a given interlocutor
-        "410":
-          description: "The messages are no more available, have been deleted"
+          description: Success
         "404":
           description: No conversation with this user
         default:
@@ -270,109 +259,29 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
           description: Error
-      summary: Retrieve all messages in a given conversation
+      summary: Get all user's messages
       tags:
       - message
       x-accepts: application/json
-  /user/message/newMessage/{recipient}:
+  /user/message:
     post:
-      parameters:
-      - description: Username of the interlocutor with whom the messages of the conversation
-          are exchanged
-        explode: false
-        in: path
-        name: recipient
-        required: true
-        schema:
-          type: string
-        style: simple
+      description: Send a message on behalf of the signed-in user
       requestBody:
         content:
           application/json:
             schema:
-              format: string
+              $ref: '#/components/schemas/NewMessageDTO'
         required: true
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MessageDTO'
-          description: Add the message to the list of messages with the given user
-            and return the new message
-        "404":
-          description: UserID not found
+          description: Success sending the message
         default:
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
           description: Error
-      summary: Send a new message to a given user
-      tags:
-      - message
-      x-content-type: application/json
-      x-accepts: application/json
-  /user/message/{msgID}:
-    delete:
-      parameters:
-      - description: ID of the message to delete in the list of messages
-        explode: false
-        in: path
-        name: msgID
-        required: true
-        schema:
-          format: UUID
-          type: string
-        style: simple
-      responses:
-        "200":
-          description: "Success, message deleted"
-        "404":
-          description: msgID not found in the list of messages
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorDTO'
-          description: Error
-      summary: Delete a message already sent
-      tags:
-      - message
-      x-accepts: application/json
-    patch:
-      parameters:
-      - description: ID of the message to modify in the list of messages
-        explode: false
-        in: path
-        name: msgID
-        required: true
-        schema:
-          format: UUID
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: string
-        description: New content of the message
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MessageDTO'
-          description: "Success, return modified message"
-        "410":
-          description: "The message is no more available, has been deleted"
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorDTO'
-          description: Error
-      summary: Modify a certain message already sent
+      summary: Send a message
       tags:
       - message
       x-content-type: application/json
@@ -633,7 +542,7 @@ components:
             example: 06-20-2001
             type: string
           address:
-            example: anouk.mi@domain
+            example: anouk.mi@pingpal
             type: string
         required:
         - address
@@ -664,56 +573,52 @@ components:
       - lastMessageDate
       - peerAddress
       type: object
-    MessageReducedDTO:
-      properties:
-        recipientID:
-          description: Username (userID) of the interlocutor or the peerAddress
-          example: anouk20 OR anouKmi@domain
-          type: string
-        content:
-          description: Text contained in the message
-          example: Hello friend
-          type: string
+    NewMessageDTO:
+      description: New message information
       required:
-      - content
-      - recipientID
+      - body
+      - to
+      - type
       type: object
     MessageDTO:
       allOf:
-      - $ref: '#/components/schemas/MessageReducedDTO'
+      - $ref: '#/components/schemas/NewMessageDTO'
       - properties:
-          msgID:
-            description: UUID of the message in the list of messages
-            example: 550e8400-e29b-41d4-a716-446655440000
-            format: UUID
+          id:
+            example: 667bdc23-3de4-482f-a0f4-3391452a7742
+            format: uuid
             type: string
-          authorID:
-            description: Username (userID) of the writer if it's a registered user
-              of the app
-            example: ambre_lv
+          timestamp:
+            example: 1720294759999
+            format: int64
+            type: integer
+          from:
+            example: anouk@pingpal
             type: string
-          authorAddress:
-            description: PeerAddress of the writer
-            example: alv@domain
-            type: string
-          date:
-            description: Date of the message to be able to sort messages from the
-              newest to the oldest
-            example: 10-10-2023 12:30:22
-            type: string
-          edited:
-            description: "True if message has been edited, false otherwise"
-            example: false
-            type: boolean
         required:
-        - authorAddress
-        - date
-        - edited
-        - msgID
+        - from
+        - id
+        - timestamp
         type: object
+      description: Message information
+      example:
+        to: lvhoa@pingpal
+        type: text/plain
+        body: This is the message
+      properties:
+        to:
+          example: lvhoa@pingpal
+          type: string
+        type:
+          example: text/plain
+          format: mime
+          type: string
+        body:
+          example: This is the message
+          type: string
     ContactProfileDTO:
       example:
-        birthday: 01-05-2003
+        birthday: 11-05-2003
         firstname: Ambre
         icon: 5
         userID: ambre_lv
@@ -740,7 +645,7 @@ components:
           example: Leveille
           type: string
         birthday:
-          example: 01-05-2003
+          example: 11-05-2003
           type: string
         sharedMessage:
           description: Content of the public message (status) shared by the contact

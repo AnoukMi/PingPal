@@ -27,6 +27,7 @@ export class ChatComponent implements OnInit{
         this.discussionService.getMessages(this.discussion.interlocutor)
             .subscribe(newMessages => {
                     for (let message of newMessages) {
+                      // We only add the new messages in the list of messages
                         if (!this.messages.includes(message)) {
                             this.messages.push(message);
                         }

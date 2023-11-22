@@ -20,9 +20,9 @@ export class CurrentConversationsComponent implements OnInit {
     this.getConversations();
 
     // Rafraîchir la liste des conversations toutes les secondes
-    setInterval(() => {
-      this.getConversations();
-    }, 1000);
+    // setInterval(() => {
+    //   this.getConversations();
+    // }, 1000);
   }
 
   getConversations(){

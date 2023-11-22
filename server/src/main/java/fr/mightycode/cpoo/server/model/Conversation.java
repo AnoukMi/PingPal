@@ -24,8 +24,8 @@ public class Conversation {
   @JoinColumn(name = "user_data_id")
   private UserData userData;
 
-  @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL) //cascade pour que supprimer une conv supprime tous les messages appartenant
-  private List<Message> messages;
+//  @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL) //cascade pour que supprimer une conv supprime tous les messages appartenant
+//  private List<Message> messages;
 
   public Conversation(){
   }
@@ -35,7 +35,7 @@ public class Conversation {
     this.peerAddress = peerAddress;
     this.lastMsgDate = lastMsgDate;
     this.userData = userData;
-    this.messages = new ArrayList<>();
+    //this.messages = new ArrayList<>();
   }
 
 
@@ -63,10 +63,6 @@ public class Conversation {
   public void setUserData(UserData userData){
     this.userData = userData;
   }
-  public List<Message> getMessages(){
-    return this.messages;
-  }
-  public void setMessages(List<Message> messages){
-    this.messages = messages;
-  }
+  // public List<Message> getMessages(){ return this.messages; }
+  // public void setMessages(List<Message> messages){ this.messages = messages; }
 }

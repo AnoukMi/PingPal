@@ -133,10 +133,8 @@ Class | Method | HTTP request | Description
 *ConversationApi* | [**userConversationLoginDelete**](docs/ConversationApi.md#userConversationLoginDelete) | **DELETE** /user/conversation/{login} | Delete an existing conversation (the header and all contained messages) with a given user
 *ConversationApi* | [**userConversationLoginGet**](docs/ConversationApi.md#userConversationLoginGet) | **GET** /user/conversation/{login} | Search an existing conversation (the header) with a given user
 *ConversationApi* | [**userConversationNewConversationInterlocutorPost**](docs/ConversationApi.md#userConversationNewConversationInterlocutorPost) | **POST** /user/conversation/newConversation/{interlocutor} | Create a new (empty) conversation with a given user
-*MessageApi* | [**userMessageMsgIDDelete**](docs/MessageApi.md#userMessageMsgIDDelete) | **DELETE** /user/message/{msgID} | Delete a message already sent
-*MessageApi* | [**userMessageMsgIDPatch**](docs/MessageApi.md#userMessageMsgIDPatch) | **PATCH** /user/message/{msgID} | Modify a certain message already sent
-*MessageApi* | [**userMessageNewMessageRecipientPost**](docs/MessageApi.md#userMessageNewMessageRecipientPost) | **POST** /user/message/newMessage/{recipient} | Send a new message to a given user
-*MessageApi* | [**userMessageUserIDMessagesGet**](docs/MessageApi.md#userMessageUserIDMessagesGet) | **GET** /user/message/{userID}/messages | Retrieve all messages in a given conversation
+*MessageApi* | [**userMessageMessagesGet**](docs/MessageApi.md#userMessageMessagesGet) | **GET** /user/message/messages | Get all user&#39;s messages
+*MessageApi* | [**userMessagePost**](docs/MessageApi.md#userMessagePost) | **POST** /user/message | Send a message
 *ProfileApi* | [**userProfileGet**](docs/ProfileApi.md#userProfileGet) | **GET** /user/profile | Get the current information about the logged user
 *ProfileApi* | [**userProfilePatch**](docs/ProfileApi.md#userProfilePatch) | **PATCH** /user/profile | Update information about the user
 *ProfileApi* | [**userShareMessageDelete**](docs/ProfileApi.md#userShareMessageDelete) | **DELETE** /user/shareMessage | Remove the previous shared message to make it empty
@@ -150,7 +148,6 @@ Class | Method | HTTP request | Description
  - [ErrorDTO](docs/ErrorDTO.md)
  - [FullUserDTO](docs/FullUserDTO.md)
  - [MessageDTO](docs/MessageDTO.md)
- - [MessageReducedDTO](docs/MessageReducedDTO.md)
  - [UserDTO](docs/UserDTO.md)
 
 

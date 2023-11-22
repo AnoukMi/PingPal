@@ -11,34 +11,15 @@
  */
 
 
+/**
+ * Message information
+ */
 export interface MessageDTO { 
-    /**
-     * Username (userID) of the interlocutor or the peerAddress
-     */
-    recipientID: string;
-    /**
-     * Text contained in the message
-     */
-    content: string;
-    /**
-     * UUID of the message in the list of messages
-     */
-    msgID: string;
-    /**
-     * Username (userID) of the writer if it\'s a registered user of the app
-     */
-    authorID?: string;
-    /**
-     * PeerAddress of the writer
-     */
-    authorAddress: string;
-    /**
-     * Date of the message to be able to sort messages from the newest to the oldest
-     */
-    date: string;
-    /**
-     * True if message has been edited, false otherwise
-     */
-    edited: boolean;
+    to?: string;
+    type?: string;
+    body?: string;
+    id: string;
+    timestamp: number;
+    from: string;
 }
 

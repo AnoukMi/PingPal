@@ -4,85 +4,17 @@ All URIs are relative to *http://localhost:8080*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**userMessageMsgIDDelete**](MessageApi.md#userMessageMsgIDDelete) | **DELETE** /user/message/{msgID} | Delete a message already sent |
-| [**userMessageMsgIDPatch**](MessageApi.md#userMessageMsgIDPatch) | **PATCH** /user/message/{msgID} | Modify a certain message already sent |
-| [**userMessageNewMessageRecipientPost**](MessageApi.md#userMessageNewMessageRecipientPost) | **POST** /user/message/newMessage/{recipient} | Send a new message to a given user |
-| [**userMessageUserIDMessagesGet**](MessageApi.md#userMessageUserIDMessagesGet) | **GET** /user/message/{userID}/messages | Retrieve all messages in a given conversation |
+| [**userMessageMessagesGet**](MessageApi.md#userMessageMessagesGet) | **GET** /user/message/messages | Get all user&#39;s messages |
+| [**userMessagePost**](MessageApi.md#userMessagePost) | **POST** /user/message | Send a message |
 
 
-<a id="userMessageMsgIDDelete"></a>
-# **userMessageMsgIDDelete**
-> userMessageMsgIDDelete(msgID)
+<a id="userMessageMessagesGet"></a>
+# **userMessageMessagesGet**
+> List&lt;MessageDTO&gt; userMessageMessagesGet()
 
-Delete a message already sent
+Get all user&#39;s messages
 
-### Example
-```java
-// Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.MessageApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8080");
-    
-    // Configure API key authorization: CookieAuth
-    ApiKeyAuth CookieAuth = (ApiKeyAuth) defaultClient.getAuthentication("CookieAuth");
-    CookieAuth.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //CookieAuth.setApiKeyPrefix("Token");
-
-    MessageApi apiInstance = new MessageApi(defaultClient);
-    UUID msgID = UUID.randomUUID(); // UUID | ID of the message to delete in the list of messages
-    try {
-      apiInstance.userMessageMsgIDDelete(msgID);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling MessageApi#userMessageMsgIDDelete");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **msgID** | **UUID**| ID of the message to delete in the list of messages | |
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-[CookieAuth](../README.md#CookieAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success, message deleted |  -  |
-| **404** | msgID not found in the list of messages |  -  |
-| **0** | Error |  -  |
-
-<a id="userMessageMsgIDPatch"></a>
-# **userMessageMsgIDPatch**
-> MessageDTO userMessageMsgIDPatch(msgID, body)
-
-Modify a certain message already sent
+Get all messages sent to or by the signed-in user. Messages are returned from the newest to the oldest.
 
 ### Example
 ```java
@@ -106,13 +38,11 @@ public class Example {
     //CookieAuth.setApiKeyPrefix("Token");
 
     MessageApi apiInstance = new MessageApi(defaultClient);
-    UUID msgID = UUID.randomUUID(); // UUID | ID of the message to modify in the list of messages
-    String body = "body_example"; // String | New content of the message
     try {
-      MessageDTO result = apiInstance.userMessageMsgIDPatch(msgID, body);
+      List<MessageDTO> result = apiInstance.userMessageMessagesGet();
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling MessageApi#userMessageMsgIDPatch");
+      System.err.println("Exception when calling MessageApi#userMessageMessagesGet");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -123,151 +53,7 @@ public class Example {
 ```
 
 ### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **msgID** | **UUID**| ID of the message to modify in the list of messages | |
-| **body** | **String**| New content of the message | [optional] |
-
-### Return type
-
-[**MessageDTO**](MessageDTO.md)
-
-### Authorization
-
-[CookieAuth](../README.md#CookieAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success, return modified message |  -  |
-| **410** | The message is no more available, has been deleted |  -  |
-| **0** | Error |  -  |
-
-<a id="userMessageNewMessageRecipientPost"></a>
-# **userMessageNewMessageRecipientPost**
-> MessageDTO userMessageNewMessageRecipientPost(recipient, body)
-
-Send a new message to a given user
-
-### Example
-```java
-// Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.MessageApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8080");
-    
-    // Configure API key authorization: CookieAuth
-    ApiKeyAuth CookieAuth = (ApiKeyAuth) defaultClient.getAuthentication("CookieAuth");
-    CookieAuth.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //CookieAuth.setApiKeyPrefix("Token");
-
-    MessageApi apiInstance = new MessageApi(defaultClient);
-    String recipient = "recipient_example"; // String | Username of the interlocutor with whom the messages of the conversation are exchanged
-    Object body = null; // Object | 
-    try {
-      MessageDTO result = apiInstance.userMessageNewMessageRecipientPost(recipient, body);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling MessageApi#userMessageNewMessageRecipientPost");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **recipient** | **String**| Username of the interlocutor with whom the messages of the conversation are exchanged | |
-| **body** | **Object**|  | |
-
-### Return type
-
-[**MessageDTO**](MessageDTO.md)
-
-### Authorization
-
-[CookieAuth](../README.md#CookieAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Add the message to the list of messages with the given user and return the new message |  -  |
-| **404** | UserID not found |  -  |
-| **0** | Error |  -  |
-
-<a id="userMessageUserIDMessagesGet"></a>
-# **userMessageUserIDMessagesGet**
-> List&lt;MessageDTO&gt; userMessageUserIDMessagesGet(userID)
-
-Retrieve all messages in a given conversation
-
-### Example
-```java
-// Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.MessageApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8080");
-    
-    // Configure API key authorization: CookieAuth
-    ApiKeyAuth CookieAuth = (ApiKeyAuth) defaultClient.getAuthentication("CookieAuth");
-    CookieAuth.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //CookieAuth.setApiKeyPrefix("Token");
-
-    MessageApi apiInstance = new MessageApi(defaultClient);
-    String userID = "userID_example"; // String | Username of the interlocutor with whom the messages of the conversation are exchanged
-    try {
-      List<MessageDTO> result = apiInstance.userMessageUserIDMessagesGet(userID);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling MessageApi#userMessageUserIDMessagesGet");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **userID** | **String**| Username of the interlocutor with whom the messages of the conversation are exchanged | |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -285,8 +71,76 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Provide the list of messages sent both by the user and his interlocutor for a given interlocutor |  -  |
-| **410** | The messages are no more available, have been deleted |  -  |
+| **200** | Success |  -  |
 | **404** | No conversation with this user |  -  |
+| **0** | Error |  -  |
+
+<a id="userMessagePost"></a>
+# **userMessagePost**
+> userMessagePost(body)
+
+Send a message
+
+Send a message on behalf of the signed-in user
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.MessageApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://localhost:8080");
+    
+    // Configure API key authorization: CookieAuth
+    ApiKeyAuth CookieAuth = (ApiKeyAuth) defaultClient.getAuthentication("CookieAuth");
+    CookieAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //CookieAuth.setApiKeyPrefix("Token");
+
+    MessageApi apiInstance = new MessageApi(defaultClient);
+    Object body = null; // Object | 
+    try {
+      apiInstance.userMessagePost(body);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling MessageApi#userMessagePost");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **body** | **Object**|  | |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[CookieAuth](../README.md#CookieAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Success sending the message |  -  |
 | **0** | Error |  -  |
 
