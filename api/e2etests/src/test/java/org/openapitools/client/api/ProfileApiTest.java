@@ -13,11 +13,17 @@
 
 package org.openapitools.client.api;
 
+import okhttp3.OkHttpClient;
+import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.model.ErrorDTO;
 import org.openapitools.client.model.FullUserDTO;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.openapitools.client.model.UserDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +37,18 @@ import java.util.Map;
 public class ProfileApiTest {
 
     private final ProfileApi api = new ProfileApi();
+    private final AuthenticationApi authApi = new AuthenticationApi();
+
+    @BeforeEach
+    public void init() throws ApiException {
+
+        // Simulate the behavior of a web browser by remembering cookies set by the server
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        OkHttpClient okHttpClient = builder.cookieJar(new MyCookieJar()).build();
+        ApiClient apiClient = new ApiClient(okHttpClient);
+        api.setApiClient(apiClient);
+        authApi.setApiClient(apiClient);
+    }
 
     /**
      * Get the current information about the logged user
@@ -39,8 +57,24 @@ public class ProfileApiTest {
      */
     @Test
     public void userProfileGetTest() throws ApiException {
-        FullUserDTO response = api.userProfileGet();
-        // TODO: test validations
+        // Getting a profile without being signed in should fail with FORBIDDEN
+        FullUserDTO user = new FullUserDTO().login("testGet").password("test").remember(false).icon(1)
+                .firstname("test").lastname("test").birthday("10-10-2000").address("test0at0test");
+        authApi.userSignupPost(user);
+        try {
+            api.userProfileGet();
+        }
+        catch (ApiException e) {
+            Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
+        }
+        authApi.userSigninPost(new UserDTO().login("testGet").password("test").remember(false));
+        // Now signed in should success
+        FullUserDTO getuser = api.userProfileGet();
+        // Should be the same username
+        Assertions.assertEquals("testGet", getuser.getLogin());
+
+        // Delete to clean data
+        authApi.userDeleteDelete(new UserDTO().login("testGet").password("test").remember(false));
     }
 
     /**
@@ -50,9 +84,28 @@ public class ProfileApiTest {
      */
     @Test
     public void userProfilePatchTest() throws ApiException {
-        FullUserDTO fullUserDTO = null;
-        api.userProfilePatch(fullUserDTO);
-        // TODO: test validations
+        // Editing an user with a not correct password should fail with UNAUTHORIZED
+        FullUserDTO user = new FullUserDTO().login("testtModif").password("test").remember(false).icon(1)
+                .firstname("test").lastname("test").birthday("10-10-2000").address("test0at0test");
+        authApi.userSignupPost(user);
+        authApi.userSigninPost(new UserDTO().login("testtModif").password("test").remember(false));
+        try {
+            api.userProfilePatch(new FullUserDTO().login("testtModif").password("bad").remember(false).icon(3)
+                    .firstname("newName").lastname("test").birthday("10-10-2000").address("test0at0test"));
+        }
+        catch (ApiException e) {
+            Assertions.assertEquals(HttpStatus.SC_UNAUTHORIZED, e.getCode());
+        }
+
+        // Now with the good password should work
+        api.userProfilePatch(new FullUserDTO().login("testtModif").password("test").remember(false).icon(3)
+                .firstname("newName").lastname("test").birthday("10-10-2000").address("test0at0test"));
+        // Should be the new username
+        FullUserDTO getuser = api.userProfileGet();
+        Assertions.assertEquals("newName", getuser.getFirstname());
+
+        // Delete to clean data
+        authApi.userDeleteDelete(new UserDTO().login("testtModif").password("test").remember(false));
     }
 
     /**
@@ -62,8 +115,28 @@ public class ProfileApiTest {
      */
     @Test
     public void userShareMessageDeleteTest() throws ApiException {
+        // Deleting a status which doesn't exit should fail with GONE
+        FullUserDTO user = new FullUserDTO().login("testDel").password("test").remember(false).icon(1)
+                .firstname("test").lastname("test").birthday("10-10-2000").address("test0at0test");
+        authApi.userSignupPost(user);
+        authApi.userSigninPost(new UserDTO().login("testDel").password("test").remember(false));
+        try {
+            api.userShareMessageDelete();
+        }
+        catch (ApiException e) {
+            Assertions.assertEquals(HttpStatus.SC_GONE, e.getCode());
+        }
+
+        // Now when there is a status it should work
+        api.userShareMessagePost("Hello");
         api.userShareMessageDelete();
-        // TODO: test validations
+        // TODO get avec contact et vérifier qu'il est vide
+        /*
+        ContactProfileDTO getuser = api.userProfileGet();
+        Assertions.assertEquals("newName", getuser.getFirstname());*/
+
+        // Delete to clean data
+        authApi.userDeleteDelete(new UserDTO().login("testDel").password("test").remember(false));
     }
 
     /**
@@ -73,9 +146,26 @@ public class ProfileApiTest {
      */
     @Test
     public void userShareMessagePostTest() throws ApiException {
-        String body = null;
-        api.userShareMessagePost(body);
-        // TODO: test validations
+        //Posting a too long message should fail with BAD REQUEST
+        FullUserDTO user = new FullUserDTO().login("testShare").password("test").remember(false).icon(1)
+                .firstname("test").lastname("test").birthday("10-10-2000").address("test0at0test");
+        authApi.userSignupPost(user);
+        authApi.userSigninPost(new UserDTO().login("testShare").password("test").remember(false));
+        try {
+            api.userShareMessagePost("tooooooooooooooooooooo lonnnnnnnnnnnnnnnnnnnnnnnng !!!!!");
+        }
+        catch (ApiException e) {
+            Assertions.assertEquals(HttpStatus.SC_BAD_REQUEST, e.getCode());
+        }
+
+        // Now with a short message it should work
+        api.userShareMessagePost("Hello friends");
+        /* TODO ensuite : tester avec le getcontact que le sharemessage est le même
+        ContactProfileDTO getuser = contactApi.userProfileGet();
+        Assertions.assertEquals("Hello friends", getuser.()); */
+
+        // Delete to clean data
+        authApi.userDeleteDelete(new UserDTO().login("testShare").password("test").remember(false));
     }
 
 }
