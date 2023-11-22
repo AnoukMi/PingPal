@@ -174,7 +174,6 @@ public class MessageController {
 
   private final MessageService messageService;
 
-
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
   public MessageDTO messagePost(final Principal user, @Valid @RequestBody final NewMessageDTO newMessage) {
 

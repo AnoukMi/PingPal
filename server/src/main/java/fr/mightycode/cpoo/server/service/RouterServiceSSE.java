@@ -14,7 +14,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @Service
 @Slf4j
-@Primary
 public class RouterServiceSSE implements RouterService {
 
   private final WebClient webClient;
