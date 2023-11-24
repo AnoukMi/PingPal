@@ -22,12 +22,12 @@
   margin-top: 30%;
 }
 
-.send_button {
+.create_conv_button {
   position: relative;
   margin-top: 25%;
-  width:75px;
+  width:210px;
   height:6%;
-  left : 155%;
+  left : 130%;
   color: #ffffff;
   background-color: #813641;
   border-radius: 20px;

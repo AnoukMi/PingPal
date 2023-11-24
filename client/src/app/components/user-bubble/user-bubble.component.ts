@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import {MessageDTO} from "../../api";
 
 
 @Component({
@@ -7,10 +8,11 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./user-bubble.component.css']
 })
 export class UserBubbleComponent {
+  @Input() message!: MessageDTO;
 
-  @Input() author: string = '';
-  @Input() content: string = '';
-  @Input() date: string = '';
+  // @Input() author: string = '';
+  // @Input() body: string = '';
+  // @Input() date: string = '';
 
 
 }

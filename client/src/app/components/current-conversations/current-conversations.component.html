@@ -1,6 +1,7 @@
-  <div *ngFor="let contact of contacts">
+  <div *ngFor="let conv of recentConv">
     <div class="contact">
-      <app-contact-conversation-frame [contact] = "contact"
-                                      [statusMessage] = "false"></app-contact-conversation-frame>
+      <app-contact-conversation-frame [discussion]="conv"
+                                      [statusMessage] = "false"
+                                      [sentMessage] = "true"></app-contact-conversation-frame>
     </div>
   </div>

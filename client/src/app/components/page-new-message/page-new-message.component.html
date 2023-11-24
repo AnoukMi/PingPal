@@ -1,5 +1,5 @@
-<div class="text_title new_msg ">New&nbsp;message</div>
-<form [formGroup]="newMsgForm" (ngSubmit)="sendNewMessage()">
+<div class="text_title new_msg ">New&nbsp;conversation</div>
+<form [formGroup]="newConvForm" (ngSubmit)="createConversation()">
   <div class="bloc">
     <div class="search_contact">
       <div class="text_upper_box">To:</div>
@@ -10,7 +10,9 @@
       <app-user-writing-frame formControlName = "recipient" [placeholder]="'Enter the recipient\'s username'"
                               [type] = "'text'"></app-user-writing-frame>
     </div>
-    <div class="message">
+
+
+    <!-- <div class="message">
       <div class="text_upper_box">Message:</div>
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#7D7D7D" class="bi bi-envelope" viewBox="0 0 16 16"
            style="position:absolute;left:3.3%;margin-left:10px;top:58%">
@@ -19,13 +21,13 @@
       <app-user-writing-frame formControlName = "content" [placeholder]="'Enter your message'"
                               [type] = "'text'"
       ></app-user-writing-frame>
-    </div>
+    </div> -->
 
 
-    <div class="send_button">
+    <div class="create_conv_button">
       <a routerLink="conversation">
-        <button class="w3-button w3-ripple w3-hover-white w3-round-xxlarge" (click) = "sendNewMessage()"> <!-- Crée bouton-->
-          <div class="text_button">SEND</div></button> <!-- Applique style de texte sur texte bouton-->
+        <button class="w3-button w3-ripple w3-hover-white w3-round-xxlarge" (click) = "createConversation()">
+          <div class="text_button">CREATE CONVERSATION</div></button>
       </a>
     </div>
   </div>

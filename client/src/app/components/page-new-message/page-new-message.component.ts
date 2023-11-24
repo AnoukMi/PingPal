@@ -10,36 +10,39 @@ import { Router } from "@angular/router";
 })
 
 export class PageNewMessageComponent {
-  newMsgForm: FormGroup;
+  newConvForm: FormGroup;
   discussion!: Discussion;
 
   constructor(private formBuilder: FormBuilder,
               private discussionService: DiscussionService, private router: Router) {
 
-    this.newMsgForm = this.formBuilder.group({
-      recipient: ['', Validators.required],
-      content: ['', Validators.required]
+    this.newConvForm = this.formBuilder.group({
+      recipient: ['', Validators.required]
     });
   }
 
   /**
-   * Get a given field of the signup form by its name.
+   * Get a given field of the signup form by its name
    * @param name The name of the field to get
    * @return the field
    */
   getField(name: string) {
-    return this.newMsgForm.controls[name];
+    return this.newConvForm.controls[name];
   }
 
   /**
-   * Send new message to the given recipient
-   * Redirects to the conversation with the given recipient
-   *
+   * Create a new conversation with a given recipient then redirects to the created conversation
+   * If the conversation already exists, redirects to it
    */
-  sendNewMessage(){
-    this.discussionService.newDiscussion(this.getField('recipient').value);
-    this.router.navigate(['/conversation/', this.getField('recipient').value]);
-    this.discussionService.sendMessage(this.discussion, this.getField('content').value);
+  createConversation(){
+    // If the conversation already exists
+    if(this.discussionService.searchDiscussion(this.getField('recipient').value)){
+      this.router.navigate(['/conversation/', this.getField('recipient').value]);
+    }
+    // If it is a new conversation
+    else{
+      this.discussionService.newDiscussion(this.getField('recipient').value);
+      this.router.navigate(['/conversation/', this.getField('recipient').value]);
+    }
   }
-
 }

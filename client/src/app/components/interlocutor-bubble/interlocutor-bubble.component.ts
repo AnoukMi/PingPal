@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import {MessageDTO} from "../../api";
 
 @Component({
   selector: 'app-interlocutor-bubble',
@@ -6,9 +7,9 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./interlocutor-bubble.component.css']
 })
 export class InterlocutorBubbleComponent {
-
-  @Input() author: string = '';
-  @Input() content: string = '';
-  @Input() date: string = '';
+  @Input() message!: MessageDTO;
+  //@Input() author: string = '';
+  //@Input() body: string = '';
+  //@Input() date: string = '';
 
 }

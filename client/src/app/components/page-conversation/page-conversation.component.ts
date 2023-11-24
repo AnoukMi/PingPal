@@ -11,8 +11,8 @@ import { FormControl } from "@angular/forms";
 })
 export class PageConversationComponent{
   discussion!: Discussion;
-  messages: MessageDTO[] = [];
-  // @ViewChild('messageInput') messageInput!: ElementRef;
+  // messages: MessageDTO[] = [];
+  @ViewChild('messageInput') messageInput!: ElementRef;
   message = new FormControl();
 
   constructor(private discussionService: DiscussionService,
@@ -20,15 +20,15 @@ export class PageConversationComponent{
               private router: Router) {
 
     // Know which conversation to display
-    let recipient = '';
+    let _interlocutor = '';
     this.activatedRoute.params.subscribe(params => {
-      recipient = params['recipient'];
-      console.log(`### current conversation with ${recipient}`);
-    })
-    this.discussionService.newDiscussion(recipient);
-    this.router.navigate(['/conversation/', recipient]);
-    this.discussion = new Discussion({interlocutor: recipient, messages: []})
-    this.messages = this.discussion.messages;
+      _interlocutor = params['recipient'];
+      console.log(`### current conversation with ${_interlocutor}`);
+      this.discussion = this.discussionService.getDiscussion(_interlocutor);
+      this.router.navigate(['/conversation', _interlocutor]);
+    });
+    // this.discussion = new Discussion({interlocutor: recipient, messages: []})
+    // this.messages = this.discussion.messages;
 
   }
 
@@ -37,10 +37,10 @@ export class PageConversationComponent{
     if (!this.message.value?.trim()) return;
     // if(this.message == '') return;
 
-    this.discussionService.sendMessage(this.discussion, this.message.value);
+    this.discussionService.sendMessage(<Discussion>this.discussion, this.message.value);
 
     // Update the messages
-    this.messages = this.discussion.messages;
+    // this.messages = this.discussion.messages;
 
     // Clear the box to write messages
     this.message.setValue('');
