@@ -9,7 +9,7 @@ import { FormControl } from "@angular/forms";
   templateUrl: './page-conversation.component.html',
   styleUrls: ['./page-conversation.component.css']
 })
-export class PageConversationComponent{
+export class PageConversationComponent {
   discussion!: Discussion;
   conversation!: ConversationDTO;
   interlocutor: string = '';
@@ -31,6 +31,9 @@ export class PageConversationComponent{
       this.discussionService.getConversation(_interlocutor).subscribe(
         conversation => {
           this.conversation = conversation;
+        },
+        error => {
+          console.error(`### Erreur affectation de la conversation`, error);
         });
       this.interlocutor = _interlocutor;
       this.router.navigate(['/conversation', this.interlocutor]);

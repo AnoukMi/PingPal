@@ -28,11 +28,18 @@ export class Discussion {
 export class DiscussionService {
 
   public discussions: Discussion[] = []; // array of discussion (this object must never be reassigned)
+  public conversations: ConversationDTO[] = [];
 
   constructor(private userService: UserService,
               private messageService: MessageService,
               private conversationService: ConversationService) {
     console.debug('### DiscussionService()');
+
+    // We retrieve the conversations associated to the logged-in user
+    this.getConversations()
+      .subscribe(conv => {
+        this.conversations = conv;
+      });
   }
 
   /**
@@ -195,7 +202,8 @@ export class DiscussionService {
   sendMessageConversation(conversation: ConversationDTO, _interlocutor: string, body: string) {
     console.log(`### sendMessage() of DiscussionService() but with Conversation`);
     const newMessage: NewMessageDTO = {body: body, type: 'text/plain', to: _interlocutor};
-    this.messageService.userMessagePost(newMessage).subscribe(message => {
+    this.messageService.userMessagePost(newMessage)
+      .subscribe(message => {
       this.addMessageToConversation(conversation, message);
     });
     console.log(`### sending message`);
