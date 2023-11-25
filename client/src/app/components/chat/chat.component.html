@@ -11,6 +11,9 @@
                                    [message]="message">
           <!--[author] = "discussion.interlocutor" [body] = "message.body">
          [date]="message.date" --></app-interlocutor-bubble>
+          <div style="border: 1px solid #ccc; padding: 5px; margin: 5px;">
+            {{ message | json }}
+          </div>
 
           <!-- Otherwise, it is sent by the logged user ('me') and displayed as a user bubble component -->
           <app-user-bubble *ngSwitchDefault

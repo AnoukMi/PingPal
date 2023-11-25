@@ -31,7 +31,8 @@ export class CurrentConversationsComponent implements OnInit, OnDestroy {
       console.debug(`### new message notified`, message);
       this.changeDetectorRef.detectChanges();
       });
-    this.recentConv.sort((a, b) => b.date.getTime() - a.date.getTime());
+    // Next line is supposed to display the conversations by order of creation
+    // this.recentConv.sort((a, b) => b.date.getTime() - a.date.getTime());
   }
 
   ngOnDestroy() {

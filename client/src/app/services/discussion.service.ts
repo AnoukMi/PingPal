@@ -64,7 +64,7 @@ export class DiscussionService {
    */
   listenForNewMessages(stopListening: Observable<void>, onNewMessage: (message: MessageDTO) => void) {
 
-    let source = new EventSource("/serverapi/user/message");
+    let source = new EventSource("/serverapi/user/message/messages");
 
     source.onmessage = (event: MessageEvent) => {
 
@@ -135,8 +135,10 @@ export class DiscussionService {
    * @param body The content of the message
    */
   sendMessage(discussion: Discussion, body: string) {
+    console.log(`### sendMessage() of DiscussionService()`);
     const newMessage: NewMessageDTO = {body: body, type: 'text/plain', to: discussion.interlocutor };
     this.messageService.userMessagePost(newMessage).subscribe();
+    console.log(`### sending message`);
     // if (this.discussions.find(discussiontofind => discussion === discussiontofind)) {
     //
     //   // Send the message to the recipient by posting it into the server
@@ -172,6 +174,7 @@ export class DiscussionService {
 
     discussion = new Discussion({ interlocutor: _interlocutor, messages: []});
     this.discussions.push(discussion);
+  }
 
     // else{
     //
@@ -183,7 +186,7 @@ export class DiscussionService {
     //     this.discussions.push(discussion);
     //   });
     // }
-  }
+
 
   /** Return true if a discussion exists with the given parameter
     */

@@ -204,7 +204,7 @@ public class MessageController {
     return new MessageDTO(routerMessage);
   }
 
-  @GetMapping(value = "messages", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+  @GetMapping(value = "messages", produces = MediaType.APPLICATION_JSON_VALUE)
   public Flux<Message> messageGet(final Principal user) {
 
     // Get the message sink of the connected user and returrn it as a flux

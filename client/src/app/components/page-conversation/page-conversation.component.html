@@ -9,7 +9,10 @@
         <div class="userWritingBox">
             <!-- <app-user-writing-frame [(ngModel)]="message" [placeholder]="'Write your message'"
                                     [type]="'text'"></app-user-writing-frame> -->
-          <app-user-writing-frame #messageInput type="text" [formControl]="message" [placeholder]="'Write your message'"
+          <app-user-writing-frame (messageSent)= onMessageReceived($event)
+                                  type="text"
+                                  [placeholder]="'Write your message'"
+                                  [formControl]="message"
                                   [type]="'text'" (keyup.enter)="onSend()"></app-user-writing-frame>
         </div>
 

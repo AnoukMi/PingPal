@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { MessageDTO } from "../../api";
+import {MessageDTO, MessageService} from "../../api";
 import { Discussion, DiscussionService } from "../../services/discussion.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import { FormControl } from "@angular/forms";
@@ -15,7 +15,9 @@ export class PageConversationComponent{
   @ViewChild('messageInput') messageInput!: ElementRef;
   message = new FormControl();
 
+
   constructor(private discussionService: DiscussionService,
+              private messageService: MessageService,
               private activatedRoute: ActivatedRoute,
               private router: Router) {
 
@@ -38,11 +40,13 @@ export class PageConversationComponent{
     // if(this.message == '') return;
 
     this.discussionService.sendMessage(<Discussion>this.discussion, this.message.value);
-
-    // Update the messages
-    // this.messages = this.discussion.messages;
+    this.messageService.userMessageMessagesGet().subscribe(messages => {
+      this.discussion.messages = messages;
+      this.message.setValue('');
+    });
+    console.log(`### messages length : ${this.discussion.messages.length}`);
 
     // Clear the box to write messages
-    this.message.setValue('');
+
   }
 }
