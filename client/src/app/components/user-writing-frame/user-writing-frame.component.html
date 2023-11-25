@@ -1,7 +1,6 @@
 <form class="w3-container">
-  <input [(ngModel)] = "body"
+  <input
     class="w3-input w3-round-large box"
-         (ngModelChange)="sendMessage(body)"
          [placeholder]="placeholder"
          [type]="type"
          (input)="onInput($event)"

@@ -148,6 +148,7 @@ Class | Method | HTTP request | Description
  - [ErrorDTO](docs/ErrorDTO.md)
  - [FullUserDTO](docs/FullUserDTO.md)
  - [MessageDTO](docs/MessageDTO.md)
+ - [NewMessageDTO](docs/NewMessageDTO.md)
  - [UserDTO](docs/UserDTO.md)
 
 

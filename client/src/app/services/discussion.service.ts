@@ -137,7 +137,9 @@ export class DiscussionService {
   sendMessage(discussion: Discussion, body: string) {
     console.log(`### sendMessage() of DiscussionService()`);
     const newMessage: NewMessageDTO = {body: body, type: 'text/plain', to: discussion.interlocutor };
-    this.messageService.userMessagePost(newMessage).subscribe();
+    this.messageService.userMessagePost(newMessage).subscribe(message => {
+      discussion.messages.push(message);
+    });
     console.log(`### sending message`);
     // if (this.discussions.find(discussiontofind => discussion === discussiontofind)) {
     //

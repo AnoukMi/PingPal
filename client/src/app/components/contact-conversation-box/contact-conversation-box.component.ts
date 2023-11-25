@@ -14,11 +14,15 @@ export class ContactConversationBoxComponent {
   @Input() discussion!: Discussion;
   @Input() statusMessage: boolean = false;
   @Input() sentMessage: boolean = false;
+  hour: string = '';
 
   constructor(private router: Router) {
+    // const hours = this.discussion.date.getHours().toString().padStart(2, '0');
+    // const minutes = this.discussion.date.getMinutes().toString().padStart(2, '0');
+    // this.hour = `${hours}:${minutes}`;
   }
 
-  changeStatus(){
+  changeStatus() {
     this.statusMessage = !this.statusMessage;
     this.router.navigate(['/conversation', this.discussion.interlocutor]);
   }

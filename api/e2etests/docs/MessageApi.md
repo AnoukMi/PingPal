@@ -77,7 +77,7 @@ This endpoint does not need any parameter.
 
 <a id="userMessagePost"></a>
 # **userMessagePost**
-> userMessagePost(body)
+> userMessagePost(newMessageDTO)
 
 Send a message
 
@@ -105,9 +105,9 @@ public class Example {
     //CookieAuth.setApiKeyPrefix("Token");
 
     MessageApi apiInstance = new MessageApi(defaultClient);
-    Object body = null; // Object | 
+    NewMessageDTO newMessageDTO = new NewMessageDTO(); // NewMessageDTO | 
     try {
-      apiInstance.userMessagePost(body);
+      apiInstance.userMessagePost(newMessageDTO);
     } catch (ApiException e) {
       System.err.println("Exception when calling MessageApi#userMessagePost");
       System.err.println("Status code: " + e.getCode());
@@ -123,7 +123,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **body** | **Object**|  | |
+| **newMessageDTO** | [**NewMessageDTO**](NewMessageDTO.md)|  | |
 
 ### Return type
 

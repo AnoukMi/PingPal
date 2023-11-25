@@ -15,7 +15,6 @@ import {MessageService} from "../../api";
   ],
 })
 export class UserWritingFrameComponent implements ControlValueAccessor, OnInit {
-  body: string = '';
   @Input() placeholder: string = '';
   @Input() type: string = '';
 
@@ -23,10 +22,6 @@ export class UserWritingFrameComponent implements ControlValueAccessor, OnInit {
 
   @Output() messageSent = new EventEmitter<string>();
 
-  sendMessage(message: string) {
-    this.messageSent.emit(message);
-    this.body = '';
-  }
 
   onChange: any = () => {};
   onTouched: any = () => {};

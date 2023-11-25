@@ -31,7 +31,6 @@ export class PageConversationComponent{
     });
     // this.discussion = new Discussion({interlocutor: recipient, messages: []})
     // this.messages = this.discussion.messages;
-
   }
 
   onSend() {
@@ -42,11 +41,10 @@ export class PageConversationComponent{
     this.discussionService.sendMessage(<Discussion>this.discussion, this.message.value);
     this.messageService.userMessageMessagesGet().subscribe(messages => {
       this.discussion.messages = messages;
-      this.message.setValue('');
     });
     console.log(`### messages length : ${this.discussion.messages.length}`);
 
     // Clear the box to write messages
-
+    this.message.setValue('');
   }
 }

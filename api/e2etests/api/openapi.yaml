@@ -575,6 +575,21 @@ components:
       type: object
     NewMessageDTO:
       description: New message information
+      example:
+        to: lvhoa@pingpal
+        type: text/plain
+        body: This is the message
+      properties:
+        to:
+          example: lvhoa@pingpal
+          type: string
+        type:
+          example: text/plain
+          format: mime
+          type: string
+        body:
+          example: This is the message
+          type: string
       required:
       - body
       - to

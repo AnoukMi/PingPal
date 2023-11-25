@@ -290,12 +290,6 @@
             <version>${commons-lang3-version}</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5.13</version>
-        </dependency>
-
-        <dependency>
             <groupId>jakarta.annotation</groupId>
             <artifactId>jakarta.annotation-api</artifactId>
             <version>${jakarta-annotation-version}</version>
@@ -335,6 +329,17 @@
             <artifactId>mockito-core</artifactId>
             <version>${mockito-core-version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.16</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.2.13.Final</version>
         </dependency>
     </dependencies>
     <properties>

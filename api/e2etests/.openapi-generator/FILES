@@ -14,6 +14,7 @@ docs/ErrorDTO.md
 docs/FullUserDTO.md
 docs/MessageApi.md
 docs/MessageDTO.md
+docs/NewMessageDTO.md
 docs/ProfileApi.md
 docs/UserDTO.md
 git_push.sh
@@ -53,4 +54,6 @@ src/main/java/org/openapitools/client/model/ConversationDTO.java
 src/main/java/org/openapitools/client/model/ErrorDTO.java
 src/main/java/org/openapitools/client/model/FullUserDTO.java
 src/main/java/org/openapitools/client/model/MessageDTO.java
+src/main/java/org/openapitools/client/model/NewMessageDTO.java
 src/main/java/org/openapitools/client/model/UserDTO.java
+src/test/java/org/openapitools/client/model/NewMessageDTOTest.java

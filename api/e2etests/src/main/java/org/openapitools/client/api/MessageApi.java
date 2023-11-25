@@ -29,6 +29,7 @@ import java.io.IOException;
 
 import org.openapitools.client.model.ErrorDTO;
 import org.openapitools.client.model.MessageDTO;
+import org.openapitools.client.model.NewMessageDTO;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -196,7 +197,7 @@ public class MessageApi {
     }
     /**
      * Build call for userMessagePost
-     * @param body  (required)
+     * @param newMessageDTO  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -207,7 +208,7 @@ public class MessageApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userMessagePostCall(Object body, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call userMessagePostCall(NewMessageDTO newMessageDTO, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -221,7 +222,7 @@ public class MessageApi {
             basePath = null;
         }
 
-        Object localVarPostBody = body;
+        Object localVarPostBody = newMessageDTO;
 
         // create path and map variables
         String localVarPath = "/user/message";
@@ -253,20 +254,20 @@ public class MessageApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call userMessagePostValidateBeforeCall(Object body, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'body' is set
-        if (body == null) {
-            throw new ApiException("Missing the required parameter 'body' when calling userMessagePost(Async)");
+    private okhttp3.Call userMessagePostValidateBeforeCall(NewMessageDTO newMessageDTO, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'newMessageDTO' is set
+        if (newMessageDTO == null) {
+            throw new ApiException("Missing the required parameter 'newMessageDTO' when calling userMessagePost(Async)");
         }
 
-        return userMessagePostCall(body, _callback);
+        return userMessagePostCall(newMessageDTO, _callback);
 
     }
 
     /**
      * Send a message
      * Send a message on behalf of the signed-in user
-     * @param body  (required)
+     * @param newMessageDTO  (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -275,14 +276,14 @@ public class MessageApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public void userMessagePost(Object body) throws ApiException {
-        userMessagePostWithHttpInfo(body);
+    public void userMessagePost(NewMessageDTO newMessageDTO) throws ApiException {
+        userMessagePostWithHttpInfo(newMessageDTO);
     }
 
     /**
      * Send a message
      * Send a message on behalf of the signed-in user
-     * @param body  (required)
+     * @param newMessageDTO  (required)
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -292,15 +293,15 @@ public class MessageApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> userMessagePostWithHttpInfo(Object body) throws ApiException {
-        okhttp3.Call localVarCall = userMessagePostValidateBeforeCall(body, null);
+    public ApiResponse<Void> userMessagePostWithHttpInfo(NewMessageDTO newMessageDTO) throws ApiException {
+        okhttp3.Call localVarCall = userMessagePostValidateBeforeCall(newMessageDTO, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      * Send a message (asynchronously)
      * Send a message on behalf of the signed-in user
-     * @param body  (required)
+     * @param newMessageDTO  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -311,9 +312,9 @@ public class MessageApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userMessagePostAsync(Object body, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call userMessagePostAsync(NewMessageDTO newMessageDTO, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = userMessagePostValidateBeforeCall(body, _callback);
+        okhttp3.Call localVarCall = userMessagePostValidateBeforeCall(newMessageDTO, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
