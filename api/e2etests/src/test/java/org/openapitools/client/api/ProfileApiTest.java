@@ -59,7 +59,7 @@ public class ProfileApiTest {
     public void userProfileGetTest() throws ApiException {
         // Getting a profile without being signed in should fail with FORBIDDEN
         FullUserDTO user = new FullUserDTO().login("testGet").password("test").remember(false).icon(1)
-                .firstname("test").lastname("test").birthday("10-10-2000").address("test0at0test");
+                .firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
         authApi.userSignupPost(user);
         try {
             api.userProfileGet();
@@ -86,12 +86,12 @@ public class ProfileApiTest {
     public void userProfilePatchTest() throws ApiException {
         // Editing an user with a not correct password should fail with UNAUTHORIZED
         FullUserDTO user = new FullUserDTO().login("testtModif").password("test").remember(false).icon(1)
-                .firstname("test").lastname("test").birthday("10-10-2000").address("test0at0test");
+                .firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
         authApi.userSignupPost(user);
         authApi.userSigninPost(new UserDTO().login("testtModif").password("test").remember(false));
         try {
             api.userProfilePatch(new FullUserDTO().login("testtModif").password("bad").remember(false).icon(3)
-                    .firstname("newName").lastname("test").birthday("10-10-2000").address("test0at0test"));
+                    .firstname("newName").lastname("test").birthday("10-10-2000").address("test@test"));
         }
         catch (ApiException e) {
             Assertions.assertEquals(HttpStatus.SC_UNAUTHORIZED, e.getCode());
@@ -99,7 +99,7 @@ public class ProfileApiTest {
 
         // Now with the good password should work
         api.userProfilePatch(new FullUserDTO().login("testtModif").password("test").remember(false).icon(3)
-                .firstname("newName").lastname("test").birthday("10-10-2000").address("test0at0test"));
+                .firstname("newName").lastname("test").birthday("10-10-2000").address("test@test"));
         // Should be the new username
         FullUserDTO getuser = api.userProfileGet();
         Assertions.assertEquals("newName", getuser.getFirstname());
@@ -117,7 +117,7 @@ public class ProfileApiTest {
     public void userShareMessageDeleteTest() throws ApiException {
         // Deleting a status which doesn't exit should fail with GONE
         FullUserDTO user = new FullUserDTO().login("testDel").password("test").remember(false).icon(1)
-                .firstname("test").lastname("test").birthday("10-10-2000").address("test0at0test");
+                .firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
         authApi.userSignupPost(user);
         authApi.userSigninPost(new UserDTO().login("testDel").password("test").remember(false));
         try {
@@ -148,7 +148,7 @@ public class ProfileApiTest {
     public void userShareMessagePostTest() throws ApiException {
         //Posting a too long message should fail with BAD REQUEST
         FullUserDTO user = new FullUserDTO().login("testShare").password("test").remember(false).icon(1)
-                .firstname("test").lastname("test").birthday("10-10-2000").address("test0at0test");
+                .firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
         authApi.userSignupPost(user);
         authApi.userSigninPost(new UserDTO().login("testShare").password("test").remember(false));
         try {
