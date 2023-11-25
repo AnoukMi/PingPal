@@ -1,6 +1,6 @@
-  <div *ngFor="let conv of recentConv">
+  <div *ngFor="let conv of recentConversations">
     <div class="contact">
-      <app-contact-conversation-frame [discussion]="conv"
+      <app-contact-conversation-frame [conversation]="conv"
                                       [statusMessage] = "false"
                                       [sentMessage] = "false"></app-contact-conversation-frame>
     </div>

@@ -64,18 +64,28 @@ export class DiscussionService {
    */
   listenForNewMessages(stopListening: Observable<void>, onNewMessage: (message: MessageDTO) => void) {
 
-    let source = new EventSource("/serverapi/user/message/messages");
+    let source = new EventSource("/serverapi/user/message");
 
     source.onmessage = (event: MessageEvent) => {
 
       // Build the message from received data
       const message = JSON.parse(event.data);
 
-      // Get the discussion related to the message
-      const discussion = this.getTargetDiscussion(message);
+      // Get the conversation associated to the interlocutor
+      const conversation =
+        this.conversationService.userConversationInterlocutorGet(message.to()).subscribe(
+          conv => {
+            // Add the message to the conversation
+            this.addMessageToConversation(conv, message);
+            // conv.messages.push(message);
+          }
+        );
 
-      // Add the message to the discussion
-      this.addMessageToDiscussion(discussion, message);
+      // // Get the discussion related to the message
+      // const discussion = this.getTargetDiscussion(message);
+      //
+      // // Add the message to the discussion
+      // this.addMessageToDiscussion(discussion, message);
 
       // Notify the new message
       onNewMessage(message);
@@ -102,7 +112,7 @@ export class DiscussionService {
 
     // If no discussion has been found, create a new one and add it to the array of discussions
     if (!discussion) {
-      discussion = new Discussion({ interlocutor: _interlocutor, messages: [] });
+      discussion = new Discussion({interlocutor: _interlocutor, messages: []});
       this.discussions.push(discussion);
     }
 
@@ -129,6 +139,26 @@ export class DiscussionService {
       discussion.messages.push(message);
   }
 
+  /**
+   * Add a message at the beginning or at the end of a discussion.
+   * If the message is already present, nothing is done.
+   * @param conversation The discussion
+   * @param message The message
+   * @param beginning True if the message must be added at the beginning of the discussion (default: false)
+   */
+  private addMessageToConversation(conversation: ConversationDTO, message: MessageDTO, beginning = false) {
+
+    // If a message with the same id is already present in the discussion, nothing to do
+    if (conversation.messages.find(m => m.id == message.id))
+      return;
+
+    // Add the message to the discussion
+    if (beginning)
+      conversation.messages.unshift(message);
+    else
+      conversation.messages.push(message);
+  }
+
   /** Send a message to an interlocutor
    *
    * @param discussion The discussion between logged user and targeted interlocutor
@@ -136,7 +166,7 @@ export class DiscussionService {
    */
   sendMessage(discussion: Discussion, body: string) {
     console.log(`### sendMessage() of DiscussionService()`);
-    const newMessage: NewMessageDTO = {body: body, type: 'text/plain', to: discussion.interlocutor };
+    const newMessage: NewMessageDTO = {body: body, type: 'text/plain', to: discussion.interlocutor};
     this.messageService.userMessagePost(newMessage).subscribe(message => {
       discussion.messages.push(message);
     });
@@ -154,6 +184,21 @@ export class DiscussionService {
     //       // Mettre le statusMessage à false
     //     });
     // }
+  }
+
+  /** Send a message to an interlocutor
+   *
+   * @param conversation The discussion between logged user and targeted interlocutor
+   * @param _interlocutor The address of the interlocutor
+   * @param body The content of the message
+   */
+  sendMessageConversation(conversation: ConversationDTO, _interlocutor: string, body: string) {
+    console.log(`### sendMessage() of DiscussionService() but with Conversation`);
+    const newMessage: NewMessageDTO = {body: body, type: 'text/plain', to: _interlocutor};
+    this.messageService.userMessagePost(newMessage).subscribe(message => {
+      this.addMessageToConversation(conversation, message);
+    });
+    console.log(`### sending message`);
   }
 
   /**
@@ -174,21 +219,20 @@ export class DiscussionService {
       return;
     }
 
-    discussion = new Discussion({ interlocutor: _interlocutor, messages: []});
+    discussion = new Discussion({interlocutor: _interlocutor, messages: []});
     this.discussions.push(discussion);
   }
 
-    // else{
-    //
-    // // Also add new conversation to the server : return a DTO
-    // this.conversationService.userConversationNewConversationInterlocutorPost(encodeURIComponent(recipientAddress))
-    //   .subscribe(conversation => {
-    //     discussion = new Discussion({interlocutor: conversation.peerAddress, messages: []})
-    //     console.log(`### ${conversation} added to the server`);
-    //     this.discussions.push(discussion);
-    //   });
-    // }
 
+  /**
+   * Create a conversation with a given interlocutor if it does not exist already
+   * @param _interlocutor The address of the interlocutor
+   */
+  newConversation(_interlocutor: string){
+    console.debug(`### creation of the conversation with ${_interlocutor}`);
+
+    this.conversationService.userConversationNewConversationInterlocutorPost(_interlocutor);
+  }
 
   /** Return true if a discussion exists with the given parameter
     */
@@ -214,14 +258,10 @@ export class DiscussionService {
   }
 
   getConversation(recipient: string) {
-    return this.conversationService.userConversationLoginGet(recipient);
+    return this.conversationService.userConversationInterlocutorGet(recipient);
   }
 
   getConversations(){
     return this.conversationService.userConversationConversationsGet();
   }
-
-  // getMessages(recipient: string){
-  //   return this.messageService.userMessageUserIDMessagesGet(encodeURIComponent(recipient));
-  // }
 }

@@ -8,13 +8,20 @@ import fr.mightycode.cpoo.server.model.Conversation;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public interface ConversationRepository extends JpaRepository<Conversation, String>{
-  Optional<Conversation> findById(String id);
-  @Query("SELECT c FROM Conversation c WHERE c.userData = :userData ORDER BY c.lastMsgDate DESC")
-  List<Conversation> findByUserDataOrderByLastMsgDateDesc(UserData userData);
-  @Query("SELECT c FROM Conversation c WHERE c.userData = :userData")
-  List<Conversation> findByUserData(UserData userData);
+  Optional<Conversation> findByUser1AndUser2(String user1, String user2);
+
+  List<Conversation> findByUser1(String user1);
+
+  List<Conversation> findByUser2(String user2);
+
+
+//  @Query("SELECT c FROM Conversation c WHERE c.userData = :userData ORDER BY c.lastMsgDate DESC")
+//  List<Conversation> findByUserDataOrderByLastMsgDateDesc(UserData userData);
+//  @Query("SELECT c FROM Conversation c WHERE c.userData = :userData")
+//  List<Conversation> findByUserData(UserData userData);
 
 }

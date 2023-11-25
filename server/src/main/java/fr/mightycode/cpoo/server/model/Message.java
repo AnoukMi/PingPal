@@ -127,10 +127,15 @@
 
 package fr.mightycode.cpoo.server.model;
 
+import fr.mightycode.cpoo.server.dto.ConversationDTO;
 import fr.mightycode.cpoo.server.service.RouterService;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.UUID;
 
 @Data
@@ -155,6 +160,9 @@ public class Message {
 
   @Column(name = "body", nullable = false)
   private String body;    // body (BASE64 encoded for binary types)
+
+  @ManyToOne
+  private Conversation conversation;
 
   public Message() {
   }

@@ -1,27 +1,35 @@
-
 <div style="width:100%; top: 21%; left: 40%;">
+<!--  <div class="chat w3-round-xlarge">-->
+<!--    <div class="toscroll">-->
+<!--      &lt;!&ndash; Handle the appearance of the message, if it is sent by the interlocutor or by the logged user &ndash;&gt;-->
+<!--      <div *ngFor="let message of discussion.messages">-->
+
+<!--        <ng-container [ngSwitch]="message.from">-->
+<!--          &lt;!&ndash; If it is a received message, it is displayed on left as an interlocutor bubble component &ndash;&gt;-->
+<!--          <app-interlocutor-bubble *ngSwitchCase="discussion.interlocutor"-->
+<!--                                   [message]="message"></app-interlocutor-bubble>-->
+
+<!--          &lt;!&ndash; Otherwise, it is sent by the logged user ('me') and displayed as a user bubble component &ndash;&gt;-->
+<!--          <app-user-bubble *ngSwitchDefault-->
+<!--                           [message]="message"></app-user-bubble>-->
+<!--        </ng-container>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
   <div class="chat w3-round-xlarge">
     <div class="toscroll">
       <!-- Handle the appearance of the message, if it is sent by the interlocutor or by the logged user -->
-      <div *ngFor="let message of discussion.messages">
+      <div *ngFor="let message of conversation.messages">
 
         <ng-container [ngSwitch]="message.from">
           <!-- If it is a received message, it is displayed on left as an interlocutor bubble component -->
-          <app-interlocutor-bubble *ngSwitchCase="discussion.interlocutor"
-                                   [message]="message">
-          <!--[author] = "discussion.interlocutor" [body] = "message.body">
-         [date]="message.date" --></app-interlocutor-bubble>
-          <div style="border: 1px solid #ccc; padding: 5px; margin: 5px;">
-            {{ message | json }}
-          </div>
+          <app-interlocutor-bubble *ngSwitchCase="interlocutor"
+                                   [message]="message"></app-interlocutor-bubble>
 
           <!-- Otherwise, it is sent by the logged user ('me') and displayed as a user bubble component -->
           <app-user-bubble *ngSwitchDefault
-                           [message]="message">
-          <!--[author] ="'me'" [body] = "message.body">
-           [date]="message.date" --></app-user-bubble>
+                           [message]="message"></app-user-bubble>
         </ng-container>
-
       </div>
     </div>
   </div>

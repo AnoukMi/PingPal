@@ -110,6 +110,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
+
   /user/conversation/conversations:
     get:
       summary: Retrieve all conversations (headers) between the current user and others
@@ -163,13 +164,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-  /user/conversation/{login}:
+  /user/conversation/{interlocutor}:
     get:
       summary: Search an existing conversation (the header) with a given user
       tags:
         - conversation
       parameters:
-        - name: login
+        - name: interlocutor
           in: path
           description: Username or peer address of the interlocutor from whom we want to retrieve the conversation
           required: true
@@ -197,7 +198,7 @@ paths:
       tags:
         - conversation
       parameters:
-        - name: login
+        - name: interlocutor
           in: path
           description: Username or peer address of the interlocutor from whom we want to delete the conversation
           required: true
@@ -561,20 +562,33 @@ components:
     ConversationDTO:
       type: object
       properties:
-        userID:
+        id:
           type: string
-          description: Username of the interlocutor
-          example: ambre_lv
-        peerAddress:
+          format: uuid
+          description: Id of the conversation
+          example: 667bdc23-3de4-482f-a0f4-3391452a7742
+        user1:
           type: string
-          example: alv@domain
+          description : one of the two users involved in the conversation
+          example: alv@pingpal
+        user2:
+          type: string
+          description : one of the two users involved in the conversation
+          example: anmi@pingpal
         lastMessageDate:
           type: string
           description : Date of the last sent message to be able to sort conversations from the newest to the oldest
           example: 10-10-2023 12:30:22
+        messagesDTOS:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageDTO'
+          description: List of messages exchanged in the conversation
       required:
-        - peerAddress
+        - user1
+        - user2
         - lastMessageDate
+        - messages
 
     NewMessageDTO:
       description: New message information

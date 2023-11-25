@@ -1,14 +1,31 @@
-    <script src="page-conversation.component.ts"></script>
-    <div class="text_title contact_name ">{{ discussion.interlocutor }}</div>
+<script src="page-conversation.component.ts"></script>
+<!--    <div class="text_title contact_name ">{{ discussion.interlocutor }}</div>-->
+
+<!--      <div class="chat w3-round-xlarge">-->
+<!--        <div class="toscroll">-->
+<!--          <app-chat [discussion] = "discussion">&lt;!&ndash;[messages] = "messages" &ndash;&gt;</app-chat>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--        <div class="userWritingBox">-->
+<!--            &lt;!&ndash; <app-user-writing-frame [(ngModel)]="message" [placeholder]="'Write your message'"-->
+<!--                                    [type]="'text'"></app-user-writing-frame> &ndash;&gt;-->
+<!--          <app-user-writing-frame #messageInput-->
+<!--                                  type="text"-->
+<!--                                  [placeholder]="'Write your message'"-->
+<!--                                  [formControl]="message"-->
+<!--                                  [type]="'text'" (keyup.enter)="onSend()"></app-user-writing-frame>-->
+
+<!--        </div>-->
+
+    <div class="text_title contact_name ">{{ interlocutor }}</div>
 
       <div class="chat w3-round-xlarge">
         <div class="toscroll">
-          <app-chat [discussion] = "discussion"><!--[messages] = "messages" --></app-chat>
+          <app-chat [conversation]="conversation" [interlocutor]="interlocutor">
+            <!-- [discussion] = "discussion"[messages] = "messages" --></app-chat>
         </div>
       </div>
         <div class="userWritingBox">
-            <!-- <app-user-writing-frame [(ngModel)]="message" [placeholder]="'Write your message'"
-                                    [type]="'text'"></app-user-writing-frame> -->
           <app-user-writing-frame #messageInput
                                   type="text"
                                   [placeholder]="'Write your message'"

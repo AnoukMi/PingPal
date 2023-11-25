@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {MessageDTO, MessageService} from "../../api";
+import {ConversationDTO, MessageDTO, MessageService} from "../../api";
 import { Discussion, DiscussionService } from "../../services/discussion.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import { FormControl } from "@angular/forms";
@@ -11,7 +11,8 @@ import { FormControl } from "@angular/forms";
 })
 export class PageConversationComponent{
   discussion!: Discussion;
-  // messages: MessageDTO[] = [];
+  conversation!: ConversationDTO;
+  interlocutor: string = '';
   @ViewChild('messageInput') messageInput!: ElementRef;
   message = new FormControl();
 
@@ -26,11 +27,14 @@ export class PageConversationComponent{
     this.activatedRoute.params.subscribe(params => {
       _interlocutor = params['recipient'];
       console.log(`### current conversation with ${_interlocutor}`);
-      this.discussion = this.discussionService.getDiscussion(_interlocutor);
-      this.router.navigate(['/conversation', _interlocutor]);
+      // this.discussion = this.discussionService.getDiscussion(_interlocutor);
+      this.discussionService.getConversation(_interlocutor).subscribe(
+        conversation => {
+          this.conversation = conversation;
+        });
+      this.interlocutor = _interlocutor;
+      this.router.navigate(['/conversation', this.interlocutor]);
     });
-    // this.discussion = new Discussion({interlocutor: recipient, messages: []})
-    // this.messages = this.discussion.messages;
   }
 
   onSend() {
@@ -38,11 +42,12 @@ export class PageConversationComponent{
     if (!this.message.value?.trim()) return;
     // if(this.message == '') return;
 
-    this.discussionService.sendMessage(<Discussion>this.discussion, this.message.value);
-    this.messageService.userMessageMessagesGet().subscribe(messages => {
-      this.discussion.messages = messages;
-    });
-    console.log(`### messages length : ${this.discussion.messages.length}`);
+    // this.discussionService.sendMessage(<Discussion>this.discussion, this.message.value);
+    this.discussionService.sendMessageConversation(<ConversationDTO>this.conversation, this.interlocutor, this.message.value);
+    // this.messageService.userMessageMessagesGet().subscribe(messages => {
+    //   this.discussion.messages = messages;
+    //   console.log(`### messages length : ${this.discussion.messages.length}`);
+    // });
 
     // Clear the box to write messages
     this.message.setValue('');

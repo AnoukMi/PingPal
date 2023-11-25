@@ -35,7 +35,7 @@ public class UserData {
     )
     private List<UserData> friends; //liste d'amis de l'user
 
-  @OneToMany(mappedBy = "userData", cascade = CascadeType.ALL) //cascade pour que supprimer un user supprime toutes ses convs
+  @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL) // cascade pour que supprimer un user supprime toutes ses convs
   private List<Conversation> conversations;
 
     public UserData() {
@@ -52,62 +52,5 @@ public class UserData {
         this.sharedMessage = sharedMessage;
         this.friends = new ArrayList<>();
         this.conversations = new ArrayList<>();
-    }
-
-
-    //getters et setters
-    public String getLogin() {
-        return login;
-    }
-    public void setLogin(String login) {
-        this.login = login;
-    }
-    public int getIcon() {
-        return icon;
-    }
-    public void setIcon(int icon) {
-        this.icon = icon;
-    }
-    public String getFirstname() {
-        return firstname;
-    }
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-    public String getLastname() {
-        return lastname;
-    }
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-    public LocalDate getBirthday() {
-        return birthday;
-    }
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
-    }
-    public String getAddress() {
-        return address;
-    }
-    public void setAddress(String address) {
-        this.address = address;
-    }
-    public String getSharedMessage() {
-        return sharedMessage;
-    }
-    public void setSharedMessage(String sharedMessage) {
-        this.sharedMessage = sharedMessage;
-    }
-    public List<UserData> getFriends() {
-        return friends;
-    }
-    public void setFriends(List<UserData> friends) {
-        this.friends = friends;
-    }
-    public List<Conversation> getConversations(){
-      return conversations;
-    }
-    public void setConversations(List<Conversation> conversations){
-      this.conversations = conversations;
     }
 }

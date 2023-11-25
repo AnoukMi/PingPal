@@ -11,6 +11,7 @@ import {Subject} from "rxjs";
 })
 export class CurrentConversationsComponent implements OnInit, OnDestroy {
   recentConv!: Discussion[];
+  recentConversations! : ConversationDTO[];
   selectedConv!: string;
 
   private stopListening = new Subject<void>();
@@ -18,12 +19,16 @@ export class CurrentConversationsComponent implements OnInit, OnDestroy {
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private messageService: MessageService,
               private discussionService: DiscussionService){
-    this.recentConv = this.discussionService.discussions;
+    // this.recentConv = this.discussionService.discussions;
+    this.discussionService.getConversations()
+      .subscribe(conversations =>  {
+        this.recentConversations = conversations;
+      });
   }
 
   async ngOnInit(){
     // Wait for all discussions to be initialized
-    await this.discussionService.initializeDiscussions();
+    // await this.discussionService.initializeDiscussions();
 
     // Start listening for new messages and updating discussions
     this.discussionService.listenForNewMessages(this.stopListening,

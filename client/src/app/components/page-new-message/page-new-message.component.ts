@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Discussion, DiscussionService } from "../../services/discussion.service";
 import { Router } from "@angular/router";
+import {ConversationService} from "../../api";
 
 @Component({
   selector: 'app-page-new-conversation',
@@ -11,10 +12,10 @@ import { Router } from "@angular/router";
 
 export class PageNewMessageComponent {
   newConvForm: FormGroup;
-  discussion!: Discussion;
 
   constructor(private formBuilder: FormBuilder,
-              private discussionService: DiscussionService, private router: Router) {
+              private discussionService: DiscussionService,
+              private router: Router) {
 
     this.newConvForm = this.formBuilder.group({
       recipient: ['', Validators.required]
@@ -35,14 +36,16 @@ export class PageNewMessageComponent {
    * If the conversation already exists, redirects to it
    */
   createConversation(){
-    // If the conversation already exists
-    if(this.discussionService.searchDiscussion(this.getField('recipient').value)){
-      this.router.navigate(['/conversation/', this.getField('recipient').value]);
-    }
-    // If it is a new conversation
-    else{
-      this.discussionService.newDiscussion(this.getField('recipient').value);
-      this.router.navigate(['/conversation/', this.getField('recipient').value]);
-    }
+    // // If the conversation already exists
+    // if(this.discussionService.searchDiscussion(this.getField('recipient').value)){
+    //   this.router.navigate(['/conversation/', this.getField('recipient').value]);
+    // }
+    // // If it is a new conversation
+    // else{
+    //   this.discussionService.newDiscussion(this.getField('recipient').value);
+    //   this.router.navigate(['/conversation/', this.getField('recipient').value]);
+    // }
+    this.discussionService.newConversation(this.getField('recipient').value);
+    this.router.navigate(['/conversation/', this.getField('recipient').value]);
   }
 }

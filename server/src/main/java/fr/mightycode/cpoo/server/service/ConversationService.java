@@ -1,10 +1,12 @@
 package fr.mightycode.cpoo.server.service;
 
 import fr.mightycode.cpoo.server.model.Conversation;
+import fr.mightycode.cpoo.server.model.Message;
 import fr.mightycode.cpoo.server.model.UserData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import fr.mightycode.cpoo.server.repository.ConversationRepository;
 import fr.mightycode.cpoo.server.repository.UserRepository;
@@ -12,7 +14,6 @@ import fr.mightycode.cpoo.server.dto.ConversationDTO;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -23,81 +24,103 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ConversationService {
 
-    @Autowired
-    private final ConversationRepository conversationRepository;
-    @Autowired
-    private final UserRepository userRepository;
+  @Autowired
+  private final ConversationRepository conversationRepository;
+  @Autowired
+  private final UserRepository userRepository;
 
-    /**
-     * Retrieve a list of all conversations with the current logged user
-     * @param login The current user logged in
-     * @return The list of conversations
-     */
-    public List<ConversationDTO> getConversations(String login) {
-      UserData userData = userRepository.findByLogin(login);
-      List<Conversation> conversations = conversationRepository.findByUserDataOrderByLastMsgDateDesc(userData);
+  /**
+   * Retrieve a list of all conversations with the current logged user
+   *
+   * @param user The current user logged in
+   * @return The list of conversations
+   */
+  public List<ConversationDTO> getConversations(String user) {
+    // Find the UserData associated with the parameter user
+    // UserData userData = userRepository.findByLogin(user);
 
-      List<ConversationDTO> conversationDTOS = conversations.stream()
-        .map(ConversationDTO::new)
-        .collect(Collectors.toList());
+    // Then find all of their conversations
 
-      //si l'user a des conversations mais que la liste est toujours vide, pb
-      if (conversationDTOS.isEmpty()&&!userData.getConversations().isEmpty()) {
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversations not found");
-      }
+    // First, find the conversations where user is the user1
+    List<Conversation> conversations = conversationRepository.findByUser1(user);
 
-      return conversationDTOS;
+    // Then, where user is the user2
+    List<Conversation> conversations2 = conversationRepository.findByUser2(user);
+
+    // Then concatenate both lists
+    conversations.addAll(conversations2);
+    // conversationRepository.findByUserDataOrderByLastMsgDateDesc(userData);
+
+    List<ConversationDTO> conversationDTOS = conversations.stream()
+      .map(ConversationDTO::new)
+      .collect(Collectors.toList());
+
+    // If the user has conversations but the list is still empty
+    //if (conversationDTOS.isEmpty() && !userData.getConversations().isEmpty()) {
+    //  throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversations not found");
+    //}
+
+    return conversationDTOS;
+  }
+
+
+  /**
+   * Create a new conversation with a given user
+   *
+   * @param user         The logged-in user
+   * @param interlocutor The interlocutor address
+   */
+  public ConversationDTO createEmptyConversation(String user, String interlocutor) {
+    // If a conversation already has user and interlocutor as its user1 and user2, we don't create a new one
+    if (conversationRepository.findByUser1AndUser2(user, interlocutor).isPresent() ||
+      conversationRepository.findByUser1AndUser2(interlocutor, user).isPresent()) {
+      throw new ResponseStatusException(HttpStatus.CONFLICT, "A conversation with this user already exists");
+    }
+    Conversation conversation;
+
+    UserData userData1 = userRepository.findByLogin(getLogin(user));
+    String login = logMember(interlocutor);
+    if(login==null){
+      conversation = new Conversation(user, interlocutor, LocalDateTime.now(), userData1);
+    }else {
+      // We naturally put the logged-in user as the user1 since it is the one that initiated the communication
+      UserData userData2 = userRepository.findByLogin(getLogin(interlocutor));
+      conversation = new Conversation(user, interlocutor, LocalDateTime.now(), userData1, userData2);
     }
 
-
-    /**
-     * Create a new conversation with a given user
-     * @param address The interlocutor address
-     * @param user The current user
-     */
-    public ConversationDTO createEmptyConversation(String user, String address){
-      if(conversationRepository.findById(user + address).isPresent()){ //user+recipient+0at0pingpal
-        throw new ResponseStatusException(HttpStatus.CONFLICT, "A conversation with this user already exists");
-      }
-
-      //si aucune conv avec cet utilisateur n'existe, on la crée
-      UserData user1 = userRepository.findByLogin(user); //le fait de charger l'user devrait màj automatiquement sa liste de conv
-      Conversation conversation = new Conversation(user+address,address, LocalDateTime.now(),user1);
-      //id unique composé des 2 utilisateurs (avec le domaine du second)
-      conversationRepository.save(conversation);
-
-      String interlocutor = logMember(address); //renvoie null si pas membre de Pingpal, sinon son username
-      if (interlocutor!=null) { //si appartient à l'application, il faut aussi ajouter la conversation dans la BDD pour l'interlocuteur
-        //seulement si n'existe pas déjà dans BDD du destinataire
-        if(conversationRepository.findById(interlocutor + user + "0at0pingpal").isEmpty()) {
-          UserData user2 = userRepository.findByLogin(interlocutor); //le fait de charger l'user devrait màj automatiquement sa liste de conv
-          Conversation conversationDest = new Conversation(interlocutor+user+"0at0pingpal",user+"0at0pingpal",conversation.getLastMsgDate(),user2);
-          conversationRepository.save(conversationDest);
-        }
-      }
-
-      return new ConversationDTO(conversation);
-    }
+    conversationRepository.save(conversation);
+    return new ConversationDTO(conversation);
+  }
 
 
   /**
    * Search and get an existing conversation with a given user
    *
-   * @param loggedUser The current user logged in
-   * @param address The given user address (interlocutor)
+   * @param user         The current user logged in
+   * @param interlocutor The address of the interlocutor
    * @return The conversationDTO that corresponds
    */
-  public ConversationDTO getOneConversation(String loggedUser, String address){
-    UserData userData = userRepository.findByLogin(loggedUser);
-    List<Conversation> conversations = conversationRepository.findByUserData(userData);
+  public ConversationDTO getOneConversation(String user, String interlocutor) {
+    // UserData userData = userRepository.findByLogin(user);
+    List<Conversation> conversations1 = conversationRepository.findByUser1(user);
+    List<Conversation> conversations2 = conversationRepository.findByUser2(user);
     ConversationDTO conversationDTO = null;
-    for(Conversation conversation : conversations){
-      if(conversation.getPeerAddress().equals(address)){
-        conversationDTO = new ConversationDTO(conversation);
-        break;
+
+    // Find a conversation between the two users, user as user1 and interlocutor as user2
+    for (Conversation conversation : conversations1) {
+      if (conversation.getUser2().equals(interlocutor)) {
+        return new ConversationDTO(conversation);
       }
     }
-    if(conversationDTO == null){
+
+    // Find a conversation between the two users, interlocutor as user1 and user as user2
+    for (Conversation conversation : conversations2) {
+      if (conversation.getUser1().equals(interlocutor)) {
+        return new ConversationDTO(conversation);
+      }
+    }
+
+    if (conversationDTO == null) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversation not found with this user");
     }
     return conversationDTO;
@@ -105,18 +128,45 @@ public class ConversationService {
 
 
   /**
-     * Delete an existing conversation with a given user
-     * @param address The given user (interlocutor) address
-     * @param loggedUser The current user login
-     */
-    public boolean deleteConversation(String loggedUser, String address) {
-      Optional<Conversation> conversationToDelete = conversationRepository.findById(loggedUser + address);
+   * Delete an existing conversation with a given user
+   *
+   * @param user         The logged-in user
+   * @param interlocutor The address of the interlocutor
+   */
+  public boolean deleteConversation(String user, String interlocutor) {
+    Optional<Conversation> conversationToDelete = conversationRepository.findByUser1AndUser2(user, interlocutor);
+
+    // If we don't find the conversation, we look if the conversation exists but with the users inverted
+    if (conversationToDelete.isEmpty()) {
+      conversationToDelete = conversationRepository.findByUser1AndUser2(interlocutor, user);
+      // If we don't find the conversation, the conversation doesn't exist
       if (conversationToDelete.isEmpty()) {
         return false;
       }
-      conversationRepository.delete(conversationToDelete.get());
-      return true;
     }
+    conversationRepository.delete(conversationToDelete.get());
+    return true;
+  }
+
+  /**
+   * Save the given message in the conversation
+   *
+   * @param user         The logged-in user
+   * @param interlocutor The address of the interlocutor
+   * @param message      The message to save
+   */
+  public void storeMessageInConversation(String user, String interlocutor, Message message) {
+    // We search the right conversation
+    Optional<Conversation> conversation = conversationRepository.findByUser1AndUser2(user, interlocutor);
+    if (conversation.isEmpty()) {
+      conversation = conversationRepository.findByUser1AndUser2(interlocutor, user);
+      conversation.ifPresent(value -> value.getMessages().add(message));
+    } else {
+      // Then add the message
+      conversation.ifPresent(value -> value.getMessages().add(message));
+    }
+  }
+
 
   /**
    * Tell if a user is in our application by giving his username
@@ -126,7 +176,7 @@ public class ConversationService {
    */
   public String logMember(String user){
     String login = user;
-    Pattern formatAddress = Pattern.compile("(.+)0at0pingpal"); //parenthèses pour capturer ce qui se trouve avant "@"
+    Pattern formatAddress = Pattern.compile("(.+)@pingpal"); //parenthèses pour capturer ce qui se trouve avant "@"
     Matcher matcher = formatAddress.matcher(user); // Objet Matcher pour effectuer la correspondance
     if (matcher.matches()) { //si on est au format d'adresse du domaine pingpal
       //Récupère la valeur du groupe capturé (la partie avant "@pingpal")
@@ -138,4 +188,16 @@ public class ConversationService {
     return login;
   }
 
+  private String getLogin(String address) {
+    String result = "";
+    String regex = "([^@]+)@.*";
+    Pattern pattern = Pattern.compile(regex);
+    Matcher matcher = pattern.matcher(address);
+    if (matcher.matches()) {
+      // Extraire la partie avant le @ (groupe 1)
+      result = matcher.group(1);
+    }
+    return result;
+  }
 }
+

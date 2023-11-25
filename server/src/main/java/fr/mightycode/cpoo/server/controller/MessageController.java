@@ -143,12 +143,14 @@ package fr.mightycode.cpoo.server.controller;
 import fr.mightycode.cpoo.server.dto.MessageDTO;
 import fr.mightycode.cpoo.server.dto.NewMessageDTO;
 import fr.mightycode.cpoo.server.model.Message;
+import fr.mightycode.cpoo.server.service.ConversationService;
 import fr.mightycode.cpoo.server.service.MessageService;
 import fr.mightycode.cpoo.server.service.RouterService;
 import fr.mightycode.cpoo.server.service.RouterServiceSSE;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.persister.entity.SingleTableEntityPersister;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
@@ -174,6 +176,8 @@ public class MessageController {
 
   private final MessageService messageService;
 
+  private final ConversationService conversationService;
+
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
   public MessageDTO messagePost(final Principal user, @Valid @RequestBody final NewMessageDTO newMessage) {
 
@@ -189,6 +193,9 @@ public class MessageController {
 
     // Build a model message from the router message
     Message message = new Message(routerMessage);
+
+    // Also store the message in the right list of messages
+    conversationService.storeMessageInConversation(user.getName() + "@" + serverDomain, newMessage.to(), message);
 
     // Route the message
     routerService.routeMessage(routerMessage);

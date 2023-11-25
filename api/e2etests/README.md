@@ -130,8 +130,8 @@ Class | Method | HTTP request | Description
 *ContactApi* | [**userFriendUserIDPost**](docs/ContactApi.md#userFriendUserIDPost) | **POST** /user/friend/{userID} | Add a new contact to the current user&#39;s friends
 *ContactApi* | [**userFriendsGet**](docs/ContactApi.md#userFriendsGet) | **GET** /user/friends | Get the user&#39;s list of friends
 *ConversationApi* | [**userConversationConversationsGet**](docs/ConversationApi.md#userConversationConversationsGet) | **GET** /user/conversation/conversations | Retrieve all conversations (headers) between the current user and others
-*ConversationApi* | [**userConversationLoginDelete**](docs/ConversationApi.md#userConversationLoginDelete) | **DELETE** /user/conversation/{login} | Delete an existing conversation (the header and all contained messages) with a given user
-*ConversationApi* | [**userConversationLoginGet**](docs/ConversationApi.md#userConversationLoginGet) | **GET** /user/conversation/{login} | Search an existing conversation (the header) with a given user
+*ConversationApi* | [**userConversationInterlocutorDelete**](docs/ConversationApi.md#userConversationInterlocutorDelete) | **DELETE** /user/conversation/{interlocutor} | Delete an existing conversation (the header and all contained messages) with a given user
+*ConversationApi* | [**userConversationInterlocutorGet**](docs/ConversationApi.md#userConversationInterlocutorGet) | **GET** /user/conversation/{interlocutor} | Search an existing conversation (the header) with a given user
 *ConversationApi* | [**userConversationNewConversationInterlocutorPost**](docs/ConversationApi.md#userConversationNewConversationInterlocutorPost) | **POST** /user/conversation/newConversation/{interlocutor} | Create a new (empty) conversation with a given user
 *MessageApi* | [**userMessageMessagesGet**](docs/MessageApi.md#userMessageMessagesGet) | **GET** /user/message/messages | Get all user&#39;s messages
 *MessageApi* | [**userMessagePost**](docs/MessageApi.md#userMessagePost) | **POST** /user/message | Send a message

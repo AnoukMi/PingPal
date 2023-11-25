@@ -190,7 +190,9 @@
 
 package fr.mightycode.cpoo.server.service;
 
+import fr.mightycode.cpoo.server.model.Conversation;
 import fr.mightycode.cpoo.server.model.Message;
+import fr.mightycode.cpoo.server.repository.ConversationRepository;
 import fr.mightycode.cpoo.server.repository.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -209,6 +211,7 @@ public class MessageService {
   private String serverDomain;
 
   private final MessageRepository messageRepository;
+  private final ConversationRepository conversationRepository;
 
   // All messages incoming from the router are notified using per recipient sinks,
   // and all messages posted by clients are notified using per sender sinks
@@ -237,6 +240,7 @@ public class MessageService {
    */
   public Message storeMessage(Message message) {
     log.info("Storing message {}", message);
+
     return messageRepository.save(message);
   }
 

@@ -20,7 +20,11 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+import org.openapitools.client.model.MessageDTO;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -51,60 +55,89 @@ import org.openapitools.client.JSON;
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ConversationDTO {
-  public static final String SERIALIZED_NAME_USER_I_D = "userID";
-  @SerializedName(SERIALIZED_NAME_USER_I_D)
-  private String userID;
+  public static final String SERIALIZED_NAME_ID = "id";
+  @SerializedName(SERIALIZED_NAME_ID)
+  private UUID id;
 
-  public static final String SERIALIZED_NAME_PEER_ADDRESS = "peerAddress";
-  @SerializedName(SERIALIZED_NAME_PEER_ADDRESS)
-  private String peerAddress;
+  public static final String SERIALIZED_NAME_USER1 = "user1";
+  @SerializedName(SERIALIZED_NAME_USER1)
+  private String user1;
+
+  public static final String SERIALIZED_NAME_USER2 = "user2";
+  @SerializedName(SERIALIZED_NAME_USER2)
+  private String user2;
 
   public static final String SERIALIZED_NAME_LAST_MESSAGE_DATE = "lastMessageDate";
   @SerializedName(SERIALIZED_NAME_LAST_MESSAGE_DATE)
   private String lastMessageDate;
 
+  public static final String SERIALIZED_NAME_MESSAGES_D_T_O_S = "messagesDTOS";
+  @SerializedName(SERIALIZED_NAME_MESSAGES_D_T_O_S)
+  private List<MessageDTO> messagesDTOS;
+
   public ConversationDTO() {
   }
 
-  public ConversationDTO userID(String userID) {
+  public ConversationDTO id(UUID id) {
     
-    this.userID = userID;
+    this.id = id;
     return this;
   }
 
    /**
-   * Username of the interlocutor
-   * @return userID
+   * Id of the conversation
+   * @return id
   **/
   @javax.annotation.Nullable
-  public String getUserID() {
-    return userID;
+  public UUID getId() {
+    return id;
   }
 
 
-  public void setUserID(String userID) {
-    this.userID = userID;
+  public void setId(UUID id) {
+    this.id = id;
   }
 
 
-  public ConversationDTO peerAddress(String peerAddress) {
+  public ConversationDTO user1(String user1) {
     
-    this.peerAddress = peerAddress;
+    this.user1 = user1;
     return this;
   }
 
    /**
-   * Get peerAddress
-   * @return peerAddress
+   * one of the two users involved in the conversation
+   * @return user1
   **/
   @javax.annotation.Nonnull
-  public String getPeerAddress() {
-    return peerAddress;
+  public String getUser1() {
+    return user1;
   }
 
 
-  public void setPeerAddress(String peerAddress) {
-    this.peerAddress = peerAddress;
+  public void setUser1(String user1) {
+    this.user1 = user1;
+  }
+
+
+  public ConversationDTO user2(String user2) {
+    
+    this.user2 = user2;
+    return this;
+  }
+
+   /**
+   * one of the two users involved in the conversation
+   * @return user2
+  **/
+  @javax.annotation.Nonnull
+  public String getUser2() {
+    return user2;
+  }
+
+
+  public void setUser2(String user2) {
+    this.user2 = user2;
   }
 
 
@@ -129,6 +162,35 @@ public class ConversationDTO {
   }
 
 
+  public ConversationDTO messagesDTOS(List<MessageDTO> messagesDTOS) {
+    
+    this.messagesDTOS = messagesDTOS;
+    return this;
+  }
+
+  public ConversationDTO addMessagesDTOSItem(MessageDTO messagesDTOSItem) {
+    if (this.messagesDTOS == null) {
+      this.messagesDTOS = new ArrayList<>();
+    }
+    this.messagesDTOS.add(messagesDTOSItem);
+    return this;
+  }
+
+   /**
+   * List of messages exchanged in the conversation
+   * @return messagesDTOS
+  **/
+  @javax.annotation.Nullable
+  public List<MessageDTO> getMessagesDTOS() {
+    return messagesDTOS;
+  }
+
+
+  public void setMessagesDTOS(List<MessageDTO> messagesDTOS) {
+    this.messagesDTOS = messagesDTOS;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -139,23 +201,27 @@ public class ConversationDTO {
       return false;
     }
     ConversationDTO conversationDTO = (ConversationDTO) o;
-    return Objects.equals(this.userID, conversationDTO.userID) &&
-        Objects.equals(this.peerAddress, conversationDTO.peerAddress) &&
-        Objects.equals(this.lastMessageDate, conversationDTO.lastMessageDate);
+    return Objects.equals(this.id, conversationDTO.id) &&
+        Objects.equals(this.user1, conversationDTO.user1) &&
+        Objects.equals(this.user2, conversationDTO.user2) &&
+        Objects.equals(this.lastMessageDate, conversationDTO.lastMessageDate) &&
+        Objects.equals(this.messagesDTOS, conversationDTO.messagesDTOS);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(userID, peerAddress, lastMessageDate);
+    return Objects.hash(id, user1, user2, lastMessageDate, messagesDTOS);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ConversationDTO {\n");
-    sb.append("    userID: ").append(toIndentedString(userID)).append("\n");
-    sb.append("    peerAddress: ").append(toIndentedString(peerAddress)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    user1: ").append(toIndentedString(user1)).append("\n");
+    sb.append("    user2: ").append(toIndentedString(user2)).append("\n");
     sb.append("    lastMessageDate: ").append(toIndentedString(lastMessageDate)).append("\n");
+    sb.append("    messagesDTOS: ").append(toIndentedString(messagesDTOS)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -178,13 +244,16 @@ public class ConversationDTO {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("userID");
-    openapiFields.add("peerAddress");
+    openapiFields.add("id");
+    openapiFields.add("user1");
+    openapiFields.add("user2");
     openapiFields.add("lastMessageDate");
+    openapiFields.add("messagesDTOS");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("peerAddress");
+    openapiRequiredFields.add("user1");
+    openapiRequiredFields.add("user2");
     openapiRequiredFields.add("lastMessageDate");
   }
 
@@ -216,14 +285,31 @@ public class ConversationDTO {
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if ((jsonObj.get("userID") != null && !jsonObj.get("userID").isJsonNull()) && !jsonObj.get("userID").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `userID` to be a primitive type in the JSON string but got `%s`", jsonObj.get("userID").toString()));
+      if ((jsonObj.get("id") != null && !jsonObj.get("id").isJsonNull()) && !jsonObj.get("id").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("id").toString()));
       }
-      if (!jsonObj.get("peerAddress").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `peerAddress` to be a primitive type in the JSON string but got `%s`", jsonObj.get("peerAddress").toString()));
+      if (!jsonObj.get("user1").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `user1` to be a primitive type in the JSON string but got `%s`", jsonObj.get("user1").toString()));
+      }
+      if (!jsonObj.get("user2").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `user2` to be a primitive type in the JSON string but got `%s`", jsonObj.get("user2").toString()));
       }
       if (!jsonObj.get("lastMessageDate").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `lastMessageDate` to be a primitive type in the JSON string but got `%s`", jsonObj.get("lastMessageDate").toString()));
+      }
+      if (jsonObj.get("messagesDTOS") != null && !jsonObj.get("messagesDTOS").isJsonNull()) {
+        JsonArray jsonArraymessagesDTOS = jsonObj.getAsJsonArray("messagesDTOS");
+        if (jsonArraymessagesDTOS != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("messagesDTOS").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `messagesDTOS` to be an array in the JSON string but got `%s`", jsonObj.get("messagesDTOS").toString()));
+          }
+
+          // validate the optional field `messagesDTOS` (array)
+          for (int i = 0; i < jsonArraymessagesDTOS.size(); i++) {
+            MessageDTO.validateJsonElement(jsonArraymessagesDTOS.get(i));
+          };
+        }
       }
   }
 

@@ -17,17 +17,15 @@ import okhttp3.OkHttpClient;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.model.ConversationDTO;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
 import org.openapitools.client.model.FullUserDTO;
 import org.openapitools.client.model.UserDTO;
 
 import java.util.List;
-
-
 
 /**
  * API tests for ConversationApi
@@ -37,6 +35,7 @@ public class ConversationApiTest {
 
     private final ConversationApi api = new ConversationApi();
     private final AuthenticationApi authApi = new AuthenticationApi();
+
     @BeforeEach
     public void init() {
         // Simulate the behavior of a web browser by remembering cookies set by the server
@@ -54,34 +53,35 @@ public class ConversationApiTest {
      */
     @Test
     public void userConversationConversationsGetTest() throws ApiException {
-        // Getting the conversations without being signed in should fail with FORBIDDEN
+        // Get conversations without being signed in should fail with FORBIDDEN
         try {
             api.userConversationConversationsGet();
             Assertions.fail();
-        }
-        catch (ApiException e) {
+        } catch (ApiException e){
             Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
         }
 
         // Signing up and in
         FullUserDTO user = new FullUserDTO().login("testerConvGetAll").password("test").remember(true).icon(1)
-                .firstname("test").lastname("test").birthday("10-10-2000").address("test0at0test");
+                .firstname("test").lastname("test").birthday("10-10-2000").address("test@pingpal");
         authApi.userSignupPost(user);
         authApi.userSigninPost(new UserDTO().login("testerConvGetAll").password("test").remember(false));
 
         // The conversations should first be empty
         List<ConversationDTO> conv = api.userConversationConversationsGet();
-       Assertions.assertTrue(conv.isEmpty());
+        Assertions.assertTrue(conv.isEmpty());
 
         // Creating a new conversation
-        api.userConversationNewConversationInterlocutorPost("friendGetAll");
+        api.userConversationNewConversationInterlocutorPost("friendGetAll@pingpal");
+
         // Now there should be one conversation
         List<ConversationDTO> conv2 = api.userConversationConversationsGet();
         Assertions.assertEquals(1,conv2.size());
 
-        //deleting instances
-        api.userConversationLoginDelete("friendGetAll");
+        // deleting instances
+        api.userConversationInterlocutorDelete("friendGetAll@pingpal");
         authApi.userDeleteDelete(new UserDTO().login("testerConvGetAll").password("test").remember(false));
+
     }
 
     /**
@@ -90,10 +90,10 @@ public class ConversationApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void userConversationLoginDeleteTest() throws ApiException {
+    public void userConversationInterlocutorDeleteTest() throws ApiException {
         // Deleting conversation without being signed in should fail with FORBIDDEN
         try {
-            api.userConversationLoginDelete("user");
+            api.userConversationInterlocutorDelete("user@pingpal");
             Assertions.fail();
         }
         catch (ApiException e) {
@@ -102,13 +102,13 @@ public class ConversationApiTest {
 
         // Signing up and in
         FullUserDTO user = new FullUserDTO().login("testerConvDel").password("test").remember(true).icon(1)
-                .firstname("test").lastname("test").birthday("10-10-2000").address("test0at0test");
+                .firstname("test").lastname("test").birthday("10-10-2000").address("test@pingpal");
         authApi.userSignupPost(user);
         authApi.userSigninPost(new UserDTO().login("testerConvDel").password("test").remember(false));
 
-        // Deleting an inexisting conversation should fail with NOT FOUND
+        // Deleting a non-existing conversation should fail with NOT FOUND
         try {
-            api.userConversationLoginDelete("inexistant");
+            api.userConversationInterlocutorDelete("nonexisting@pingpal");
             Assertions.fail();
         }
         catch (ApiException e) {
@@ -116,9 +116,9 @@ public class ConversationApiTest {
         }
 
         // Creating a conversation
-        api.userConversationNewConversationInterlocutorPost("friendDel");
+        api.userConversationNewConversationInterlocutorPost("friendDel@pingpal");
         // Deleting the conversation should now work
-        api.userConversationLoginDelete("friendDel");
+        api.userConversationInterlocutorDelete("friendDel@pingpal");
 
         //deleting instance
         authApi.userDeleteDelete(new UserDTO().login("testerConvDel").password("test").remember(false));
@@ -130,10 +130,10 @@ public class ConversationApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void userConversationLoginGetTest() throws ApiException {
+    public void userConversationInterlocutorGetTest() throws ApiException {
         // Getting conversation without being signed in should fail with FORBIDDEN
         try {
-            api.userConversationLoginGet("user");
+            api.userConversationInterlocutorDelete("user@pingpal");
             Assertions.fail();
         }
         catch (ApiException e) {
@@ -146,9 +146,9 @@ public class ConversationApiTest {
         authApi.userSignupPost(user);
         authApi.userSigninPost(new UserDTO().login("testerConvGet").password("test").remember(false));
 
-        // Getting conversation with an inexistant user should fail with NOT FOUND
+        // Getting conversation with a non-existing user should fail with NOT FOUND
         try {
-            api.userConversationLoginGet("inexistant");
+            api.userConversationInterlocutorGet("nonexisting@pingpal");
             Assertions.fail();
         }
         catch (ApiException e) {
@@ -156,14 +156,14 @@ public class ConversationApiTest {
         }
 
         // Create a new conversation
-        api.userConversationNewConversationInterlocutorPost("friendGet0at0domain");
+        api.userConversationNewConversationInterlocutorPost("friendGet@domain");
         // Now getting the conversation should work
-        ConversationDTO conv = api.userConversationLoginGet("friendGet0at0domain");
-        // The conversation should be so
-        Assertions.assertEquals("friendGet0at0domain", conv.getPeerAddress());
+        ConversationDTO conv = api.userConversationInterlocutorGet("friendGet@domain");
+        // The conversation should have as user 2, friendGet@domain
+        Assertions.assertEquals("friendGet@domain", conv.getUser2());
 
         //deleting instances
-        api.userConversationLoginDelete("friendGet0at0domain");
+        api.userConversationInterlocutorDelete("friendGet@domain");
         authApi.userDeleteDelete(new UserDTO().login("testerConvGet").password("test").remember(false));
     }
 
@@ -176,7 +176,7 @@ public class ConversationApiTest {
     public void userConversationNewConversationInterlocutorPostTest() throws ApiException {
         // Creating a new conversation without signing in should fail with FORBIDDEN
         try {
-            api.userConversationNewConversationInterlocutorPost("user");
+            api.userConversationNewConversationInterlocutorPost("user@pingpal");
             Assertions.fail();
         }
         catch (ApiException e) {
@@ -185,17 +185,17 @@ public class ConversationApiTest {
 
         // Signing up and in
         FullUserDTO user = new FullUserDTO().login("testerConv").password("test").remember(true).icon(1)
-                .firstname("test").lastname("test").birthday("10-10-2000").address("test0at0test");
+                .firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
         authApi.userSignupPost(user);
         authApi.userSigninPost(new UserDTO().login("testerConv").password("test").remember(false));
         //Creating a new conversation should work
-        ConversationDTO conv= api.userConversationNewConversationInterlocutorPost("friendNew");
+        ConversationDTO conv = api.userConversationNewConversationInterlocutorPost("friendNew@pingpal");
         //The conversation should be so
-        Assertions.assertEquals("friendNew0at0pingpal", conv.getPeerAddress());
+        Assertions.assertEquals("friendNew@pingpal", conv.getUser2());
 
         // Creating again the conversation should fail with CONFLICT
         try {
-            api.userConversationNewConversationInterlocutorPost("friendNew");
+            api.userConversationNewConversationInterlocutorPost("friendNew@pingpal");
             Assertions.fail();
         }
         catch (ApiException e) {
@@ -203,7 +203,7 @@ public class ConversationApiTest {
         }
 
         //deleting instances
-        api.userConversationLoginDelete("friendNew");
+        api.userConversationInterlocutorDelete("friendNew@pingpal");
         authApi.userDeleteDelete(new UserDTO().login("testerConv").password("test").remember(false));
     }
 

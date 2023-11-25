@@ -56,4 +56,3 @@ src/main/java/org/openapitools/client/model/FullUserDTO.java
 src/main/java/org/openapitools/client/model/MessageDTO.java
 src/main/java/org/openapitools/client/model/NewMessageDTO.java
 src/main/java/org/openapitools/client/model/UserDTO.java
-src/test/java/org/openapitools/client/model/NewMessageDTOTest.java

@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, ViewChild} from '@angular/core';
-import {MessageDTO} from "../../api";
+import {ConversationDTO, MessageDTO} from "../../api";
 import {Discussion, DiscussionService} from "../../services/discussion.service";
 import {FormControl} from "@angular/forms";
 
@@ -11,7 +11,8 @@ import {FormControl} from "@angular/forms";
 export class ChatComponent{
   @Input() discussion!: Discussion;
   message = new FormControl();
-
+  @Input() conversation!: ConversationDTO;
+  @Input() interlocutor: string = '';
   constructor(private discussionService: DiscussionService){
     console.debug(`### DiscussionComponent()`);
   }
