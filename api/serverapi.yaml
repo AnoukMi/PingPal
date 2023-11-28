@@ -588,7 +588,7 @@ components:
         - user1
         - user2
         - lastMessageDate
-        - messages
+        - messagesDTOS
 
     NewMessageDTO:
       description: New message information
@@ -613,10 +613,6 @@ components:
       allOf:
         - $ref: '#/components/schemas/NewMessageDTO'
         - type: object
-          required:
-            - id
-            - timestamp
-            - from
           properties:
             id:
               type: string
@@ -629,17 +625,20 @@ components:
             from:
               type: string
               example: anouk@pingpal
-      properties:
-        to:
-          type: string
-          example: lvhoa@pingpal
-        type:
-          type: string
-          format: mime
-          example: text/plain
-        body:
-          type: string
-          example: This is the message
+            to:
+              type: string
+              example: lvhoa@pingpal
+            type:
+              type: string
+              format: mime
+              example: text/plain
+            body:
+              type: string
+              example: This is the message
+            conversationDTO:
+              allOf:
+                - $ref : '#/components/schemas/ConversationDTO'
+              description: ConversationDTO associated to the message
 
     ContactProfileDTO:
       type: object

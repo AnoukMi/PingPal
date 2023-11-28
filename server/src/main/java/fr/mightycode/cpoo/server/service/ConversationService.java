@@ -5,6 +5,7 @@ import fr.mightycode.cpoo.server.model.Message;
 import fr.mightycode.cpoo.server.model.UserData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,8 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ConversationService {
-
+  @Value("${cpoo.server.domain}")
+  private String serverDomain;
   @Autowired
   private final ConversationRepository conversationRepository;
   @Autowired
@@ -79,13 +81,13 @@ public class ConversationService {
     Conversation conversation;
 
     UserData userData1 = userRepository.findByLogin(getLogin(user));
-    String login = logMember(interlocutor);
-    if(login==null){
-      conversation = new Conversation(user, interlocutor, LocalDateTime.now(), userData1);
-    }else {
+
+    if(interlocutor.endsWith('@' + serverDomain)){
       // We naturally put the logged-in user as the user1 since it is the one that initiated the communication
       UserData userData2 = userRepository.findByLogin(getLogin(interlocutor));
       conversation = new Conversation(user, interlocutor, LocalDateTime.now(), userData1, userData2);
+    } else {
+      conversation = new Conversation(user, interlocutor, LocalDateTime.now(), userData1);
     }
 
     conversationRepository.save(conversation);
@@ -156,15 +158,8 @@ public class ConversationService {
    * @param message      The message to save
    */
   public void storeMessageInConversation(String user, String interlocutor, Message message) {
-    // We search the right conversation
-    Optional<Conversation> conversation = conversationRepository.findByUser1AndUser2(user, interlocutor);
-    if (conversation.isEmpty()) {
-      conversation = conversationRepository.findByUser1AndUser2(interlocutor, user);
-      conversation.ifPresent(value -> value.getMessages().add(message));
-    } else {
-      // Then add the message
-      conversation.ifPresent(value -> value.getMessages().add(message));
-    }
+    Conversation conversation = this.findConversation(user, interlocutor);
+    conversation.getMessages().add(message);
   }
 
 
@@ -174,7 +169,7 @@ public class ConversationService {
    * @param user The user login to test or his address
    * @return the login of the user if he is part of the application (is in the database), else null
    */
-  public String logMember(String user){
+  public String logMember(String user) {
     String login = user;
     Pattern formatAddress = Pattern.compile("(.+)@pingpal"); //parenthèses pour capturer ce qui se trouve avant "@"
     Matcher matcher = formatAddress.matcher(user); // Objet Matcher pour effectuer la correspondance
@@ -182,12 +177,18 @@ public class ConversationService {
       //Récupère la valeur du groupe capturé (la partie avant "@pingpal")
       login = matcher.group(1);
     }
-    if(userRepository.findByLogin(login)==null){ //cherche le login dans BDD, retournera aussi null si c'est une adresse d'un autre domaine
+    if (userRepository.findByLogin(login) == null) { //cherche le login dans BDD, retournera aussi null si c'est une adresse d'un autre domaine
       return null; //n'est pas membre
     }
     return login;
   }
 
+  /**
+   * Retrieve the login out of the address
+   *
+   * @param address The address
+   * @return The login associated to the address
+   */
   private String getLogin(String address) {
     String result = "";
     String regex = "([^@]+)@.*";
@@ -198,6 +199,27 @@ public class ConversationService {
       result = matcher.group(1);
     }
     return result;
+  }
+
+  /**
+   * Retrieve the conversation between user and interlocutor
+   *
+   * @param user         The logged-in user
+   * @param interlocutor The address of the interlocutor
+   * @return The Conversation between user and interlocutor
+   */
+  public Conversation findConversation(String user, String interlocutor) {
+    Optional<Conversation> conversation = conversationRepository.findByUser1AndUser2(user, interlocutor);
+    if (conversation.isEmpty()) {
+      conversation = conversationRepository.findByUser1AndUser2(interlocutor, user);
+      if (conversation.isEmpty()) {
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversation not found with this user");
+      } else {
+        return conversation.get();
+      }
+    } else {
+      return conversation.get();
+    }
   }
 }
 

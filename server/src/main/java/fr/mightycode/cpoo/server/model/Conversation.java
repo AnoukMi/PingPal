@@ -1,6 +1,7 @@
 package fr.mightycode.cpoo.server.model;
 
 import fr.mightycode.cpoo.server.dto.ConversationDTO;
+import fr.mightycode.cpoo.server.dto.MessageDTO;
 import fr.mightycode.cpoo.server.repository.UserRepository;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -36,10 +37,10 @@ public class Conversation {
     name = "user_conversation",
     joinColumns = @JoinColumn(name = "conversation_id"),
     inverseJoinColumns = @JoinColumn(name = "user_data_id"))
-  private List<UserData> users; // List of 2 users involved in the conversation
+  private List<UserData> users; // List of 1 or 2 users involved in the conversation
 
   @Getter
-  @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL) //cascade pour que supprimer une conv supprime tous les messages appartenant
+  @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL) // Cascade to also delete every messages if a conversation is deleted
   private List<Message> messages;
 
   public Conversation(){
@@ -65,15 +66,31 @@ public class Conversation {
     this.messages = new ArrayList<>();
   }
 
-  private String getLogin(String address) {
-    String result = "";
-    String regex = "([^@]+)@.*";
-    Pattern pattern = Pattern.compile(regex);
-    Matcher matcher = pattern.matcher(address);
-    if (matcher.matches()) {
-      // Extraire la partie avant le @ (groupe 1)
-      result = matcher.group(1);
+  // If both interlocutors are part of the Pingpal domain
+  public Conversation(ConversationDTO conversationDTO, UserData userData1, UserData userData2){
+    this.id = conversationDTO.id();
+    this.user1 = conversationDTO.user1();
+    this.user2 = conversationDTO.user2();
+    this.lastMsgDate = conversationDTO.lastMessageDate();
+    this.users = new ArrayList<>(Arrays.asList(userData1, userData2));
+
+    // Create the list of messages
+    for(MessageDTO messageDTO : conversationDTO.messagesDTOS()){
+      this.messages.add(new Message(messageDTO, this));
     }
-    return result;
+  }
+
+  // If only one of the interlocutors is part of the Pingpal domain
+  public Conversation(ConversationDTO conversationDTO, UserData userData1){
+    this.id = conversationDTO.id();
+    this.user1 = conversationDTO.user1();
+    this.user2 = conversationDTO.user2();
+    this.lastMsgDate = conversationDTO.lastMessageDate();
+    this.users = new ArrayList<>(Collections.singletonList(userData1));
+
+    // Create the list of messages
+    for(MessageDTO messageDTO : conversationDTO.messagesDTOS()){
+      this.messages.add(new Message(messageDTO, this));
+    }
   }
 }

@@ -37,9 +37,9 @@ public class ConversationController {
    */
   @GetMapping(value = "conversations", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<ConversationDTO> listConversationsGet(final Principal user) {
-    String loggedUser = user.getName() + '@' + serverDomain;
     try {
-      List<ConversationDTO> conversations = conversationService.getConversations(loggedUser);
+      log.info("Get conversations of the logged-in user");
+      List<ConversationDTO> conversations = conversationService.getConversations(user.getName() + '@' + serverDomain);
       if (conversations == null) {
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Problem with the logged user");
       }

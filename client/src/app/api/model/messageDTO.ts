@@ -9,17 +9,19 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { ConversationDTO } from './conversationDTO';
 
 
 /**
  * Message information
  */
 export interface MessageDTO { 
-    to?: string;
-    type?: string;
-    body?: string;
-    id: string;
-    timestamp: number;
-    from: string;
+    to: string;
+    type: string;
+    body: string;
+    id?: string;
+    timestamp?: number;
+    from?: string;
+    conversationDTO?: ConversationDTO;
 }
 

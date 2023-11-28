@@ -22,6 +22,7 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.UUID;
+import org.openapitools.client.model.ConversationDTO;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -76,6 +77,10 @@ public class MessageDTO {
   @SerializedName(SERIALIZED_NAME_FROM)
   private String from;
 
+  public static final String SERIALIZED_NAME_CONVERSATION_D_T_O = "conversationDTO";
+  @SerializedName(SERIALIZED_NAME_CONVERSATION_D_T_O)
+  private ConversationDTO conversationDTO;
+
   public MessageDTO() {
   }
 
@@ -89,7 +94,7 @@ public class MessageDTO {
    * Get to
    * @return to
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getTo() {
     return to;
   }
@@ -110,7 +115,7 @@ public class MessageDTO {
    * Get type
    * @return type
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getType() {
     return type;
   }
@@ -131,7 +136,7 @@ public class MessageDTO {
    * Get body
    * @return body
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getBody() {
     return body;
   }
@@ -205,6 +210,27 @@ public class MessageDTO {
   }
 
 
+  public MessageDTO conversationDTO(ConversationDTO conversationDTO) {
+    
+    this.conversationDTO = conversationDTO;
+    return this;
+  }
+
+   /**
+   * Get conversationDTO
+   * @return conversationDTO
+  **/
+  @javax.annotation.Nullable
+  public ConversationDTO getConversationDTO() {
+    return conversationDTO;
+  }
+
+
+  public void setConversationDTO(ConversationDTO conversationDTO) {
+    this.conversationDTO = conversationDTO;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -220,12 +246,13 @@ public class MessageDTO {
         Objects.equals(this.body, messageDTO.body) &&
         Objects.equals(this.id, messageDTO.id) &&
         Objects.equals(this.timestamp, messageDTO.timestamp) &&
-        Objects.equals(this.from, messageDTO.from);
+        Objects.equals(this.from, messageDTO.from) &&
+        Objects.equals(this.conversationDTO, messageDTO.conversationDTO);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(to, type, body, id, timestamp, from);
+    return Objects.hash(to, type, body, id, timestamp, from, conversationDTO);
   }
 
   @Override
@@ -238,6 +265,7 @@ public class MessageDTO {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
     sb.append("    from: ").append(toIndentedString(from)).append("\n");
+    sb.append("    conversationDTO: ").append(toIndentedString(conversationDTO)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -266,6 +294,7 @@ public class MessageDTO {
     openapiFields.add("id");
     openapiFields.add("timestamp");
     openapiFields.add("from");
+    openapiFields.add("conversationDTO");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -305,13 +334,13 @@ public class MessageDTO {
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if ((jsonObj.get("to") != null && !jsonObj.get("to").isJsonNull()) && !jsonObj.get("to").isJsonPrimitive()) {
+      if (!jsonObj.get("to").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `to` to be a primitive type in the JSON string but got `%s`", jsonObj.get("to").toString()));
       }
-      if ((jsonObj.get("type") != null && !jsonObj.get("type").isJsonNull()) && !jsonObj.get("type").isJsonPrimitive()) {
+      if (!jsonObj.get("type").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));
       }
-      if ((jsonObj.get("body") != null && !jsonObj.get("body").isJsonNull()) && !jsonObj.get("body").isJsonPrimitive()) {
+      if (!jsonObj.get("body").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `body` to be a primitive type in the JSON string but got `%s`", jsonObj.get("body").toString()));
       }
       if (!jsonObj.get("id").isJsonPrimitive()) {
@@ -319,6 +348,10 @@ public class MessageDTO {
       }
       if (!jsonObj.get("from").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `from` to be a primitive type in the JSON string but got `%s`", jsonObj.get("from").toString()));
+      }
+      // validate the optional field `conversationDTO`
+      if (jsonObj.get("conversationDTO") != null && !jsonObj.get("conversationDTO").isJsonNull()) {
+        ConversationDTO.validateJsonElement(jsonObj.get("conversationDTO"));
       }
   }
 

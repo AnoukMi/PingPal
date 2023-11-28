@@ -19,12 +19,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.function.Try;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
-import org.openapitools.client.model.ConversationDTO;
-import org.openapitools.client.model.FullUserDTO;
-import org.openapitools.client.model.UserDTO;
+import org.openapitools.client.model.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -33,6 +34,7 @@ import java.util.List;
 @Disabled
 public class ConversationApiTest {
 
+    private final MessageApi messageApi = new MessageApi();
     private final ConversationApi api = new ConversationApi();
     private final AuthenticationApi authApi = new AuthenticationApi();
 
@@ -43,6 +45,7 @@ public class ConversationApiTest {
         OkHttpClient okHttpClient = builder.cookieJar(new MyCookieJar()).build();
         ApiClient apiClient = new ApiClient(okHttpClient);
         api.setApiClient(apiClient);
+        messageApi.setApiClient(apiClient);
         authApi.setApiClient(apiClient);
     }
 
@@ -207,4 +210,35 @@ public class ConversationApiTest {
         authApi.userDeleteDelete(new UserDTO().login("testerConv").password("test").remember(false));
     }
 
+    @Test
+    public void testFullProcedure() throws ApiException {
+        // Signing up and in
+        FullUserDTO user = new FullUserDTO().login("lvhoa").password("test").remember(true).icon(1)
+                .firstname("lv").lastname("hoa").birthday("10-10-2000").address("lvhoa@pingpal");
+        FullUserDTO user2 = new FullUserDTO().login("anouk").password("test").remember(true).icon(1)
+                .firstname("anouk").lastname("mi").birthday("10-10-2000").address("anouk@pingpal");
+        authApi.userSignupPost(user);
+        authApi.userSignupPost(user2);
+        authApi.userSigninPost(new UserDTO().login("lvhoa").password("test").remember(false));
+
+        ConversationDTO conversationDTO = api.userConversationNewConversationInterlocutorPost("anouk@pingpal");
+        Assertions.assertEquals("anouk@pingpal", conversationDTO.getUser2());
+
+        // Get the conv then conversationDTO and conv should be equal
+        ConversationDTO conv = api.userConversationInterlocutorGet("anouk@pingpal");
+        Assertions.assertEquals(conversationDTO.getId(), conv.getId());
+
+        // The size of the list should be equals to 1 with only the created conversation
+        Assertions.assertEquals(1, api.userConversationConversationsGet().size());
+
+        // Check that the first and only conversationDTO in the list is the right one
+        Assertions.assertEquals(conversationDTO.getId(), api.userConversationConversationsGet().get(0).getId());
+
+        api.userConversationInterlocutorGet("anouk@pingpal");
+
+         // Post a message, it is supposed to be added in the conversation
+        messageApi.userMessagePost((new NewMessageDTO().body("Hello!").type("text/plain").to("anouk@pingpal")));
+    }
+
 }
+je

@@ -128,6 +128,7 @@
 package fr.mightycode.cpoo.server.model;
 
 import fr.mightycode.cpoo.server.dto.ConversationDTO;
+import fr.mightycode.cpoo.server.dto.MessageDTO;
 import fr.mightycode.cpoo.server.service.RouterService;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -167,14 +168,26 @@ public class Message {
   public Message() {
   }
 
-  public Message(RouterService.Message routerMessage) {
+  public Message(RouterService.Message routerMessage, Conversation conversation) {
     this.id = routerMessage.id();
     this.timestamp = routerMessage.timestamp();
     this.from = routerMessage.from();
     this.to = routerMessage.to();
     this.type = routerMessage.type();
     this.body = routerMessage.body();
+    this.conversation = conversation;
   }
+
+  public Message(MessageDTO messageDTO, Conversation conversation){
+    this.id = messageDTO.id();
+    this.timestamp = messageDTO.timestamp();
+    this.from = messageDTO.from();
+    this.to = messageDTO.to();
+    this.type = messageDTO.type();
+    this.body = messageDTO.body();
+    this.conversation = conversation;
+  }
+
 }
 
 

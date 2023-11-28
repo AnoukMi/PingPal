@@ -156,14 +156,14 @@ export class DiscussionService {
   private addMessageToConversation(conversation: ConversationDTO, message: MessageDTO, beginning = false) {
 
     // If a message with the same id is already present in the discussion, nothing to do
-    if (conversation.messages.find(m => m.id == message.id))
+    if (conversation.messagesDTOS.find(m => m.id == message.id))
       return;
 
     // Add the message to the discussion
     if (beginning)
-      conversation.messages.unshift(message);
+      conversation.messagesDTOS.unshift(message);
     else
-      conversation.messages.push(message);
+      conversation.messagesDTOS.push(message);
   }
 
   /** Send a message to an interlocutor
@@ -239,7 +239,10 @@ export class DiscussionService {
   newConversation(_interlocutor: string){
     console.debug(`### creation of the conversation with ${_interlocutor}`);
 
-    this.conversationService.userConversationNewConversationInterlocutorPost(_interlocutor);
+    this.conversationService.userConversationNewConversationInterlocutorPost(_interlocutor)
+        .subscribe(
+            ()=> { console.log(`### Conversation créée`);
+            });
   }
 
   /** Return true if a discussion exists with the given parameter

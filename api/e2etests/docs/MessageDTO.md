@@ -8,12 +8,13 @@ Message information
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**to** | **String** |  |  [optional] |
-|**type** | **String** |  |  [optional] |
-|**body** | **String** |  |  [optional] |
+|**to** | **String** |  |  |
+|**type** | **String** |  |  |
+|**body** | **String** |  |  |
 |**id** | **UUID** |  |  |
 |**timestamp** | **Long** |  |  |
 |**from** | **String** |  |  |
+|**conversationDTO** | [**ConversationDTO**](ConversationDTO.md) |  |  [optional] |
 
 
 

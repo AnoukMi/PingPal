@@ -32,6 +32,6 @@ export interface ConversationDTO {
     /**
      * List of messages exchanged in the conversation
      */
-    messages: Array<MessageDTO>;
+    messagesDTOS: Array<MessageDTO>;
 }
 

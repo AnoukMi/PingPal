@@ -9,12 +9,10 @@ import {FormControl} from "@angular/forms";
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent{
-  @Input() discussion!: Discussion;
-  message = new FormControl();
   @Input() conversation!: ConversationDTO;
   @Input() interlocutor: string = '';
-  constructor(private discussionService: DiscussionService){
-    console.debug(`### DiscussionComponent()`);
+  constructor(){
+    console.debug(`### ChatComponent()`);
   }
 
   // @Input() messages!: MessageDTO[];

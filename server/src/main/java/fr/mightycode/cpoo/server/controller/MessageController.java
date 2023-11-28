@@ -140,13 +140,13 @@
 
 package fr.mightycode.cpoo.server.controller;
 
+import fr.mightycode.cpoo.server.dto.ConversationDTO;
 import fr.mightycode.cpoo.server.dto.MessageDTO;
 import fr.mightycode.cpoo.server.dto.NewMessageDTO;
+import fr.mightycode.cpoo.server.model.Conversation;
 import fr.mightycode.cpoo.server.model.Message;
-import fr.mightycode.cpoo.server.service.ConversationService;
-import fr.mightycode.cpoo.server.service.MessageService;
-import fr.mightycode.cpoo.server.service.RouterService;
-import fr.mightycode.cpoo.server.service.RouterServiceSSE;
+import fr.mightycode.cpoo.server.model.UserData;
+import fr.mightycode.cpoo.server.service.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -191,11 +191,17 @@ public class MessageController {
       newMessage.body()
     );
 
+    ConversationDTO conversationDTO = conversationService
+      .getOneConversation(user.getName() + "@" + serverDomain, newMessage.to());
+
+    Conversation conversation = conversationService.findConversation(user.getName() + "@" + serverDomain, newMessage.to());
+
     // Build a model message from the router message
-    Message message = new Message(routerMessage);
+    Message message = new Message(routerMessage, conversation);
 
     // Also store the message in the right list of messages
     conversationService.storeMessageInConversation(user.getName() + "@" + serverDomain, newMessage.to(), message);
+    conversationDTO.messagesDTOS().add(new MessageDTO(routerMessage, conversationDTO));
 
     // Route the message
     routerService.routeMessage(routerMessage);
@@ -208,13 +214,12 @@ public class MessageController {
     }
 
     // Return the message as a DTO
-    return new MessageDTO(routerMessage);
+    return new MessageDTO(routerMessage, conversationDTO);
   }
 
   @GetMapping(value = "messages", produces = MediaType.APPLICATION_JSON_VALUE)
   public Flux<Message> messageGet(final Principal user) {
-
-    // Get the message sink of the connected user and returrn it as a flux
+    // Get the message sink of the connected user and return it as a flux
     return messageService.getMessageSinkFor(user.getName() + "@" + serverDomain).asFlux();
   }
 }

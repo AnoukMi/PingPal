@@ -558,12 +558,8 @@ components:
         lastMessageDate: 10-10-2023 12:30:22
         id: 667bdc23-3de4-482f-a0f4-3391452a7742
         messagesDTOS:
-        - to: lvhoa@pingpal
-          type: text/plain
-          body: This is the message
-        - to: lvhoa@pingpal
-          type: text/plain
-          body: This is the message
+        - null
+        - null
       properties:
         id:
           description: Id of the conversation
@@ -631,27 +627,26 @@ components:
           from:
             example: anouk@pingpal
             type: string
+          to:
+            example: lvhoa@pingpal
+            type: string
+          type:
+            example: text/plain
+            format: mime
+            type: string
+          body:
+            example: This is the message
+            type: string
+          conversationDTO:
+            allOf:
+            - $ref: '#/components/schemas/ConversationDTO'
+            description: ConversationDTO associated to the message
         required:
         - from
         - id
         - timestamp
         type: object
       description: Message information
-      example:
-        to: lvhoa@pingpal
-        type: text/plain
-        body: This is the message
-      properties:
-        to:
-          example: lvhoa@pingpal
-          type: string
-        type:
-          example: text/plain
-          format: mime
-          type: string
-        body:
-          example: This is the message
-          type: string
     ContactProfileDTO:
       example:
         birthday: 11-05-2003

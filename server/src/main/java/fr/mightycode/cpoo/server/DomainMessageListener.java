@@ -1,6 +1,8 @@
 package fr.mightycode.cpoo.server;
 
+import fr.mightycode.cpoo.server.model.Conversation;
 import fr.mightycode.cpoo.server.model.Message;
+import fr.mightycode.cpoo.server.service.ConversationService;
 import fr.mightycode.cpoo.server.service.MessageService;
 import fr.mightycode.cpoo.server.service.RouterService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,7 @@ public class DomainMessageListener implements RouterService.MessageListener {
   private String routerSSEUrl;
 
   private final MessageService messageService;
+  private final ConversationService conversationService;
 
   @Override
   public String getServerDomain() {
@@ -51,8 +54,10 @@ public class DomainMessageListener implements RouterService.MessageListener {
       return;
     }
 
+    Conversation conversation = conversationService.findConversation(routerMessage.to(), routerMessage.from());
+
     // Store the message
-    message = messageService.storeMessage(new Message(routerMessage));
+    message = messageService.storeMessage(new Message(routerMessage, conversation));
 
     // Notify the message to the recipient (since he is part of the domain)
     messageService.notifyMessageTo(message, message.getTo());

@@ -211,7 +211,6 @@ public class MessageService {
   private String serverDomain;
 
   private final MessageRepository messageRepository;
-  private final ConversationRepository conversationRepository;
 
   // All messages incoming from the router are notified using per recipient sinks,
   // and all messages posted by clients are notified using per sender sinks

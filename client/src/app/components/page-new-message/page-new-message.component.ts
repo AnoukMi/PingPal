@@ -36,15 +36,6 @@ export class PageNewMessageComponent {
    * If the conversation already exists, redirects to it
    */
   createConversation(){
-    // // If the conversation already exists
-    // if(this.discussionService.searchDiscussion(this.getField('recipient').value)){
-    //   this.router.navigate(['/conversation/', this.getField('recipient').value]);
-    // }
-    // // If it is a new conversation
-    // else{
-    //   this.discussionService.newDiscussion(this.getField('recipient').value);
-    //   this.router.navigate(['/conversation/', this.getField('recipient').value]);
-    // }
     this.discussionService.newConversation(this.getField('recipient').value);
     this.router.navigate(['/conversation/', this.getField('recipient').value]);
   }
