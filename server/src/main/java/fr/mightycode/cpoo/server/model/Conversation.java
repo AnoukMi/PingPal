@@ -39,7 +39,6 @@ public class Conversation {
     inverseJoinColumns = @JoinColumn(name = "user_data_id"))
   private List<UserData> users; // List of 1 or 2 users involved in the conversation
 
-  @Getter
   @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL) // Cascade to also delete every messages if a conversation is deleted
   private List<Message> messages;
 
