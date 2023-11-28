@@ -10,9 +10,10 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 })
 export class PageEditProfileComponent {
   editForm: FormGroup;
-  loading = false; // true if sign in is in progress
+  loading = false; // true if editing in progress
   error: string | null = null; // error to display
   birthday: string = '';
+  icon:number=0;
 
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router,
               private formBuilder: FormBuilder) {
@@ -25,6 +26,7 @@ export class PageEditProfileComponent {
       lastname: ['', Validators.required],
       validPassword: ['', Validators.required],
     });
+    this.userService.getIcon().subscribe(currenticon => {this.icon = currenticon as number});
   }
 
   /**
@@ -33,6 +35,14 @@ export class PageEditProfileComponent {
    */
   receiptBirthChange(birthday: string){
     this.birthday=birthday;
+  }
+
+  /**
+   * Change the icon with the selected icon
+   * @param icon The icon selected by click
+   */
+  receiptIconChange(icon: number){
+    this.icon=icon;
   }
 
   /**
@@ -61,17 +71,72 @@ export class PageEditProfileComponent {
    */
   isInvalid(name: string) {
     const field = this.getField(name);
-    return field.touched && field.errors;
+    // check first if field si not null and if touched (may be valid ?)
+    if (field && field.touched) {
+      return field.errors ; // then check errors (return true for invalid if there are errors)
+    }
+    return false;  // if field is undefined or not touched
   }
 
+  /**
+   * Send data to the server to edit the user
+   */
   onSubmit() {
+    // Edit using form values
+    this.loading = true;
+    let login = '';
+    this.userService.getLogin().subscribe((username) => {// observable username
+      // @ts-ignore
+      login = username.toString(); // convertit observable en string pour pouvoir l'utiliser en argument de la fonction
+    });
+    // for each field, take the old value if the new value is invalid (empty)
+    let edfirstname = '';
+    if(this.isInvalid(this.getField('firstname').value)||this.getField('firstname').value==''){
+      this.userService.getFirstname().subscribe((userfirst) => {// observable username
+        // @ts-ignore
+        edfirstname = userfirst.toString(); // convertit observable en string pour pouvoir l'utiliser en argument de la fonction
+      });
+    } else {
+      edfirstname = this.getField('firstname').value;
+    }
+    let edlastname = '';
+    if(this.isInvalid(this.getField('lastname').value)||this.getField('lastname').value==''){
+      this.userService.getLastname().subscribe((userlast) => {// observable username
+        // @ts-ignore
+        edlastname = userlast.toString(); // convertit observable en string pour pouvoir l'utiliser en argument de la fonction
+      });
+    } else {
+      edlastname = this.getField('lastname').value;
+    }
+    let edbirthday = '';
+    if(this.isInvalidDate(this.birthday)){
+      this.userService.getBirthday().subscribe((userdate) => {// observable username
+        // @ts-ignore
+        edbirthday = userdate.toString(); // convertit observable en string pour pouvoir l'utiliser en argument de la fonction
+      });
+    } else {
+      edbirthday = this.birthday;
+    }
 
-    // If form is invalid, cancel
-    if (this.editForm.invalid)
-      return;
+    // call the service (wrapped route PATCH)
+    this.userService.edit(login, this.getField('validPassword').value,
+      false, this.icon, edfirstname, edlastname, edbirthday, login+"@pingpal")
+      .subscribe({
+        next: _ => {
+          // Return to home
+          this.router.navigate([this.route.snapshot.queryParams['returnURL'] || 'home']);
+        },
+        error: err => {
+          this.error = err.error.message || err.message;
+          this.loading = false;
 
-    // TODO
+        }
+      });
   }
+
+  /**
+   * Send data to the server to delete the user
+   */
 
   onDelete(formData: any) {
     // delete using form values
@@ -84,7 +149,6 @@ export class PageEditProfileComponent {
     this.userService.delete(login, this.getField('validPassword').value, false).subscribe({
       next: _ => {
         // Redirect to the return URL or to sign in page
-        console.log("HERE");
         this.userService.signout().subscribe(_ => this.router.navigate(['signIn']));
       },
       error: err => {
