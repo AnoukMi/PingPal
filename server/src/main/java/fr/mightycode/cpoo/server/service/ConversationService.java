@@ -1,5 +1,6 @@
 package fr.mightycode.cpoo.server.service;
 
+import fr.mightycode.cpoo.server.dto.MessageDTO;
 import fr.mightycode.cpoo.server.model.Conversation;
 import fr.mightycode.cpoo.server.model.Message;
 import fr.mightycode.cpoo.server.model.UserData;
@@ -15,6 +16,7 @@ import fr.mightycode.cpoo.server.dto.ConversationDTO;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -53,9 +55,14 @@ public class ConversationService {
     conversations.addAll(conversations2);
     // conversationRepository.findByUserDataOrderByLastMsgDateDesc(userData);
 
-    List<ConversationDTO> conversationDTOS = conversations.stream()
-      .map(ConversationDTO::new)
-      .collect(Collectors.toList());
+    List<ConversationDTO> conversationDTOS = new ArrayList<>();
+    for(Conversation conversation : conversations){
+      conversationDTOS.add(new ConversationDTO(conversation));
+    }
+
+//    List<ConversationDTO> conversationDTOS = conversations.stream()
+//      .map(ConversationDTO::new)
+//      .collect(Collectors.toList());
 
     // If the user has conversations but the list is still empty
     //if (conversationDTOS.isEmpty() && !userData.getConversations().isEmpty()) {
@@ -160,6 +167,17 @@ public class ConversationService {
   public void storeMessageInConversation(String user, String interlocutor, Message message) {
     Conversation conversation = this.findConversation(user, interlocutor);
     conversation.getMessages().add(message);
+  }
+
+  /**
+   * Save the given messageDTO in the conversatioDTO
+   * @param user The logged-in user
+   * @param interlocutor The address of the interlocutor
+   * @param messageDTO The messageDTO to save
+   */
+  public void storeMessageDTOInConversationDTO(String user, String interlocutor, MessageDTO messageDTO){
+    ConversationDTO conversationDTO = this.getOneConversation(user, interlocutor);
+    conversationDTO.messagesDTOS().add(messageDTO);
   }
 
 

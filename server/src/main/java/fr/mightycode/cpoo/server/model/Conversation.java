@@ -6,6 +6,7 @@ import fr.mightycode.cpoo.server.repository.UserRepository;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
+import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 
@@ -20,25 +21,33 @@ import java.util.regex.Pattern;
 @Table(name = "conversations")
 public class Conversation {
 
+  // @ToString.Exclude to avoid the error
+  // "SLF4J: Failed toString() invocation on an object of type [fr.mightycode.cpoo.server.model.Message]"
+  @ToString.Exclude
   @Id
   private UUID id;
 
+  @ToString.Exclude
   @Column(name = "user1", nullable = false)
   private String user1;
 
+  @ToString.Exclude
   @Column(name = "user2", nullable = false)
   private String user2;
 
+  @ToString.Exclude
   @Column(name = "lastMessageDate", nullable = false)
   private LocalDateTime lastMsgDate;
 
-  @ManyToMany
+  @ToString.Exclude
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
     name = "user_conversation",
     joinColumns = @JoinColumn(name = "conversation_id"),
     inverseJoinColumns = @JoinColumn(name = "user_data_id"))
   private List<UserData> users; // List of 1 or 2 users involved in the conversation
 
+  @ToString.Exclude
   @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL) // Cascade to also delete every messages if a conversation is deleted
   private List<Message> messages;
 

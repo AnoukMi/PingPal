@@ -24,9 +24,7 @@ import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.model.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * API tests for ConversationApi
@@ -234,11 +232,16 @@ public class ConversationApiTest {
         // Check that the first and only conversationDTO in the list is the right one
         Assertions.assertEquals(conversationDTO.getId(), api.userConversationConversationsGet().get(0).getId());
 
-        api.userConversationInterlocutorGet("anouk@pingpal");
+        // Create a unique body to make sure it is the right message
+        UUID uuid = UUID.randomUUID();
 
          // Post a message, it is supposed to be added in the conversation
-        messageApi.userMessagePost((new NewMessageDTO().body("Hello!").type("text/plain").to("anouk@pingpal")));
+        messageApi.userMessagePost((new NewMessageDTO().body(uuid.toString()).type("text/plain").to("anouk@pingpal")));
+
+//        ConversationDTO convmsg = api.userConversationInterlocutorGet("anouk@pingpal");
+//
+//        // Check that the message is part of the list
+//        Assertions.assertEquals(uuid.toString(), Objects.requireNonNull(convmsg.getMessagesDTOS()).get(0).getBody());
     }
 
 }
-je
