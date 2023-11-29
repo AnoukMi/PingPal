@@ -14,6 +14,7 @@
 package org.openapitools.client.api;
 
 import okhttp3.OkHttpClient;
+import okhttp3.internal.ws.RealWebSocket;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +30,7 @@ import java.util.*;
 /**
  * API tests for ConversationApi
  */
-@Disabled
+
 public class ConversationApiTest {
 
     private final MessageApi messageApi = new MessageApi();
@@ -238,10 +239,13 @@ public class ConversationApiTest {
          // Post a message, it is supposed to be added in the conversation
         messageApi.userMessagePost((new NewMessageDTO().body(uuid.toString()).type("text/plain").to("anouk@pingpal")));
 
-//        ConversationDTO convmsg = api.userConversationInterlocutorGet("anouk@pingpal");
-//
-//        // Check that the message is part of the list
-//        Assertions.assertEquals(uuid.toString(), Objects.requireNonNull(convmsg.getMessagesDTOS()).get(0).getBody());
+        ConversationDTO conv2 = api.userConversationInterlocutorGet("anouk@pingpal");
+
+        System.out.println("user1: "+conv2.getUser1());
+        System.out.println("MessageDTO: "+conv2.getMessagesDTOS());
+        assert conv2.getMessagesDTOS() != null;
+        System.out.println("Taille MessageDTO: "+conv2.getMessagesDTOS().size());
+        // Assertions.assertEquals(uuid.toString(), (api.userConversationInterlocutorGet("anouk@pingpal").getMessagesDTOS()).get(0).getBody());
     }
 
 }

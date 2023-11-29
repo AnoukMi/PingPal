@@ -260,63 +260,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-#  /user/message/{msgID}:
-#    patch:
-#      summary: Modify a certain message already sent
-#      tags:
-#        - message
-#      parameters:
-#        - name: msgID
-#          in: path
-#          description: ID of the message to modify in the list of messages
-#          required: true
-#          schema:
-#            type: string
-#            format: UUID
-#      requestBody:
-#        description: New content of the message
-#        content:
-#          application/json:
-#            schema:
-#              type: string
-#      responses:
-#        '200':
-#          description: Success, return modified message
-#          content:
-#            application/json:
-#              schema:
-#                $ref: '#/components/schemas/MessageDTO'
-#        '410':
-#          description: The message is no more available, has been deleted
-#        default:
-#          description: Error
-#          content:
-#            application/json:
-#              schema:
-#                $ref: '#/components/schemas/ErrorDTO'
-#    delete:
-#      summary: Delete a message already sent
-#      tags:
-#        - message
-#      parameters:
-#        - name: msgID
-#          in: path
-#          description: ID of the message to delete in the list of messages
-#          required: true
-#          schema:
-#            type: string
-#            format: UUID
-#      responses:
-#        '200':
-#          description: Success, message deleted
-#        '404':
-#          description: msgID not found in the list of messages
-#        default:
-#          description: Error
-#          content:
-#            application/json:
-#              schema:
-#                $ref: '#/components/schemas/ErrorDTO'
   /user/shareMessage:
     post:
       summary: Post a new public message ("status") for all the current user friends and remove the previous one

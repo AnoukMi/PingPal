@@ -18,21 +18,26 @@ public record ConversationDTO(@NotEmpty UUID id,
                               LocalDateTime lastMessageDate,
                               List<MessageDTO> messagesDTOS) {
 
-  public ConversationDTO(Conversation conversation){
+  public ConversationDTO {
+    if (id == null || user1 == null || user2 == null) {
+      throw new IllegalArgumentException("id, user1 and user2 cannot be null");
+    }
+  }
+
+  public ConversationDTO(Conversation conversation) {
     this(conversation.getId(),
       conversation.getUser1(),
       conversation.getUser2(),
       conversation.getLastMsgDate(),
-      conversation.getMessages().stream()
-      .map(MessageDTO::new)
-      .toList());
-//    this.id = conversation.getId();
-//    this.user1 = conversation.getUser1();
-//    this.user2 = conversation.getUser2();
-//    this.lastMessageDate = conversation.getLastMsgDate();
-//    this.messagesDTOS = new ArrayList<>();
-//    for(Message msg : conversation.getMessages()){
-//      this.messagesDTOS.add(new MessageDTO(msg));
-//    }
+      new ArrayList<>());
+  }
+  public void setMessagesDTOS(List<MessageDTO> msgs){
+    int actualSize = this.messagesDTOS.size();
+    int newSize = msgs.size();
+    if(actualSize == newSize) return;
+    else {
+      List<MessageDTO> toAdd = msgs.subList(actualSize, newSize);
+      this.messagesDTOS.addAll(msgs);
+    }
   }
 }

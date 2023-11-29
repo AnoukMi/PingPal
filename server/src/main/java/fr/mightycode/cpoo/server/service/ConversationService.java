@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import fr.mightycode.cpoo.server.repository.ConversationRepository;
 import fr.mightycode.cpoo.server.repository.UserRepository;
@@ -19,9 +18,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +31,7 @@ public class ConversationService {
   private final ConversationRepository conversationRepository;
   @Autowired
   private final UserRepository userRepository;
+  private static final Logger logger = Logger.getLogger(ConversationService.class.getName());
 
   /**
    * Retrieve a list of all conversations with the current logged user
@@ -118,16 +118,41 @@ public class ConversationService {
     // Find a conversation between the two users, user as user1 and interlocutor as user2
     for (Conversation conversation : conversations1) {
       if (conversation.getUser2().equals(interlocutor)) {
-        return new ConversationDTO(conversation);
+        logger.info("Conversation trouvée : "+conversation);
+        logger.info("Messages associés : "+conversation.getMessages());
+        conversationDTO = new ConversationDTO(conversation);
+
+        List<MessageDTO> messageDTOS = new ArrayList<>();
+        for(Message msg : conversation.getMessages()){
+          messageDTOS.add(new MessageDTO(msg));
+        }
+
+        logger.info("MessageDTOS :"+messageDTOS);
+
+        conversationDTO.setMessagesDTOS(messageDTOS);
+        logger.info("MessageDTOS of the conversationDTO :"+conversationDTO.messagesDTOS());
       }
     }
 
     // Find a conversation between the two users, interlocutor as user1 and user as user2
     for (Conversation conversation : conversations2) {
       if (conversation.getUser1().equals(interlocutor)) {
-        return new ConversationDTO(conversation);
+        logger.info("Conversation trouvée : "+conversation);
+        logger.info("Messages associés : "+conversation.getMessages());
+        conversationDTO = new ConversationDTO(conversation);
+
+        List<MessageDTO> messageDTOS = new ArrayList<>();
+        for(Message msg : conversation.getMessages()){
+          messageDTOS.add(new MessageDTO(msg));
+        }
+
+        logger.info("MessageDTOS :"+messageDTOS);
+
+        conversationDTO.setMessagesDTOS(messageDTOS);
+        logger.info("MessageDTOS of the conversationDTO :"+conversationDTO.messagesDTOS());
       }
     }
+
 
     if (conversationDTO == null) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversation not found with this user");
@@ -167,10 +192,13 @@ public class ConversationService {
   public void storeMessageInConversation(String user, String interlocutor, Message message) {
     Conversation conversation = this.findConversation(user, interlocutor);
     conversation.getMessages().add(message);
+
+    // To update the conversation
+    conversationRepository.save(conversation);
   }
 
   /**
-   * Save the given messageDTO in the conversatioDTO
+   * Save the given messageDTO in the conversationDTO
    * @param user The logged-in user
    * @param interlocutor The address of the interlocutor
    * @param messageDTO The messageDTO to save

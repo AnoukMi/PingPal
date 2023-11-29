@@ -159,6 +159,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -194,28 +196,20 @@ public class MessageController {
     ConversationDTO conversationDTO = conversationService
       .getOneConversation(user.getName() + "@" + serverDomain, newMessage.to());
 
-    log.info("Conversation DTO found : " +conversationDTO.toString());
+    // log.info("Conversation DTO found : " +conversationDTO.toString());
 
     Conversation conversation = conversationService.findConversation(user.getName() + "@" + serverDomain, newMessage.to());
 
-    log.info("Conversation found : user1 = "+conversation.getUser1()+" and user2 = "+conversation.getUser2());
+    // log.info("Conversation found : id = "+conversation.getId()+" and user1 = "+conversation.getUser1()+" and user2 = "+conversation.getUser2());
 
     // Build a model message from the router message and the conversation
     Message message = new Message(routerMessage, conversation);
 
     // Also store the message in the right list of messages
     conversationService.storeMessageInConversation(user.getName() + "@" + serverDomain, newMessage.to(), message);
-    log.info("Messages : "+conversation.getMessages());
-    log.info("Users associated to the message : user1 = "
-      +conversation.getMessages().get(0).getConversation().getUser1()
-    +" and user2 = "+conversation.getMessages().get(0).getConversation().getUser2());
 
     // Build a messageDTO from the router message and the conversationDTO
     MessageDTO messageDTO = new MessageDTO(routerMessage, conversationDTO);
-
-    // Also store the messageDTO in the right list of messageDTOS
-    // conversationService.storeMessageDTOInConversationDTO(user.getName() + "@" + serverDomain, newMessage.to(), messageDTO);
-    log.info("MessagesDTO : "+conversationDTO.messagesDTOS());
 
     // Route the message
     routerService.routeMessage(routerMessage);
