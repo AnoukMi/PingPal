@@ -22,9 +22,6 @@ export class UserWritingFrameComponent implements ControlValueAccessor, OnInit {
 
   @Output() messageSent = new EventEmitter<string>();
 
-  sendMessage(message: string) {
-    this.messageSent.emit(message);
-  }
 
   onChange: any = () => {};
   onTouched: any = () => {};

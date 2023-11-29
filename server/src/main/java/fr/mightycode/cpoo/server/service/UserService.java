@@ -21,6 +21,8 @@ import java.time.LocalDate;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
@@ -92,5 +94,26 @@ public class UserService {
       userDetailsManager.deleteUser(login); //ok, deletion
       return -1;
     }
+  }
+
+  /**
+   * Retrieve the UserData associated to the given user
+   * @param user The address of the user
+   * @return The UserData
+   */
+  public UserData getUser(String user){
+    return userRepository.findByLogin((getLogin(user)));
+  }
+
+  private String getLogin(String address) {
+    String result = "";
+    String regex = "([^@]+)@.*";
+    Pattern pattern = Pattern.compile(regex);
+    Matcher matcher = pattern.matcher(address);
+    if (matcher.matches()) {
+      // Extraire la partie avant le @ (groupe 1)
+      result = matcher.group(1);
+    }
+    return result;
   }
 }

@@ -16,11 +16,20 @@
   border: 2px dashed #813641;
 }
 
+.sent_msg {
+  position: relative;
+  width: 92%;
+  height: 100%;
+  background-color: #eee7e7a6;
+  border-radius: 16px;
+  border: 2px dashed #813641;
+}
+
 .nameContact {
   position: absolute;
   top: 1vh;
   left: 7vw;
-  font-family: "Alata-Regular", Helvetica;
+  font-family: "Alata-Regular", Helvetica, serif;
   color: #813641;
   font-size: 18px;
   font-weight: 400;
@@ -30,7 +39,7 @@
   position: absolute;
   top: 4vh;
   left: 7vw;
-  font-family: "Alata-Regular", Helvetica;
+  font-family: "Alata-Regular", Helvetica, serif;
   color: #5E5E5E;
   font-size: 18px;
   font-weight: 400;
@@ -40,13 +49,13 @@
   position: absolute;
   top: 1.5vh;
   right: 1vw;
-  font-family: "Alata-Regular", Helvetica;
+  font-family: "Alata-Regular", Helvetica, serif;
   color: #5E5E5E;
   font-size: 14px;
   font-weight: 400;
 }
 
-.avatar {
+.icon {
   position: absolute;
   width: 3.8vw;
   top: 0.7vh;

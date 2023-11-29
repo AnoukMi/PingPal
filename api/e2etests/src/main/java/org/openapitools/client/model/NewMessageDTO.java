@@ -21,8 +21,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.UUID;
-import org.openapitools.client.model.ConversationDTO;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -49,10 +47,10 @@ import java.util.Set;
 import org.openapitools.client.JSON;
 
 /**
- * Message information
+ * New message information
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class MessageDTO {
+public class NewMessageDTO {
   public static final String SERIALIZED_NAME_TO = "to";
   @SerializedName(SERIALIZED_NAME_TO)
   private String to;
@@ -65,26 +63,10 @@ public class MessageDTO {
   @SerializedName(SERIALIZED_NAME_BODY)
   private String body;
 
-  public static final String SERIALIZED_NAME_ID = "id";
-  @SerializedName(SERIALIZED_NAME_ID)
-  private UUID id;
-
-  public static final String SERIALIZED_NAME_TIMESTAMP = "timestamp";
-  @SerializedName(SERIALIZED_NAME_TIMESTAMP)
-  private Long timestamp;
-
-  public static final String SERIALIZED_NAME_FROM = "from";
-  @SerializedName(SERIALIZED_NAME_FROM)
-  private String from;
-
-  public static final String SERIALIZED_NAME_CONVERSATION_D_T_O = "conversationDTO";
-  @SerializedName(SERIALIZED_NAME_CONVERSATION_D_T_O)
-  private ConversationDTO conversationDTO;
-
-  public MessageDTO() {
+  public NewMessageDTO() {
   }
 
-  public MessageDTO to(String to) {
+  public NewMessageDTO to(String to) {
     
     this.to = to;
     return this;
@@ -105,7 +87,7 @@ public class MessageDTO {
   }
 
 
-  public MessageDTO type(String type) {
+  public NewMessageDTO type(String type) {
     
     this.type = type;
     return this;
@@ -126,7 +108,7 @@ public class MessageDTO {
   }
 
 
-  public MessageDTO body(String body) {
+  public NewMessageDTO body(String body) {
     
     this.body = body;
     return this;
@@ -147,90 +129,6 @@ public class MessageDTO {
   }
 
 
-  public MessageDTO id(UUID id) {
-    
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @javax.annotation.Nonnull
-  public UUID getId() {
-    return id;
-  }
-
-
-  public void setId(UUID id) {
-    this.id = id;
-  }
-
-
-  public MessageDTO timestamp(Long timestamp) {
-    
-    this.timestamp = timestamp;
-    return this;
-  }
-
-   /**
-   * Get timestamp
-   * @return timestamp
-  **/
-  @javax.annotation.Nonnull
-  public Long getTimestamp() {
-    return timestamp;
-  }
-
-
-  public void setTimestamp(Long timestamp) {
-    this.timestamp = timestamp;
-  }
-
-
-  public MessageDTO from(String from) {
-    
-    this.from = from;
-    return this;
-  }
-
-   /**
-   * Get from
-   * @return from
-  **/
-  @javax.annotation.Nonnull
-  public String getFrom() {
-    return from;
-  }
-
-
-  public void setFrom(String from) {
-    this.from = from;
-  }
-
-
-  public MessageDTO conversationDTO(ConversationDTO conversationDTO) {
-    
-    this.conversationDTO = conversationDTO;
-    return this;
-  }
-
-   /**
-   * Get conversationDTO
-   * @return conversationDTO
-  **/
-  @javax.annotation.Nullable
-  public ConversationDTO getConversationDTO() {
-    return conversationDTO;
-  }
-
-
-  public void setConversationDTO(ConversationDTO conversationDTO) {
-    this.conversationDTO = conversationDTO;
-  }
-
-
 
   @Override
   public boolean equals(Object o) {
@@ -240,32 +138,24 @@ public class MessageDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MessageDTO messageDTO = (MessageDTO) o;
-    return Objects.equals(this.to, messageDTO.to) &&
-        Objects.equals(this.type, messageDTO.type) &&
-        Objects.equals(this.body, messageDTO.body) &&
-        Objects.equals(this.id, messageDTO.id) &&
-        Objects.equals(this.timestamp, messageDTO.timestamp) &&
-        Objects.equals(this.from, messageDTO.from) &&
-        Objects.equals(this.conversationDTO, messageDTO.conversationDTO);
+    NewMessageDTO newMessageDTO = (NewMessageDTO) o;
+    return Objects.equals(this.to, newMessageDTO.to) &&
+        Objects.equals(this.type, newMessageDTO.type) &&
+        Objects.equals(this.body, newMessageDTO.body);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(to, type, body, id, timestamp, from, conversationDTO);
+    return Objects.hash(to, type, body);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MessageDTO {\n");
+    sb.append("class NewMessageDTO {\n");
     sb.append("    to: ").append(toIndentedString(to)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    body: ").append(toIndentedString(body)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
-    sb.append("    from: ").append(toIndentedString(from)).append("\n");
-    sb.append("    conversationDTO: ").append(toIndentedString(conversationDTO)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -291,44 +181,37 @@ public class MessageDTO {
     openapiFields.add("to");
     openapiFields.add("type");
     openapiFields.add("body");
-    openapiFields.add("id");
-    openapiFields.add("timestamp");
-    openapiFields.add("from");
-    openapiFields.add("conversationDTO");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
     openapiRequiredFields.add("to");
     openapiRequiredFields.add("type");
     openapiRequiredFields.add("body");
-    openapiRequiredFields.add("id");
-    openapiRequiredFields.add("timestamp");
-    openapiRequiredFields.add("from");
   }
 
  /**
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to MessageDTO
+  * @throws IOException if the JSON Element is invalid with respect to NewMessageDTO
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!MessageDTO.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in MessageDTO is not found in the empty JSON string", MessageDTO.openapiRequiredFields.toString()));
+        if (!NewMessageDTO.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in NewMessageDTO is not found in the empty JSON string", NewMessageDTO.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!MessageDTO.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `MessageDTO` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        if (!NewMessageDTO.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `NewMessageDTO` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
 
       // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : MessageDTO.openapiRequiredFields) {
+      for (String requiredField : NewMessageDTO.openapiRequiredFields) {
         if (jsonElement.getAsJsonObject().get(requiredField) == null) {
           throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
@@ -343,38 +226,28 @@ public class MessageDTO {
       if (!jsonObj.get("body").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `body` to be a primitive type in the JSON string but got `%s`", jsonObj.get("body").toString()));
       }
-      if (!jsonObj.get("id").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("id").toString()));
-      }
-      if (!jsonObj.get("from").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `from` to be a primitive type in the JSON string but got `%s`", jsonObj.get("from").toString()));
-      }
-      // validate the optional field `conversationDTO`
-      if (jsonObj.get("conversationDTO") != null && !jsonObj.get("conversationDTO").isJsonNull()) {
-        ConversationDTO.validateJsonElement(jsonObj.get("conversationDTO"));
-      }
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!MessageDTO.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'MessageDTO' and its subtypes
+       if (!NewMessageDTO.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'NewMessageDTO' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<MessageDTO> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(MessageDTO.class));
+       final TypeAdapter<NewMessageDTO> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(NewMessageDTO.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<MessageDTO>() {
+       return (TypeAdapter<T>) new TypeAdapter<NewMessageDTO>() {
            @Override
-           public void write(JsonWriter out, MessageDTO value) throws IOException {
+           public void write(JsonWriter out, NewMessageDTO value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public MessageDTO read(JsonReader in) throws IOException {
+           public NewMessageDTO read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -385,18 +258,18 @@ public class MessageDTO {
   }
 
  /**
-  * Create an instance of MessageDTO given an JSON string
+  * Create an instance of NewMessageDTO given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of MessageDTO
-  * @throws IOException if the JSON string is invalid with respect to MessageDTO
+  * @return An instance of NewMessageDTO
+  * @throws IOException if the JSON string is invalid with respect to NewMessageDTO
   */
-  public static MessageDTO fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, MessageDTO.class);
+  public static NewMessageDTO fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, NewMessageDTO.class);
   }
 
  /**
-  * Convert an instance of MessageDTO to an JSON string
+  * Convert an instance of NewMessageDTO to an JSON string
   *
   * @return JSON string
   */

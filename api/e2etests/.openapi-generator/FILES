@@ -1,6 +1,5 @@
 .github/workflows/maven.yml
 .gitignore
-.openapi-generator-ignore
 .travis.yml
 README.md
 api/openapi.yaml
@@ -15,7 +14,7 @@ docs/ErrorDTO.md
 docs/FullUserDTO.md
 docs/MessageApi.md
 docs/MessageDTO.md
-docs/MessageReducedDTO.md
+docs/NewMessageDTO.md
 docs/ProfileApi.md
 docs/UserDTO.md
 git_push.sh
@@ -55,17 +54,5 @@ src/main/java/org/openapitools/client/model/ConversationDTO.java
 src/main/java/org/openapitools/client/model/ErrorDTO.java
 src/main/java/org/openapitools/client/model/FullUserDTO.java
 src/main/java/org/openapitools/client/model/MessageDTO.java
-src/main/java/org/openapitools/client/model/MessageReducedDTO.java
+src/main/java/org/openapitools/client/model/NewMessageDTO.java
 src/main/java/org/openapitools/client/model/UserDTO.java
-src/test/java/org/openapitools/client/api/AuthenticationApiTest.java
-src/test/java/org/openapitools/client/api/ContactApiTest.java
-src/test/java/org/openapitools/client/api/ConversationApiTest.java
-src/test/java/org/openapitools/client/api/MessageApiTest.java
-src/test/java/org/openapitools/client/api/ProfileApiTest.java
-src/test/java/org/openapitools/client/model/ContactProfileDTOTest.java
-src/test/java/org/openapitools/client/model/ConversationDTOTest.java
-src/test/java/org/openapitools/client/model/ErrorDTOTest.java
-src/test/java/org/openapitools/client/model/FullUserDTOTest.java
-src/test/java/org/openapitools/client/model/MessageDTOTest.java
-src/test/java/org/openapitools/client/model/MessageReducedDTOTest.java
-src/test/java/org/openapitools/client/model/UserDTOTest.java

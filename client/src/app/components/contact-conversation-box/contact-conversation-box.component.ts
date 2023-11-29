@@ -1,6 +1,8 @@
 import {Component, Input} from '@angular/core';
 import {Contact} from "../../models/contact";
 import {Router} from "@angular/router";
+import {Discussion} from "../../services/discussion.service";
+import {ConversationDTO} from "../../api";
 
 @Component({
   selector: 'app-contact-conversation-frame',
@@ -10,14 +12,20 @@ import {Router} from "@angular/router";
 
 
 export class ContactConversationBoxComponent {
-  @Input() contact: Contact = new Contact();
+  @Input() conversation!: ConversationDTO;
+  @Input() interlocutor: string = '';
   @Input() statusMessage: boolean = false;
+  @Input() sentMessage: boolean = false;
+  hour: string = '';
 
   constructor(private router: Router) {
+    // const hours = this.discussion.date.getHours().toString().padStart(2, '0');
+    // const minutes = this.discussion.date.getMinutes().toString().padStart(2, '0');
+    // this.hour = `${hours}:${minutes}`;
   }
 
-  changeStatus(){
+  changeStatus() {
     this.statusMessage = !this.statusMessage;
-    this.router.navigate(['/conversation/', this.contact.username]);
+    this.router.navigate(['/conversation', this.interlocutor]);
   }
 }

@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import {MessageDTO} from "../../api";
+import {DatePipe} from "@angular/common";
 
 
 @Component({
@@ -7,10 +9,12 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./user-bubble.component.css']
 })
 export class UserBubbleComponent {
+  @Input() message!: MessageDTO;
 
-  @Input() author: string = '';
-  @Input() content: string = '';
-  @Input() date: string = '';
-
-
+  // constructor(private datePipe: DatePipe) {
+  // }
+  //
+  // getTime(timestamp: number){
+  //   return this.datePipe.transform(timestamp, 'HH:mm') || '';
+  // }
 }

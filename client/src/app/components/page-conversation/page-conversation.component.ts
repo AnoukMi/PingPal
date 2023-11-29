@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { MessageDTO } from "../../api";
+import {ConversationDTO, MessageDTO, MessageService} from "../../api";
 import { Discussion, DiscussionService } from "../../services/discussion.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import { FormControl } from "@angular/forms";
@@ -9,27 +9,37 @@ import { FormControl } from "@angular/forms";
   templateUrl: './page-conversation.component.html',
   styleUrls: ['./page-conversation.component.css']
 })
-export class PageConversationComponent{
+export class PageConversationComponent implements OnInit{
   discussion!: Discussion;
-  messages: MessageDTO[] = [];
-  // @ViewChild('messageInput') messageInput!: ElementRef;
+  conversation!: ConversationDTO;
+  interlocutor: string = '';
+  @ViewChild('messageInput') messageInput!: ElementRef;
   message = new FormControl();
+
+  ngOnInit() {
+    // Know which conversation to display
+    let _interlocutor = '';
+    this.activatedRoute.params.subscribe(params => {
+      _interlocutor = params['recipient'];
+      console.log(`### current conversation with ${_interlocutor}`);
+      // this.discussion = this.discussionService.getDiscussion(_interlocutor);
+      this.discussionService.getConversation(_interlocutor)
+        .subscribe(
+          conversation => {
+            this.conversation = conversation;
+          },
+          error => {
+            console.error(`### Erreur affectation de la conversation`, error);
+          }
+        );
+      this.interlocutor = _interlocutor;
+      // this.router.navigate(['/conversation', this.interlocutor]);
+    });
+  }
 
   constructor(private discussionService: DiscussionService,
               private activatedRoute: ActivatedRoute,
               private router: Router) {
-
-    // Know which conversation to display
-    let recipient = '';
-    this.activatedRoute.params.subscribe(params => {
-      recipient = params['recipient'];
-      console.log(`### current conversation with ${recipient}`);
-    })
-    this.discussionService.newDiscussion(recipient);
-    this.router.navigate(['/conversation/', recipient]);
-    this.discussion = new Discussion({interlocutor: recipient, messages: []})
-    this.messages = this.discussion.messages;
-
   }
 
   onSend() {
@@ -37,10 +47,12 @@ export class PageConversationComponent{
     if (!this.message.value?.trim()) return;
     // if(this.message == '') return;
 
-    this.discussionService.sendMessage(this.discussion, this.message.value);
-
-    // Update the messages
-    this.messages = this.discussion.messages;
+    // this.discussionService.sendMessage(<Discussion>this.discussion, this.message.value);
+    this.discussionService.sendMessageConversation(<ConversationDTO>this.conversation, this.interlocutor, this.message.value);
+    // this.messageService.userMessageMessagesGet().subscribe(messages => {
+    //   this.discussion.messages = messages;
+    //   console.log(`### messages length : ${this.discussion.messages.length}`);
+    // });
 
     // Clear the box to write messages
     this.message.setValue('');

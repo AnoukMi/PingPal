@@ -5,8 +5,8 @@ All URIs are relative to *http://localhost:8080*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**userConversationConversationsGet**](ConversationApi.md#userConversationConversationsGet) | **GET** /user/conversation/conversations | Retrieve all conversations (headers) between the current user and others |
-| [**userConversationLoginDelete**](ConversationApi.md#userConversationLoginDelete) | **DELETE** /user/conversation/{login} | Delete an existing conversation (the header and all contained messages) with a given user |
-| [**userConversationLoginGet**](ConversationApi.md#userConversationLoginGet) | **GET** /user/conversation/{login} | Search an existing conversation (the header) with a given user |
+| [**userConversationInterlocutorDelete**](ConversationApi.md#userConversationInterlocutorDelete) | **DELETE** /user/conversation/{interlocutor} | Delete an existing conversation (the header and all contained messages) with a given user |
+| [**userConversationInterlocutorGet**](ConversationApi.md#userConversationInterlocutorGet) | **GET** /user/conversation/{interlocutor} | Search an existing conversation (the header) with a given user |
 | [**userConversationNewConversationInterlocutorPost**](ConversationApi.md#userConversationNewConversationInterlocutorPost) | **POST** /user/conversation/newConversation/{interlocutor} | Create a new (empty) conversation with a given user |
 
 
@@ -76,9 +76,9 @@ This endpoint does not need any parameter.
 | **404** | Current user not found or conversations not found |  -  |
 | **0** | Error |  -  |
 
-<a id="userConversationLoginDelete"></a>
-# **userConversationLoginDelete**
-> userConversationLoginDelete(login)
+<a id="userConversationInterlocutorDelete"></a>
+# **userConversationInterlocutorDelete**
+> userConversationInterlocutorDelete(interlocutor)
 
 Delete an existing conversation (the header and all contained messages) with a given user
 
@@ -104,11 +104,11 @@ public class Example {
     //CookieAuth.setApiKeyPrefix("Token");
 
     ConversationApi apiInstance = new ConversationApi(defaultClient);
-    String login = "login_example"; // String | Username or peer address of the interlocutor from whom we want to delete the conversation
+    String interlocutor = "interlocutor_example"; // String | Username or peer address of the interlocutor from whom we want to delete the conversation
     try {
-      apiInstance.userConversationLoginDelete(login);
+      apiInstance.userConversationInterlocutorDelete(interlocutor);
     } catch (ApiException e) {
-      System.err.println("Exception when calling ConversationApi#userConversationLoginDelete");
+      System.err.println("Exception when calling ConversationApi#userConversationInterlocutorDelete");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -122,7 +122,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **login** | **String**| Username or peer address of the interlocutor from whom we want to delete the conversation | |
+| **interlocutor** | **String**| Username or peer address of the interlocutor from whom we want to delete the conversation | |
 
 ### Return type
 
@@ -144,9 +144,9 @@ null (empty response body)
 | **404** | UserID not found in the current user&#39;s list of conversations |  -  |
 | **0** | Error |  -  |
 
-<a id="userConversationLoginGet"></a>
-# **userConversationLoginGet**
-> ConversationDTO userConversationLoginGet(login)
+<a id="userConversationInterlocutorGet"></a>
+# **userConversationInterlocutorGet**
+> ConversationDTO userConversationInterlocutorGet(interlocutor)
 
 Search an existing conversation (the header) with a given user
 
@@ -172,12 +172,12 @@ public class Example {
     //CookieAuth.setApiKeyPrefix("Token");
 
     ConversationApi apiInstance = new ConversationApi(defaultClient);
-    String login = "login_example"; // String | Username or peer address of the interlocutor from whom we want to retrieve the conversation
+    String interlocutor = "interlocutor_example"; // String | Username or peer address of the interlocutor from whom we want to retrieve the conversation
     try {
-      ConversationDTO result = apiInstance.userConversationLoginGet(login);
+      ConversationDTO result = apiInstance.userConversationInterlocutorGet(interlocutor);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling ConversationApi#userConversationLoginGet");
+      System.err.println("Exception when calling ConversationApi#userConversationInterlocutorGet");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -191,7 +191,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **login** | **String**| Username or peer address of the interlocutor from whom we want to retrieve the conversation | |
+| **interlocutor** | **String**| Username or peer address of the interlocutor from whom we want to retrieve the conversation | |
 
 ### Return type
 

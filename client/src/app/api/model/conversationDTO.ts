@@ -9,17 +9,29 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { MessageDTO } from './messageDTO';
 
 
 export interface ConversationDTO { 
     /**
-     * Username of the interlocutor
+     * Id of the conversation
      */
-    userID?: string;
-    peerAddress: string;
+    id?: string;
+    /**
+     * one of the two users involved in the conversation
+     */
+    user1: string;
+    /**
+     * one of the two users involved in the conversation
+     */
+    user2: string;
     /**
      * Date of the last sent message to be able to sort conversations from the newest to the oldest
      */
     lastMessageDate: string;
+    /**
+     * List of messages exchanged in the conversation
+     */
+    messagesDTOS: Array<MessageDTO>;
 }
 

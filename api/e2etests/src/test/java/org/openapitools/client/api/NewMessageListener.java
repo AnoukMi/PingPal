@@ -7,9 +7,9 @@
 //import org.junit.jupiter.api.Test;
 //import org.openapitools.client.ApiClient;
 //import org.openapitools.client.ApiException;
+//import org.openapitools.client.ApiResponse;
 //import org.openapitools.client.model.MessageDTO;
 //import org.openapitools.client.model.NewMessageDTO;
-//import org.openapitools.client.model.UserCredentialsDTO;
 //import org.openapitools.client.model.UserDTO;
 //
 //import java.util.List;
@@ -91,27 +91,32 @@
 //        // Sign in
 //        authenticationApi.userSigninPost(new UserDTO().login("tester").password("tester"));
 //
-//        // Start listening for new messages
-//        NewMessageListener newMessageListener = new NewMessageListener(messageApi.getApiClient().getHttpClient());
-//
 //        // Post a message to self with a unique content
 //        String body = UUID.randomUUID().toString();
 //        NewMessageDTO postMessage = new NewMessageDTO().to("tester@acme").type("text/plain").body(body);
 //        messageApi.userMessagePost(postMessage);
 //
-//        // Wait for the next new message
-//        MessageDTO message = newMessageListener.getNextMessage();
-//        newMessageListener.close();
+//        // The message should be queued twice: when it is sent and when it is received
+//        for (int i = 0; i < 2; i++) {
 //
-//        // The message should be our posted message
-//        Assertions.assertNotNull(message);
-//        Assertions.assertEquals("tester@acme", message.getFrom());
-//        Assertions.assertEquals(postMessage.getTo(), message.getTo());
-//        Assertions.assertEquals(postMessage.getType(), message.getType());
-//        Assertions.assertEquals(postMessage.getBody(), message.getBody());
-//        Assertions.assertNotNull(message.getId());
-//        Assertions.assertTrue(message.getTimestamp() > System.currentTimeMillis() - 2000L
-//                && message.getTimestamp() < System.currentTimeMillis() + 2000L);
+//            // Get the message
+//            MessageDTO newMessage = messageApi.m();
+//
+//            // The message should be our message
+//            Assertions.assertNotNull(newMessage);
+//            Assertions.assertEquals("tester@acme", newMessage.getFrom());
+//            Assertions.assertEquals(postMessage.getTo(), newMessage.getTo());
+//            Assertions.assertEquals(postMessage.getType(), newMessage.getType());
+//            Assertions.assertEquals(postMessage.getBody(), newMessage.getBody());
+//            Assertions.assertNotNull(newMessage.getId());
+//            Assertions.assertTrue(newMessage.getTimestamp() > System.currentTimeMillis() - 2000L
+//                    && newMessage.getTimestamp() < System.currentTimeMillis() + 2000L);
+//        }
+//
+//        // Get a message
+//        ApiResponse<MessageDTO> response = messageApi.userMessageMessagesGetWithHttpInfo();
+//        Assertions.assertEquals(HttpStatus.SC_ACCEPTED, response.getStatusCode());
+//        Assertions.assertNull(response.getData());
 //    }
 //
 //    @Test
@@ -119,7 +124,7 @@
 //
 //        // Getting messages while not signed in should fail with FORBIDDEN
 //        try {
-//            messageApi.messagesGet();
+//            messageApi.userMessageMessagesGet();
 //            Assertions.fail();
 //        }
 //        catch (ApiException e) {
@@ -130,7 +135,6 @@
 //        authenticationApi.userSigninPost(new UserCredentialsDTO().login("alice").password("alice"));
 //
 //        // Get all messages
-//        messageApi.messagesGet();
+//        List<MessageDTO> messages = messageApi.messagesGet();
 //    }
 //}
-//

@@ -1,17 +1,26 @@
-<a routerLink="conversation/{{ contact.username }}">
-<button class="w3-button hover-effect" [ngClass]="{'conv_unread': !statusMessage, 'conv_read': statusMessage}"
+  <a routerLink="conversation/{{ interlocutor }}">
+<button class="w3-button hover-effect" [ngClass]="{'conv_unread': !statusMessage && !sentMessage,
+ 'conv_read': statusMessage && !sentMessage,
+ 'sent_msg': sentMessage}"
         (click)="changeStatus()">
 
   <div *ngIf="!statusMessage">
-    <div class="nameContact"><b>{{ contact.username }}</b></div>
+    <div class="nameContact"><b>{{ interlocutor }}</b></div>
     <div class="messageStatus"><b>Unread message</b></div>
   </div>
   <div *ngIf="statusMessage">
-    <div class="nameContact">{{ contact.username }}</div>
+    <div class="nameContact">{{ interlocutor }}</div>
     <div class="messageStatus">Read message</div>
   </div>
+  <div *ngIf="sentMessage">
+    <div class="nameContact">{{ interlocutor }}</div>
+    <div class="messageStatus">Sent message</div>
+  </div>
 
-  <div class="timeMsg">{{ contact.lastMsgDate }}</div>
-  <img class="avatar" src="{{ contact.icon }}" />
+  <!-- For now, it displays the moment of creation of the conversation, but I have to change it so it displays the
+  date of the last message exchanged -->
+  <!-- <div class="timeMsg">{{ hour }}</div> -->
+
+  <!--  <img class="avatar" src="{{ contact.icon }}" /> -->
 </button>
 </a>

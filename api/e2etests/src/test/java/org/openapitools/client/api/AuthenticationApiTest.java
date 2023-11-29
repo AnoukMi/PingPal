@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 /**
  * API tests for AuthenticationApi
  */
-@Disabled
+
 public class AuthenticationApiTest {
 
     private final AuthenticationApi api = new AuthenticationApi();

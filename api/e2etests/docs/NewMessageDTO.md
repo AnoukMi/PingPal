@@ -1,8 +1,8 @@
 
 
-# MessageDTO
+# NewMessageDTO
 
-Message information
+New message information
 
 ## Properties
 
@@ -11,10 +11,6 @@ Message information
 |**to** | **String** |  |  |
 |**type** | **String** |  |  |
 |**body** | **String** |  |  |
-|**id** | **UUID** |  |  |
-|**timestamp** | **Long** |  |  |
-|**from** | **String** |  |  |
-|**conversationDTO** | [**ConversationDTO**](ConversationDTO.md) |  |  [optional] |
 
 
 

@@ -11,14 +11,12 @@
  */
 
 
-export interface MessageReducedDTO { 
-    /**
-     * Username (userID) of the interlocutor or the peerAddress
-     */
-    recipientID: string;
-    /**
-     * Text contained in the message
-     */
-    content: string;
+/**
+ * New message information
+ */
+export interface NewMessageDTO { 
+    to: string;
+    type: string;
+    body: string;
 }
 

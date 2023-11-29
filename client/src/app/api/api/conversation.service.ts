@@ -155,16 +155,16 @@ export class ConversationService {
 
     /**
      * Delete an existing conversation (the header and all contained messages) with a given user
-     * @param login Username or peer address of the interlocutor from whom we want to delete the conversation
+     * @param interlocutor Username or peer address of the interlocutor from whom we want to delete the conversation
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public userConversationLoginDelete(login: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any>;
-    public userConversationLoginDelete(login: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<any>>;
-    public userConversationLoginDelete(login: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<any>>;
-    public userConversationLoginDelete(login: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (login === null || login === undefined) {
-            throw new Error('Required parameter login was null or undefined when calling userConversationLoginDelete.');
+    public userConversationInterlocutorDelete(interlocutor: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any>;
+    public userConversationInterlocutorDelete(interlocutor: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<any>>;
+    public userConversationInterlocutorDelete(interlocutor: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<any>>;
+    public userConversationInterlocutorDelete(interlocutor: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (interlocutor === null || interlocutor === undefined) {
+            throw new Error('Required parameter interlocutor was null or undefined when calling userConversationInterlocutorDelete.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -204,7 +204,7 @@ export class ConversationService {
             }
         }
 
-        let localVarPath = `/user/conversation/${this.configuration.encodeParam({name: "login", value: login, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/user/conversation/${this.configuration.encodeParam({name: "interlocutor", value: interlocutor, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<any>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -219,16 +219,16 @@ export class ConversationService {
 
     /**
      * Search an existing conversation (the header) with a given user
-     * @param login Username or peer address of the interlocutor from whom we want to retrieve the conversation
+     * @param interlocutor Username or peer address of the interlocutor from whom we want to retrieve the conversation
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public userConversationLoginGet(login: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ConversationDTO>;
-    public userConversationLoginGet(login: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ConversationDTO>>;
-    public userConversationLoginGet(login: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ConversationDTO>>;
-    public userConversationLoginGet(login: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (login === null || login === undefined) {
-            throw new Error('Required parameter login was null or undefined when calling userConversationLoginGet.');
+    public userConversationInterlocutorGet(interlocutor: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ConversationDTO>;
+    public userConversationInterlocutorGet(interlocutor: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ConversationDTO>>;
+    public userConversationInterlocutorGet(interlocutor: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ConversationDTO>>;
+    public userConversationInterlocutorGet(interlocutor: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (interlocutor === null || interlocutor === undefined) {
+            throw new Error('Required parameter interlocutor was null or undefined when calling userConversationInterlocutorGet.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -268,7 +268,7 @@ export class ConversationService {
             }
         }
 
-        let localVarPath = `/user/conversation/${this.configuration.encodeParam({name: "login", value: login, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/user/conversation/${this.configuration.encodeParam({name: "interlocutor", value: interlocutor, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<ConversationDTO>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,

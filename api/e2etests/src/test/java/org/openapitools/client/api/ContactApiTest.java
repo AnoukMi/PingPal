@@ -27,7 +27,7 @@ import java.util.Map;
 /**
  * API tests for ContactApi
  */
-@Disabled
+
 public class ContactApiTest {
 
     private final ContactApi api = new ContactApi();

@@ -1,6 +1,21 @@
-  <div *ngFor="let contact of contacts">
+  <div *ngFor="let conv of recentConversations">
     <div class="contact">
-      <app-contact-conversation-frame [contact] = "contact"
-                                      [statusMessage] = "false"></app-contact-conversation-frame>
+      <ng-container [ngSwitch]="conv.user1">
+
+        <!-- If the conversation has the logged-in user as the user1 -->
+        <app-contact-conversation-frame *ngSwitchCase="loggedUser"
+                                        [conversation]="conv"
+                                        [interlocutor]="conv.user2"
+                                        [statusMessage] = "false"
+                                        [sentMessage] = "false"></app-contact-conversation-frame>
+
+        <!-- Otherwise -->
+        <app-contact-conversation-frame *ngSwitchDefault
+                                        [conversation]="conv"
+                                        [interlocutor]="conv.user1"
+                                        [statusMessage] = "false"
+                                        [sentMessage] = "false"></app-contact-conversation-frame>
+      </ng-container>
+
     </div>
   </div>

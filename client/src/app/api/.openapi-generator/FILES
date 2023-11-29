@@ -16,8 +16,8 @@ model/conversationDTO.ts
 model/errorDTO.ts
 model/fullUserDTO.ts
 model/messageDTO.ts
-model/messageReducedDTO.ts
 model/models.ts
+model/newMessageDTO.ts
 model/userDTO.ts
 param.ts
 variables.ts
