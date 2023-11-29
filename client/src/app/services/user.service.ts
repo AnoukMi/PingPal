@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of, Subject } from "rxjs";
+import { catchError, map, Observable, of, Subject, BehaviorSubject } from "rxjs";
 import { AuthenticationService, ProfileService, FullUserDTO } from "../api";
 
 
@@ -20,6 +20,7 @@ export class UserService {
   // Subject and Observable allowing subscribers to be informed about a change of the current user
   private currentUserSubject = new Subject<CurrentUser>();
   currentUserObservable = this.currentUserSubject.asObservable();
+
 
   // @ts-ignore
   /**
@@ -161,6 +162,28 @@ export class UserService {
       })
     )
   }
+
+  /**
+   * Wrapper of the PATCH /user/profile endpoint.
+   */
+
+  edit(login: string, password: string, remember: boolean, icon: number, firstname: string, lastname: string,
+       birthday: string, address: string) {
+    this._currentUser = { login, password, remember, icon, firstname, lastname,
+      birthday, address }; // udpate currentuser
+    this.currentUserSubject.next({ login, password, remember, icon, firstname, lastname,
+      birthday, address }); //notify leftsidecomponent to change values of user's data
+    console.debug('### editing...');
+    return this.profileService.userProfilePatch({ login, password, remember, icon, firstname, lastname,
+      birthday, address }).pipe(
+      map(_ => {
+        console.debug('### edited');
+        return;
+      })
+    )
+  }
+
+
 
   /**
    * @return the address of the signed-in user.

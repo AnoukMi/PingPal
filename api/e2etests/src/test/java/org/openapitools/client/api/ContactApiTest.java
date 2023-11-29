@@ -32,17 +32,6 @@ public class ContactApiTest {
 
     private final ContactApi api = new ContactApi();
 
-    /**
-     * Delete an existing contact (remove from the list of friends of the current user)
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void userFriendUserIDDeleteTest() throws ApiException {
-        String userID = null;
-        api.userFriendUserIDDelete(userID);
-        // TODO: test validations
-    }
 
     /**
      * Search an existing contact in the list of the current user&#39;s friends
@@ -53,18 +42,6 @@ public class ContactApiTest {
     public void userFriendUserIDGetTest() throws ApiException {
         String userID = null;
         ContactProfileDTO response = api.userFriendUserIDGet(userID);
-        // TODO: test validations
-    }
-
-    /**
-     * Add a new contact to the current user&#39;s friends
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void userFriendUserIDPostTest() throws ApiException {
-        String userID = null;
-        ContactProfileDTO response = api.userFriendUserIDPost(userID);
         // TODO: test validations
     }
 

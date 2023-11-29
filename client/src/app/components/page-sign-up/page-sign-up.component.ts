@@ -25,6 +25,7 @@ export class PageSignUpComponent {
     this.signupForm = this.formBuilder.group({
       login: ['', Validators.required],
       password: ['', Validators.required],
+      confpassword: ['', Validators.required],
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
     });
@@ -66,16 +67,23 @@ export class PageSignUpComponent {
     return !datePattern.test(birthdate);
   }
 
+  isInvalidPassword(pass1 : string, pass2 : string){
+    return (pass1 !== pass2);
+  }
+
+  /**
+   * Send data to the server to sign up the user
+   */
   onSubmit() {
     // If form is invalid, cancel
     if (this.signupForm.invalid)
       return;
 
-    // Sign in using form values
+    // Sign up using form values
     this.loading = true;
     this.userService.signup(this.getField('login').value, this.getField('password').value,
       false, 0, this.getField('firstname').value, this.getField('lastname').value,
-      this.birthday, `${this.getField('login').value}0at0pingpal`)
+      this.birthday, `${this.getField('login').value}@pingpal`)
       .subscribe({
         next: _ => {
           // Return to signin
