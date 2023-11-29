@@ -15,7 +15,6 @@ export class LeftSideComponent {
   birthday: string='';
   currentUser: CurrentUser = undefined;
   constructor(private userService: UserService, protected router: Router) {
-    console.debug('### AppComponent()');
     this.userService.getLogin().subscribe(login => {
       this.login = login || ''; // '' par défaut car si null ou undefined pas de valeur string possible
     });
@@ -35,7 +34,32 @@ export class LeftSideComponent {
     this.userService.getBirthday().subscribe(birthday => {
       this.birthday = birthday || '';
     });
-    this.userService.currentUserObservable.subscribe(currentUser => this.currentUser = currentUser);
+    console.debug('### AppComponent()');
+    this.userService.currentUserObservable.subscribe(currentUser => this.setUser(currentUser));
+  }
+
+  setUser(user : CurrentUser){
+    this.currentUser = user;
+    // update values (when edited for example)
+    this.userService.getLogin().subscribe(login => {
+      this.login = login || ''; // '' par défaut car si null ou undefined pas de valeur string possible
+    });
+
+    this.userService.getFirstname().subscribe(firstname => {
+      this.firstname = firstname || '';
+    });
+
+    this.userService.getLastname().subscribe(lastname => {
+      this.lastname = lastname || '';
+    });
+
+    this.userService.getIcon().subscribe(icon => {
+      this.icon = icon || 0;
+    });
+
+    this.userService.getBirthday().subscribe(birthday => {
+      this.birthday = birthday || '';
+    });
   }
 
 

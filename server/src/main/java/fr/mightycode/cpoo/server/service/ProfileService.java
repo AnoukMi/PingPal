@@ -32,7 +32,7 @@ public class ProfileService {
      */
     public boolean saveSharedMessage(String message, String userId) {
         UserData user = userRepository.findByLogin(userId);
-        if(message.length()<200){ //checke if not too long
+        if(message.length()<50){ //checke if not too long
             user.setSharedMessage(message); //update message
             userRepository.save(user); //save update to user
             return true;
@@ -86,7 +86,9 @@ public class ProfileService {
      */
     public boolean editProfile(String userId, String password, int icon, String firstname, String lastname, LocalDate birthday, String address) throws ServletException {
         UserDetails userDetails = userDetailsManager.loadUserByUsername(userId);
-        if (passwordEncoder.matches(password, userDetails.getPassword())) { //checke password to securize editing
+        if (!passwordEncoder.matches(password, userDetails.getPassword())) { //checke password to securize editing
+            return false;
+        } else {
             UserData user = userRepository.findByLogin(userId);
             user.setIcon(icon);
             user.setFirstname(firstname);
@@ -95,8 +97,6 @@ public class ProfileService {
             user.setAddress(address);
             userRepository.save(user); //update user after setting all new informations
             return true;
-        } else {
-            return false;
         }
     }
 

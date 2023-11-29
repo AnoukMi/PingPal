@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-list-avatars',
@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./list-avatars.component.css']
 })
 export class ListAvatarsComponent {
+  icon : number =0;
+  @Output() iconChange=new EventEmitter<number>();
+
+  onIconChange(selectedIcon : number) {
+    console.log('onIconChange called with icon:', selectedIcon);
+    this.icon = selectedIcon;
+    this.iconChange.emit(this.icon);
+  }
 
 }
