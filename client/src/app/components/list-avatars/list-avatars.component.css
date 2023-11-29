@@ -1,6 +1,6 @@
 .simple_button{
-  position:absolute;
-  left:0%;
+  position:relative;
+  width: 15%;
   background-color: transparent; /* Fond transparent */
   color: transparent;
   border:none;
@@ -9,6 +9,6 @@
 
 .avatar {
   position:relative;
-  width: 20%;
+  width: 100%;
 }
 
