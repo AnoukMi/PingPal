@@ -17,7 +17,6 @@ export class CurrentConversationsComponent implements OnInit, OnDestroy {
   private stopListening = new Subject<void>();
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
-              private messageService: MessageService,
               private discussionService: DiscussionService){
     // this.recentConv = this.discussionService.discussions;
     this.discussionService.getConversations()
@@ -27,9 +26,6 @@ export class CurrentConversationsComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit(){
-    // Wait for all discussions to be initialized
-    // await this.discussionService.initializeDiscussions();
-
     // Start listening for new messages and updating discussions
     this.discussionService.listenForNewMessages(this.stopListening,
       message => {

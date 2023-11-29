@@ -1,22 +1,3 @@
-<!--<a routerLink="conversation/{{ discussion.interlocutor }}">-->
-<!--<button class="w3-button hover-effect" [ngClass]="{'conv_unread': !statusMessage && !sentMessage,-->
-<!-- 'conv_read': statusMessage && !sentMessage,-->
-<!-- 'sent_msg': sentMessage}"-->
-<!--        (click)="changeStatus()">-->
-
-<!--  <div *ngIf="!statusMessage">-->
-<!--    <div class="nameContact"><b>{{ discussion.interlocutor }}</b></div>-->
-<!--    <div class="messageStatus"><b>Unread message</b></div>-->
-<!--  </div>-->
-<!--  <div *ngIf="statusMessage">-->
-<!--    <div class="nameContact">{{ discussion.interlocutor }}</div>-->
-<!--    <div class="messageStatus">Read message</div>-->
-<!--  </div>-->
-<!--  <div *ngIf="sentMessage">-->
-<!--    <div class="nameContact">{{ discussion.interlocutor }}</div>-->
-<!--    <div class="messageStatus">Sent message</div>-->
-<!--  </div>-->
-
   <a routerLink="conversation/{{ interlocutor }}">
 <button class="w3-button hover-effect" [ngClass]="{'conv_unread': !statusMessage && !sentMessage,
  'conv_read': statusMessage && !sentMessage,

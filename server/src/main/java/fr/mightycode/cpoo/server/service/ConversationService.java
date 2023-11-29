@@ -118,8 +118,8 @@ public class ConversationService {
     // Find a conversation between the two users, user as user1 and interlocutor as user2
     for (Conversation conversation : conversations1) {
       if (conversation.getUser2().equals(interlocutor)) {
-        logger.info("Conversation trouvée : "+conversation);
-        logger.info("Messages associés : "+conversation.getMessages());
+        // logger.info("Conversation trouvée : "+conversation);
+        // logger.info("Messages associés : "+conversation.getMessages());
         conversationDTO = new ConversationDTO(conversation);
 
         List<MessageDTO> messageDTOS = new ArrayList<>();
@@ -127,18 +127,18 @@ public class ConversationService {
           messageDTOS.add(new MessageDTO(msg));
         }
 
-        logger.info("MessageDTOS :"+messageDTOS);
+        // logger.info("MessageDTOS :"+messageDTOS);
 
         conversationDTO.setMessagesDTOS(messageDTOS);
-        logger.info("MessageDTOS of the conversationDTO :"+conversationDTO.messagesDTOS());
+        // logger.info("MessageDTOS of the conversationDTO :"+conversationDTO.messagesDTOS());
       }
     }
 
     // Find a conversation between the two users, interlocutor as user1 and user as user2
     for (Conversation conversation : conversations2) {
       if (conversation.getUser1().equals(interlocutor)) {
-        logger.info("Conversation trouvée : "+conversation);
-        logger.info("Messages associés : "+conversation.getMessages());
+        // logger.info("Conversation trouvée : "+conversation);
+        // logger.info("Messages associés : "+conversation.getMessages());
         conversationDTO = new ConversationDTO(conversation);
 
         List<MessageDTO> messageDTOS = new ArrayList<>();
@@ -146,10 +146,10 @@ public class ConversationService {
           messageDTOS.add(new MessageDTO(msg));
         }
 
-        logger.info("MessageDTOS :"+messageDTOS);
+        // logger.info("MessageDTOS :"+messageDTOS);
 
         conversationDTO.setMessagesDTOS(messageDTOS);
-        logger.info("MessageDTOS of the conversationDTO :"+conversationDTO.messagesDTOS());
+        // logger.info("MessageDTOS of the conversationDTO :"+conversationDTO.messagesDTOS());
       }
     }
 

@@ -245,7 +245,11 @@ public class ConversationApiTest {
         System.out.println("MessageDTO: "+conv2.getMessagesDTOS());
         assert conv2.getMessagesDTOS() != null;
         System.out.println("Taille MessageDTO: "+conv2.getMessagesDTOS().size());
-        // Assertions.assertEquals(uuid.toString(), (api.userConversationInterlocutorGet("anouk@pingpal").getMessagesDTOS()).get(0).getBody());
+
+        //deleting instances
+        api.userConversationInterlocutorDelete("anouk@pingpal");
+        authApi.userDeleteDelete(new UserDTO().login("lvhoa").password("test").remember(false));
+        authApi.userDeleteDelete(new UserDTO().login("anouk").password("test").remember(false));
     }
 
 }

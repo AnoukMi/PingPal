@@ -12,7 +12,6 @@ import {ConversationDTO} from "../../api";
 
 
 export class ContactConversationBoxComponent {
-  @Input() discussion!: Discussion;
   @Input() conversation!: ConversationDTO;
   @Input() interlocutor: string = '';
   @Input() statusMessage: boolean = false;
@@ -27,6 +26,6 @@ export class ContactConversationBoxComponent {
 
   changeStatus() {
     this.statusMessage = !this.statusMessage;
-    this.router.navigate(['/conversation', this.discussion.interlocutor]);
+    this.router.navigate(['/conversation', this.interlocutor]);
   }
 }
