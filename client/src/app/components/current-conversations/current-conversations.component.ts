@@ -11,24 +11,21 @@ import {UserService} from "../../services/user.service";
   styleUrls: ['./current-conversations.component.css']
 })
 export class CurrentConversationsComponent implements OnInit, OnDestroy {
-  recentConv!: Discussion[];
   recentConversations! : ConversationDTO[];
   loggedUser: string = '';
-  selectedConv!: string;
 
   private stopListening = new Subject<void>();
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private discussionService: DiscussionService,
               private userService: UserService){
-    // this.recentConv = this.discussionService.discussions;
+
     this.discussionService.getConversations()
       .subscribe(conversations =>  {
         this.recentConversations = conversations;
       });
     this.userService.getLogin().subscribe(login => {
-      this.loggedUser = login+"@pingpal" || ''; // '' par défaut car si null ou undefined pas de valeur string possible
-      console.log(`### logged-in user : ${this.loggedUser}`);
+      this.loggedUser = login+"@pingpal" || '';
     });
   }
 

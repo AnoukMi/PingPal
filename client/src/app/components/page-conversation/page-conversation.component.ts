@@ -48,11 +48,7 @@ export class PageConversationComponent implements OnInit{
     // if(this.message == '') return;
 
     // this.discussionService.sendMessage(<Discussion>this.discussion, this.message.value);
-    this.discussionService.sendMessageConversation(<ConversationDTO>this.conversation, this.interlocutor, this.message.value);
-    // this.messageService.userMessageMessagesGet().subscribe(messages => {
-    //   this.discussion.messages = messages;
-    //   console.log(`### messages length : ${this.discussion.messages.length}`);
-    // });
+    this.discussionService.sendMessage(<ConversationDTO>this.conversation, this.interlocutor, this.message.value);
 
     // Clear the box to write messages
     this.message.setValue('');
