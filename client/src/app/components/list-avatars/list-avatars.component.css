@@ -5,6 +5,7 @@
   color: transparent;
   border:none;
   cursor:pointer;
+  transition: background-color 0.3s;
 }
 
 .avatar {
@@ -12,3 +13,12 @@
   width: 100%;
 }
 
+.simple_button:hover {
+  background-color: rgba(255, 255, 255, 0.5); /* Couleur de fond au survol */
+  border-radius: 20px;
+}
+
+.simple_button.selected {
+  background-color:  rgba(129, 54, 65, 0.5); /* Couleur de fond au clic */
+  border-radius: 20px;
+}
