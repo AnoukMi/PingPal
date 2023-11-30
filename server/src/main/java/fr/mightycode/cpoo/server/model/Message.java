@@ -127,16 +127,11 @@
 
 package fr.mightycode.cpoo.server.model;
 
-import fr.mightycode.cpoo.server.dto.ConversationDTO;
 import fr.mightycode.cpoo.server.dto.MessageDTO;
 import fr.mightycode.cpoo.server.service.RouterService;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.UUID;
 
 @Data
@@ -178,7 +173,7 @@ public class Message {
     this.conversation = conversation;
   }
 
-  public Message(MessageDTO messageDTO, Conversation conversation){
+  public Message(MessageDTO messageDTO, Conversation conversation) {
     this.id = messageDTO.id();
     this.timestamp = messageDTO.timestamp();
     this.from = messageDTO.from();

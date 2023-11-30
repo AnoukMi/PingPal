@@ -7,15 +7,15 @@ import lombok.Data;
 @Entity
 @Table(name = "friendship")
 public class Friendship {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserData user;
+  @ManyToOne
+  @JoinColumn(name = "user_id")
+  private UserData user;
 
-    @ManyToOne
-    @JoinColumn(name = "friend_id")
-    private UserData friend;
+  @ManyToOne
+  @JoinColumn(name = "friend_id")
+  private UserData friend;
 }

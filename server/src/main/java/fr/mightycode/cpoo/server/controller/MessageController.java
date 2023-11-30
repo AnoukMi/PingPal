@@ -145,22 +145,19 @@ import fr.mightycode.cpoo.server.dto.MessageDTO;
 import fr.mightycode.cpoo.server.dto.NewMessageDTO;
 import fr.mightycode.cpoo.server.model.Conversation;
 import fr.mightycode.cpoo.server.model.Message;
-import fr.mightycode.cpoo.server.model.UserData;
-import fr.mightycode.cpoo.server.service.*;
+import fr.mightycode.cpoo.server.service.ConversationService;
+import fr.mightycode.cpoo.server.service.MessageService;
+import fr.mightycode.cpoo.server.service.RouterService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.persister.entity.SingleTableEntityPersister;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Primary;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @RestController

@@ -9,45 +9,34 @@ import { FormControl } from "@angular/forms";
   templateUrl: './page-conversation.component.html',
   styleUrls: ['./page-conversation.component.css']
 })
-export class PageConversationComponent implements OnInit{
-  discussion!: Discussion;
+export class PageConversationComponent {
   conversation!: ConversationDTO;
   interlocutor: string = '';
   @ViewChild('messageInput') messageInput!: ElementRef;
   message = new FormControl();
 
-  ngOnInit() {
+
+  constructor(private discussionService: DiscussionService,
+              private activatedRoute: ActivatedRoute) {
+
     // Know which conversation to display
     let _interlocutor = '';
     this.activatedRoute.params.subscribe(params => {
       _interlocutor = params['recipient'];
-      console.log(`### current conversation with ${_interlocutor}`);
-      // this.discussion = this.discussionService.getDiscussion(_interlocutor);
       this.discussionService.getConversation(_interlocutor)
         .subscribe(
           conversation => {
             this.conversation = conversation;
-          },
-          error => {
-            console.error(`### Erreur affectation de la conversation`, error);
-          }
-        );
+          });
       this.interlocutor = _interlocutor;
-      // this.router.navigate(['/conversation', this.interlocutor]);
     });
-  }
-
-  constructor(private discussionService: DiscussionService,
-              private activatedRoute: ActivatedRoute,
-              private router: Router) {
   }
 
   onSend() {
     console.log(`### sending the message`);
     if (!this.message.value?.trim()) return;
-    // if(this.message == '') return;
+    if(this.message.value == '') return;
 
-    // this.discussionService.sendMessage(<Discussion>this.discussion, this.message.value);
     this.discussionService.sendMessage(<ConversationDTO>this.conversation, this.interlocutor, this.message.value);
 
     // Clear the box to write messages

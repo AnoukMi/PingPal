@@ -1,8 +1,7 @@
- package fr.mightycode.cpoo.server.controller;
+package fr.mightycode.cpoo.server.controller;
 
 import fr.mightycode.cpoo.server.dto.ConversationDTO;
 import fr.mightycode.cpoo.server.service.ConversationService;
-import jakarta.servlet.ServletException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,10 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
-
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("user/conversation")
@@ -53,20 +49,21 @@ public class ConversationController {
 
   /**
    * Create a new (empty) conversation with a given user
-   * @param user current user
+   *
+   * @param user         current user
    * @param interlocutor address or username of the interlocutor with whom create a new conversation
    * @return The created conversationDTO with the user
    */
-    @PostMapping(value = "newConversation/{interlocutor}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ConversationDTO createEmptyConversation(final Principal user, @PathVariable final String interlocutor) {
-      log.info("Create new conversation");
-        return conversationService.createEmptyConversation(user.getName() + '@' + serverDomain, interlocutor);
-    }
+  @PostMapping(value = "newConversation/{interlocutor}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ConversationDTO createEmptyConversation(final Principal user, @PathVariable final String interlocutor) {
+    log.info("Create new conversation");
+    return conversationService.createEmptyConversation(user.getName() + '@' + serverDomain, interlocutor);
+  }
 
   /**
    * Search and get an existing conversation with a given user
    *
-   * @param user The current user logged in
+   * @param user         The current user logged in
    * @param interlocutor The address of the interlocutor
    * @return The conversationDTO that corresponds
    */
@@ -74,7 +71,8 @@ public class ConversationController {
   public ConversationDTO getOneConversation(final Principal user, @PathVariable String interlocutor) {
     try {
       return conversationService.getOneConversation(user.getName() + '@' + serverDomain, interlocutor);
-    } catch (ResponseStatusException ex) {
+    }
+    catch (ResponseStatusException ex) {
       if (ex.getStatusCode() == HttpStatus.NOT_FOUND) {
         throw ex;
       } else {
@@ -86,7 +84,7 @@ public class ConversationController {
   /**
    * Delete an existing conversation with a given user
    *
-   * @param user The current user logged in
+   * @param user         The current user logged in
    * @param interlocutor The login user with whom the conversation is exchanged
    */
   @DeleteMapping(value = "{interlocutor}")
@@ -96,10 +94,10 @@ public class ConversationController {
 //      //càd le login est supposé être un user de l'application
 //      address = login + "0at0pingpal";
 //    }
-     if (!conversationService.deleteConversation(user.getName() + '@' + serverDomain, interlocutor)) {
-          throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversation not found with this user");
-        }
+    if (!conversationService.deleteConversation(user.getName() + '@' + serverDomain, interlocutor)) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversation not found with this user");
     }
+  }
 //
 //   /**
 //    * Check if a string is an address

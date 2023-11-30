@@ -190,9 +190,7 @@
 
 package fr.mightycode.cpoo.server.service;
 
-import fr.mightycode.cpoo.server.model.Conversation;
 import fr.mightycode.cpoo.server.model.Message;
-import fr.mightycode.cpoo.server.repository.ConversationRepository;
 import fr.mightycode.cpoo.server.repository.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
