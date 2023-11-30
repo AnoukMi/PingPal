@@ -14,11 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,7 +29,6 @@ public class ConversationService {
   private final ConversationRepository conversationRepository;
   @Autowired
   private final UserRepository userRepository;
-  private static final Logger logger = Logger.getLogger(ConversationService.class.getName());
 
   /**
    * Retrieve a list of all conversations with the current logged user
@@ -56,11 +53,6 @@ public class ConversationService {
     for (Conversation conversation : conversations) {
       conversationDTOS.add(new ConversationDTO(conversation));
     }
-
-    // If the user has conversations but the list is still empty
-    //if (conversationDTOS.isEmpty() && !userData.getConversations().isEmpty()) {
-    //  throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversations not found");
-    //}
 
     return conversationDTOS;
   }
@@ -124,18 +116,13 @@ public class ConversationService {
           messageDTOS.add(new MessageDTO(msg));
         }
 
-        // logger.info("MessageDTOS :"+messageDTOS);
-
         conversationDTO.setMessagesDTOS(messageDTOS);
-        // logger.info("MessageDTOS of the conversationDTO :"+conversationDTO.messagesDTOS());
       }
     }
 
     // Find a conversation between the two users, interlocutor as user1 and user as user2
     for (Conversation conversation : conversations2) {
       if (conversation.getUser1().equals(interlocutor)) {
-        // logger.info("Conversation trouvée : "+conversation);
-        // logger.info("Messages associés : "+conversation.getMessages());
         conversationDTO = new ConversationDTO(conversation);
 
         List<MessageDTO> messageDTOS = new ArrayList<>();
@@ -143,10 +130,7 @@ public class ConversationService {
           messageDTOS.add(new MessageDTO(msg));
         }
 
-        // logger.info("MessageDTOS :"+messageDTOS);
-
         conversationDTO.setMessagesDTOS(messageDTOS);
-        // logger.info("MessageDTOS of the conversationDTO :"+conversationDTO.messagesDTOS());
       }
     }
 
@@ -243,7 +227,6 @@ public class ConversationService {
     Optional<Conversation> conversation = conversationRepository.findByUser1AndUser2(user, interlocutor);
     if (conversation.isEmpty()) {
       conversation = conversationRepository.findByUser1AndUser2(interlocutor, user);
-        // throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversation not found with this user");
         return conversation.orElse(null);
     } else {
       return conversation.get();

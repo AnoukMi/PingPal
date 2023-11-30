@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 @Service
 @RequiredArgsConstructor
 public class ProfileService {
-  @Autowired //pour partager un userRepository commun aux autres services
+  @Autowired // pour partager un userRepository commun aux autres services
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
   private final UserDetailsManager userDetailsManager;
@@ -29,7 +29,7 @@ public class ProfileService {
    */
   public boolean saveSharedMessage(String message, String userId) {
     UserData user = userRepository.findByLogin(userId);
-    if (message.length() < 50) { //checke if not too long
+    if (message.length() < 50) { // check if not too long
       user.setSharedMessage(message); //update message
       userRepository.save(user); //save update to user
       return true;
@@ -83,7 +83,7 @@ public class ProfileService {
    */
   public boolean editProfile(String userId, String password, int icon, String firstname, String lastname, LocalDate birthday, String address) throws ServletException {
     UserDetails userDetails = userDetailsManager.loadUserByUsername(userId);
-    if (!passwordEncoder.matches(password, userDetails.getPassword())) { //checke password to securize editing
+    if (!passwordEncoder.matches(password, userDetails.getPassword())) { // check password to securize editing
       return false;
     } else {
       UserData user = userRepository.findByLogin(userId);
@@ -92,7 +92,7 @@ public class ProfileService {
       user.setLastname(lastname);
       user.setBirthday(birthday);
       user.setAddress(address);
-      userRepository.save(user); //update user after setting all new informations
+      userRepository.save(user); //update user after setting all new information
       return true;
     }
   }

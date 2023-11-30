@@ -89,28 +89,10 @@ public class ConversationController {
    */
   @DeleteMapping(value = "{interlocutor}")
   public void deleteOneConversation(final Principal user, @PathVariable String interlocutor) {
-//    String address = login;
-//    if (!isAddress(login)) { // Vérifie si login ne correspond pas au format d'address
-//      //càd le login est supposé être un user de l'application
-//      address = login + "0at0pingpal";
-//    }
     if (!conversationService.deleteConversation(user.getName() + '@' + serverDomain, interlocutor)) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversation not found with this user");
     }
   }
-//
-//   /**
-//    * Check if a string is an address
-//    *
-//    * @param log The user login to test as an address or not
-//    * @return true if it is an address
-//    */
-//   public boolean isAddress(String log){
-//     Pattern formatAddress = Pattern.compile(".+0at0.+");
-//     Matcher matcher = formatAddress.matcher(log); // Objet Matcher pour effectuer la correspondance
-//       //si on est au format d'adresse
-//       return matcher.matches();
-//   }
 
 }
 
