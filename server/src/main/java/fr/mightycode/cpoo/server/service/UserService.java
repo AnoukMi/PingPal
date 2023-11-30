@@ -40,7 +40,7 @@ public class UserService {
    * @param login and others : all of UserData and FullUserDTOc
    */
   public void createUser(String login, int icon, String firstname, String lastname, LocalDate birthday, String address) {
-    UserData user = new UserData(login,icon,firstname,lastname,birthday,address, null);
+    UserData user = new UserData(login,icon,firstname,lastname,birthday,address, "");
     userRepository.save(user);
   }
 
