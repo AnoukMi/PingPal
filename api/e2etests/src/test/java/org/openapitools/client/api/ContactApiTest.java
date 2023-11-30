@@ -96,8 +96,35 @@ public class ContactApiTest {
      */
     @Test
     public void userFriendsGetTest() throws ApiException {
-        List<ContactProfileDTO> response = api.userFriendsGet();
-        // TODO: test validations
+        // Create two accounts
+        FullUserDTO user1 = new FullUserDTO().login("testFriend1").password("test").remember(false).icon(1)
+                .firstname("friend1").lastname("test").birthday("10-10-2000").address("test@test");
+        authApi.userSignupPost(user1);
+        FullUserDTO user2 = new FullUserDTO().login("testFriend2").password("test").remember(false).icon(1)
+                .firstname("friend2").lastname("test").birthday("10-10-2000").address("test@test");
+        authApi.userSignupPost(user2);
+        // Signup
+        FullUserDTO user = new FullUserDTO().login("testGetUsers").password("test").remember(false).icon(1)
+                .firstname("test").lastname("test").birthday("10-10-2000").address("test@test");
+        authApi.userSignupPost(user);
+        // Getting without being signed in should fail with FORBIDDEN
+        try {
+            api.userFriendsGet();
+        } catch (ApiException e) {
+            Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
+        }
+        // Signing in
+        authApi.userSigninPost(new UserDTO().login("testGetUsers").password("test").remember(false));
+        // Getting all users should now work
+        List<ContactProfileDTO> users = api.userFriendsGet();
+        // They should be 3
+        Assertions.assertEquals(3, users.size());
+
+        // Delete to clean data
+        authApi.userDeleteDelete(new UserDTO().login("testGetUsers").password("test").remember(false));
+        authApi.userDeleteDelete(new UserDTO().login("testFriend1").password("test").remember(false));
+        authApi.userDeleteDelete(new UserDTO().login("testFriend2").password("test").remember(false));
+
     }
 
 }
