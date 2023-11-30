@@ -243,11 +243,8 @@ public class ConversationService {
     Optional<Conversation> conversation = conversationRepository.findByUser1AndUser2(user, interlocutor);
     if (conversation.isEmpty()) {
       conversation = conversationRepository.findByUser1AndUser2(interlocutor, user);
-      if (conversation.isEmpty()) {
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversation not found with this user");
-      } else {
-        return conversation.get();
-      }
+        // throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversation not found with this user");
+        return conversation.orElse(null);
     } else {
       return conversation.get();
     }

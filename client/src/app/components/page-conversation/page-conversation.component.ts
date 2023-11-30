@@ -17,8 +17,7 @@ export class PageConversationComponent {
 
 
   constructor(private discussionService: DiscussionService,
-              private activatedRoute: ActivatedRoute,
-              private route: Router) {
+              private activatedRoute: ActivatedRoute) {
 
     // Know which conversation to display
     let _interlocutor = '';
@@ -30,8 +29,8 @@ export class PageConversationComponent {
             this.conversation = conversation;
           });
       this.interlocutor = _interlocutor;
-      // this.route.navigate(['/conversation/', this.interlocutor]);
     });
+
   }
 
   onSend() {

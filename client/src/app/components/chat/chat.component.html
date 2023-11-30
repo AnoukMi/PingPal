@@ -2,7 +2,7 @@
     <div class="chat w3-round-xlarge">
       <div class="toscroll">
         <!-- Handle the appearance of the message, if it is sent by the interlocutor or by the logged user -->
-        <div *ngFor="let message of conversation.messagesDTOS">
+        <div *ngFor="let message of this.conversation.messagesDTOS">
 
           <ng-container [ngSwitch]="message.from">
             <!-- If it is a received message, it is displayed on left as an interlocutor bubble component -->

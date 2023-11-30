@@ -3,6 +3,7 @@ import {ConversationDTO, ConversationService, MessageDTO, MessageService, NewMes
 import {firstValueFrom, map, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {UserService} from "./user.service";
+import {Router} from "@angular/router";
 
 export class Discussion {
   interlocutor: string;           // address of the interlocutor
@@ -32,7 +33,8 @@ export class DiscussionService {
 
   constructor(private userService: UserService,
               private messageService: MessageService,
-              private conversationService: ConversationService) {
+              private conversationService: ConversationService,
+              private router: Router) {
     console.debug('### DiscussionService()');
 
     // We retrieve the conversations associated to the logged-in user
@@ -123,6 +125,7 @@ export class DiscussionService {
     this.conversationService.userConversationNewConversationInterlocutorPost(_interlocutor)
         .subscribe(
             ()=> { console.log(`### Conversation créée`);
+              this.router.navigate(['/conversation', _interlocutor]);
             });
   }
 

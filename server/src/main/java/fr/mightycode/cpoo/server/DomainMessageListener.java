@@ -62,27 +62,44 @@ public class DomainMessageListener implements RouterService.MessageListener {
       return;
     }
 
-    // If the message is sent by someone from another domain
-    if (!routerMessage.from().endsWith("@pingpal") && routerMessage.to().endsWith("@pingpal")) {
-      Conversation conversation;
-      try {
-        // Check if a conversation already exists
-        conversation = conversationService.findConversation(routerMessage.to(), routerMessage.from());
-      }
-      catch (ResponseStatusException ex) {
-        // If not, findConversation() throws a NOT_FOUND exception, so we have to create the conversation
-        if (ex.getStatusCode() == HttpStatus.NOT_FOUND) {
-          log.info("La création n'existe pas, je la créé");
-          UserData userData = userRepository.findByLogin(getLogin(routerMessage.to()));
-          conversation = new Conversation(routerMessage.from(), routerMessage.to(), userData);
-          conversation.getMessages().add(new fr.mightycode.cpoo.server.model.Message(routerMessage, conversation));
-          conversationService.storeConversation(conversation);
+    Conversation conversation = conversationService.findConversation(routerMessage.to(), routerMessage.from());
 
-        }
+    if(conversation==null){
+      log.info("La création n'existe pas, je la créé");
+
+      // If the message is sent by someone from another domain
+      if (!routerMessage.from().endsWith("@pingpal") && routerMessage.to().endsWith("@pingpal")) {
+        UserData userData = userRepository.findByLogin(getLogin(routerMessage.to()));
+        conversation = new Conversation(routerMessage.from(), routerMessage.to(), userData);
+        conversationService.storeConversation(conversation);
+
+        // Store the message
+        message = messageService.storeMessage(new Message(routerMessage, conversation));
+
+        // Notify the message to the recipient (since he is part of the domain)
+        messageService.notifyMessageTo(message, message.getTo());
+
+        // Notify the message to the sender if he is part of the domain
+        if (message.getFrom().endsWith("@" + serverDomain))
+          messageService.notifyMessageTo(message, message.getFrom());
       }
+//      Conversation conversation;
+//      try {
+//        // Check if a conversation already exists
+//        conversation = conversationService.findConversation(routerMessage.to(), routerMessage.from());
+//      }
+//      catch (ResponseStatusException ex) {
+//        // If not, findConversation() throws a NOT_FOUND exception, so we have to create the conversation
+//        if (ex.getStatusCode() == HttpStatus.NOT_FOUND) {
+//          log.info("La création n'existe pas, je la créé");
+//          UserData userData = userRepository.findByLogin(getLogin(routerMessage.to()));
+//          conversation = new Conversation(routerMessage.from(), routerMessage.to(), userData);
+//          conversation.getMessages().add(new fr.mightycode.cpoo.server.model.Message(routerMessage, conversation));
+//          conversationService.storeConversation(conversation);
+//
+//        }
+//      }
     } else {
-      Conversation conversation = conversationService.findConversation(routerMessage.to(), routerMessage.from());
-
       // Store the message
       message = messageService.storeMessage(new Message(routerMessage, conversation));
 

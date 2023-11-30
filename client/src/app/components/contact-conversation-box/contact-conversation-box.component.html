@@ -1,6 +1,5 @@
-<button class="w3-button hover-effect" [ngClass]="{'conv_unread': !statusMessage && !sentMessage,
- 'conv_read': statusMessage && !sentMessage,
- 'sent_msg': sentMessage}"
+<button class="w3-button hover-effect" [ngClass]="{'conv_unread': !statusMessage,
+ 'conv_read': statusMessage}"
         (click)="changeStatus()">
 
   <div *ngIf="!statusMessage">
