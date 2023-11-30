@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
+import org.openapitools.client.model.ContactProfileDTO;
 import org.openapitools.client.model.ErrorDTO;
 import org.openapitools.client.model.FullUserDTO;
 import org.junit.jupiter.api.Disabled;
@@ -38,6 +39,7 @@ public class ProfileApiTest {
 
     private final ProfileApi api = new ProfileApi();
     private final AuthenticationApi authApi = new AuthenticationApi();
+    private final ContactApi contactApi = new ContactApi();
 
     @BeforeEach
     public void init() throws ApiException {
@@ -48,6 +50,7 @@ public class ProfileApiTest {
         ApiClient apiClient = new ApiClient(okHttpClient);
         api.setApiClient(apiClient);
         authApi.setApiClient(apiClient);
+        contactApi.setApiClient(apiClient);
     }
 
     /**
@@ -130,10 +133,9 @@ public class ProfileApiTest {
         // Now when there is a status it should work
         api.userShareMessagePost("Hello");
         api.userShareMessageDelete();
-        // TODO get avec contact et vérifier qu'il est vide
-        /*
-        ContactProfileDTO getuser = api.userProfileGet();
-        Assertions.assertEquals("newName", getuser.getFirstname());*/
+        // The message should be empty when getting the contact profile
+        ContactProfileDTO getuser = contactApi.userFriendUserIDGet("testDel");
+        Assertions.assertEquals("", getuser.getSharedMessage());
 
         // Delete to clean data
         authApi.userDeleteDelete(new UserDTO().login("testDel").password("test").remember(false));
@@ -160,9 +162,9 @@ public class ProfileApiTest {
 
         // Now with a short message it should work
         api.userShareMessagePost("Hello friends");
-        /* TODO ensuite : tester avec le getcontact que le sharemessage est le même
-        ContactProfileDTO getuser = contactApi.userProfileGet();
-        Assertions.assertEquals("Hello friends", getuser.()); */
+        // The message should be the same when getting the contact profile
+        ContactProfileDTO getuser = contactApi.userFriendUserIDGet("testDel");
+        Assertions.assertEquals("Hello friends", getuser.getSharedMessage());
 
         // Delete to clean data
         authApi.userDeleteDelete(new UserDTO().login("testShare").password("test").remember(false));
