@@ -16,12 +16,17 @@ export class ContactConversationBoxComponent {
   @Input() interlocutor: string = '';
   @Input() statusMessage: boolean = false;
   @Input() sentMessage: boolean = false;
-  hour: string = '';
+  lastMsgDate: string = '';
 
   constructor(private router: Router) {
-    // const hours = this.discussion.date.getHours().toString().padStart(2, '0');
-    // const minutes = this.discussion.date.getMinutes().toString().padStart(2, '0');
-    // this.hour = `${hours}:${minutes}`;
+
+    // Display the time of the last message sent
+    // const time = new Date(this.conversation.timestamp);
+    //
+    // const hours = time.getHours().toString().padStart(2, '0');
+    // const minutes = time.getMinutes().toString().padStart(2, '0');
+    //
+    // this.lastMsgDate = `${hours}:${minutes}`;
   }
 
   changeStatus() {

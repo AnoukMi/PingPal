@@ -21,6 +21,7 @@ public class Conversation {
   @Id
   private UUID id;
 
+  // The user who initiated the conversation
   @ToString.Exclude
   @Column(name = "user1", nullable = false)
   private String user1;
@@ -30,8 +31,8 @@ public class Conversation {
   private String user2;
 
   @ToString.Exclude
-  @Column(name = "lastMessageDate", nullable = false)
-  private LocalDateTime lastMsgDate;
+  @Column(name = "timestamp", nullable = false)
+  private long timestamp;
 
   @ToString.Exclude
   @ManyToMany(fetch = FetchType.EAGER)
@@ -50,21 +51,21 @@ public class Conversation {
   }
 
   // If both users are part of pingpal
-  public Conversation(String user1, String user2, LocalDateTime lastMsgDate, UserData userData1, UserData userData2) {
+  public Conversation(String user1, String user2, UserData userData1, UserData userData2) {
     this.id = UUID.randomUUID();
     this.user1 = user1;
     this.user2 = user2;
-    this.lastMsgDate = lastMsgDate;
+    this.timestamp = 0;
     this.users = new ArrayList<>(Arrays.asList(userData1, userData2));
     this.messages = new ArrayList<>();
   }
 
   // If the interlocutor does not belong to pingpal
-  public Conversation(String user1, String user2, LocalDateTime lastMsgDate, UserData userData1) {
+  public Conversation(String user1, String user2, UserData userData1) {
     this.id = UUID.randomUUID();
     this.user1 = user1;
     this.user2 = user2;
-    this.lastMsgDate = lastMsgDate;
+    this.timestamp = 0;
     this.users = new ArrayList<>(Collections.singletonList(userData1));
     this.messages = new ArrayList<>();
   }
@@ -74,7 +75,7 @@ public class Conversation {
     this.id = conversationDTO.id();
     this.user1 = conversationDTO.user1();
     this.user2 = conversationDTO.user2();
-    this.lastMsgDate = conversationDTO.lastMessageDate();
+    this.timestamp = conversationDTO.timestamp();
     this.users = new ArrayList<>(Arrays.asList(userData1, userData2));
 
     // Create the list of messages
@@ -88,12 +89,23 @@ public class Conversation {
     this.id = conversationDTO.id();
     this.user1 = conversationDTO.user1();
     this.user2 = conversationDTO.user2();
-    this.lastMsgDate = conversationDTO.lastMessageDate();
+    this.timestamp = conversationDTO.timestamp();
     this.users = new ArrayList<>(Collections.singletonList(userData1));
 
     // Create the list of messages
     for (MessageDTO messageDTO : conversationDTO.messagesDTOS()) {
       this.messages.add(new Message(messageDTO, this));
     }
+  }
+
+  // If the conversation is initiated by someone out of our domain
+  public Conversation(String user1, String user2, UserData userData, Message message){
+    this.id = UUID.randomUUID();
+    this.user1 = user1;
+    this.user2 = user2;
+    this.timestamp = message.getTimestamp();
+    this.users = new ArrayList<>(Collections.singletonList(userData));
+    this.messages = new ArrayList<>();
+    this.messages.add(message);
   }
 }

@@ -13,6 +13,7 @@ import {UserService} from "../../services/user.service";
 export class CurrentConversationsComponent implements OnInit, OnDestroy {
   recentConversations! : ConversationDTO[];
   loggedUser: string = '';
+  rightConv!: ConversationDTO;
 
   private stopListening = new Subject<void>();
 
@@ -29,13 +30,18 @@ export class CurrentConversationsComponent implements OnInit, OnDestroy {
     });
   }
 
-  async ngOnInit(){
+  ngOnInit(){
     // Start listening for new messages and updating discussions
     this.discussionService.listenForNewMessages(this.stopListening,
       message => {
       console.debug(`### new message notified`, message);
       this.changeDetectorRef.detectChanges();
       });
+
+    // Refresh conversations every second
+    setInterval(() => {
+      this.getConversations();
+    }, 1000);
     // Next line is supposed to display the conversations by order of creation
     // this.recentConv.sort((a, b) => b.date.getTime() - a.date.getTime());
   }
@@ -45,40 +51,25 @@ export class CurrentConversationsComponent implements OnInit, OnDestroy {
     this.stopListening.next(void 0);
   }
 
-  // recentConv: ConversationDTO[] = [];
-  // contacts: Contact[] = [];
-  //
-  // constructor(private discussionService: DiscussionService) {
-  //   console.log(`### CurrentConversationsComponent()`);
-  // }
-  //
-  // ngOnInit() {
-  //   this.getConversations();
-  //
-  //   // Rafraîchir la liste des conversations toutes les secondes
-  //   // setInterval(() => {
-  //   //   this.getConversations();
-  //   // }, 1000);
-  // }
-  //
-  // getConversations(){
-  //   this.discussionService.getConversations()
-  //     .subscribe(conversations => {
-  //       this.recentConv = conversations;
-  //       for (let conversation of this.recentConv) {
-  //         // Par la suite, chercher dans la base de données de nos utilisateurs l'user correspondant au PeerAddress pour
-  //         // récupérer ses infos telles que le prénom, l'icon associé...
-  //
-  //         let contact = new Contact(conversation.peerAddress,
-  //           "assets/avatar/1.png", new Date().toLocaleDateString());
-  //
-  //         if (!this.contacts.some(existingContact => existingContact.username === contact.username)) {
-  //           this.contacts.push(contact);
-  //           // reverse permet d'afficher du plus récent au plus ancien
-  //           this.contacts= this.contacts.reverse();
-  //         }
-  //       }
-  //     });
-  // }
+  getConversations(){
+    this.discussionService.getConversations()
+      .subscribe(conversations => {
+        this.recentConversations = conversations;
+      });
+  }
+
+  /**
+   * Return the right conversation according to what the logged-in user typed in the search bar
+   * @param _login The searched login/beginning of address/address
+   */
+  getRightConversation(_login: string){
+    for(let i = 0; i < this.recentConversations.length; i++){
+      if(this.recentConversations[i].user1.startsWith(_login) || this.recentConversations[i].user2.startsWith(_login)){
+        this.rightConv = this.recentConversations[i];
+        break;
+      }
+    }
+    return this.rightConv;
+  }
 
 }

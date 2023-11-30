@@ -12,7 +12,7 @@ import java.util.UUID;
 public record ConversationDTO(@NotEmpty UUID id,
                               @NotEmpty @Email String user1,
                               @NotEmpty @Email String user2,
-                              LocalDateTime lastMessageDate,
+                              Long timestamp,
                               List<MessageDTO> messagesDTOS) {
 
   public ConversationDTO {
@@ -25,7 +25,7 @@ public record ConversationDTO(@NotEmpty UUID id,
     this(conversation.getId(),
       conversation.getUser1(),
       conversation.getUser2(),
-      conversation.getLastMsgDate(),
+      conversation.getTimestamp(),
       new ArrayList<>());
   }
 

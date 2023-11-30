@@ -28,7 +28,7 @@ export interface ConversationDTO {
     /**
      * Date of the last sent message to be able to sort conversations from the newest to the oldest
      */
-    lastMessageDate: string;
+    timestamp: number;
     /**
      * List of messages exchanged in the conversation
      */

@@ -85,13 +85,17 @@ public class ConversationService {
     if (interlocutor.endsWith('@' + serverDomain)) {
       // We naturally put the logged-in user as the user1 since it is the one that initiated the communication
       UserData userData2 = userRepository.findByLogin(getLogin(interlocutor));
-      conversation = new Conversation(user, interlocutor, LocalDateTime.now(), userData1, userData2);
+      conversation = new Conversation(user, interlocutor, userData1, userData2);
     } else {
-      conversation = new Conversation(user, interlocutor, LocalDateTime.now(), userData1);
+      conversation = new Conversation(user, interlocutor, userData1);
     }
 
     conversationRepository.save(conversation);
     return new ConversationDTO(conversation);
+  }
+
+  public void storeConversation(Conversation conversation){
+    conversationRepository.save(conversation);
   }
 
 
@@ -191,19 +195,6 @@ public class ConversationService {
   }
 
   /**
-   * Save the given messageDTO in the conversationDTO
-   *
-   * @param user         The logged-in user
-   * @param interlocutor The address of the interlocutor
-   * @param messageDTO   The messageDTO to save
-   */
-  public void storeMessageDTOInConversationDTO(String user, String interlocutor, MessageDTO messageDTO) {
-    ConversationDTO conversationDTO = this.getOneConversation(user, interlocutor);
-    conversationDTO.messagesDTOS().add(messageDTO);
-  }
-
-
-  /**
    * Tell if a user is in our application by giving his username
    *
    * @param user The user login to test or his address
@@ -261,5 +252,7 @@ public class ConversationService {
       return conversation.get();
     }
   }
+
+
 }
 

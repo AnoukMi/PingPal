@@ -171,6 +171,7 @@ public class Message {
     this.type = routerMessage.type();
     this.body = routerMessage.body();
     this.conversation = conversation;
+    this.conversation.setTimestamp(timestamp);
   }
 
   public Message(MessageDTO messageDTO, Conversation conversation) {

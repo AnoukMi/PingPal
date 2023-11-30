@@ -202,6 +202,9 @@ public class MessageController {
     // Build a model message from the router message and the conversation
     Message message = new Message(routerMessage, conversation);
 
+    // Timestamp of the conversation is the time of the last message sent/received
+    conversation.setTimestamp(message.getTimestamp());
+
     // Also store the message in the right list of messages
     conversationService.storeMessageInConversation(user.getName() + "@" + serverDomain, newMessage.to(), message);
 

@@ -17,7 +17,8 @@ export class PageConversationComponent {
 
 
   constructor(private discussionService: DiscussionService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private route: Router) {
 
     // Know which conversation to display
     let _interlocutor = '';
@@ -29,6 +30,7 @@ export class PageConversationComponent {
             this.conversation = conversation;
           });
       this.interlocutor = _interlocutor;
+      // this.route.navigate(['/conversation/', this.interlocutor]);
     });
   }
 
@@ -39,7 +41,15 @@ export class PageConversationComponent {
 
     this.discussionService.sendMessage(<ConversationDTO>this.conversation, this.interlocutor, this.message.value);
 
+    // this.discussionService.sendMessage(<ConversationDTO>this.conversation, this.interlocutor, this.msg);
+
     // Clear the box to write messages
     this.message.setValue('');
+    this.messageInput.nativeElement.reset();
+
+
+    // It does not clear the box, so we reroute on the same page whenever a message is sent
+    // this.route.navigate(['/conversation/', this.interlocutor]);
+    // this.route.navigate([this.activatedRoute.snapshot.queryParams['returnURL'] || '/conversation/', this.interlocutor]);
   }
 }

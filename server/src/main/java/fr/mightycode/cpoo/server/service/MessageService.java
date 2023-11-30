@@ -190,15 +190,24 @@
 
 package fr.mightycode.cpoo.server.service;
 
+import fr.mightycode.cpoo.server.model.Conversation;
 import fr.mightycode.cpoo.server.model.Message;
+import fr.mightycode.cpoo.server.model.UserData;
+import fr.mightycode.cpoo.server.repository.ConversationRepository;
 import fr.mightycode.cpoo.server.repository.MessageRepository;
+import fr.mightycode.cpoo.server.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Sinks;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
@@ -209,6 +218,8 @@ public class MessageService {
   private String serverDomain;
 
   private final MessageRepository messageRepository;
+  private final ConversationService conversationService;
+  private final UserRepository userRepository;
 
   // All messages incoming from the router are notified using per recipient sinks,
   // and all messages posted by clients are notified using per sender sinks
@@ -250,6 +261,22 @@ public class MessageService {
   public void notifyMessageTo(Message message, String address) {
     log.info("Notifying message {} to {}", message, address);
     getMessageSinkFor(address).tryEmitNext(message);
+
+    // If the message is sent by someone from another domain
+    if(!address.endsWith("@pingpal") && message.getTo().endsWith("@pingpal")){
+      Conversation conversation;
+      try {
+        // Check if a conversation already exists
+        conversation = conversationService.findConversation(message.getTo(), address);
+      } catch (ResponseStatusException ex){
+        // If not, findConversation() throws a NOT_FOUND exception, so we have to create the conversation
+        if(ex.getStatusCode() == HttpStatus.NOT_FOUND){
+          UserData userData = userRepository.findByLogin(getLogin(message.getTo()));
+          conversation = new Conversation(address, message.getTo(), userData, message);
+          conversationService.storeConversation(conversation);
+        }
+      }
+    }
   }
 
   /**
@@ -265,6 +292,24 @@ public class MessageService {
 
   public Optional<Message> findById(UUID id) {
     return messageRepository.findById(id);
+  }
+
+  /**
+   * Retrieve the login out of the address
+   *
+   * @param address The address
+   * @return The login associated to the address
+   */
+  private String getLogin(String address) {
+    String result = "";
+    String regex = "([^@]+)@.*";
+    Pattern pattern = Pattern.compile(regex);
+    Matcher matcher = pattern.matcher(address);
+    if (matcher.matches()) {
+      // Extraire la partie avant le @ (groupe 1)
+      result = matcher.group(1);
+    }
+    return result;
   }
 }
 
