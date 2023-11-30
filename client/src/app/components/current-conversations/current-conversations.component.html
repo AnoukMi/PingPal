@@ -1,21 +1,42 @@
-  <div *ngFor="let conv of recentConversations">
-    <div class="contact">
-      <ng-container [ngSwitch]="conv.user1">
+<div *ngIf="isSearched">
+  <div class="contact">
+    <ng-container [ngSwitch]="getRightConversation(searchedConv).user1">
+      <!-- If the conversation has the logged-in user as the user1 -->
+      <app-contact-conversation-frame *ngSwitchCase="loggedUser"
+                                      [conversation]="getRightConversation(searchedConv)"
+                                      [interlocutor]="getRightConversation(searchedConv).user2"
+                                      [statusMessage] = "false"></app-contact-conversation-frame>
 
-        <!-- If the conversation has the logged-in user as the user1 -->
-        <app-contact-conversation-frame *ngSwitchCase="loggedUser"
-                                        [conversation]="conv"
-                                        [interlocutor]="conv.user2"
-                                        [statusMessage] = "false"
-                                        [sentMessage] = "false"></app-contact-conversation-frame>
+      <!-- Otherwise -->
+      <app-contact-conversation-frame *ngSwitchDefault
+                                      [conversation]="getRightConversation(searchedConv)"
+                                      [interlocutor]="getRightConversation(searchedConv).user1"
+                                      [statusMessage] = "false"></app-contact-conversation-frame>
+    </ng-container>
+  </div>
+</div>
+<div *ngIf="!isSearched">
+  <div class="contact">
+    <div *ngFor="let conv of recentConversations">
+      <div class="contact">
+        <ng-container [ngSwitch]="conv.user1">
 
-        <!-- Otherwise -->
-        <app-contact-conversation-frame *ngSwitchDefault
-                                        [conversation]="conv"
-                                        [interlocutor]="conv.user1"
-                                        [statusMessage] = "false"
-                                        [sentMessage] = "false"></app-contact-conversation-frame>
-      </ng-container>
+          <!-- If the conversation has the logged-in user as the user1 -->
+          <app-contact-conversation-frame *ngSwitchCase="loggedUser"
+                                          [conversation]="conv"
+                                          [interlocutor]="conv.user2"
+                                          [statusMessage] = "false"
+                                          [sentMessage] = "false"></app-contact-conversation-frame>
 
+          <!-- Otherwise -->
+          <app-contact-conversation-frame *ngSwitchDefault
+                                          [conversation]="conv"
+                                          [interlocutor]="conv.user1"
+                                          [statusMessage] = "false"
+                                          [sentMessage] = "false"></app-contact-conversation-frame>
+        </ng-container>
+
+      </div>
     </div>
   </div>
+</div>

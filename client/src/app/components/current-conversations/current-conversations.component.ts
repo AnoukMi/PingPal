@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { Contact } from "../../models/contact";
 import {ConversationDTO, MessageService} from "../../api";
 import {Discussion, DiscussionService} from "../../services/discussion.service";
@@ -14,6 +14,8 @@ export class CurrentConversationsComponent implements OnInit, OnDestroy {
   recentConversations! : ConversationDTO[];
   loggedUser: string = '';
   rightConv!: ConversationDTO;
+  @Input() isSearched: boolean = false;
+  @Input() searchedConv!: string;
 
   private stopListening = new Subject<void>();
 

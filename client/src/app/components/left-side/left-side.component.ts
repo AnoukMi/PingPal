@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CurrentUser, UserService } from "../../services/user.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {ConversationDTO} from "../../api";
 
 @Component({
   selector: 'app-left-side',
@@ -14,7 +16,12 @@ export class LeftSideComponent {
   icon : number=0;
   birthday: string='';
   currentUser: CurrentUser = undefined;
-  constructor(private userService: UserService, protected router: Router) {
+  searchForm: FormGroup;
+  isSearched: boolean = false;
+  searchedConv: string = '';
+  constructor(private userService: UserService,
+              protected router: Router,
+              private formBuilder: FormBuilder) {
     this.userService.getLogin().subscribe(login => {
       this.login = login || ''; // '' par défaut car si null ou undefined pas de valeur string possible
     });
@@ -36,6 +43,11 @@ export class LeftSideComponent {
     });
     console.debug('### AppComponent()');
     this.userService.currentUserObservable.subscribe(currentUser => this.setUser(currentUser));
+
+    this.searchForm = this.formBuilder.group({
+      username: ['', Validators.required],
+    });
+
   }
 
   setUser(user : CurrentUser){
@@ -67,5 +79,22 @@ export class LeftSideComponent {
     this.userService.signout().subscribe(_ => this.router.navigate(['signIn']));
   }
 
+  /**
+   * Get a given field of the signup form by its name.
+   * @param name The name of the field to get
+   * @return the field
+   */
+  getField(name: string) {
+    return this.searchForm.controls[name];
+  }
+
+  onSearch(){
+    if(this.getField('username').value==""){
+      this.isSearched = false;
+    }else {
+      this.isSearched = true;
+      this.searchedConv = this.getField('username').value;
+    }
+  }
 
 }
