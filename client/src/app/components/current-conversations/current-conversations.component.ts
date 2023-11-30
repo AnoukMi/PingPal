@@ -39,9 +39,9 @@ export class CurrentConversationsComponent implements OnInit, OnDestroy {
       });
 
     // Refresh conversations every second
-    setInterval(() => {
-      this.getConversations();
-    }, 1000);
+    // setInterval(() => {
+    //   this.getConversations();
+    // }, 1000);
     // Next line is supposed to display the conversations by order of creation
     // this.recentConv.sort((a, b) => b.date.getTime() - a.date.getTime());
   }

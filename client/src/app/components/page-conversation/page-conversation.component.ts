@@ -41,11 +41,10 @@ export class PageConversationComponent {
 
     this.discussionService.sendMessage(<ConversationDTO>this.conversation, this.interlocutor, this.message.value);
 
-    // this.discussionService.sendMessage(<ConversationDTO>this.conversation, this.interlocutor, this.msg);
-
     // Clear the box to write messages
     this.message.setValue('');
     this.messageInput.nativeElement.reset();
+    this.message.reset();
 
 
     // It does not clear the box, so we reroute on the same page whenever a message is sent

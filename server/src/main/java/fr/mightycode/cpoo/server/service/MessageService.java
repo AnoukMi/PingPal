@@ -262,21 +262,7 @@ public class MessageService {
     log.info("Notifying message {} to {}", message, address);
     getMessageSinkFor(address).tryEmitNext(message);
 
-    // If the message is sent by someone from another domain
-    if(!address.endsWith("@pingpal") && message.getTo().endsWith("@pingpal")){
-      Conversation conversation;
-      try {
-        // Check if a conversation already exists
-        conversation = conversationService.findConversation(message.getTo(), address);
-      } catch (ResponseStatusException ex){
-        // If not, findConversation() throws a NOT_FOUND exception, so we have to create the conversation
-        if(ex.getStatusCode() == HttpStatus.NOT_FOUND){
-          UserData userData = userRepository.findByLogin(getLogin(message.getTo()));
-          conversation = new Conversation(address, message.getTo(), userData, message);
-          conversationService.storeConversation(conversation);
-        }
-      }
-    }
+
   }
 
   /**
@@ -292,24 +278,6 @@ public class MessageService {
 
   public Optional<Message> findById(UUID id) {
     return messageRepository.findById(id);
-  }
-
-  /**
-   * Retrieve the login out of the address
-   *
-   * @param address The address
-   * @return The login associated to the address
-   */
-  private String getLogin(String address) {
-    String result = "";
-    String regex = "([^@]+)@.*";
-    Pattern pattern = Pattern.compile(regex);
-    Matcher matcher = pattern.matcher(address);
-    if (matcher.matches()) {
-      // Extraire la partie avant le @ (groupe 1)
-      result = matcher.group(1);
-    }
-    return result;
   }
 }
 

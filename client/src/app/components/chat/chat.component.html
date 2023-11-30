@@ -1,19 +1,20 @@
 <div style="width:100%; top: 21%; left: 40%;">
-  <div class="chat w3-round-xlarge">
-    <div class="toscroll">
-      <!-- Handle the appearance of the message, if it is sent by the interlocutor or by the logged user -->
-      <div *ngFor="let message of conversation.messagesDTOS">
+    <div class="chat w3-round-xlarge">
+      <div class="toscroll">
+        <!-- Handle the appearance of the message, if it is sent by the interlocutor or by the logged user -->
+        <div *ngFor="let message of conversation.messagesDTOS">
 
-        <ng-container [ngSwitch]="message.from">
-          <!-- If it is a received message, it is displayed on left as an interlocutor bubble component -->
-          <app-interlocutor-bubble *ngSwitchCase="interlocutor"
-                                   [message]="message"></app-interlocutor-bubble>
+          <ng-container [ngSwitch]="message.from">
+            <!-- If it is a received message, it is displayed on left as an interlocutor bubble component -->
+            <app-interlocutor-bubble *ngSwitchCase="interlocutor"
+                                     [message]="message"></app-interlocutor-bubble>
 
-          <!-- Otherwise, it is sent by the logged user ('login@domain') and displayed as a user bubble component -->
-          <app-user-bubble *ngSwitchDefault
-                           [message]="message"></app-user-bubble>
-        </ng-container>
+            <!-- Otherwise, it is sent by the logged user ('login@domain') and displayed as a user bubble component -->
+            <app-user-bubble *ngSwitchDefault
+                             [message]="message"></app-user-bubble>
+          </ng-container>
+        </div>
       </div>
     </div>
-  </div>
 </div>
+
