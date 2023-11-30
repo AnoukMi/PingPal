@@ -53,4 +53,8 @@ public class UserData {
         this.friends = new ArrayList<>();
         this.conversations = new ArrayList<>();
     }
+
+    public void setSharedMessage(String message){
+        this.sharedMessage = message;
+    }
 }

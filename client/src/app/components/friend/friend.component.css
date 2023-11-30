@@ -1,7 +1,7 @@
 .box {
   position: relative;
   width: 53%;
-  background-color: #AC8686;
+  background-color: rgba(172, 134, 134, 0.7);
   border-radius: 16px;
   border: 2px dashed #813641;
 }
@@ -39,13 +39,14 @@
   left: 38%;
   font-family: "Alata-Regular", Helvetica;
   color: #5E5E5E;
+  font-style : italic;
   font-size: 16px;
   font-weight: 400;
 }
 
 .sharedMsg {
   position: absolute;
-  top: -35%;
+  top: -10%;
   left: 55%;
   align-items: center;
 }

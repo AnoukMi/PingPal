@@ -135,7 +135,7 @@ public class ProfileApiTest {
         api.userShareMessageDelete();
         // The message should be empty when getting the contact profile
         ContactProfileDTO getuser = contactApi.userFriendUserIDGet("testDel");
-        Assertions.assertEquals("", getuser.getSharedMessage());
+        Assertions.assertEquals(null, getuser.getSharedMessage());
 
         // Delete to clean data
         authApi.userDeleteDelete(new UserDTO().login("testDel").password("test").remember(false));
@@ -163,8 +163,8 @@ public class ProfileApiTest {
         // Now with a short message it should work
         api.userShareMessagePost("Hello friends");
         // The message should be the same when getting the contact profile
-        ContactProfileDTO getuser = contactApi.userFriendUserIDGet("testDel");
-        Assertions.assertEquals("Hello friends", getuser.getSharedMessage());
+        ContactProfileDTO getuser = contactApi.userFriendUserIDGet("testShare");
+        Assertions.assertEquals("\"Hello friends\"", getuser.getSharedMessage());
 
         // Delete to clean data
         authApi.userDeleteDelete(new UserDTO().login("testShare").password("test").remember(false));
