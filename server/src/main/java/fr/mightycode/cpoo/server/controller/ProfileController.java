@@ -1,6 +1,5 @@
 package fr.mightycode.cpoo.server.controller;
 
-import fr.mightycode.cpoo.server.dto.PublicMessageDTO;
 import fr.mightycode.cpoo.server.dto.FullUserDTO;
 import fr.mightycode.cpoo.server.service.ProfileService;
 import lombok.RequiredArgsConstructor;

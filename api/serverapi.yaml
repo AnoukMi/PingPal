@@ -341,44 +341,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
   /user/friend/{userID}:
-    post:
-      summary: Add a new contact to the current user's friends
-      tags:
-        - contact
-      parameters:
-        - name: userID
-          in: path
-          description: Username of the user to add
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Add the user in the list of contacts (friends) and return the header contact profil of the new friend
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ContactProfileDTO'
-        '410':
-          description: The user has been deleted
-        '404':
-          description: UserID not found in the users of the application
-        '409':
-          description: UserID already existing in the list of friends
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorDTO'
     get:
-      summary: Search an existing contact in the list of the current user's friends
+      summary: Search an existing user in the list of the current user's friends
       tags:
         - contact
       parameters:
         - name: userID
           in: path
-          description: Username of the friend to search
+          description: Username of the user to search
           required: true
           schema:
             type: string
@@ -389,32 +359,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ContactProfileDTO'
-        '410':
-          description: The user has been deleted
         '404':
-          description: UserID not found in the current user's list of friends
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorDTO'
-    delete:
-      summary: Delete an existing contact (remove from the list of friends of the current user)
-      tags:
-        - contact
-      parameters:
-        - name: userID
-          in: path
-          description: Username of the friend to remove
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Success, contact deleted
-        '404':
-          description: UserID not found in the current user's list of friends
+          description: UserID not found in the current user's list
         default:
           description: Error
           content:
@@ -423,7 +369,7 @@ paths:
                 $ref: '#/components/schemas/ErrorDTO'
   /user/friends:
     get:
-      summary: Get the user's list of friends
+      summary: Get all the users registered in the app
       tags:
         - contact
       responses:

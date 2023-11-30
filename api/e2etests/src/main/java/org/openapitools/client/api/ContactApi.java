@@ -74,135 +74,8 @@ public class ContactApi {
     }
 
     /**
-     * Build call for userFriendUserIDDelete
-     * @param userID Username of the friend to remove (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success, contact deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> UserID not found in the current user&#39;s list of friends </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call userFriendUserIDDeleteCall(String userID, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/user/friend/{userID}"
-            .replace("{" + "userID" + "}", localVarApiClient.escapeString(userID.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "CookieAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call userFriendUserIDDeleteValidateBeforeCall(String userID, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'userID' is set
-        if (userID == null) {
-            throw new ApiException("Missing the required parameter 'userID' when calling userFriendUserIDDelete(Async)");
-        }
-
-        return userFriendUserIDDeleteCall(userID, _callback);
-
-    }
-
-    /**
-     * Delete an existing contact (remove from the list of friends of the current user)
-     * 
-     * @param userID Username of the friend to remove (required)
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success, contact deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> UserID not found in the current user&#39;s list of friends </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
-     </table>
-     */
-    public void userFriendUserIDDelete(String userID) throws ApiException {
-        userFriendUserIDDeleteWithHttpInfo(userID);
-    }
-
-    /**
-     * Delete an existing contact (remove from the list of friends of the current user)
-     * 
-     * @param userID Username of the friend to remove (required)
-     * @return ApiResponse&lt;Void&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success, contact deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> UserID not found in the current user&#39;s list of friends </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Void> userFriendUserIDDeleteWithHttpInfo(String userID) throws ApiException {
-        okhttp3.Call localVarCall = userFriendUserIDDeleteValidateBeforeCall(userID, null);
-        return localVarApiClient.execute(localVarCall);
-    }
-
-    /**
-     * Delete an existing contact (remove from the list of friends of the current user) (asynchronously)
-     * 
-     * @param userID Username of the friend to remove (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Success, contact deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> UserID not found in the current user&#39;s list of friends </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call userFriendUserIDDeleteAsync(String userID, final ApiCallback<Void> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = userFriendUserIDDeleteValidateBeforeCall(userID, _callback);
-        localVarApiClient.executeAsync(localVarCall, _callback);
-        return localVarCall;
-    }
-    /**
      * Build call for userFriendUserIDGet
-     * @param userID Username of the friend to search (required)
+     * @param userID Username of the user to search (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -210,8 +83,7 @@ public class ContactApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Provide the header of the found contact profile of the given username </td><td>  -  </td></tr>
-        <tr><td> 410 </td><td> The user has been deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> UserID not found in the current user&#39;s list of friends </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> UserID not found in the current user&#39;s list </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -272,17 +144,16 @@ public class ContactApi {
     }
 
     /**
-     * Search an existing contact in the list of the current user&#39;s friends
+     * Search an existing user in the list of the current user&#39;s friends
      * 
-     * @param userID Username of the friend to search (required)
+     * @param userID Username of the user to search (required)
      * @return ContactProfileDTO
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Provide the header of the found contact profile of the given username </td><td>  -  </td></tr>
-        <tr><td> 410 </td><td> The user has been deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> UserID not found in the current user&#39;s list of friends </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> UserID not found in the current user&#39;s list </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -292,17 +163,16 @@ public class ContactApi {
     }
 
     /**
-     * Search an existing contact in the list of the current user&#39;s friends
+     * Search an existing user in the list of the current user&#39;s friends
      * 
-     * @param userID Username of the friend to search (required)
+     * @param userID Username of the user to search (required)
      * @return ApiResponse&lt;ContactProfileDTO&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Provide the header of the found contact profile of the given username </td><td>  -  </td></tr>
-        <tr><td> 410 </td><td> The user has been deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> UserID not found in the current user&#39;s list of friends </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> UserID not found in the current user&#39;s list </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
@@ -313,9 +183,9 @@ public class ContactApi {
     }
 
     /**
-     * Search an existing contact in the list of the current user&#39;s friends (asynchronously)
+     * Search an existing user in the list of the current user&#39;s friends (asynchronously)
      * 
-     * @param userID Username of the friend to search (required)
+     * @param userID Username of the user to search (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -323,153 +193,13 @@ public class ContactApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Provide the header of the found contact profile of the given username </td><td>  -  </td></tr>
-        <tr><td> 410 </td><td> The user has been deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> UserID not found in the current user&#39;s list of friends </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> UserID not found in the current user&#39;s list </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
     public okhttp3.Call userFriendUserIDGetAsync(String userID, final ApiCallback<ContactProfileDTO> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = userFriendUserIDGetValidateBeforeCall(userID, _callback);
-        Type localVarReturnType = new TypeToken<ContactProfileDTO>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for userFriendUserIDPost
-     * @param userID Username of the user to add (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Add the user in the list of contacts (friends) and return the header contact profil of the new friend </td><td>  -  </td></tr>
-        <tr><td> 410 </td><td> The user has been deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> UserID not found in the users of the application </td><td>  -  </td></tr>
-        <tr><td> 409 </td><td> UserID already existing in the list of friends </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call userFriendUserIDPostCall(String userID, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/user/friend/{userID}"
-            .replace("{" + "userID" + "}", localVarApiClient.escapeString(userID.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "CookieAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call userFriendUserIDPostValidateBeforeCall(String userID, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'userID' is set
-        if (userID == null) {
-            throw new ApiException("Missing the required parameter 'userID' when calling userFriendUserIDPost(Async)");
-        }
-
-        return userFriendUserIDPostCall(userID, _callback);
-
-    }
-
-    /**
-     * Add a new contact to the current user&#39;s friends
-     * 
-     * @param userID Username of the user to add (required)
-     * @return ContactProfileDTO
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Add the user in the list of contacts (friends) and return the header contact profil of the new friend </td><td>  -  </td></tr>
-        <tr><td> 410 </td><td> The user has been deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> UserID not found in the users of the application </td><td>  -  </td></tr>
-        <tr><td> 409 </td><td> UserID already existing in the list of friends </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ContactProfileDTO userFriendUserIDPost(String userID) throws ApiException {
-        ApiResponse<ContactProfileDTO> localVarResp = userFriendUserIDPostWithHttpInfo(userID);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Add a new contact to the current user&#39;s friends
-     * 
-     * @param userID Username of the user to add (required)
-     * @return ApiResponse&lt;ContactProfileDTO&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Add the user in the list of contacts (friends) and return the header contact profil of the new friend </td><td>  -  </td></tr>
-        <tr><td> 410 </td><td> The user has been deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> UserID not found in the users of the application </td><td>  -  </td></tr>
-        <tr><td> 409 </td><td> UserID already existing in the list of friends </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ContactProfileDTO> userFriendUserIDPostWithHttpInfo(String userID) throws ApiException {
-        okhttp3.Call localVarCall = userFriendUserIDPostValidateBeforeCall(userID, null);
-        Type localVarReturnType = new TypeToken<ContactProfileDTO>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Add a new contact to the current user&#39;s friends (asynchronously)
-     * 
-     * @param userID Username of the user to add (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Add the user in the list of contacts (friends) and return the header contact profil of the new friend </td><td>  -  </td></tr>
-        <tr><td> 410 </td><td> The user has been deleted </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> UserID not found in the users of the application </td><td>  -  </td></tr>
-        <tr><td> 409 </td><td> UserID already existing in the list of friends </td><td>  -  </td></tr>
-        <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call userFriendUserIDPostAsync(String userID, final ApiCallback<ContactProfileDTO> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = userFriendUserIDPostValidateBeforeCall(userID, _callback);
         Type localVarReturnType = new TypeToken<ContactProfileDTO>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -537,7 +267,7 @@ public class ContactApi {
     }
 
     /**
-     * Get the user&#39;s list of friends
+     * Get all the users registered in the app
      * 
      * @return List&lt;ContactProfileDTO&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -554,7 +284,7 @@ public class ContactApi {
     }
 
     /**
-     * Get the user&#39;s list of friends
+     * Get all the users registered in the app
      * 
      * @return ApiResponse&lt;List&lt;ContactProfileDTO&gt;&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -572,7 +302,7 @@ public class ContactApi {
     }
 
     /**
-     * Get the user&#39;s list of friends (asynchronously)
+     * Get all the users registered in the app (asynchronously)
      * 
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
