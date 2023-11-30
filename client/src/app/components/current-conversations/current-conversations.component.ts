@@ -41,9 +41,10 @@ export class CurrentConversationsComponent implements OnInit, OnDestroy {
       });
 
     // Refresh conversations every second
-    // setInterval(() => {
-    //   this.getConversations();
-    // }, 1000);
+    setInterval(() => {
+      this.getConversations();
+    }, 1000);
+
     // Next line is supposed to display the conversations by order of creation
     // this.recentConv.sort((a, b) => b.date.getTime() - a.date.getTime());
   }
@@ -62,7 +63,7 @@ export class CurrentConversationsComponent implements OnInit, OnDestroy {
 
   /**
    * Return the right conversation according to what the logged-in user typed in the search bar
-   * @param _login The searched login/beginning of address/address
+   * @param _login The searched login or beginning of address or address
    */
   getRightConversation(_login: string){
     for(let i = 0; i < this.recentConversations.length; i++){

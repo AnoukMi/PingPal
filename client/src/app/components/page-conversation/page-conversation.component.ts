@@ -9,12 +9,11 @@ import { FormControl } from "@angular/forms";
   templateUrl: './page-conversation.component.html',
   styleUrls: ['./page-conversation.component.css']
 })
-export class PageConversationComponent {
+export class PageConversationComponent implements OnInit{
   conversation!: ConversationDTO;
   interlocutor: string = '';
   @ViewChild('messageInput') messageInput!: ElementRef;
   message = new FormControl();
-
 
   constructor(private discussionService: DiscussionService,
               private activatedRoute: ActivatedRoute) {
@@ -30,9 +29,20 @@ export class PageConversationComponent {
           });
       this.interlocutor = _interlocutor;
     });
-
   }
 
+  ngOnInit(){
+    setInterval(() => {
+      this.getConversation();
+    }, 1000);
+  }
+
+  getConversation(){
+    this.discussionService.getConversation(this.interlocutor)
+      .subscribe(conversation => {
+        this.conversation = conversation;
+      });
+  }
   onSend() {
     console.log(`### sending the message`);
     if (!this.message.value?.trim()) return;
@@ -42,12 +52,6 @@ export class PageConversationComponent {
 
     // Clear the box to write messages
     this.message.setValue('');
-    this.messageInput.nativeElement.reset();
     this.message.reset();
-
-
-    // It does not clear the box, so we reroute on the same page whenever a message is sent
-    // this.route.navigate(['/conversation/', this.interlocutor]);
-    // this.route.navigate([this.activatedRoute.snapshot.queryParams['returnURL'] || '/conversation/', this.interlocutor]);
   }
 }
