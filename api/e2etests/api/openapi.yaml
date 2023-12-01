@@ -555,11 +555,11 @@ components:
       example:
         user1: alv@pingpal
         user2: anmi@pingpal
-        lastMessageDate: 10-10-2023 12:30:22
         id: 667bdc23-3de4-482f-a0f4-3391452a7742
         messagesDTOS:
         - null
         - null
+        timestamp: 1720294759999
       properties:
         id:
           description: Id of the conversation
@@ -567,26 +567,27 @@ components:
           format: uuid
           type: string
         user1:
-          description: one of the two users involved in the conversation
+          description: One of the two users involved in the conversation
           example: alv@pingpal
           type: string
         user2:
-          description: one of the two users involved in the conversation
+          description: One of the two users involved in the conversation
           example: anmi@pingpal
           type: string
-        lastMessageDate:
+        timestamp:
           description: Date of the last sent message to be able to sort conversations
             from the newest to the oldest
-          example: 10-10-2023 12:30:22
-          type: string
+          example: 1720294759999
+          format: int64
+          type: integer
         messagesDTOS:
           description: List of messages exchanged in the conversation
           items:
             $ref: '#/components/schemas/MessageDTO'
           type: array
       required:
-      - lastMessageDate
-      - messages
+      - messagesDTOS
+      - timestamp
       - user1
       - user2
       type: object
@@ -641,10 +642,6 @@ components:
             allOf:
             - $ref: '#/components/schemas/ConversationDTO'
             description: ConversationDTO associated to the message
-        required:
-        - from
-        - id
-        - timestamp
         type: object
       description: Message information
     ContactProfileDTO:

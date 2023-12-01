@@ -20,7 +20,7 @@ export interface MessageDTO {
     type: string;
     body: string;
     id?: string;
-    timestamp?: number;
+    timestamp: number;
     from?: string;
     conversationDTO?: ConversationDTO;
 }

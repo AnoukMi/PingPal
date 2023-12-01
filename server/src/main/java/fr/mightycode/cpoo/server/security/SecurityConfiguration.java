@@ -2,7 +2,6 @@ package fr.mightycode.cpoo.server.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -31,11 +30,11 @@ public class SecurityConfiguration {
 
     // Configure endpoint protection
     http.authorizeHttpRequests(authorizeRequests ->
-            authorizeRequests
-                    .requestMatchers(antMatcher("/user/signup")).permitAll()
-                    .requestMatchers(antMatcher("/user/signin")).permitAll()
-                    .requestMatchers(antMatcher("/error")).permitAll()
-                    .anyRequest().authenticated());
+      authorizeRequests
+        .requestMatchers(antMatcher("/user/signup")).permitAll()
+        .requestMatchers(antMatcher("/user/signin")).permitAll()
+        .requestMatchers(antMatcher("/error")).permitAll()
+        .anyRequest().authenticated());
 
     return http.build();
   }
@@ -50,27 +49,27 @@ public class SecurityConfiguration {
 
     // Create a user account to be used by end-to-end tests
     UserDetails tester = User.withUsername("tester")
-            .password(passwordEncoder.encode("tester"))
-            .roles("USER")
-            .build();
+      .password(passwordEncoder.encode("tester"))
+      .roles("USER")
+      .build();
 
     // Create a user account to be used by end-to-end tests
     UserDetails alice = User.withUsername("alice")
-            .password(passwordEncoder.encode("alice"))
-            .roles("USER")
-            .build();
+      .password(passwordEncoder.encode("alice"))
+      .roles("USER")
+      .build();
 
     // Create a user account to be used by end-to-end tests
     UserDetails bob = User.withUsername("bob")
-            .password(passwordEncoder.encode("bob"))
-            .roles("USER")
-            .build();
+      .password(passwordEncoder.encode("bob"))
+      .roles("USER")
+      .build();
 
     // Create an administrator account
     UserDetails admin = User.withUsername("admin")
-            .password(passwordEncoder.encode("admin"))
-            .roles("USER", "ADMIN")
-            .build();
+      .password(passwordEncoder.encode("admin"))
+      .roles("USER", "ADMIN")
+      .build();
 
     return new InMemoryUserDetailsManager(tester, admin, alice, bob);
   }

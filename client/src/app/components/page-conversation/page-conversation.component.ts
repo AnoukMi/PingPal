@@ -10,51 +10,48 @@ import { FormControl } from "@angular/forms";
   styleUrls: ['./page-conversation.component.css']
 })
 export class PageConversationComponent implements OnInit{
-  discussion!: Discussion;
   conversation!: ConversationDTO;
   interlocutor: string = '';
   @ViewChild('messageInput') messageInput!: ElementRef;
   message = new FormControl();
 
-  ngOnInit() {
+  constructor(private discussionService: DiscussionService,
+              private activatedRoute: ActivatedRoute) {
+
     // Know which conversation to display
     let _interlocutor = '';
     this.activatedRoute.params.subscribe(params => {
       _interlocutor = params['recipient'];
-      console.log(`### current conversation with ${_interlocutor}`);
-      // this.discussion = this.discussionService.getDiscussion(_interlocutor);
       this.discussionService.getConversation(_interlocutor)
         .subscribe(
           conversation => {
             this.conversation = conversation;
-          },
-          error => {
-            console.error(`### Erreur affectation de la conversation`, error);
-          }
-        );
+          });
       this.interlocutor = _interlocutor;
-      // this.router.navigate(['/conversation', this.interlocutor]);
     });
   }
 
-  constructor(private discussionService: DiscussionService,
-              private activatedRoute: ActivatedRoute,
-              private router: Router) {
+  ngOnInit(){
+    setInterval(() => {
+      this.getConversation();
+    }, 1000);
   }
 
+  getConversation(){
+    this.discussionService.getConversation(this.interlocutor)
+      .subscribe(conversation => {
+        this.conversation = conversation;
+      });
+  }
   onSend() {
     console.log(`### sending the message`);
     if (!this.message.value?.trim()) return;
-    // if(this.message == '') return;
+    if(this.message.value == '') return;
 
-    // this.discussionService.sendMessage(<Discussion>this.discussion, this.message.value);
-    this.discussionService.sendMessageConversation(<ConversationDTO>this.conversation, this.interlocutor, this.message.value);
-    // this.messageService.userMessageMessagesGet().subscribe(messages => {
-    //   this.discussion.messages = messages;
-    //   console.log(`### messages length : ${this.discussion.messages.length}`);
-    // });
+    this.discussionService.sendMessage(<ConversationDTO>this.conversation, this.interlocutor, this.message.value);
 
     // Clear the box to write messages
     this.message.setValue('');
+    this.message.reset();
   }
 }

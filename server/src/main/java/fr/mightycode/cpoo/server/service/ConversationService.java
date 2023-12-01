@@ -1,24 +1,22 @@
 package fr.mightycode.cpoo.server.service;
 
+import fr.mightycode.cpoo.server.dto.ConversationDTO;
 import fr.mightycode.cpoo.server.dto.MessageDTO;
 import fr.mightycode.cpoo.server.model.Conversation;
 import fr.mightycode.cpoo.server.model.Message;
 import fr.mightycode.cpoo.server.model.UserData;
+import fr.mightycode.cpoo.server.repository.ConversationRepository;
+import fr.mightycode.cpoo.server.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import fr.mightycode.cpoo.server.repository.ConversationRepository;
-import fr.mightycode.cpoo.server.repository.UserRepository;
-import fr.mightycode.cpoo.server.dto.ConversationDTO;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,7 +29,6 @@ public class ConversationService {
   private final ConversationRepository conversationRepository;
   @Autowired
   private final UserRepository userRepository;
-  private static final Logger logger = Logger.getLogger(ConversationService.class.getName());
 
   /**
    * Retrieve a list of all conversations with the current logged user
@@ -40,9 +37,6 @@ public class ConversationService {
    * @return The list of conversations
    */
   public List<ConversationDTO> getConversations(String user) {
-    // Find the UserData associated with the parameter user
-    // UserData userData = userRepository.findByLogin(user);
-
     // Then find all of their conversations
 
     // First, find the conversations where user is the user1
@@ -56,18 +50,9 @@ public class ConversationService {
     // conversationRepository.findByUserDataOrderByLastMsgDateDesc(userData);
 
     List<ConversationDTO> conversationDTOS = new ArrayList<>();
-    for(Conversation conversation : conversations){
+    for (Conversation conversation : conversations) {
       conversationDTOS.add(new ConversationDTO(conversation));
     }
-
-//    List<ConversationDTO> conversationDTOS = conversations.stream()
-//      .map(ConversationDTO::new)
-//      .collect(Collectors.toList());
-
-    // If the user has conversations but the list is still empty
-    //if (conversationDTOS.isEmpty() && !userData.getConversations().isEmpty()) {
-    //  throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversations not found");
-    //}
 
     return conversationDTOS;
   }
@@ -89,16 +74,20 @@ public class ConversationService {
 
     UserData userData1 = userRepository.findByLogin(getLogin(user));
 
-    if(interlocutor.endsWith('@' + serverDomain)){
+    if (interlocutor.endsWith('@' + serverDomain)) {
       // We naturally put the logged-in user as the user1 since it is the one that initiated the communication
       UserData userData2 = userRepository.findByLogin(getLogin(interlocutor));
-      conversation = new Conversation(user, interlocutor, LocalDateTime.now(), userData1, userData2);
+      conversation = new Conversation(user, interlocutor, userData1, userData2);
     } else {
-      conversation = new Conversation(user, interlocutor, LocalDateTime.now(), userData1);
+      conversation = new Conversation(user, interlocutor, userData1);
     }
 
     conversationRepository.save(conversation);
     return new ConversationDTO(conversation);
+  }
+
+  public void storeConversation(Conversation conversation){
+    conversationRepository.save(conversation);
   }
 
 
@@ -123,33 +112,25 @@ public class ConversationService {
         conversationDTO = new ConversationDTO(conversation);
 
         List<MessageDTO> messageDTOS = new ArrayList<>();
-        for(Message msg : conversation.getMessages()){
+        for (Message msg : conversation.getMessages()) {
           messageDTOS.add(new MessageDTO(msg));
         }
 
-        // logger.info("MessageDTOS :"+messageDTOS);
-
         conversationDTO.setMessagesDTOS(messageDTOS);
-        // logger.info("MessageDTOS of the conversationDTO :"+conversationDTO.messagesDTOS());
       }
     }
 
     // Find a conversation between the two users, interlocutor as user1 and user as user2
     for (Conversation conversation : conversations2) {
       if (conversation.getUser1().equals(interlocutor)) {
-        // logger.info("Conversation trouvée : "+conversation);
-        // logger.info("Messages associés : "+conversation.getMessages());
         conversationDTO = new ConversationDTO(conversation);
 
         List<MessageDTO> messageDTOS = new ArrayList<>();
-        for(Message msg : conversation.getMessages()){
+        for (Message msg : conversation.getMessages()) {
           messageDTOS.add(new MessageDTO(msg));
         }
 
-        // logger.info("MessageDTOS :"+messageDTOS);
-
         conversationDTO.setMessagesDTOS(messageDTOS);
-        // logger.info("MessageDTOS of the conversationDTO :"+conversationDTO.messagesDTOS());
       }
     }
 
@@ -196,18 +177,6 @@ public class ConversationService {
     // To update the conversation
     conversationRepository.save(conversation);
   }
-
-  /**
-   * Save the given messageDTO in the conversationDTO
-   * @param user The logged-in user
-   * @param interlocutor The address of the interlocutor
-   * @param messageDTO The messageDTO to save
-   */
-  public void storeMessageDTOInConversationDTO(String user, String interlocutor, MessageDTO messageDTO){
-    ConversationDTO conversationDTO = this.getOneConversation(user, interlocutor);
-    conversationDTO.messagesDTOS().add(messageDTO);
-  }
-
 
   /**
    * Tell if a user is in our application by giving his username
@@ -258,14 +227,12 @@ public class ConversationService {
     Optional<Conversation> conversation = conversationRepository.findByUser1AndUser2(user, interlocutor);
     if (conversation.isEmpty()) {
       conversation = conversationRepository.findByUser1AndUser2(interlocutor, user);
-      if (conversation.isEmpty()) {
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversation not found with this user");
-      } else {
-        return conversation.get();
-      }
+        return conversation.orElse(null);
     } else {
       return conversation.get();
     }
   }
+
+
 }
 

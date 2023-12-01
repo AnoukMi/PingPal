@@ -2,13 +2,20 @@ package fr.mightycode.cpoo.server;
 
 import fr.mightycode.cpoo.server.model.Conversation;
 import fr.mightycode.cpoo.server.model.Message;
+import fr.mightycode.cpoo.server.model.UserData;
+import fr.mightycode.cpoo.server.repository.UserRepository;
 import fr.mightycode.cpoo.server.service.ConversationService;
 import fr.mightycode.cpoo.server.service.MessageService;
 import fr.mightycode.cpoo.server.service.RouterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Component
 @RequiredArgsConstructor
@@ -26,6 +33,7 @@ public class DomainMessageListener implements RouterService.MessageListener {
 
   private final MessageService messageService;
   private final ConversationService conversationService;
+  private final UserRepository userRepository;
 
   @Override
   public String getServerDomain() {
@@ -56,14 +64,70 @@ public class DomainMessageListener implements RouterService.MessageListener {
 
     Conversation conversation = conversationService.findConversation(routerMessage.to(), routerMessage.from());
 
-    // Store the message
-    message = messageService.storeMessage(new Message(routerMessage, conversation));
+    if(conversation==null){
+      log.info("La création n'existe pas, je la créé");
 
-    // Notify the message to the recipient (since he is part of the domain)
-    messageService.notifyMessageTo(message, message.getTo());
+      // If the message is sent by someone from another domain
+      if (!routerMessage.from().endsWith("@pingpal") && routerMessage.to().endsWith("@pingpal")) {
+        UserData userData = userRepository.findByLogin(getLogin(routerMessage.to()));
+        conversation = new Conversation(routerMessage.from(), routerMessage.to(), userData);
+        conversationService.storeConversation(conversation);
 
-    // Notify the message to the sender if he is part of the domain
-    if (message.getFrom().endsWith("@" + serverDomain))
-      messageService.notifyMessageTo(message, message.getFrom());
+        // Store the message
+        message = messageService.storeMessage(new Message(routerMessage, conversation));
+
+        // Notify the message to the recipient (since he is part of the domain)
+        messageService.notifyMessageTo(message, message.getTo());
+
+        // Notify the message to the sender if he is part of the domain
+        if (message.getFrom().endsWith("@" + serverDomain))
+          messageService.notifyMessageTo(message, message.getFrom());
+      }
+//      Conversation conversation;
+//      try {
+//        // Check if a conversation already exists
+//        conversation = conversationService.findConversation(routerMessage.to(), routerMessage.from());
+//      }
+//      catch (ResponseStatusException ex) {
+//        // If not, findConversation() throws a NOT_FOUND exception, so we have to create the conversation
+//        if (ex.getStatusCode() == HttpStatus.NOT_FOUND) {
+//          log.info("La création n'existe pas, je la créé");
+//          UserData userData = userRepository.findByLogin(getLogin(routerMessage.to()));
+//          conversation = new Conversation(routerMessage.from(), routerMessage.to(), userData);
+//          conversation.getMessages().add(new fr.mightycode.cpoo.server.model.Message(routerMessage, conversation));
+//          conversationService.storeConversation(conversation);
+//
+//        }
+//      }
+    } else {
+      // Store the message
+      message = messageService.storeMessage(new Message(routerMessage, conversation));
+
+      // Notify the message to the recipient (since he is part of the domain)
+      messageService.notifyMessageTo(message, message.getTo());
+
+      // Notify the message to the sender if he is part of the domain
+      if (message.getFrom().endsWith("@" + serverDomain))
+        messageService.notifyMessageTo(message, message.getFrom());
+    }
+  }
+
+
+  /**
+   * Retrieve the login out of the address
+   *
+   * @param address The address
+   * @return The login associated to the address
+   */
+  private String getLogin(String address) {
+    String result = "";
+    String regex = "([^@]+)@.*";
+    Pattern pattern = Pattern.compile(regex);
+    Matcher matcher = pattern.matcher(address);
+    if (matcher.matches()) {
+      // Extraire la partie avant le @ (groupe 1)
+      result = matcher.group(1);
+    }
+    return result;
   }
 }
