@@ -125,10 +125,8 @@ Class | Method | HTTP request | Description
 *AuthenticationApi* | [**userSigninPost**](docs/AuthenticationApi.md#userSigninPost) | **POST** /user/signin | 
 *AuthenticationApi* | [**userSignoutPost**](docs/AuthenticationApi.md#userSignoutPost) | **POST** /user/signout | 
 *AuthenticationApi* | [**userSignupPost**](docs/AuthenticationApi.md#userSignupPost) | **POST** /user/signup | 
-*ContactApi* | [**userFriendUserIDDelete**](docs/ContactApi.md#userFriendUserIDDelete) | **DELETE** /user/friend/{userID} | Delete an existing contact (remove from the list of friends of the current user)
-*ContactApi* | [**userFriendUserIDGet**](docs/ContactApi.md#userFriendUserIDGet) | **GET** /user/friend/{userID} | Search an existing contact in the list of the current user&#39;s friends
-*ContactApi* | [**userFriendUserIDPost**](docs/ContactApi.md#userFriendUserIDPost) | **POST** /user/friend/{userID} | Add a new contact to the current user&#39;s friends
-*ContactApi* | [**userFriendsGet**](docs/ContactApi.md#userFriendsGet) | **GET** /user/friends | Get the user&#39;s list of friends
+*ContactApi* | [**userFriendUserIDGet**](docs/ContactApi.md#userFriendUserIDGet) | **GET** /user/friend/{userID} | Search an existing user in the list of the current user&#39;s friends
+*ContactApi* | [**userFriendsGet**](docs/ContactApi.md#userFriendsGet) | **GET** /user/friends | Get all the users registered in the app
 *ConversationApi* | [**userConversationConversationsGet**](docs/ConversationApi.md#userConversationConversationsGet) | **GET** /user/conversation/conversations | Retrieve all conversations (headers) between the current user and others
 *ConversationApi* | [**userConversationInterlocutorDelete**](docs/ConversationApi.md#userConversationInterlocutorDelete) | **DELETE** /user/conversation/{interlocutor} | Delete an existing conversation (the header and all contained messages) with a given user
 *ConversationApi* | [**userConversationInterlocutorGet**](docs/ConversationApi.md#userConversationInterlocutorGet) | **GET** /user/conversation/{interlocutor} | Search an existing conversation (the header) with a given user

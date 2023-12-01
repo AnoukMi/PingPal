@@ -3,6 +3,7 @@ import {ConversationDTO, ConversationService, MessageDTO, MessageService, NewMes
 import {firstValueFrom, map, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {UserService} from "./user.service";
+import {Router} from "@angular/router";
 
 export class Discussion {
   interlocutor: string;           // address of the interlocutor
@@ -32,7 +33,8 @@ export class DiscussionService {
 
   constructor(private userService: UserService,
               private messageService: MessageService,
-              private conversationService: ConversationService) {
+              private conversationService: ConversationService,
+              private router: Router) {
     console.debug('### DiscussionService()');
 
     // We retrieve the conversations associated to the logged-in user
@@ -40,28 +42,6 @@ export class DiscussionService {
       .subscribe(conv => {
         this.conversations = conv;
       });
-  }
-
-  /**
-   * Initialize discussions of the current user.
-   */
-  async initializeDiscussions() {
-
-    // Get all messages related to the current user
-    const messages = await firstValueFrom(this.messageService.userMessageMessagesGet());
-
-    // Reset all discussions (without reassigning the array)
-    this.discussions.length = 0;
-
-    // Build discussions from messages
-    messages.forEach(message => {
-
-      // Get the discussion related to the message
-      const discussion = this.getTargetDiscussion(message);
-
-      // Add the message to the discussion
-      this.addMessageToDiscussion(discussion, message, true);
-    });
   }
 
   /**
@@ -88,12 +68,6 @@ export class DiscussionService {
           }
         );
 
-      // // Get the discussion related to the message
-      // const discussion = this.getTargetDiscussion(message);
-      //
-      // // Add the message to the discussion
-      // this.addMessageToDiscussion(discussion, message);
-
       // Notify the new message
       onNewMessage(message);
     }
@@ -103,47 +77,6 @@ export class DiscussionService {
     }
 
     stopListening.subscribe(_ => source.close());
-  }
-
-  /**
-   * Search for the discussion related to a given message in the array of discussions.
-   * Create a new one and add it the array of discussions if it does not exist yet.
-   * @param message The message
-   */
-  private getTargetDiscussion(message: MessageDTO) {
-
-    // If message is sent by current user: search for an existing discussion with the receiver,
-    // otherwise, if message is received by current user: search for an existing discussion with the sender
-    const _interlocutor = <string>(message.from === this.userService.getCurrentUserAddress() ? message.to : message.from);
-    let discussion = this.discussions.find(discussion => discussion.interlocutor === _interlocutor);
-
-    // If no discussion has been found, create a new one and add it to the array of discussions
-    if (!discussion) {
-      discussion = new Discussion({interlocutor: _interlocutor, messages: []});
-      this.discussions.push(discussion);
-    }
-
-    return discussion;
-  }
-
-  /**
-   * Add a message at the beginning or at the end of a discussion.
-   * If the message is already present, nothing is done.
-   * @param discussion The discussion
-   * @param message The message
-   * @param beginning True if the message must be added at the beginning of the discussion (default: false)
-   */
-  private addMessageToDiscussion(discussion: Discussion, message: MessageDTO, beginning = false) {
-
-    // If a message with the same id is already present in the discussion, nothing to do
-    if (discussion.messages.find(m => m.id == message.id))
-      return;
-
-    // Add the message to the discussion
-    if (beginning)
-      discussion.messages.unshift(message);
-    else
-      discussion.messages.push(message);
   }
 
   /**
@@ -168,38 +101,11 @@ export class DiscussionService {
 
   /** Send a message to an interlocutor
    *
-   * @param discussion The discussion between logged user and targeted interlocutor
-   * @param body The content of the message
-   */
-  sendMessage(discussion: Discussion, body: string) {
-    console.log(`### sendMessage() of DiscussionService()`);
-    const newMessage: NewMessageDTO = {body: body, type: 'text/plain', to: discussion.interlocutor};
-    this.messageService.userMessagePost(newMessage).subscribe(message => {
-      discussion.messages.push(message);
-    });
-    console.log(`### sending message`);
-    // if (this.discussions.find(discussiontofind => discussion === discussiontofind)) {
-    //
-    //   // Send the message to the recipient by posting it into the server
-    //   console.log(`### Sending message in the discussion ${discussion}`);
-    //
-    //   this.messageService.userMessagePost(encodeURIComponent(discussion.interlocutor), content)
-    //     .subscribe(message => {
-    //       console.log(`### Message added to the server`);
-    //       // Add the message to the discussion (once completed by the server)
-    //       discussion.messages.push(message);
-    //       // Mettre le statusMessage à false
-    //     });
-    // }
-  }
-
-  /** Send a message to an interlocutor
-   *
    * @param conversation The discussion between logged user and targeted interlocutor
    * @param _interlocutor The address of the interlocutor
    * @param body The content of the message
    */
-  sendMessageConversation(conversation: ConversationDTO, _interlocutor: string, body: string) {
+  sendMessage(conversation: ConversationDTO, _interlocutor: string, body: string) {
     console.log(`### sendMessage() of DiscussionService() but with Conversation`);
     const newMessage: NewMessageDTO = {body: body, type: 'text/plain', to: _interlocutor};
     this.messageService.userMessagePost(newMessage)
@@ -208,29 +114,6 @@ export class DiscussionService {
     });
     console.log(`### sending message`);
   }
-
-  /**
-   * Create a new empty discussion with a given interlocutor.
-   * If a discussion with the interlocutor already exists, no new discussion is created.
-   * @param _interlocutor The address of the interlocutor
-   */
-  newDiscussion(_interlocutor: string) {
-    console.debug(`### creation of the discussion with ${_interlocutor}`);
-
-    // Search for an existing discussion with the interlocutor
-    let discussion = this.discussions
-      .find(discussion => discussion.interlocutor === _interlocutor);
-
-    // If a discussion already exists, nothing to do
-    if (discussion) {
-      console.debug(`### the discussion with ${_interlocutor} already exists!`)
-      return;
-    }
-
-    discussion = new Discussion({interlocutor: _interlocutor, messages: []});
-    this.discussions.push(discussion);
-  }
-
 
   /**
    * Create a conversation with a given interlocutor if it does not exist already
@@ -242,30 +125,8 @@ export class DiscussionService {
     this.conversationService.userConversationNewConversationInterlocutorPost(_interlocutor)
         .subscribe(
             ()=> { console.log(`### Conversation créée`);
+              this.router.navigate(['/conversation', _interlocutor]);
             });
-  }
-
-  /** Return true if a discussion exists with the given parameter
-    */
-  searchDiscussion(_interlocutor: string){
-    let discussion = this.discussions
-      .find(discussion => discussion.interlocutor === _interlocutor);
-
-    return !!discussion;
-  }
-  /**
-   * Return the discussion with the given parameter
-   * @param _interlocutor The address of the interlocutor
-   */
-  getDiscussion(_interlocutor: string){
-    // Search for an existing discussion with the interlocutor
-    let discussion = this.discussions
-      .find(discussion => discussion.interlocutor === _interlocutor);
-    if(discussion instanceof Discussion){
-      return discussion;
-    }else{
-      throw new Error(`No discussion found with ${_interlocutor}`);
-    }
   }
 
   getConversation(recipient: string) {

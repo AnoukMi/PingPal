@@ -464,10 +464,11 @@ components:
           type: string
           description : one of the two users involved in the conversation
           example: anmi@pingpal
-        lastMessageDate:
-          type: string
+        timestamp:
+          type: integer
           description : Date of the last sent message to be able to sort conversations from the newest to the oldest
-          example: 10-10-2023 12:30:22
+          format: int64
+          example: 1720294759999
         messagesDTOS:
           type: array
           items:
@@ -476,7 +477,7 @@ components:
       required:
         - user1
         - user2
-        - lastMessageDate
+        - timestamp
         - messagesDTOS
 
     NewMessageDTO:
@@ -528,6 +529,8 @@ components:
               allOf:
                 - $ref : '#/components/schemas/ConversationDTO'
               description: ConversationDTO associated to the message
+      required:
+        - timestamp
 
     ContactProfileDTO:
       type: object

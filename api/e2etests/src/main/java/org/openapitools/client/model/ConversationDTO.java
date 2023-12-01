@@ -67,13 +67,13 @@ public class ConversationDTO {
   @SerializedName(SERIALIZED_NAME_USER2)
   private String user2;
 
-  public static final String SERIALIZED_NAME_LAST_MESSAGE_DATE = "lastMessageDate";
-  @SerializedName(SERIALIZED_NAME_LAST_MESSAGE_DATE)
-  private String lastMessageDate;
+  public static final String SERIALIZED_NAME_TIMESTAMP = "timestamp";
+  @SerializedName(SERIALIZED_NAME_TIMESTAMP)
+  private Long timestamp;
 
   public static final String SERIALIZED_NAME_MESSAGES_D_T_O_S = "messagesDTOS";
   @SerializedName(SERIALIZED_NAME_MESSAGES_D_T_O_S)
-  private List<MessageDTO> messagesDTOS;
+  private List<MessageDTO> messagesDTOS = new ArrayList<>();
 
   public ConversationDTO() {
   }
@@ -141,24 +141,24 @@ public class ConversationDTO {
   }
 
 
-  public ConversationDTO lastMessageDate(String lastMessageDate) {
+  public ConversationDTO timestamp(Long timestamp) {
     
-    this.lastMessageDate = lastMessageDate;
+    this.timestamp = timestamp;
     return this;
   }
 
    /**
    * Date of the last sent message to be able to sort conversations from the newest to the oldest
-   * @return lastMessageDate
+   * @return timestamp
   **/
   @javax.annotation.Nonnull
-  public String getLastMessageDate() {
-    return lastMessageDate;
+  public Long getTimestamp() {
+    return timestamp;
   }
 
 
-  public void setLastMessageDate(String lastMessageDate) {
-    this.lastMessageDate = lastMessageDate;
+  public void setTimestamp(Long timestamp) {
+    this.timestamp = timestamp;
   }
 
 
@@ -180,7 +180,7 @@ public class ConversationDTO {
    * List of messages exchanged in the conversation
    * @return messagesDTOS
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public List<MessageDTO> getMessagesDTOS() {
     return messagesDTOS;
   }
@@ -204,13 +204,13 @@ public class ConversationDTO {
     return Objects.equals(this.id, conversationDTO.id) &&
         Objects.equals(this.user1, conversationDTO.user1) &&
         Objects.equals(this.user2, conversationDTO.user2) &&
-        Objects.equals(this.lastMessageDate, conversationDTO.lastMessageDate) &&
+        Objects.equals(this.timestamp, conversationDTO.timestamp) &&
         Objects.equals(this.messagesDTOS, conversationDTO.messagesDTOS);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, user1, user2, lastMessageDate, messagesDTOS);
+    return Objects.hash(id, user1, user2, timestamp, messagesDTOS);
   }
 
   @Override
@@ -220,7 +220,7 @@ public class ConversationDTO {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    user1: ").append(toIndentedString(user1)).append("\n");
     sb.append("    user2: ").append(toIndentedString(user2)).append("\n");
-    sb.append("    lastMessageDate: ").append(toIndentedString(lastMessageDate)).append("\n");
+    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
     sb.append("    messagesDTOS: ").append(toIndentedString(messagesDTOS)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -247,14 +247,15 @@ public class ConversationDTO {
     openapiFields.add("id");
     openapiFields.add("user1");
     openapiFields.add("user2");
-    openapiFields.add("lastMessageDate");
+    openapiFields.add("timestamp");
     openapiFields.add("messagesDTOS");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
     openapiRequiredFields.add("user1");
     openapiRequiredFields.add("user2");
-    openapiRequiredFields.add("lastMessageDate");
+    openapiRequiredFields.add("timestamp");
+    openapiRequiredFields.add("messagesDTOS");
   }
 
  /**
@@ -294,23 +295,16 @@ public class ConversationDTO {
       if (!jsonObj.get("user2").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `user2` to be a primitive type in the JSON string but got `%s`", jsonObj.get("user2").toString()));
       }
-      if (!jsonObj.get("lastMessageDate").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `lastMessageDate` to be a primitive type in the JSON string but got `%s`", jsonObj.get("lastMessageDate").toString()));
+      // ensure the json data is an array
+      if (!jsonObj.get("messagesDTOS").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `messagesDTOS` to be an array in the JSON string but got `%s`", jsonObj.get("messagesDTOS").toString()));
       }
-      if (jsonObj.get("messagesDTOS") != null && !jsonObj.get("messagesDTOS").isJsonNull()) {
-        JsonArray jsonArraymessagesDTOS = jsonObj.getAsJsonArray("messagesDTOS");
-        if (jsonArraymessagesDTOS != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("messagesDTOS").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `messagesDTOS` to be an array in the JSON string but got `%s`", jsonObj.get("messagesDTOS").toString()));
-          }
 
-          // validate the optional field `messagesDTOS` (array)
-          for (int i = 0; i < jsonArraymessagesDTOS.size(); i++) {
-            MessageDTO.validateJsonElement(jsonArraymessagesDTOS.get(i));
-          };
-        }
-      }
+      JsonArray jsonArraymessagesDTOS = jsonObj.getAsJsonArray("messagesDTOS");
+      // validate the required field `messagesDTOS` (array)
+      for (int i = 0; i < jsonArraymessagesDTOS.size(); i++) {
+        MessageDTO.validateJsonElement(jsonArraymessagesDTOS.get(i));
+      };
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Discussion, DiscussionService } from "../../services/discussion.service";
 import { Router } from "@angular/router";
 import {ConversationService} from "../../api";
+import {async} from "rxjs";
 
 @Component({
   selector: 'app-page-new-conversation',
@@ -37,6 +38,5 @@ export class PageNewMessageComponent {
    */
   createConversation(){
     this.discussionService.newConversation(this.getField('recipient').value);
-    this.router.navigate(['/conversation/', this.getField('recipient').value]);
   }
 }

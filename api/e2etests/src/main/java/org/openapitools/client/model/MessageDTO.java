@@ -157,7 +157,7 @@ public class MessageDTO {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public UUID getId() {
     return id;
   }
@@ -199,7 +199,7 @@ public class MessageDTO {
    * Get from
    * @return from
   **/
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public String getFrom() {
     return from;
   }
@@ -301,9 +301,7 @@ public class MessageDTO {
     openapiRequiredFields.add("to");
     openapiRequiredFields.add("type");
     openapiRequiredFields.add("body");
-    openapiRequiredFields.add("id");
     openapiRequiredFields.add("timestamp");
-    openapiRequiredFields.add("from");
   }
 
  /**
@@ -343,10 +341,10 @@ public class MessageDTO {
       if (!jsonObj.get("body").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `body` to be a primitive type in the JSON string but got `%s`", jsonObj.get("body").toString()));
       }
-      if (!jsonObj.get("id").isJsonPrimitive()) {
+      if ((jsonObj.get("id") != null && !jsonObj.get("id").isJsonNull()) && !jsonObj.get("id").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("id").toString()));
       }
-      if (!jsonObj.get("from").isJsonPrimitive()) {
+      if ((jsonObj.get("from") != null && !jsonObj.get("from").isJsonNull()) && !jsonObj.get("from").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `from` to be a primitive type in the JSON string but got `%s`", jsonObj.get("from").toString()));
       }
       // validate the optional field `conversationDTO`

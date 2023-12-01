@@ -1,26 +1,47 @@
-  <a routerLink="conversation/{{ interlocutor }}">
-<button class="w3-button hover-effect" [ngClass]="{'conv_unread': !statusMessage && !sentMessage,
- 'conv_read': statusMessage && !sentMessage,
- 'sent_msg': sentMessage}"
+<button class="w3-button hover-effect" [ngClass]="{'conv_unread': !read,
+ 'conv_read': read}"
         (click)="changeStatus()">
 
-  <div *ngIf="!statusMessage">
-    <div class="nameContact"><b>{{ interlocutor }}</b></div>
-    <div class="messageStatus"><b>Unread message</b></div>
-  </div>
-  <div *ngIf="statusMessage">
+
+    <div *ngIf="!read">
+      <div class="nameContact"><b>{{ interlocutor }}</b></div>
+      <div class="messageStatus"><b>Unread message</b></div>
+    </div>
+
+
+  <div *ngIf="read">
     <div class="nameContact">{{ interlocutor }}</div>
     <div class="messageStatus">Read message</div>
   </div>
-  <div *ngIf="sentMessage">
-    <div class="nameContact">{{ interlocutor }}</div>
-    <div class="messageStatus">Sent message</div>
-  </div>
 
-  <!-- For now, it displays the moment of creation of the conversation, but I have to change it so it displays the
-  date of the last message exchanged -->
-  <!-- <div class="timeMsg">{{ hour }}</div> -->
+<!--  <div *ngIf="sentMessage">-->
+<!--    <div class="nameContact">{{ interlocutor }}</div>-->
+<!--    <div class="messageStatus">Sent message</div>-->
+<!--  </div>-->
+
+
+<!--  [ngClass]="{'sent_msg':this.conversation.messagesDTOS[this.conversation.messagesDTOS.length-1].from !== this.interlocutor,-->
+<!--        'conv_unread': !read, 'conv_read': read, }"-->
+<!--  (click)="changeStatus()">-->
+
+<!--  <div *ngIf="this.conversation.messagesDTOS[this.conversation.messagesDTOS.length-1].from == this.interlocutor">-->
+<!--    <div *ngIf="read; else unreadBlock">-->
+<!--      <div class="nameContact"><b>{{ interlocutor }}</b></div>-->
+<!--      <div class="messageStatus"><b>Read message</b></div>-->
+<!--    </div>-->
+
+<!--    <ng-template #unreadBlock>-->
+<!--      <div class="nameContact"><b>{{ interlocutor }}</b></div>-->
+<!--      <div class="messageStatus"><b>Unread message</b></div>-->
+<!--    </ng-template>-->
+<!--  </div>-->
+<!--  <ng-template #elseBlock>-->
+<!--    <div class="sent_msg">-->
+<!--      <div class="nameContact">{{ interlocutor }}</div>-->
+<!--      <div class="messageStatus">Sent message</div>-->
+<!--    </div>-->
+<!--  </ng-template>-->
+<!--  <div class="timeMsg">{{ lastMsgDate }}</div>-->
 
   <!--  <img class="avatar" src="{{ contact.icon }}" /> -->
 </button>
-</a>

@@ -14,18 +14,21 @@ import {ConversationDTO} from "../../api";
 export class ContactConversationBoxComponent {
   @Input() conversation!: ConversationDTO;
   @Input() interlocutor: string = '';
-  @Input() statusMessage: boolean = false;
-  @Input() sentMessage: boolean = false;
-  hour: string = '';
-
+  lastMsgDate: string = '';
+  read: boolean = false;
   constructor(private router: Router) {
-    // const hours = this.discussion.date.getHours().toString().padStart(2, '0');
-    // const minutes = this.discussion.date.getMinutes().toString().padStart(2, '0');
-    // this.hour = `${hours}:${minutes}`;
+
+    // Display the time of the last message sent
+    // const time = new Date(this.conversation.timestamp);
+    //
+    // const hours = time.getHours().toString().padStart(2, '0');
+    // const minutes = time.getMinutes().toString().padStart(2, '0');
+    //
+    // this.lastMsgDate = `${hours}:${minutes}`;
   }
 
   changeStatus() {
-    this.statusMessage = !this.statusMessage;
+    this.read = true;
     this.router.navigate(['/conversation', this.interlocutor]);
   }
 }

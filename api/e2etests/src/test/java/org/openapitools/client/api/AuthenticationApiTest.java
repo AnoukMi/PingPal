@@ -21,7 +21,6 @@ import org.openapitools.client.ApiException;
 import org.apache.http.HttpStatus;
 import org.openapitools.client.model.FullUserDTO;
 import org.openapitools.client.model.UserDTO;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 

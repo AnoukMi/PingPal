@@ -1,10 +1,12 @@
 package fr.mightycode.cpoo.server.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import fr.mightycode.cpoo.server.model.UserData;
+import fr.mightycode.cpoo.server.repository.UserRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -85,7 +87,7 @@ public class UserService {
   public int delete(String login, String password) {
     if (!userDetailsManager.userExists(login)) { //case user doesn't exist
       return 0;
-    }else{
+    } else {
       UserDetails userDetails = userDetailsManager.loadUserByUsername(login);
       if (!passwordEncoder.matches(password, userDetails.getPassword())) { //case incorrect password
         return 1;
@@ -98,6 +100,7 @@ public class UserService {
 
   /**
    * Retrieve the UserData associated to the given user
+   *
    * @param user The address of the user
    * @return The UserData
    */

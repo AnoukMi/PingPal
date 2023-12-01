@@ -12,7 +12,8 @@ export class AppComponent {
 
   constructor(private userService: UserService) {
     console.debug('### AppComponent()');
-    this.userService.currentUserObservable.subscribe(currentUser => this.currentUser = currentUser);
+    this.userService.currentUserObservable
+      .subscribe(currentUser => this.currentUser = currentUser);
   }
 
 

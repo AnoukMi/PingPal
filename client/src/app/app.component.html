@@ -1,6 +1,6 @@
 <!--A METTRE EN TOUT PREMIER SINON LES COMPONENTS A AFFICHER DU ROUTAGE SONT CACHES DERRIERE
 LE RESTE DE CE CODE DU FOND DE BASE-->
-<ng-container *ngIf="(currentUser)">
+<ng-container *ngIf="currentUser">
   <!--affiche la toolbar et le logo seulement si un user est connecté-->
   <a routerLink="home"> <!-- logo en premier plan dans l'angle et renvoie sur home quand on clique-->
     <img src="assets/logo.png" style="width: 150px; position: absolute; top: 0; left: 0;   z-index: 3;">

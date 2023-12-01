@@ -1,7 +1,7 @@
 package fr.mightycode.cpoo.server.controller;
 
-import fr.mightycode.cpoo.server.dto.UserDTO;
 import fr.mightycode.cpoo.server.dto.FullUserDTO;
+import fr.mightycode.cpoo.server.dto.UserDTO;
 import fr.mightycode.cpoo.server.service.UserService;
 import jakarta.servlet.ServletException;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -56,14 +57,14 @@ public class UserController {
     }
   }
 
-  @DeleteMapping(value = "delete",consumes = MediaType.APPLICATION_JSON_VALUE) //delete user account
+  @DeleteMapping(value = "delete", consumes = MediaType.APPLICATION_JSON_VALUE) //delete user account
   public void deleteAccount(@RequestBody final UserDTO user) {
-      int ret=userService.delete(user.login(),user.password()); // return 0 if user not found, 1 if password doesn't match
-      if (ret==0) {
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User does not exist");
-      }
-      if (ret==1) {
-        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Incorrect password");
-      }
+    int ret = userService.delete(user.login(), user.password()); // return 0 if user not found, 1 if password doesn't match
+    if (ret == 0) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User does not exist");
+    }
+    if (ret == 1) {
+      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Incorrect password");
+    }
   }
 }

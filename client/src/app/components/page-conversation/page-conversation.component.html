@@ -1,27 +1,30 @@
 <script src="page-conversation.component.ts"></script>
-    <div class="text_title contact_name ">{{ interlocutor }}</div>
 
-      <div class="chat w3-round-xlarge">
-        <div class="toscroll">
-          <app-chat [conversation]="conversation" [interlocutor]="interlocutor">
-            <!-- [discussion] = "discussion"[messages] = "messages" --></app-chat>
-        </div>
-      </div>
+<app-tool-bar-user></app-tool-bar-user>
+<app-left-side></app-left-side>
+  <div class="text_title contact_name ">{{ interlocutor }}</div>
 
-        <div class="userWritingBox">
-          <app-user-writing-frame #messageInput
-                                  type="text"
-                                  [placeholder]="'Write your message'"
-                                  [formControl]="message"
-                                  [type]="'text'" (keyup.enter)="onSend()"></app-user-writing-frame>
-        </div>
-
-    <div class="send_button">
-      <a routerLink="conversation">
-        <button class="w3-button w3-ripple w3-hover-white w3-round-xxlarge" (click) = "onSend()">
-          <div class="text_button">SEND</div></button>
-      </a>
+  <div class="chat w3-round-xlarge">
+    <div class="toscroll">
+      <app-chat [conversation]="conversation" [interlocutor]="interlocutor"></app-chat>
     </div>
+  </div>
+
+  <div class="userWritingBox">
+    <app-user-writing-frame #messageInput
+                            type="text"
+                            [placeholder]="'Write your message'"
+                            [formControl]="message"
+                            [type]="'text'" (keyup.enter)="onSend()"></app-user-writing-frame>
+  </div>
+
+  <div class="send_button">
+    <a routerLink="conversation">
+      <button class="w3-button w3-ripple w3-hover-white w3-round-xxlarge" (click) = "onSend()">
+        <div class="text_button">SEND</div></button>
+    </a>
+  </div>
+
 
 
 

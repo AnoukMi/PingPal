@@ -34,7 +34,7 @@ import java.util.Map;
 /**
  * API tests for ProfileApi
  */
-@Disabled
+
 public class ProfileApiTest {
 
     private final ProfileApi api = new ProfileApi();

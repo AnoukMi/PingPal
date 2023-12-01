@@ -84,7 +84,7 @@ import { ListAvatarsComponent } from './components/list-avatars/list-avatars.com
     ApiModule.forRoot(() => new Configuration({ basePath: '/serverapi' }))
 
   ],
-  providers: [AuthenticationService, ProfileService, ConversationService, MessageService,ContactService, UserService],
+  providers: [AuthenticationService, ProfileService, ConversationService, MessageService, ContactService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

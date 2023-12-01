@@ -11,9 +11,9 @@ Message information
 |**to** | **String** |  |  |
 |**type** | **String** |  |  |
 |**body** | **String** |  |  |
-|**id** | **UUID** |  |  |
+|**id** | **UUID** |  |  [optional] |
 |**timestamp** | **Long** |  |  |
-|**from** | **String** |  |  |
+|**from** | **String** |  |  [optional] |
 |**conversationDTO** | [**ConversationDTO**](ConversationDTO.md) |  |  [optional] |
 
 
