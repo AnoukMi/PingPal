@@ -4,6 +4,7 @@ import {ConversationDTO, MessageService} from "../../api";
 import {Discussion, DiscussionService} from "../../services/discussion.service";
 import {Subject} from "rxjs";
 import {UserService} from "../../services/user.service";
+import {ContactProfileService} from "../../services/contact.service";
 
 @Component({
   selector: 'app-current-conversations',
@@ -16,11 +17,13 @@ export class CurrentConversationsComponent implements OnInit, OnDestroy {
   rightConv!: ConversationDTO;
   @Input() isSearched: boolean = false;
   @Input() searchedConv!: string;
+  icon: number = 0;
 
   private stopListening = new Subject<void>();
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private discussionService: DiscussionService,
+              private contactProfileService: ContactProfileService,
               private userService: UserService){
 
     this.discussionService.getConversations()
@@ -72,4 +75,31 @@ export class CurrentConversationsComponent implements OnInit, OnDestroy {
     return this.rightConv;
   }
 
+  /**
+   * Tell if the interlocutor is from Pingpal or not
+   * @param conversation The conversation between the logged-in user and the interlocutor
+   */
+  fromPingpal(conversation: ConversationDTO) {
+    let isPart = false;
+    if (conversation.user1 == this.loggedUser) {
+      if (conversation.user2.endsWith("@pingpal")) {
+        isPart = true;
+        this.contactProfileService.getOneUser(conversation.user2.split("@")[0]).subscribe(
+          contact => {
+            this.icon = contact.icon;
+          }
+        )
+      }
+    } else if (conversation.user2 == this.loggedUser) {
+      if (conversation.user1.endsWith("@pingpal")) {
+        isPart = true;
+        this.contactProfileService.getOneUser(conversation.user1.split("@")[0]).subscribe(
+          contact => {
+            this.icon = contact.icon;
+          }
+        )
+      }
+    }
+    return isPart;
+  }
 }

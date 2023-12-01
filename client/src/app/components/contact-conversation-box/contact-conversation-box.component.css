@@ -1,7 +1,8 @@
 .conv_unread {
-  position: relative;
-  width: 92%;
-  height: 100%;
+  position: absolute;
+  left: 2%;
+  width: 90%;
+  height: 19%;
   background-color: #ac8686;
   border-radius: 16px;
   border: 2px dashed #813641;
@@ -57,8 +58,8 @@
 
 .icon {
   position: absolute;
-  width: 3.8vw;
-  top: 0.7vh;
+  width: 3vw;
+  top: 0.5vh;
   left: 1.5vw;
 }
 
