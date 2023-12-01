@@ -1,12 +1,15 @@
 package fr.mightycode.cpoo.server.service;
 
+import fr.mightycode.cpoo.server.model.PingpalUser;
 import fr.mightycode.cpoo.server.model.UserData;
+import fr.mightycode.cpoo.server.repository.PingpalUserRepository;
 import fr.mightycode.cpoo.server.repository.UserRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -14,24 +17,22 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
-import fr.mightycode.cpoo.server.model.UserData;
-import fr.mightycode.cpoo.server.model.Conversation;
-import fr.mightycode.cpoo.server.repository.UserRepository;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
-
 import java.util.List;
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
+
   @Autowired // pour partager un userRepository commun aux autres services
   private final UserRepository userRepository;
+  private final PingpalUserRepository pingpalUserRepository;
   private final PasswordEncoder passwordEncoder;
+  @Qualifier("pingpalUserDetailsManager")
   private final UserDetailsManager userDetailsManager;
   private final HttpServletRequest httpServletRequest;
 
@@ -41,8 +42,8 @@ public class UserService {
    *
    * @param login and others : all of UserData and FullUserDTOc
    */
-  public void createUser(String login, int icon, String firstname, String lastname, LocalDate birthday, String address) {
-    UserData user = new UserData(login,icon,firstname,lastname,birthday,address, "");
+  public void createUser(String login/*, String password */, int icon, String firstname, String lastname, LocalDate birthday, String address) {
+    UserData user = new UserData(login/* ,passwordEncoder.encode(password) */, icon, firstname, lastname, birthday, address, "");
     userRepository.save(user);
   }
 
@@ -55,11 +56,12 @@ public class UserService {
   public void deleteThisUser(String login) throws ResponseStatusException {
     UserData user = userRepository.findByLogin(login);
     userRepository.delete(user);
-    if (user != null) {
-      userRepository.delete(user);
-    } else {
+    PingpalUser pingpalUser = pingpalUserRepository.findByLogin(login);
+    pingpalUserRepository.delete(pingpalUser);
+    if (user == null && pingpalUser == null) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User does not exist");
     }
+    userRepository.delete(user);
   }
 
   public boolean signup(final String login, final String password) { //create account
@@ -104,7 +106,7 @@ public class UserService {
    * @param user The address of the user
    * @return The UserData
    */
-  public UserData getUser(String user){
+  public UserData getUser(String user) {
     return userRepository.findByLogin((getLogin(user)));
   }
 

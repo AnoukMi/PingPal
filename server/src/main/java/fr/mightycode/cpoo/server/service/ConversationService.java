@@ -86,7 +86,7 @@ public class ConversationService {
     return new ConversationDTO(conversation);
   }
 
-  public void storeConversation(Conversation conversation){
+  public void storeConversation(Conversation conversation) {
     conversationRepository.save(conversation);
   }
 
@@ -227,7 +227,7 @@ public class ConversationService {
     Optional<Conversation> conversation = conversationRepository.findByUser1AndUser2(user, interlocutor);
     if (conversation.isEmpty()) {
       conversation = conversationRepository.findByUser1AndUser2(interlocutor, user);
-        return conversation.orElse(null);
+      return conversation.orElse(null);
     } else {
       return conversation.get();
     }

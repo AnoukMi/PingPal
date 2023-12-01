@@ -10,9 +10,7 @@ import fr.mightycode.cpoo.server.service.RouterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -64,7 +62,7 @@ public class DomainMessageListener implements RouterService.MessageListener {
 
     Conversation conversation = conversationService.findConversation(routerMessage.to(), routerMessage.from());
 
-    if(conversation==null){
+    if (conversation == null) {
       log.info("La création n'existe pas, je la créé");
 
       // If the message is sent by someone from another domain

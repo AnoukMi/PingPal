@@ -98,7 +98,7 @@ public class Conversation {
   }
 
   // If the conversation is initiated by someone out of our domain
-  public Conversation(String user1, String user2, UserData userData, Message message){
+  public Conversation(String user1, String user2, UserData userData, Message message) {
     this.id = UUID.randomUUID();
     this.user1 = user1;
     this.user2 = user2;
