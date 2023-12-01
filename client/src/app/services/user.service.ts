@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, Subject, BehaviorSubject } from "rxjs";
 import { AuthenticationService, ProfileService, FullUserDTO } from "../api";
+import {Contact} from "../models/contact";
 
 
 // Information about the current user of the app:
@@ -162,6 +163,7 @@ export class UserService {
       })
     )
   }
+
 
   /**
    * Wrapper of the PATCH /user/profile endpoint.

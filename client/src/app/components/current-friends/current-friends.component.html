@@ -1,27 +1,3 @@
-  <div class="friend" style="top:5vh">
-    <app-friend [contact] = this.friends[0]></app-friend>
-  </div>
-
-  <div class="friend" style="top:20vh">
-    <app-friend [contact] = this.friends[0]></app-friend>
-  </div>
-
-  <div class="friend" style="top:35vh">
-    <app-friend [contact] = this.friends[0]></app-friend>
-  </div>
-
-  <div class="friend" style="top:50vh">
-    <app-friend [contact] = this.friends[0]></app-friend>
-  </div>
-
-  <div class="friend" style="top:65vh">
-    <app-friend [contact] = this.friends[0]></app-friend>
-  </div>
-
-  <div class="friend" style="top:80vh">
-    <app-friend [contact] = this.friends[0]></app-friend>
-  </div>
-
-  <div class="friend" style="top:95vh">
-    <app-friend [contact] = this.friends[0]></app-friend>
-  </div>
+<div *ngFor="let contact of friends; let i = index" class="friend" [style.top]="i+3 + 'vh'">
+  <app-friend [contact]="contact"></app-friend>
+</div>

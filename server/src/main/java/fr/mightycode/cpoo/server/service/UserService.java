@@ -6,7 +6,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -14,10 +13,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
+import fr.mightycode.cpoo.server.model.UserData;
+import fr.mightycode.cpoo.server.model.Conversation;
+import fr.mightycode.cpoo.server.repository.UserRepository;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+
 import java.util.List;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,7 +41,7 @@ public class UserService {
    * @param login and others : all of UserData and FullUserDTOc
    */
   public void createUser(String login, int icon, String firstname, String lastname, LocalDate birthday, String address) {
-    UserData user = new UserData(login, icon, firstname, lastname, birthday, address, null);
+    UserData user = new UserData(login,icon,firstname,lastname,birthday,address, "");
     userRepository.save(user);
   }
 
@@ -99,7 +103,7 @@ public class UserService {
    * @param user The address of the user
    * @return The UserData
    */
-  public UserData getUser(String user) {
+  public UserData getUser(String user){
     return userRepository.findByLogin((getLogin(user)));
   }
 
