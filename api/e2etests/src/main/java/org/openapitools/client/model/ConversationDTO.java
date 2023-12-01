@@ -106,7 +106,7 @@ public class ConversationDTO {
   }
 
    /**
-   * One of the two users involved in the conversation
+   * one of the two users involved in the conversation
    * @return user1
   **/
   @javax.annotation.Nonnull
@@ -127,7 +127,7 @@ public class ConversationDTO {
   }
 
    /**
-   * One of the two users involved in the conversation
+   * one of the two users involved in the conversation
    * @return user2
   **/
   @javax.annotation.Nonnull

@@ -12,7 +12,7 @@ Message information
 |**type** | **String** |  |  |
 |**body** | **String** |  |  |
 |**id** | **UUID** |  |  [optional] |
-|**timestamp** | **Long** |  |  [optional] |
+|**timestamp** | **Long** |  |  |
 |**from** | **String** |  |  [optional] |
 |**conversationDTO** | [**ConversationDTO**](ConversationDTO.md) |  |  [optional] |
 

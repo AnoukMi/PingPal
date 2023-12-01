@@ -178,7 +178,7 @@ public class MessageDTO {
    * Get timestamp
    * @return timestamp
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public Long getTimestamp() {
     return timestamp;
   }
@@ -301,6 +301,7 @@ public class MessageDTO {
     openapiRequiredFields.add("to");
     openapiRequiredFields.add("type");
     openapiRequiredFields.add("body");
+    openapiRequiredFields.add("timestamp");
   }
 
  /**

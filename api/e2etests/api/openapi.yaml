@@ -374,35 +374,9 @@ paths:
       x-content-type: application/json
       x-accepts: application/json
   /user/friend/{userID}:
-    delete:
-      parameters:
-      - description: Username of the friend to remove
-        explode: false
-        in: path
-        name: userID
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          description: "Success, contact deleted"
-        "404":
-          description: UserID not found in the current user's list of friends
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorDTO'
-          description: Error
-      summary: Delete an existing contact (remove from the list of friends of the
-        current user)
-      tags:
-      - contact
-      x-accepts: application/json
     get:
       parameters:
-      - description: Username of the friend to search
+      - description: Username of the user to search
         explode: false
         in: path
         name: userID
@@ -418,51 +392,15 @@ paths:
                 $ref: '#/components/schemas/ContactProfileDTO'
           description: Provide the header of the found contact profile of the given
             username
-        "410":
-          description: The user has been deleted
         "404":
-          description: UserID not found in the current user's list of friends
+          description: UserID not found in the current user's list
         default:
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
           description: Error
-      summary: Search an existing contact in the list of the current user's friends
-      tags:
-      - contact
-      x-accepts: application/json
-    post:
-      parameters:
-      - description: Username of the user to add
-        explode: false
-        in: path
-        name: userID
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ContactProfileDTO'
-          description: Add the user in the list of contacts (friends) and return the
-            header contact profil of the new friend
-        "410":
-          description: The user has been deleted
-        "404":
-          description: UserID not found in the users of the application
-        "409":
-          description: UserID already existing in the list of friends
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorDTO'
-          description: Error
-      summary: Add a new contact to the current user's friends
+      summary: Search an existing user in the list of the current user's friends
       tags:
       - contact
       x-accepts: application/json
@@ -483,7 +421,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
           description: Error
-      summary: Get the user's list of friends
+      summary: Get all the users registered in the app
       tags:
       - contact
       x-accepts: application/json
@@ -567,11 +505,11 @@ components:
           format: uuid
           type: string
         user1:
-          description: One of the two users involved in the conversation
+          description: one of the two users involved in the conversation
           example: alv@pingpal
           type: string
         user2:
-          description: One of the two users involved in the conversation
+          description: one of the two users involved in the conversation
           example: anmi@pingpal
           type: string
         timestamp:
@@ -644,6 +582,8 @@ components:
             description: ConversationDTO associated to the message
         type: object
       description: Message information
+      required:
+      - timestamp
     ContactProfileDTO:
       example:
         birthday: 11-05-2003
