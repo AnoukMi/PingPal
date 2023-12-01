@@ -1,4 +1,4 @@
-IMAGE=eu.gcr.io/mightycode/PingPal_client
+IMAGE=eu.gcr.io/mightycode/pingpal_client
 npm install
 npm run build
 docker build . -t $IMAGE
