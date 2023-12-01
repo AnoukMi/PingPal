@@ -1,4 +1,4 @@
-IMAGE=eu.gcr.io/mightycode/cpoo_server
+IMAGE=eu.gcr.io/mightycode/PingPal_server
 mvn package -DskipTests=true
 docker build . -t $IMAGE
 if [[ $1 == "--push" ]]
