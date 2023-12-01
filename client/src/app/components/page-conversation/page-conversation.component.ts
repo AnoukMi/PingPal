@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ConversationDTO, MessageDTO, MessageService} from "../../api";
-import { Discussion, DiscussionService } from "../../services/discussion.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ConversationDTO} from "../../api";
+import {DiscussionService} from "../../services/discussion.service";
+import {ActivatedRoute} from "@angular/router";
 import { FormControl } from "@angular/forms";
 
 @Component({

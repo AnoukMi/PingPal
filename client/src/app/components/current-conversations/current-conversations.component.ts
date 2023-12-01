@@ -1,7 +1,6 @@
 import {ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from '@angular/core';
-import { Contact } from "../../models/contact";
-import {ConversationDTO, MessageService} from "../../api";
-import {Discussion, DiscussionService} from "../../services/discussion.service";
+import {ConversationDTO} from "../../api";
+import {DiscussionService} from "../../services/discussion.service";
 import {Subject} from "rxjs";
 import {UserService} from "../../services/user.service";
 import {ContactProfileService} from "../../services/contact.service";

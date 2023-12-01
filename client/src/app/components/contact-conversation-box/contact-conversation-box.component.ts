@@ -1,10 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {Contact} from "../../models/contact";
 import {Router} from "@angular/router";
-import {Discussion} from "../../services/discussion.service";
 import {ConversationDTO} from "../../api";
-import {UserService} from "../../services/user.service";
-import {ContactProfileService} from "../../services/contact.service";
 
 @Component({
   selector: 'app-contact-conversation-frame',

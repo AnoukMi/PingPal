@@ -1,38 +1,16 @@
 import { Injectable } from '@angular/core';
 import {ConversationDTO, ConversationService, MessageDTO, MessageService, NewMessageDTO} from "../api";
-import {firstValueFrom, map, Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
-import {UserService} from "./user.service";
+import {Observable} from "rxjs";
 import {Router} from "@angular/router";
-
-export class Discussion {
-  interlocutor: string;           // address of the interlocutor
-  messages: MessageDTO[];         // messages of the discussion
-  date: Date;                     // date of creation of the discussion
-  // lastMsgDate: Date;              // date of the last message exchanged
-
-  constructor(props: { interlocutor: string, messages: MessageDTO[] }) {
-    this.interlocutor = props.interlocutor;
-    this.messages = props.messages;
-    this.date = new Date();
-    // this.lastMsgDate = this.messages.slice(-1)[0]
-  }
-
-  getId(){
-    return this.interlocutor.replace('@', '');
-  }
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class DiscussionService {
 
-  public discussions: Discussion[] = []; // array of discussion (this object must never be reassigned)
   public conversations: ConversationDTO[] = [];
 
-  constructor(private userService: UserService,
-              private messageService: MessageService,
+  constructor(private messageService: MessageService,
               private conversationService: ConversationService,
               private router: Router) {
     console.debug('### DiscussionService()');
@@ -64,7 +42,6 @@ export class DiscussionService {
           conv => {
             // Add the message to the conversation
             this.addMessageToConversation(conv, message);
-            // conv.messages.push(message);
           }
         );
 
