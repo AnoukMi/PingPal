@@ -14,10 +14,8 @@ import {ConversationDTO} from "../../api";
 export class ContactConversationBoxComponent {
   @Input() conversation!: ConversationDTO;
   @Input() interlocutor: string = '';
-  @Input() statusMessage: boolean = false;
-  @Input() sentMessage: boolean = false;
   lastMsgDate: string = '';
-
+  read: boolean = false;
   constructor(private router: Router) {
 
     // Display the time of the last message sent
@@ -30,7 +28,7 @@ export class ContactConversationBoxComponent {
   }
 
   changeStatus() {
-    this.statusMessage = !this.statusMessage;
+    this.read = true;
     this.router.navigate(['/conversation', this.interlocutor]);
   }
 }

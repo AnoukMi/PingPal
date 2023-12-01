@@ -4,14 +4,14 @@
       <!-- If the conversation has the logged-in user as the user1 -->
       <app-contact-conversation-frame *ngSwitchCase="loggedUser"
                                       [conversation]="getRightConversation(searchedConv)"
-                                      [interlocutor]="getRightConversation(searchedConv).user2"
-                                      [statusMessage] = "false"></app-contact-conversation-frame>
+                                      [interlocutor]="getRightConversation(searchedConv).user2">
+      </app-contact-conversation-frame>
 
       <!-- Otherwise -->
       <app-contact-conversation-frame *ngSwitchDefault
                                       [conversation]="getRightConversation(searchedConv)"
-                                      [interlocutor]="getRightConversation(searchedConv).user1"
-                                      [statusMessage] = "false"></app-contact-conversation-frame>
+                                      [interlocutor]="getRightConversation(searchedConv).user1">
+      </app-contact-conversation-frame>
     </ng-container>
   </div>
 </div>
@@ -25,16 +25,14 @@
           <!-- If the conversation has the logged-in user as the user1 -->
           <app-contact-conversation-frame *ngSwitchCase="loggedUser"
                                           [conversation]="conv"
-                                          [interlocutor]="conv.user2"
-                                          [statusMessage] = "false"
-                                          [sentMessage] = "false"></app-contact-conversation-frame>
+                                          [interlocutor]="conv.user2">
+          </app-contact-conversation-frame>
 
           <!-- Otherwise -->
           <app-contact-conversation-frame *ngSwitchDefault
                                           [conversation]="conv"
-                                          [interlocutor]="conv.user1"
-                                          [statusMessage] = "false"
-                                          [sentMessage] = "false"></app-contact-conversation-frame>
+                                          [interlocutor]="conv.user1">
+          </app-contact-conversation-frame>
         </ng-container>
 
       </div>

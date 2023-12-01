@@ -44,9 +44,6 @@ export class CurrentConversationsComponent implements OnInit, OnDestroy {
     setInterval(() => {
       this.getConversations();
     }, 1000);
-
-    // Next line is supposed to display the conversations by order of creation
-    // this.recentConv.sort((a, b) => b.date.getTime() - a.date.getTime());
   }
 
   ngOnDestroy() {
