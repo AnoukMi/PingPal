@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Discussion, DiscussionService } from "../../services/discussion.service";
+import { DiscussionService } from "../../services/discussion.service";
 import { Router } from "@angular/router";
-import {ConversationService} from "../../api";
-import {async} from "rxjs";
+
 
 @Component({
   selector: 'app-page-new-conversation',

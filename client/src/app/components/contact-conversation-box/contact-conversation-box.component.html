@@ -45,21 +45,24 @@
 
   <!--  <img class="avatar" src="{{ contact.icon }}" /> -->
 
-
+<!--<button class="w3-button hover-effect" (click)="changeStatus()">-->
+<!--  <div *ngIf="isPartOfPingpal">-->
+<!--    <div class="conv_unread">-->
+<!--      <div class="nameContact"><b>{{ interlocutor }}</b></div>-->
+<!--      <div class="messageStatus"><b>Message</b></div>-->
+<!--      <img class="icon" [src]="'assets/avatar/'+this.icon+'.png'" />-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div *ngIf="!isPartOfPingpal">-->
+<!--    <div class="conv_unread">-->
+<!--      <div class="nameContact"><b>{{ interlocutor }}</b></div>-->
+<!--      <div class="messageStatus"><b>Message</b></div>-->
+<!--    </div>-->
+<!--  </div>-->
 <!-- Alternative version while we have the right code to display the right appearance according to the state of the last message -->
 <button class="w3-button hover-effect" (click)="changeStatus()">
-  <div *ngIf="isPartOfPingpal">
-    <div class="conv_unread">
-      <div class="nameContact"><b>{{ interlocutor }}</b></div>
-      <div class="messageStatus"><b>Message</b></div>
-      <img class="icon" [src]="'assets/avatar/'+this.icon+'.png'" />
-    </div>
+  <div class="conv_unread">
+    <div class="nameContact"><b>{{ interlocutor }}</b></div>
+    <div class="messageStatus"><b>Message</b></div>
   </div>
-  <div *ngIf="!isPartOfPingpal">
-    <div class="conv_unread">
-      <div class="nameContact"><b>{{ interlocutor }}</b></div>
-      <div class="messageStatus"><b>Message</b></div>
-    </div>
-  </div>
-
 </button>

@@ -4,17 +4,13 @@
       <!-- If the conversation has the logged-in user as the user1 -->
       <app-contact-conversation-frame *ngSwitchCase="loggedUser"
                                       [conversation]="getRightConversation(searchedConv)"
-                                      [interlocutor]="getRightConversation(searchedConv).user2"
-                                      [isPartOfPingpal]="fromPingpal(getRightConversation(searchedConv))"
-                                      [icon]="icon">
+                                      [interlocutor]="getRightConversation(searchedConv).user2">
       </app-contact-conversation-frame>
 
       <!-- Otherwise -->
       <app-contact-conversation-frame *ngSwitchDefault
                                       [conversation]="getRightConversation(searchedConv)"
-                                      [interlocutor]="getRightConversation(searchedConv).user1"
-                                      [isPartOfPingpal]="fromPingpal(getRightConversation(searchedConv))"
-                                      [icon]="icon">
+                                      [interlocutor]="getRightConversation(searchedConv).user1">
       </app-contact-conversation-frame>
     </ng-container>
   </div>
@@ -29,17 +25,13 @@
           <!-- If the conversation has the logged-in user as the user1 -->
           <app-contact-conversation-frame *ngSwitchCase="loggedUser"
                                           [conversation]="conv"
-                                          [interlocutor]="conv.user2"
-                                          [isPartOfPingpal]="fromPingpal(conv)"
-                                          [icon]="icon">
+                                          [interlocutor]="conv.user2">
           </app-contact-conversation-frame>
 
           <!-- Otherwise -->
           <app-contact-conversation-frame *ngSwitchDefault
                                           [conversation]="conv"
-                                          [interlocutor]="conv.user1"
-                                          [isPartOfPingpal]="fromPingpal(conv)"
-                                          [icon]="icon">
+                                          [interlocutor]="conv.user1">
           </app-contact-conversation-frame>
         </ng-container>
 

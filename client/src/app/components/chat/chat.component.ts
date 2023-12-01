@@ -1,7 +1,5 @@
-import {Component, ElementRef, Input, ViewChild} from '@angular/core';
-import {ConversationDTO, MessageDTO} from "../../api";
-import {Discussion, DiscussionService} from "../../services/discussion.service";
-import {FormControl} from "@angular/forms";
+import {Component, Input} from '@angular/core';
+import {ConversationDTO} from "../../api";
 
 @Component({
   selector: 'app-chat',
