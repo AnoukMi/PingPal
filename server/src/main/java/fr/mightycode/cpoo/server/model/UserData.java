@@ -15,8 +15,6 @@ public class UserData {
   @Id
   @Column(name = "login", nullable = false)
   private String login; // username (unique)
-  //    @Column(name="password", nullable = false)
-//    private String password;
   @Column(name = "icon", nullable = false)
   private int icon; //numéro d'image icone
   @Column(name = "firstname", nullable = false)
@@ -47,10 +45,9 @@ public class UserData {
     // Constructeur par défaut vide (obligé)
   }
 
-  public UserData(String login/*, String password */, int icon, String firstname, String lastname, LocalDate birthday, String address,
+  public UserData(String login, int icon, String firstname, String lastname, LocalDate birthday, String address,
                   String sharedMessage) {
     this.login = login;
-//        this.password = password;
     this.icon = icon;
     this.firstname = firstname;
     this.lastname = lastname;

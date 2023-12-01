@@ -31,4 +31,8 @@ export class ContactConversationBoxComponent {
     this.read = true;
     this.router.navigate(['/conversation', this.interlocutor]);
   }
+
+  lastMessage(){
+    return this.conversation.messagesDTOS[this.conversation.messagesDTOS.length-1].body;
+  }
 }

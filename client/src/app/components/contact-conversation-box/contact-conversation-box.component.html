@@ -1,18 +1,18 @@
-<button class="w3-button hover-effect" [ngClass]="{'conv_unread': !read,
- 'conv_read': read}"
-        (click)="changeStatus()">
+<!--<button class="w3-button hover-effect" [ngClass]="{'conv_unread': !read,-->
+<!-- 'conv_read': read}"-->
+<!--        (click)="changeStatus()">-->
 
 
-    <div *ngIf="!read">
-      <div class="nameContact"><b>{{ interlocutor }}</b></div>
-      <div class="messageStatus"><b>Unread message</b></div>
-    </div>
+<!--    <div *ngIf="!read">-->
+<!--      <div class="nameContact"><b>{{ interlocutor }}</b></div>-->
+<!--      <div class="messageStatus"><b>Unread message</b></div>-->
+<!--    </div>-->
 
 
-  <div *ngIf="read">
-    <div class="nameContact">{{ interlocutor }}</div>
-    <div class="messageStatus">Read message</div>
-  </div>
+<!--  <div *ngIf="read">-->
+<!--    <div class="nameContact">{{ interlocutor }}</div>-->
+<!--    <div class="messageStatus">Read message</div>-->
+<!--  </div>-->
 
 <!--  <div *ngIf="sentMessage">-->
 <!--    <div class="nameContact">{{ interlocutor }}</div>-->
@@ -44,4 +44,15 @@
 <!--  <div class="timeMsg">{{ lastMsgDate }}</div>-->
 
   <!--  <img class="avatar" src="{{ contact.icon }}" /> -->
+
+
+<!-- Version alternative en attendant d'avoir le temps d'afficher la bonne apparence en fonction de l'état du dernier message -->
+<button class="w3-button hover-effect"
+(click)="changeStatus()">
+
+<div class="conv_unread">
+  <div class="nameContact"><b>{{ interlocutor }}</b></div>
+  <div class="messageStatus"><b>Message</b></div>
+</div>
+
 </button>

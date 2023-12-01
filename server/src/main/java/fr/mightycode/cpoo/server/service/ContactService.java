@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ContactService {
-  @Autowired //pour partager un userRepository commun aux autres services
+  @Autowired // pour partager un userRepository commun aux autres services
   private final UserRepository userRepository;
 
   /**

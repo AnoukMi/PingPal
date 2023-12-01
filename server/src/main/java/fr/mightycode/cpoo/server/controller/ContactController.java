@@ -22,8 +22,7 @@ public class ContactController {
   @GetMapping(value = "friends", produces = MediaType.APPLICATION_JSON_VALUE) //return all user informations
   public List<ContactProfileDTO> getAllUsers() {
     try {
-      List<ContactProfileDTO> contacts = contactService.getAllContacts();
-      return contacts;
+      return contactService.getAllContacts();
     }
     catch (final Exception ex) {
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
