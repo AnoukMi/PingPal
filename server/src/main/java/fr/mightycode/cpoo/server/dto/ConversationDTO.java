@@ -28,13 +28,12 @@ public record ConversationDTO(@NotEmpty UUID id,
       new ArrayList<>());
   }
 
-  public void setMessagesDTOS(List<MessageDTO> msgs) {
+  public void setMessagesDTOS(List<MessageDTO> messagesDTOS) {
     int actualSize = this.messagesDTOS.size();
-    int newSize = msgs.size();
+    int newSize = messagesDTOS.size();
     if (actualSize == newSize) return;
     else {
-      List<MessageDTO> toAdd = msgs.subList(actualSize, newSize);
-      this.messagesDTOS.addAll(msgs);
+      this.messagesDTOS.addAll(messagesDTOS);
     }
   }
 }

@@ -24,17 +24,17 @@ public class UserController {
 
   private final UserService userService;
 
-  @PostMapping(value = "signup", consumes = MediaType.APPLICATION_JSON_VALUE) //create an account
+  @PostMapping(value = "signup", consumes = MediaType.APPLICATION_JSON_VALUE) // create an account
   public void signup(@RequestBody final FullUserDTO user) {
     if (!userService.signup(user.login(), user.password()))
       throw new ResponseStatusException(HttpStatus.CONFLICT, "User already exists");
     String birthday = user.birthday();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy"); //to convert string date to LocalDate type
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy"); // to convert string date to LocalDate type
     userService.createUser(user.login(), user.icon(), user.firstname(), user.lastname(),
-      LocalDate.parse(birthday, formatter), user.address()); //to add new user in database
+      LocalDate.parse(birthday, formatter), user.address()); // to add new user in database
   }
 
-  @PostMapping(value = "signin", consumes = MediaType.APPLICATION_JSON_VALUE) //login user
+  @PostMapping(value = "signin", consumes = MediaType.APPLICATION_JSON_VALUE) // login user
   public void signin(@RequestBody final UserDTO user) {
     try {
       if (!userService.signin(user.login(), user.password()))
@@ -47,7 +47,7 @@ public class UserController {
     }
   }
 
-  @PostMapping(value = "signout") //logout user
+  @PostMapping(value = "signout") // logout user
   public void signout() {
     try {
       userService.signout();
@@ -57,7 +57,7 @@ public class UserController {
     }
   }
 
-  @DeleteMapping(value = "delete", consumes = MediaType.APPLICATION_JSON_VALUE) //delete user account
+  @DeleteMapping(value = "delete", consumes = MediaType.APPLICATION_JSON_VALUE) // delete user account
   public void deleteAccount(@RequestBody final UserDTO user) {
     int ret = userService.delete(user.login(), user.password()); // return 0 if user not found, 1 if password doesn't match
     if (ret == 0) {
