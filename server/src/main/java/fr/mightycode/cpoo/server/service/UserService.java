@@ -94,7 +94,6 @@ public class UserService {
         return 1;
       }
       deleteThisUser(login); //to delete user from the database
-      // userDetailsManager.deleteUser(login); //ok, deletion
       return -1;
     }
   }
