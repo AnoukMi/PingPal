@@ -1,10 +1,6 @@
-.github/workflows/maven.yml
 .gitignore
-.travis.yml
 README.md
 api/openapi.yaml
-build.gradle
-build.sbt
 docs/AuthenticationApi.md
 docs/ContactApi.md
 docs/ContactProfileDTO.md
@@ -17,13 +13,6 @@ docs/MessageDTO.md
 docs/NewMessageDTO.md
 docs/ProfileApi.md
 docs/UserDTO.md
-git_push.sh
-gradle.properties
-gradle/wrapper/gradle-wrapper.jar
-gradle/wrapper/gradle-wrapper.properties
-gradlew
-gradlew.bat
-pom.xml
 settings.gradle
 src/main/AndroidManifest.xml
 src/main/java/org/openapitools/client/ApiCallback.java
