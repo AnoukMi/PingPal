@@ -55,13 +55,12 @@ public class UserService {
    */
   public void deleteThisUser(String login) throws ResponseStatusException {
     UserData user = userRepository.findByLogin(login);
-    userRepository.delete(user);
     PingpalUser pingpalUser = pingpalUserRepository.findByLogin(login);
-    pingpalUserRepository.delete(pingpalUser);
     if (user == null && pingpalUser == null) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User does not exist");
     }
     userRepository.delete(user);
+    pingpalUserRepository.delete(pingpalUser);
   }
 
   public boolean signup(final String login, final String password) { //create account
@@ -95,7 +94,6 @@ public class UserService {
         return 1;
       }
       deleteThisUser(login); //to delete user from the database
-      userDetailsManager.deleteUser(login); //ok, deletion
       return -1;
     }
   }
