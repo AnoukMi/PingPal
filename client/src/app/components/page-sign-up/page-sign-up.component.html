@@ -1,5 +1,5 @@
-<div *ngIf="error" class="w3-badge w3-jumbo w3-red w3-padding">{{error}}</div>
-<div *ngIf="isInvalidPassword(getField('password').value,getField('confpassword').value)" class="w3-badge w3-jumbo w3-red w3-padding">Two different passwords</div>
+<div *ngIf="error" class="popup">{{error}}</div>
+<div *ngIf="isInvalidPassword(getField('password').value,getField('confpassword').value)" class="popup">Two different passwords</div>
 <div class="back_bloc">
   <div class="text_title">
     <div class="text_create"><b>Create&nbsp;your&nbsp;account</b></div>  <!--&nbsp; permet de faire un espace sans retour à la ligne-->
