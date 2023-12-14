@@ -29,6 +29,20 @@ public class ContactController {
     }
   }
 
+  @GetMapping(value = "online/{userID}", produces = MediaType.APPLICATION_JSON_VALUE) //return all user informations
+  public boolean getOnlineStatus(@PathVariable final String userID) {
+    try {
+      return contactService.isOnline(userID);
+    }
+    catch (ResponseStatusException ex) {
+      if (ex.getStatusCode() == HttpStatus.NOT_FOUND) {
+        throw ex;
+      } else {
+        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+      }
+    }
+  }
+
   @GetMapping(value = "friend/{userID}", produces = MediaType.APPLICATION_JSON_VALUE) //return all user informations
   public ContactProfileDTO getOneContact(@PathVariable final String userID) {
     try {

@@ -1,6 +1,7 @@
     <div class="group">
       <div class="back_bloc">
         <img class="logo_mini" src="assets/logo.png" />
+        <br><br>
         <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
             <div class="username">
               <div class="text_upper_box">Username:</div>
@@ -21,18 +22,18 @@
             </div>
         <span class="remember-me">
           <input class="w3-check" type="checkbox"> <!-- CHECKBOX-->
-          <div class="text_remember">Remember me</div>
+          <div class="text_remember">Show all users "online" status</div>
         </span>
           <div class="signin_button"> <!-- Place bouton à bonne position avec intérieur couleur-->
               <button [disabled]="loading || getField('login').errors || getField('password').errors " class="w3-button w3-ripple w3-hover-white w3-round-xlarge"> <!-- Crée bouton-->
                 <div class="text_button">SIGN IN</div></button> <!-- Applique style de texte sur texte bouton-->
               <span *ngIf="loading" class="w3-spin"></span>
-            <div class="no_account">
-              <span class="text_dont">Don’t have an account? </span> <span class="text_signup">
-        <a routerLink="signUp">Sign up </a></span> <!-- Bloc d'écriture en ligne (avec lien ici)-->
-            </div>
           </div>
         </form>
+        <div class="no_account">
+          <span class="text_dont">Don’t have an account? </span> <span class="text_signup">
+        <a routerLink="signUp">Sign up </a></span> <!-- Bloc d'écriture en ligne (avec lien ici)-->
+        </div>
       </div>
     </div>
 
