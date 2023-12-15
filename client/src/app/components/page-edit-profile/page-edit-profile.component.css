@@ -11,7 +11,7 @@
 
 .bloc{
   position:absolute;
-  top:20%;
+  top:23%;
   left:52%;
   width:20%;
 }
@@ -21,61 +21,34 @@
   left: 0;
 }
 
-.text_avatar {
-  position: relative;
-  top: 0;
-  left: 0;
-}
-
-.text_last_name {
-  position: relative;
-  top: 15vh;
-}
-
-.text_birthday {
-  position: relative;
-  top: 16vh;
-}
-
 .first_name{
   position: relative;
-  top:14.5vh;
-  left:-5%!important;
+  top:-2.5vh;
   width: 150%;
+  margin-bottom: -5%;
 }
 
 .last_name {
   position: relative;
-  top:15.1vh;
-  left:-5%!important;
   width: 150%;
+  margin-bottom: 3%;
 }
 
 .birthday {
   position: relative;
   width: 30vw;
-  left:-5.5%!important;
-  top: 16vh;
-}
-
-.password{
-  position: relative;
-  top:16.5vh;
-  left:-5%!important;
-  width: 150%;
+  left:-1%!important;
 }
 
 .confirm_password{
   position: relative;
-  top:16.5vh;
-  left:-5%!important;
   width: 150%;
+  margin-bottom: 13%;
 }
 
 .update_button {
   position: relative;
-  top: 19vh;
-  width: 30%;
+  width: 91px;
   left: 60%!important;
   color: #ffffff;
   background-color: #813641;
@@ -83,11 +56,11 @@
 }
 
 .delete_button {
-  position: absolute;
+  position: relative;
   font-size: 10px;
-  width:30%;
-  top: 18vh;
-  left: 177%!important;
+  margin-top:5%;
+  width:99px;
+  left : 110%;
   color: #ffffff;
   background-color: #813641;
   border-radius: 20px;
@@ -96,6 +69,7 @@
 .avatar_pos {
   position:relative;
   top:1vh;
-  left:-40%!important;
+  left:5%;
   width:120%;
+  margin-bottom: 6%;
 }
