@@ -9,46 +9,19 @@
   left: 29.3vw; /*modif la position verticale pour placer sur le bon onglet*/
 }
 
-.text_add{
-  position: absolute;
-  top: 30vh;
-  left: 69vw;
-  font-weight: 550;
-}
-
 .text_search {
-  position: absolute;
+  position: relative;
   top: 30vh;
-  left: 45vw;
+  left: 47.5%;
   font-weight: 550;
 }
 
 .search {
-  position: absolute;
-  width: 20vw;
-  top: 34vh;
-  left: 44vw;
+  position: relative;
+  width: 17%;
+  top: 30vh;
+  left: 47.5%;
 }
-
-.add {
-  position: absolute;
-  width: 20vw;
-  top: 34vh;
-  left: 68vw;
-}
-
-.add_button {
-  position: absolute;
-  top: 34.4vh;
-  left: 83.95vw;
-  color: #ffffff;
-  background-color: #813641;
-  border-radius: 20px;
-}
-.add_button button:hover svg {
-  fill: #813641; /* Couleur de l'icone quand on survole*/
-}
-
 
 .toscroll{
   position: absolute;

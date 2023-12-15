@@ -25,8 +25,10 @@ public class UserData {
   private LocalDate birthday; // date de naissance
   @Column(name = "address", nullable = false)
   private String address; //addresse avec domaine
-  @Column(name = "sharedMessage", nullable = true, length = 200)
+  @Column(name = "sharedMessage", length = 200)
   private String sharedMessage; //texte du statut partagé
+  @Column(name = "showOnline")
+  private boolean showOnline; // to show online status
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   //cascade pour que supprimer un user supprime l'amitié)
@@ -42,7 +44,8 @@ public class UserData {
   private List<Conversation> conversations;
 
   public UserData() {
-    // Constructeur par défaut vide (obligé)
+    // Constructeur par défaut vide
+    this.showOnline = false; // to not be null initially
   }
 
   public UserData(String login, int icon, String firstname, String lastname, LocalDate birthday, String address,
@@ -56,9 +59,16 @@ public class UserData {
     this.sharedMessage = sharedMessage;
     this.friends = new ArrayList<>();
     this.conversations = new ArrayList<>();
+    this.showOnline=false;
   }
 
   public void setSharedMessage(String message) {
     this.sharedMessage = message;
+  }
+  public void activeOnline() {
+    this.showOnline = true;
+  }
+  public void desactiveOnline() {
+    this.showOnline = false;
   }
 }

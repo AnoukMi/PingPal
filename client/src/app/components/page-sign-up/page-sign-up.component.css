@@ -16,6 +16,7 @@
   width:86%;
   top: 15%;
   left: 6%;
+  margin-bottom: 2%;
 }
 
 .password {
@@ -23,6 +24,7 @@
   width: 86%;
   top: 17%;
   left: 6%;
+  margin-bottom: 2%;
 }
 
 .confirm_password {
@@ -30,6 +32,7 @@
   width: 86%;
   top: 19%;
   left: 6%;
+  margin-bottom: 2%;
 }
 
 .first_name {
@@ -37,6 +40,7 @@
   width: 86%;
   top: 21%;
   left: 6%;
+  margin-bottom: 2%;
 }
 
 .last_name {
@@ -44,17 +48,19 @@
   width: 86%;
   top: 23%;
   left: 6%;
+  margin-bottom: 2%;
 }
 
 .birthday {
   position: relative;
   top: 25%;
   left: 6%;
+  margin-bottom: 10%;
 }
 
 .signup_button {
   position: relative;
-  width:110px;
+  width:113px;
   height:6%;
   font-size:100%;
   top:32%;
@@ -65,10 +71,11 @@
 }
 
 .text_create {
-  position:absolute;
-  top:4%;
+  position:relative;
+  top:4vh;
   left: 50%; /* Centre horizontalement */
   transform: translateX(-50%); /* Ajuste centrage horizontal */
+  margin-bottom: 15%;
 }
 
 

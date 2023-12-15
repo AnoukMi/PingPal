@@ -11,7 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -82,6 +84,14 @@ public class UserService {
   }
 
   public void signout() throws ServletException { //logout session
+    // retrieve the login of the signed in user
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String username = authentication.getName();
+    // set onLine attribute to false
+    UserData user = userRepository.findByLogin(username);
+    user.desactiveOnline();
+    userRepository.save(user); //save update to user
+    //  userRepository.save(user);
     httpServletRequest.logout();
   }
 
@@ -96,6 +106,18 @@ public class UserService {
       deleteThisUser(login); //to delete user from the database
       return -1;
     }
+  }
+
+  /**
+   * Set the online attribute to true
+   *
+   * @param login The login of the user
+   */
+
+  public void showOnline(String login){
+    UserData user = userRepository.findByLogin(login);
+    user.activeOnline();
+    userRepository.save(user); //save update to user
   }
 
   /**

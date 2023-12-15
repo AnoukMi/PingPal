@@ -80,7 +80,8 @@ export class ContactProfileService {
    */
   deleteSharedMessage(){
     this.profileService.userShareMessageDelete();
-    /*TODO*/
+    //TODO
   }
 
+  //TODO : wrapper de isOnline
 }
