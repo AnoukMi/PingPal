@@ -127,6 +127,7 @@ Class | Method | HTTP request | Description
 *AuthenticationApi* | [**userSignupPost**](docs/AuthenticationApi.md#userSignupPost) | **POST** /user/signup | 
 *ContactApi* | [**userFriendUserIDGet**](docs/ContactApi.md#userFriendUserIDGet) | **GET** /user/friend/{userID} | Search an existing user in the list of the current user&#39;s friends
 *ContactApi* | [**userFriendsGet**](docs/ContactApi.md#userFriendsGet) | **GET** /user/friends | Get all the users registered in the app
+*ContactApi* | [**userOnlineUserIDGet**](docs/ContactApi.md#userOnlineUserIDGet) | **GET** /user/online/{userID} | Checke if the user is online
 *ConversationApi* | [**userConversationConversationsGet**](docs/ConversationApi.md#userConversationConversationsGet) | **GET** /user/conversation/conversations | Retrieve all conversations (headers) between the current user and others
 *ConversationApi* | [**userConversationInterlocutorDelete**](docs/ConversationApi.md#userConversationInterlocutorDelete) | **DELETE** /user/conversation/{interlocutor} | Delete an existing conversation (the header and all contained messages) with a given user
 *ConversationApi* | [**userConversationInterlocutorGet**](docs/ConversationApi.md#userConversationInterlocutorGet) | **GET** /user/conversation/{interlocutor} | Search an existing conversation (the header) with a given user

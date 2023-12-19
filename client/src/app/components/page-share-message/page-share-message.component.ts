@@ -14,10 +14,12 @@ export class PageShareMessageComponent {
   shareForm: FormGroup;
   myself: Contact = new Contact();
   login: string = '';
+  error: string | undefined = undefined; // error to display
+  lastClickedButton: string = '';
 
   constructor(private route: ActivatedRoute, private router: Router, private contactProfileService: ContactProfileService, private userService: UserService, private formBuilder: FormBuilder) {
     this.shareForm = this.formBuilder.group({
-      message: ['', Validators.required],
+      message: ['', [Validators.required, Validators.maxLength(45)]],
     });
     this.userService.getLogin().subscribe(login => {
       this.login = login || ''; // '' par défaut car si null ou undefined pas de valeur string possible
@@ -39,13 +41,29 @@ export class PageShareMessageComponent {
   }
 
   onPublish(){
-    this.contactProfileService.toShareMessage(this.login, this.getField("message").value);
-   // this.router.navigate([this.route.snapshot.queryParams['shareMessage']]);
+    // @ts-ignore
+    if (this.shareForm.get('message').hasError('maxlength')) {
+      this.error = "Too long! Maximum length is 45 characters.";
+    } else {
+      if(this.lastClickedButton !== 'delete') {
+        this.error = "Message published.";
+      }
+        this.contactProfileService.toShareMessage(this.login, this.getField("message").value);
+      this.lastClickedButton = 'publish';
+
+    }
   }
 
   onPreview(){
     this.myself.setMessage(this.getField("message").value);
-
   }
 
+  onDelete(){
+    this.contactProfileService.deleteSharedMessage();
+    this.lastClickedButton = 'delete';
+    this.error = "Message deleted.";
+  }
+
+
+  protected readonly undefined = undefined;
 }

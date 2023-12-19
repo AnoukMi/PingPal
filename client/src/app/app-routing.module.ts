@@ -29,6 +29,7 @@ const routes: Routes = [
     component:PageEditProfileComponent},
   {path: 'shareMessage', //page pour partager un message avec l'ensemble des amis
     component:PageShareMessageComponent},
+  {path: 'shareMessage/shareMessage', redirectTo:'shareMessage', pathMatch:'full'},
   {path: 'signIn/home',  redirectTo:'home', pathMatch:'full'},//renvoie sur home par le clique à partir de signIn
   {path: 'signUp/home', redirectTo:'home', pathMatch:'full'}, //renvoie sur home par le clique à partir de signUn
   {path: 'signIn/signUp', redirectTo:'signUp', pathMatch:'full'},  //renvoie sur signUp par le clique à partir de signIn

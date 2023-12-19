@@ -22,9 +22,5 @@ export class CurrentFriendsComponent implements OnInit {
       }
     );
   }
-  /*
-  isOnline(login : string) : boolean {
-    return //TODO, puis dans html ds boucle for appeler fonction pour voir si en ligne et si oui faire apparaitre mention "Online"
-  } */
 
 }

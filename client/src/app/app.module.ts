@@ -39,6 +39,7 @@ import { LeftSideComponent } from './components/left-side/left-side.component';
 import {UserService} from "./services/user.service";
 import {ScrollBarComponent} from "./components/scroll-bar/scroll-bar.component";
 import { ListAvatarsComponent } from './components/list-avatars/list-avatars.component';
+import {ContactProfileService} from "./services/contact.service";
 // import { PopupComponent } from './popup/popup.component';
 // import { MouseComponent } from './components/mouse/mouse.component';
 
@@ -84,7 +85,7 @@ import { ListAvatarsComponent } from './components/list-avatars/list-avatars.com
     ApiModule.forRoot(() => new Configuration({ basePath: '/serverapi' }))
 
   ],
-  providers: [AuthenticationService, ProfileService, ConversationService, MessageService, ContactService, UserService],
+  providers: [AuthenticationService, ProfileService, ConversationService, MessageService, ContactService, UserService, ContactProfileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

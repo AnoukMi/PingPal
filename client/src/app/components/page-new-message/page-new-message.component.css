@@ -13,21 +13,15 @@
 }
 .search_contact {
   position: relative;
-  width: 180%;
-}
-
-.message {
-  position: relative;
-  width: 200%;
-  margin-top: 30%;
+  width: 190%;
 }
 
 .create_conv_button {
   position: relative;
   margin-top: 25%;
-  width:210px;
+  width:215px;
   height:6%;
-  left : 130%;
+  left : 100%;
   color: #ffffff;
   background-color: #813641;
   border-radius: 20px;

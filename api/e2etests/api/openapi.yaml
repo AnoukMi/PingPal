@@ -425,6 +425,37 @@ paths:
       tags:
       - contact
       x-accepts: application/json
+  /user/online/{userID}:
+    get:
+      parameters:
+      - description: Username of the user to search
+        explode: false
+        in: path
+        name: userID
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: boolean
+          description: True if the user is online and has checked the option of showing
+            the online status
+        "404":
+          description: UserID not found in the current user's list
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+          description: Error
+      summary: Checke if the user is online
+      tags:
+      - contact
+      x-accepts: application/json
 components:
   schemas:
     ErrorDTO:
