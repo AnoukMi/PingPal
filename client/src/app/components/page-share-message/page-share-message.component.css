@@ -31,6 +31,8 @@
   position: absolute;
   font-style: italic;
   color: #813641;
+  max-width: 55%;
+  word-wrap: break-word;
   font-size: 18px;
   top: 28vh;
   left: 39vw;
@@ -48,4 +50,15 @@
   left: 51vw;
 }
 
+.delete_button {
+  position: absolute;
+  font-size: 10px;
+  margin-top:5%;
+  width:99px;
+  top: 76vh;
+  left : 42vw;
+  color: #ffffff;
+  background-color: #813641;
+  border-radius: 20px;
+}
 

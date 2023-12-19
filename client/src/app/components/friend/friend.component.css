@@ -56,12 +56,45 @@
   width:12vw;
 }
 
+.container{
+  position:relative;
+  left:3.6vw;
+  top:0.7vh;
+  max-width: 7.1vw;
+}
+
 .msg {
-  position: absolute;
-  left:4.3vw;
-  top:0.5vh;
+  position: relative;
+  word-wrap: break-word;
+  margin-top: 1.9vh;
   font-family: "Alata-Regular", Helvetica;
   color: #813641;
-  font-size: 18px;
+  font-size: 13px;
   text-align: center;
+  line-height: 1;
+}
+
+.online_round{
+  position:absolute;
+  width: 10px;
+  top:10%;
+  left:90%;
+  height: 10px;
+  background-color: green;
+  border-radius: 50%;
+}
+
+.online_round:hover .online_text {
+  font-style: italic;
+  visibility: visible;
+}
+
+.online_text {
+  position: absolute;
+  font-size: 12px;
+  top: 150%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: green;
+  visibility: hidden;
 }

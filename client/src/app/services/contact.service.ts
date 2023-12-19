@@ -39,7 +39,11 @@ export class ContactProfileService {
    */
 
   private convertToContact(profile: ContactProfileDTO): Contact {
-    return new Contact(profile.userID, profile.icon, profile.firstname, profile.lastname, profile.birthday, profile.sharedMessage);
+    let res : boolean =false;
+    this.contactService.userOnlineUserIDGet(profile.userID).subscribe(
+      (result: boolean) => {
+        res = result;});
+    return new Contact(profile.userID, profile.icon, profile.firstname, profile.lastname, profile.birthday, profile.sharedMessage, res);
   }
 
   /**
@@ -80,8 +84,31 @@ export class ContactProfileService {
    */
   deleteSharedMessage(){
     this.profileService.userShareMessageDelete();
-    //TODO
   }
 
-  //TODO : wrapper de isOnline
+
+  /**
+   * Set online attribute when signin in
+   */
+  signOnline(user : string, online : boolean){
+    this.friends.forEach(contact => {
+      if (contact.username === user) {
+        contact.setOnline(online);
+        this.contactInfo.next(contact); // Notifier le Subject
+      }
+    });
+  }
+
+  /**
+   * Set online attribute when logging out
+   */
+  logoutOnline(user : string){
+    this.friends.forEach(contact => {
+      if (contact.username === user) {
+        contact.setOnline(false);
+        this.contactInfo.next(contact); // Notifier le Subject
+      }
+    });
+  }
+
 }

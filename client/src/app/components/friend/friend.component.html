@@ -3,10 +3,14 @@
   <div class="username"><b>{{ contact.username }}</b></div>
   <div class="name">{{ contact.firstname }} {{ contact.lastname }} </div>
   <div class="birthday">{{ contact.birthday | date:'MM-dd-yyyy'}}</div>
+  <div *ngIf="contact.online" class="online_round"><div class="online_text">online</div></div>
 </div>
+
 
 <div class="sharedMsg">
   <img style="height: 9vh" class="bubble" src="assets/Originals/thought_bubble.png" />
+  <div class="container">
   <p class="msg"><b>{{contact.sharedMessage}}</b></p>
+  </div>
 </div>
 

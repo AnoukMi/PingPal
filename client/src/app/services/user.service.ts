@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, Subject, BehaviorSubject } from "rxjs";
 import { AuthenticationService, ProfileService, FullUserDTO } from "../api";
 import {Contact} from "../models/contact";
+import { ContactProfileService} from "./contact.service";
 
 
 // Information about the current user of the app:
@@ -60,7 +61,7 @@ export class UserService {
     this.currentUserSubject.next(currentUser);
   }
 
-  constructor(private authenticationService: AuthenticationService, private profileService: ProfileService) {
+  constructor(private authenticationService: AuthenticationService, private profileService: ProfileService, private contactService : ContactProfileService) {
     console.debug('### UserService()');
   }
 
@@ -92,6 +93,7 @@ export class UserService {
    */
   signin(login: string, password: string, remember: boolean) {
     console.debug(`### signing in as ${login}...`);
+    this.contactService.signOnline(login,remember);
     return this.authenticationService.userSigninPost({ login, password, remember }).pipe(
       map(_ => {
         console.debug('### signed in as', login);
@@ -155,6 +157,8 @@ export class UserService {
    */
   signout() {
     console.debug('### signing out...');
+    // @ts-ignore
+    this.contactService.logoutOnline(this._currentUser.login);
     return this.authenticationService.userSignoutPost().pipe(
       map(_ => {
         console.debug('### signed out');

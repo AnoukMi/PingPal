@@ -89,15 +89,15 @@ if(hasProperty('target') && target == 'android') {
     publishing {
         publications {
             maven(MavenPublication) {
-               artifactId = 'openapi-java-client'
-               from components.java
+                artifactId = 'openapi-java-client'
+                from components.java
             }
         }
     }
 
     task execute(type:JavaExec) {
-       main = System.getProperty('mainClass')
-       classpath = sourceSets.main.runtimeClasspath
+        main = System.getProperty('mainClass')
+        classpath = sourceSets.main.runtimeClasspath
     }
 }
 
@@ -166,3 +166,4 @@ test {
     }
 
 }
+

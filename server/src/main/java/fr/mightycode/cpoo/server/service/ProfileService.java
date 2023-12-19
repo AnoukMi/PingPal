@@ -29,7 +29,7 @@ public class ProfileService {
    */
   public boolean saveSharedMessage(String message, String userId) {
     UserData user = userRepository.findByLogin(userId);
-    if (message.length() < 50) { // check if not too long
+    if (message.length() <= 45) { // check if not too long
       user.setSharedMessage(message); //update message
       userRepository.save(user); //save update to user
       return true;
