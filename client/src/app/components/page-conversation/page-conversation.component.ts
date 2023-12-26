@@ -34,7 +34,7 @@ export class PageConversationComponent implements OnInit{
   ngOnInit(){
     setInterval(() => {
       this.getConversation();
-    }, 1000);
+    }, 5000);
   }
 
   getConversation(){
@@ -43,6 +43,7 @@ export class PageConversationComponent implements OnInit{
         this.conversation = conversation;
       });
   }
+
   onSend() {
     console.log(`### sending the message`);
     if (!this.message.value?.trim()) return;
