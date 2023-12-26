@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {ConversationDTO} from "../../api";
 import {ContactProfileService} from "../../services/contact.service";
 import {Contact} from "../../models/contact";
+import {DiscussionService} from "../../services/discussion.service";
 
 @Component({
   selector: 'app-contact-conversation-frame',
@@ -13,11 +14,12 @@ import {Contact} from "../../models/contact";
 
 export class ContactConversationBoxComponent {
   conversation!: ConversationDTO;
+  contact!: Contact;
+  read: boolean = false;
   @Input() interlocutor: string = '';
   @Input() lastMessageBody: string = '';
   @Input() lastMessageTime: number = 0;
-  contact!: Contact;
-  read: boolean = false;
+
 
   constructor(private contactProfileService: ContactProfileService,
               private router: Router) {
@@ -26,8 +28,10 @@ export class ContactConversationBoxComponent {
         this.contactProfileService.getOneUser(this.interlocutor.split("@")[0]).subscribe(
           contact => {
             this.contact = contact;
+            console.log(`contact : ${this.contact.username}`);
           });
       }
+
   }
 
   changeStatus() {
@@ -39,12 +43,8 @@ export class ContactConversationBoxComponent {
     return this.interlocutor.endsWith("@pingpal");
   }
 
-  lastMessage(){
-    return this.conversation.messagesDTOS[this.conversation.messagesDTOS.length-1].body;
-  }
-
   lastMessageDate(){
-    const time = new Date(this.lastMessageTime * 1000);
+    const time = new Date(this.lastMessageTime);
 
     const hours = time.getHours().toString().padStart(2, '0');
     const minutes = time.getMinutes().toString().padStart(2, '0');
