@@ -9,20 +9,20 @@ import {DatePipe} from "@angular/common";
 })
 export class InterlocutorBubbleComponent {
   @Input() message!: MessageDTO;
-  msgDate: string = '';
 
   constructor() {
-
-    // // Display the time of the last message sent
-    // const time = new Date(this.message.timestamp);
-    //
-    // const hours = time.getHours().toString().padStart(2, '0');
-    // const minutes = time.getMinutes().toString().padStart(2, '0');
-    //
-    // this.msgDate = `${hours}:${minutes}`;
   }
 
   getLogin(){
     return this.message.from?.split('@')[0];
+  }
+
+  getTime(){
+    const time = new Date(this.message.timestamp);
+
+    const hours = time.getHours().toString().padStart(2, '0');
+    const minutes = time.getMinutes().toString().padStart(2, '0');
+
+    return `${hours}:${minutes}`;
   }
 }

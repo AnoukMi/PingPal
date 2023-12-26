@@ -1,6 +1,9 @@
 import {Component, Input} from '@angular/core';
 import {Router} from "@angular/router";
 import {ConversationDTO} from "../../api";
+import {ContactProfileService} from "../../services/contact.service";
+import {Contact} from "../../models/contact";
+import {DiscussionService} from "../../services/discussion.service";
 
 @Component({
   selector: 'app-contact-conversation-frame',
@@ -10,24 +13,25 @@ import {ConversationDTO} from "../../api";
 
 
 export class ContactConversationBoxComponent {
-  @Input() conversation!: ConversationDTO;
-  @Input() interlocutor: string = '';
-  @Input() isPartOfPingpal: boolean = false;
-  @Input() icon: number = 0;
-  lastMsgDate: string = '';
+  conversation!: ConversationDTO;
+  contact!: Contact;
   read: boolean = false;
-  constructor(private router: Router) {
+  @Input() interlocutor: string = '';
+  @Input() lastMessageBody: string = '';
+  @Input() lastMessageTime: number = 0;
 
 
+  constructor(private contactProfileService: ContactProfileService,
+              private router: Router) {
 
-    // Does not work currently :
-    // Display the time of the last message sent
-    // const time = new Date(this.conversation.timestamp);
-    //
-    // const hours = time.getHours().toString().padStart(2, '0');
-    // const minutes = time.getMinutes().toString().padStart(2, '0');
-    //
-    // this.lastMsgDate = `${hours}:${minutes}`;
+      if(this.interlocutor.endsWith("@pingpal")) {
+        this.contactProfileService.getOneUser(this.interlocutor.split("@")[0]).subscribe(
+          contact => {
+            this.contact = contact;
+            console.log(`contact : ${this.contact.username}`);
+          });
+      }
+
   }
 
   changeStatus() {
@@ -35,7 +39,16 @@ export class ContactConversationBoxComponent {
     this.router.navigate(['/conversation', this.interlocutor]);
   }
 
-  lastMessage(){
-    return this.conversation.messagesDTOS[this.conversation.messagesDTOS.length-1].body;
+  isPartOfPingpal(){
+    return this.interlocutor.endsWith("@pingpal");
+  }
+
+  lastMessageDate(){
+    const time = new Date(this.lastMessageTime);
+
+    const hours = time.getHours().toString().padStart(2, '0');
+    const minutes = time.getMinutes().toString().padStart(2, '0');
+
+    return `${hours}:${minutes}`;
   }
 }

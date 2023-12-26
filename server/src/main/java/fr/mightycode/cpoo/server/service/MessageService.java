@@ -65,17 +65,6 @@ public class MessageService {
 
   }
 
-  /**
-   * Get all messages related to a given user (ie. send to or by a given user).
-   *
-   * @param login The user login
-   * @return the list of messages sent to or by the user
-   */
-  public List<Message> getMessagesOf(String login) {
-    String address = login + "@" + serverDomain;
-    return messageRepository.findByFromOrToIgnoreCaseOrderByTimestampDesc(address, address);
-  }
-
   public Optional<Message> findById(UUID id) {
     return messageRepository.findById(id);
   }

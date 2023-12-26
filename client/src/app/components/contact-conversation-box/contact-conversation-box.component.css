@@ -36,7 +36,7 @@
   font-weight: 400;
 }
 
-.messageStatus {
+.lastMsgBody {
   position: absolute;
   top: 4vh;
   left: 7vw;
@@ -46,7 +46,7 @@
   font-weight: 400;
 }
 
-.timeMsg {
+.lastMsgTime {
   position: absolute;
   top: 1.5vh;
   right: 1vw;

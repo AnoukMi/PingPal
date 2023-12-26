@@ -10,14 +10,18 @@ import {DatePipe} from "@angular/common";
 })
 export class UserBubbleComponent {
   @Input() message!: MessageDTO;
-  msgDate: string = '';
 
   constructor() {
-    // const time = new Date(this.message.timestamp);
-    //
-    // const hours = time.getHours().toString().padStart(2, '0');
-    // const minutes = time.getMinutes().toString().padStart(2, '0');
-    //
-    // this.msgDate = `${hours}:${minutes}`;
+  }
+
+  getTime() {
+
+    const time = new Date(this.message.timestamp);
+
+    const hours = time.getHours().toString().padStart(2, '0');
+    const minutes = time.getMinutes().toString().padStart(2, '0');
+
+    return `${hours}:${minutes}`;
+
   }
 }
