@@ -22,7 +22,6 @@ export class CurrentConversationsComponent implements OnInit, OnDestroy {
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private discussionService: DiscussionService,
-              private contactProfileService: ContactProfileService,
               private userService: UserService){
 
     this.discussionService.getConversations()
@@ -72,6 +71,16 @@ export class CurrentConversationsComponent implements OnInit, OnDestroy {
       }
     }
     return this.rightConv;
+  }
+
+  getLastMessageBody(_login: string){
+    const messages = this.getRightConversation(_login).messagesDTOS;
+    return messages[messages.length-1].body;
+}
+
+  getLastMessageTime(_login: string){
+    const messages = this.getRightConversation(_login).messagesDTOS;
+    return messages[messages.length-1].timestamp;
   }
 
   // /**

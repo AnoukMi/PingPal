@@ -3,14 +3,15 @@
     <ng-container [ngSwitch]="getRightConversation(searchedConv).user1">
       <!-- If the conversation has the logged-in user as the user1 -->
       <app-contact-conversation-frame *ngSwitchCase="loggedUser"
-                                      [conversation]="getRightConversation(searchedConv)"
-                                      [interlocutor]="getRightConversation(searchedConv).user2">
+                                      [interlocutor]="getRightConversation(searchedConv).user2"
+                                      [lastMessageBody]="getLastMessageBody(getRightConversation(searchedConv).user2)"
+                                      [lastMessageTime]="getLastMessageTime(getRightConversation(searchedConv).user2)">
       </app-contact-conversation-frame>
 
       <!-- Otherwise -->
       <app-contact-conversation-frame *ngSwitchDefault
-                                      [conversation]="getRightConversation(searchedConv)"
-                                      [interlocutor]="getRightConversation(searchedConv).user1">
+                                      [interlocutor]="getRightConversation(searchedConv).user1"
+                                      [lastMessageTime]="getLastMessageTime(getRightConversation(searchedConv).user1)">
       </app-contact-conversation-frame>
     </ng-container>
   </div>
@@ -24,14 +25,16 @@
 
           <!-- If the conversation has the logged-in user as the user1 -->
           <app-contact-conversation-frame *ngSwitchCase="loggedUser"
-                                          [conversation]="conv"
-                                          [interlocutor]="conv.user2">
+                                          [interlocutor]="conv.user2"
+                                          [lastMessageBody]="getLastMessageBody(conv.user2)"
+                                          [lastMessageTime]="getLastMessageTime(conv.user2)">
           </app-contact-conversation-frame>
 
           <!-- Otherwise -->
           <app-contact-conversation-frame *ngSwitchDefault
-                                          [conversation]="conv"
-                                          [interlocutor]="conv.user1">
+                                          [interlocutor]="conv.user1"
+                                          [lastMessageBody]="getLastMessageBody(conv.user1)"
+                                          [lastMessageTime]="getLastMessageTime(conv.user1)">
           </app-contact-conversation-frame>
         </ng-container>
 
