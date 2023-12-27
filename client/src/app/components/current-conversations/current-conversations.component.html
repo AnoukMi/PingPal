@@ -1,20 +1,22 @@
+<!-- If the logged-in user searched for a specific conversation -->
 <div *ngIf="isSearched">
   <div class="contact">
     <ng-container [ngSwitch]="getRightConversation(searchedConv).user1">
       <!-- If the conversation has the logged-in user as the user1 -->
       <app-contact-conversation-frame *ngSwitchCase="loggedUser"
-                                      [conversation]="getRightConversation(searchedConv)"
-                                      [interlocutor]="getRightConversation(searchedConv).user2">
-      </app-contact-conversation-frame>
+                                      [interlocutor]="getRightConversation(searchedConv).user2"
+                                      [lastMessageTime]="getLastMessageTimestamp(getRightConversation(searchedConv).user2)"
+      ></app-contact-conversation-frame>
 
       <!-- Otherwise -->
       <app-contact-conversation-frame *ngSwitchDefault
-                                      [conversation]="getRightConversation(searchedConv)"
-                                      [interlocutor]="getRightConversation(searchedConv).user1">
-      </app-contact-conversation-frame>
+                                      [interlocutor]="getRightConversation(searchedConv).user1"
+                                      [lastMessageTime]="getLastMessageTimestamp(getRightConversation(searchedConv).user1)"
+      ></app-contact-conversation-frame>
     </ng-container>
   </div>
 </div>
+
 
 <div *ngIf="!isSearched">
   <div class="contact">
@@ -24,18 +26,63 @@
 
           <!-- If the conversation has the logged-in user as the user1 -->
           <app-contact-conversation-frame *ngSwitchCase="loggedUser"
-                                          [conversation]="conv"
-                                          [interlocutor]="conv.user2">
-          </app-contact-conversation-frame>
+                                          [interlocutor]="conv.user2"
+                                          [lastMessageTime]="getLastMessageTimestamp(conv.user2)"
+          ></app-contact-conversation-frame>
 
           <!-- Otherwise -->
           <app-contact-conversation-frame *ngSwitchDefault
-                                          [conversation]="conv"
-                                          [interlocutor]="conv.user1">
-          </app-contact-conversation-frame>
+                                          [interlocutor]="conv.user1"
+                                          [lastMessageTime]="getLastMessageTimestamp(conv.user1)"
+          ></app-contact-conversation-frame>
         </ng-container>
-
       </div>
     </div>
   </div>
 </div>
+<!--&lt;!&ndash; If the logged-in user searched for a specific conversation &ndash;&gt;-->
+<!--<div *ngIf="isSearched">-->
+<!--  <div class="contact">-->
+<!--    <ng-container [ngSwitch]="getRightConversation(searchedConv).user1">-->
+<!--      &lt;!&ndash; If the conversation has the logged-in user as the user1 &ndash;&gt;-->
+<!--      <app-contact-conversation-frame *ngSwitchCase="loggedUser"-->
+<!--                                      [interlocutor]="getRightConversation(searchedConv).user2"-->
+<!--                                      [lastMessageBody]="getLastMessageBody(getRightConversation(searchedConv).user2)"-->
+<!--                                      [lastMessageTime]="getLastMessageTimestamp(getRightConversation(searchedConv).user2)"-->
+<!--      ></app-contact-conversation-frame>-->
+
+<!--      &lt;!&ndash; Otherwise &ndash;&gt;-->
+<!--      <app-contact-conversation-frame *ngSwitchDefault-->
+<!--                                      [interlocutor]="getRightConversation(searchedConv).user1"-->
+<!--                                      [lastMessageBody]="getLastMessageBody(getRightConversation(searchedConv).user1)"-->
+<!--                                      [lastMessageTime]="getLastMessageTimestamp(getRightConversation(searchedConv).user1)"-->
+<!--      ></app-contact-conversation-frame>-->
+<!--    </ng-container>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<!--<div *ngIf="!isSearched">-->
+<!--  <div class="contact">-->
+<!--    <div *ngFor="let conv of recentConversations">-->
+<!--      <div class="contact">-->
+<!--        <ng-container [ngSwitch]="conv.user1">-->
+
+<!--          &lt;!&ndash; If the conversation has the logged-in user as the user1 &ndash;&gt;-->
+<!--          <app-contact-conversation-frame *ngSwitchCase="loggedUser"-->
+<!--                                          [interlocutor]="conv.user2"-->
+<!--                                          [lastMessageBody]="getLastMessageBody(conv.user2)"-->
+<!--                                          [lastMessageTime]="getLastMessageTimestamp(conv.user2)"-->
+<!--          ></app-contact-conversation-frame>-->
+
+<!--          &lt;!&ndash; Otherwise &ndash;&gt;-->
+<!--          <app-contact-conversation-frame *ngSwitchDefault-->
+<!--                                          [interlocutor]="conv.user1"-->
+<!--                                          [lastMessageBody]="getLastMessageBody(conv.user1)"-->
+<!--                                          [lastMessageTime]="getLastMessageTimestamp(conv.user1)"-->
+<!--          ></app-contact-conversation-frame>-->
+<!--        </ng-container>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->

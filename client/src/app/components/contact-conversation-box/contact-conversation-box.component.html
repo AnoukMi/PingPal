@@ -1,68 +1,49 @@
-<!--<button class="w3-button hover-effect" [ngClass]="{'conv_unread': !read,-->
-<!-- 'conv_read': read}"-->
-<!--        (click)="changeStatus()">-->
-
-
-<!--    <div *ngIf="!read">-->
-<!--      <div class="nameContact"><b>{{ interlocutor }}</b></div>-->
-<!--      <div class="messageStatus"><b>Unread message</b></div>-->
-<!--    </div>-->
-
-
-<!--  <div *ngIf="read">-->
-<!--    <div class="nameContact">{{ interlocutor }}</div>-->
-<!--    <div class="messageStatus">Read message</div>-->
-<!--  </div>-->
-
-<!--  <div *ngIf="sentMessage">-->
-<!--    <div class="nameContact">{{ interlocutor }}</div>-->
-<!--    <div class="messageStatus">Sent message</div>-->
-<!--  </div>-->
-
-
-<!--  [ngClass]="{'sent_msg':this.conversation.messagesDTOS[this.conversation.messagesDTOS.length-1].from !== this.interlocutor,-->
-<!--        'conv_unread': !read, 'conv_read': read, }"-->
-<!--  (click)="changeStatus()">-->
-
-<!--  <div *ngIf="this.conversation.messagesDTOS[this.conversation.messagesDTOS.length-1].from == this.interlocutor">-->
-<!--    <div *ngIf="read; else unreadBlock">-->
-<!--      <div class="nameContact"><b>{{ interlocutor }}</b></div>-->
-<!--      <div class="messageStatus"><b>Read message</b></div>-->
-<!--    </div>-->
-
-<!--    <ng-template #unreadBlock>-->
-<!--      <div class="nameContact"><b>{{ interlocutor }}</b></div>-->
-<!--      <div class="messageStatus"><b>Unread message</b></div>-->
-<!--    </ng-template>-->
-<!--  </div>-->
-<!--  <ng-template #elseBlock>-->
-<!--    <div class="sent_msg">-->
-<!--      <div class="nameContact">{{ interlocutor }}</div>-->
-<!--      <div class="messageStatus">Sent message</div>-->
-<!--    </div>-->
-<!--  </ng-template>-->
-<!--  <div class="timeMsg">{{ lastMsgDate }}</div>-->
-
-  <!--  <img class="avatar" src="{{ contact.icon }}" /> -->
-
 <!--<button class="w3-button hover-effect" (click)="changeStatus()">-->
-<!--  <div *ngIf="isPartOfPingpal">-->
+<!--  &lt;!&ndash; Interlocutor is from Pingpal and logged-in user has not read the last message yet &ndash;&gt;-->
+<!--  <div *ngIf="isPartOfPingpal() && !read">-->
 <!--    <div class="conv_unread">-->
-<!--      <div class="nameContact"><b>{{ interlocutor }}</b></div>-->
-<!--      <div class="messageStatus"><b>Message</b></div>-->
-<!--      <img class="icon" [src]="'assets/avatar/'+this.icon+'.png'" />-->
+<!--      <div class="nameContact"><b>{{ this.contact.firstname }} {{ this.contact.lastname }}</b></div>-->
+<!--      <div class="lastMsgBody"><b>{{ lastMessageBody }}</b></div>-->
+<!--      <div class="lastMsgTime"><b>{{ lastMessageDate() }}</b></div>-->
+<!--      <img class="icon" [src]="'assets/avatar/'+this.contact.icon+'.png'"/>-->
 <!--    </div>-->
 <!--  </div>-->
-<!--  <div *ngIf="!isPartOfPingpal">-->
-<!--    <div class="conv_unread">-->
-<!--      <div class="nameContact"><b>{{ interlocutor }}</b></div>-->
-<!--      <div class="messageStatus"><b>Message</b></div>-->
+
+<!--  &lt;!&ndash; Interlocutor is from Pingpal and logged-in user but read/sent the last message &ndash;&gt;-->
+<!--  <div *ngIf="isPartOfPingpal() && read">-->
+<!--    <div class="conv_read">-->
+<!--      <div class="nameContact"><b>{{ this.contact.firstname }} {{ this.contact.lastname }}</b></div>-->
+<!--      <div class="lastMsgBody">{{ lastMessageBody }}</div>-->
+<!--      <div class="lastMsgTime">{{ lastMessageDate() }}</div>-->
+<!--      <img class="icon" [src]="'assets/avatar/'+this.contact.icon+'.png'"/>-->
 <!--    </div>-->
 <!--  </div>-->
-<!-- Alternative version while we have the right code to display the right appearance according to the state of the last message -->
+
+<!--  &lt;!&ndash; Interlocutor is not from Pingpal and logged-in user has not read the last message yet &ndash;&gt;-->
+<!--  <div *ngIf="!isPartOfPingpal() && !read">-->
+<!--    <div class="conv_unread">-->
+<!--      <div class="nameContact"><b>{{ this.interlocutor }}</b></div>-->
+<!--      <div class="lastMsgBody"><b>{{ lastMessageBody }}</b></div>-->
+<!--      <div class="lastMsgTime"><b>{{ lastMessageDate() }}</b></div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash; Interlocutor is not from Pingpal and logged-in user has read/sent the last message &ndash;&gt;-->
+<!--  <div *ngIf="!isPartOfPingpal() && read">-->
+<!--    <div class="conv_read">-->
+<!--      <div class="nameContact"><b>{{ this.interlocutor }}</b></div>-->
+<!--      <div class="lastMsgBody">{{ lastMessageBody }}</div>-->
+<!--      <div class="lastMsgTime">{{ lastMessageDate() }}</div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</button>-->
+
+
 <button class="w3-button hover-effect" (click)="changeStatus()">
   <div class="conv_unread">
     <div class="nameContact"><b>{{ interlocutor }}</b></div>
-    <div class="messageStatus"><b>Message</b></div>
+    <div class="lastMsgBody"><b>Message</b></div>
+    <div class="lastMsgTime"><b>{{ lastMessageDate() }}</b></div>
   </div>
 </button>
+
