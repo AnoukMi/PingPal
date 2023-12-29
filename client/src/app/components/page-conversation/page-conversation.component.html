@@ -2,17 +2,17 @@
 
 <app-tool-bar-user></app-tool-bar-user>
 <app-left-side></app-left-side>
-  <div class="text_title contact_name ">{{ interlocutor }}</div>
+  <div class="text_title contact_name">{{ interlocutor }}</div>
 
   <div class="chat w3-round-xlarge">
-    <div class="toscroll">
-      <app-chat [conversation]="conversation" [interlocutor]="interlocutor"></app-chat>
+    <div #scrollContainer class="toscroll" (scroll)="onScroll()">
+      <app-chat [conversation]="conversation"
+                [interlocutor]="interlocutor"></app-chat>
     </div>
   </div>
 
   <div class="userWritingBox">
-    <app-user-writing-frame #messageInput
-                            type="text"
+    <app-user-writing-frame type="text"
                             [placeholder]="'Write your message'"
                             [formControl]="message"
                             [type]="'text'" (keyup.enter)="onSend()"></app-user-writing-frame>

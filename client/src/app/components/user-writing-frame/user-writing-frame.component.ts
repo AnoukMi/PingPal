@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, forwardRef, Output, EventEmitter, ViewChild, ElementRef} from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {MessageService} from "../../api";
 
 @Component({
@@ -17,6 +17,7 @@ import {MessageService} from "../../api";
 export class UserWritingFrameComponent implements ControlValueAccessor, OnInit {
   @Input() placeholder: string = '';
   @Input() type: string = '';
+  @Input() formControl!: FormControl;
 
   private innerValue: any = '';
 
@@ -45,7 +46,6 @@ export class UserWritingFrameComponent implements ControlValueAccessor, OnInit {
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    // You can implement this method if you need to support disabling the control.
   }
 
   onInput(event: any) {
