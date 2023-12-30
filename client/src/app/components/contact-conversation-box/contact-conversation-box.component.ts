@@ -4,6 +4,7 @@ import {ConversationDTO} from "../../api";
 import {ContactProfileService} from "../../services/contact.service";
 import {Contact} from "../../models/contact";
 import {DiscussionService} from "../../services/discussion.service";
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-contact-conversation-frame',
@@ -17,19 +18,21 @@ export class ContactConversationBoxComponent implements OnInit {
   @Input() interlocutor: string = '';
   contact!: Contact;
   lastMessageBody: string = '';
-  read: boolean = false;
+  actualConv!: boolean;
 
 
   constructor(private contactProfileService: ContactProfileService,
-              private router: Router){
-
+              private discussionService: DiscussionService,
+              private router: Router,
+              private location: Location){
 
   }
 
   ngOnInit() {
     console.log(`conversation with ${this.interlocutor}`);
     this.findContact();
-    this.lastMessageBody = this.conversation.messagesDTOS[this.conversation.messagesDTOS.length-1].body;
+    this.getInfo();
+
   }
 
   findContact(){
@@ -41,9 +44,29 @@ export class ContactConversationBoxComponent implements OnInit {
     }
   }
 
-  changeStatus() {
-    this.read = true;
+  getInfo(){
+    this.discussionService.getConversation(this.interlocutor).subscribe(
+      conversation => {
+        this.conversation = conversation;
+        this.lastMessageBody = conversation.messagesDTOS[conversation.messagesDTOS.length - 1].body;
+      }
+    );
+    this.lastMessageBody = this.conversation.messagesDTOS[this.conversation.messagesDTOS.length-1].body;
+  }
+
+  getRoute() {
+    const currentUrl = this.location.path();
+    const parts = currentUrl.split('/');
+
+    const lastPart = parts[parts.length - 1];
+    if (lastPart === this.interlocutor) {
+      this.actualConv = true;
+    }
+  }
+
+  routeToConv() {
     this.router.navigate(['/conversation', this.interlocutor]);
+    this.getRoute();
   }
 
   isPartOfPingpal(){
@@ -57,10 +80,6 @@ export class ContactConversationBoxComponent implements OnInit {
     const minutes = time.getMinutes().toString().padStart(2, '0');
 
     return `${hours}:${minutes}`;
-  }
-
-  receivedMessage(){
-    this.read = false;
   }
 
 }

@@ -35,16 +35,13 @@ export class PageConversationComponent implements OnInit, AfterViewChecked{
 
   ngOnInit(){
     setInterval(() => {
-      this.getConversation();
+      this.discussionService.getConversation(this.interlocutor)
+        .subscribe(conversation => {
+          this.conversation = conversation;
+        });
     }, 5000);
   }
 
-  getConversation(){
-    this.discussionService.getConversation(this.interlocutor)
-      .subscribe(conversation => {
-        this.conversation = conversation;
-      });
-  }
 
   onSend() {
     console.log(`### sending the message`);
