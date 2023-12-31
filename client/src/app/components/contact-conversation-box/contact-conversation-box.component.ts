@@ -1,9 +1,10 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {ConversationDTO} from "../../api";
 import {ContactProfileService} from "../../services/contact.service";
 import {Contact} from "../../models/contact";
 import {DiscussionService} from "../../services/discussion.service";
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-contact-conversation-frame',
@@ -12,31 +13,60 @@ import {DiscussionService} from "../../services/discussion.service";
 })
 
 
-export class ContactConversationBoxComponent {
-  conversation!: ConversationDTO;
-  contact!: Contact;
-  read: boolean = false;
+export class ContactConversationBoxComponent implements OnInit {
+  @Input() conversation!: ConversationDTO;
   @Input() interlocutor: string = '';
-  @Input() lastMessageBody: string = '';
-  @Input() lastMessageTime: number = 0;
+  contact!: Contact;
+  lastMessageBody: string = '';
+  actualConv!: boolean;
 
 
   constructor(private contactProfileService: ContactProfileService,
-              private router: Router) {
-
-      if(this.interlocutor.endsWith("@pingpal")) {
-        this.contactProfileService.getOneUser(this.interlocutor.split("@")[0]).subscribe(
-          contact => {
-            this.contact = contact;
-            console.log(`contact : ${this.contact.username}`);
-          });
-      }
+              private discussionService: DiscussionService,
+              private router: Router,
+              private location: Location){
 
   }
 
-  changeStatus() {
-    this.read = true;
+  ngOnInit() {
+    console.log(`conversation with ${this.interlocutor}`);
+    this.findContact();
+    this.getInfo();
+
+  }
+
+  findContact(){
+    if(this.interlocutor.endsWith("@pingpal")) {
+      this.contactProfileService.getOneUser(this.interlocutor.split("@")[0]).subscribe(
+        contact => {
+          this.contact = contact;
+        });
+    }
+  }
+
+  getInfo(){
+    this.discussionService.getConversation(this.interlocutor).subscribe(
+      conversation => {
+        this.conversation = conversation;
+        this.lastMessageBody = conversation.messagesDTOS[conversation.messagesDTOS.length - 1].body;
+      }
+    );
+    this.lastMessageBody = this.conversation.messagesDTOS[this.conversation.messagesDTOS.length-1].body;
+  }
+
+  getRoute() {
+    const currentUrl = this.location.path();
+    const parts = currentUrl.split('/');
+
+    const lastPart = parts[parts.length - 1];
+    if (lastPart === this.interlocutor) {
+      this.actualConv = true;
+    }
+  }
+
+  routeToConv() {
     this.router.navigate(['/conversation', this.interlocutor]);
+    this.getRoute();
   }
 
   isPartOfPingpal(){
@@ -44,11 +74,12 @@ export class ContactConversationBoxComponent {
   }
 
   lastMessageDate(){
-    const time = new Date(this.lastMessageTime);
+    const time = new Date(this.conversation.timestamp);
 
     const hours = time.getHours().toString().padStart(2, '0');
     const minutes = time.getMinutes().toString().padStart(2, '0');
 
     return `${hours}:${minutes}`;
   }
+
 }

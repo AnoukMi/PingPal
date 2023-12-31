@@ -1,4 +1,4 @@
-.conv_unread {
+.actual_conv {
   position: absolute;
   left: 2%;
   width: 90%;
@@ -8,19 +8,11 @@
   border: 2px dashed #813641;
 }
 
-.conv_read {
-  position: relative;
-  width: 92%;
-  height: 100%;
-  background-color: #eee7e7a6;
-  border-radius: 16px;
-  border: 2px dashed #813641;
-}
-
-.sent_msg {
-  position: relative;
-  width: 92%;
-  height: 100%;
+.conv {
+  position: absolute;
+  left: 2%;
+  width: 90%;
+  height: 19%;
   background-color: #eee7e7a6;
   border-radius: 16px;
   border: 2px dashed #813641;
@@ -42,7 +34,7 @@
   left: 7vw;
   font-family: "Alata-Regular", Helvetica, serif;
   color: #5E5E5E;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 400;
 }
 
@@ -58,12 +50,12 @@
 
 .icon {
   position: absolute;
-  width: 3vw;
+  width: 3.3vw;
   top: 0.5vh;
   left: 1.5vw;
 }
 
-.hover-effect:hover{
+.conv:hover{
   background-color: #C4A6A4!important; /* Couleur quand on survole, prime sur les autres para du bouton */
   transition: background-color 0.3s; /* Transition en douceur de la couleur de fond et de la couleur du texte */
 }

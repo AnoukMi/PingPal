@@ -14,7 +14,7 @@ export class CurrentFriendsComponent implements OnInit {
 
   ngOnInit(): void {
     this.contactProfileService.getAllUsers().subscribe(
-      (contacts: Contact[]) => {
+      contacts => {
         this.friends = contacts;
       },
       (error) => {
