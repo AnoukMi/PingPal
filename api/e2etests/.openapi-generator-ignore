@@ -24,6 +24,7 @@
 
 pom.xml
 build.gradle
+settings.gradle
 build.sbt
 gradle
 gradle.properties
@@ -34,5 +35,7 @@ gradle/wrapper/gradle-wrapper.properties
 git_push.sh
 .github/workflows/maven.yml
 .travis.yml
+
+
 
 
