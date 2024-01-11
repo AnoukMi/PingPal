@@ -23,12 +23,12 @@ import java.util.regex.Pattern;
 @Service
 @RequiredArgsConstructor
 public class ConversationService {
-  @Value("${cpoo.server.domain}")
-  private String serverDomain;
   @Autowired
   private final ConversationRepository conversationRepository;
   @Autowired
   private final UserRepository userRepository;
+  @Value("${cpoo.server.domain}")
+  private String serverDomain;
 
   /**
    * Retrieve a list of all conversations with the current logged user

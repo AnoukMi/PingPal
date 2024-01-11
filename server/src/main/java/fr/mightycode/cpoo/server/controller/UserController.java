@@ -39,7 +39,7 @@ public class UserController {
     try {
       if (!userService.signin(user.login(), user.password()))
         throw new ResponseStatusException(HttpStatus.CONFLICT, "Already signed in");
-      if(user.remember()){
+      if (user.remember()) {
         userService.showOnline(user.login());
       }
     }

@@ -68,43 +68,4 @@ public class Conversation {
     this.users = new ArrayList<>(Collections.singletonList(userData1));
     this.messages = new ArrayList<>();
   }
-
-  // If both interlocutors are part of the Pingpal domain
-  public Conversation(ConversationDTO conversationDTO, UserData userData1, UserData userData2) {
-    this.id = conversationDTO.id();
-    this.user1 = conversationDTO.user1();
-    this.user2 = conversationDTO.user2();
-    this.timestamp = conversationDTO.timestamp();
-    this.users = new ArrayList<>(Arrays.asList(userData1, userData2));
-
-    // Create the list of messages
-    for (MessageDTO messageDTO : conversationDTO.messagesDTOS()) {
-      this.messages.add(new Message(messageDTO, this));
-    }
-  }
-
-  // If only one of the interlocutors is part of the Pingpal domain
-  public Conversation(ConversationDTO conversationDTO, UserData userData1) {
-    this.id = conversationDTO.id();
-    this.user1 = conversationDTO.user1();
-    this.user2 = conversationDTO.user2();
-    this.timestamp = conversationDTO.timestamp();
-    this.users = new ArrayList<>(Collections.singletonList(userData1));
-
-    // Create the list of messages
-    for (MessageDTO messageDTO : conversationDTO.messagesDTOS()) {
-      this.messages.add(new Message(messageDTO, this));
-    }
-  }
-
-  // If the conversation is initiated by someone out of our domain
-  public Conversation(String user1, String user2, UserData userData, Message message) {
-    this.id = UUID.randomUUID();
-    this.user1 = user1;
-    this.user2 = user2;
-    this.timestamp = message.getTimestamp();
-    this.users = new ArrayList<>(Collections.singletonList(userData));
-    this.messages = new ArrayList<>();
-    this.messages.add(message);
-  }
 }

@@ -9,21 +9,22 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Sinks;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class MessageService {
 
-  @Value("${cpoo.server.domain}")
-  private String serverDomain;
-
   private final MessageRepository messageRepository;
-
   // All messages incoming from the router are notified using per recipient sinks,
   // and all messages posted by clients are notified using per sender sinks
   private final Map<String, Sinks.Many<Message>> messageSinks = new HashMap<>();
+  @Value("${cpoo.server.domain}")
+  private String serverDomain;
 
   /**
    * Get the message sink of a given user (create it if it does not exist).

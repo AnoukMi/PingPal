@@ -20,10 +20,9 @@ import java.util.List;
 @Slf4j
 public class ConversationController {
 
+  private final ConversationService conversationService;
   @Value("${cpoo.server.domain}")
   private String serverDomain;
-
-  private final ConversationService conversationService;
 
   /**
    * Retrieve all conversations of the logged-in user

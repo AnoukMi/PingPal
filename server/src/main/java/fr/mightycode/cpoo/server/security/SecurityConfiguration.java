@@ -34,13 +34,13 @@ public class SecurityConfiguration {
 
     // Configure endpoint protection
     http.authorizeHttpRequests(authorizeRequests ->
-            authorizeRequests
-                    .requestMatchers(toH2Console()).permitAll()
-                    .requestMatchers(antMatcher("/config")).permitAll()
-                    .requestMatchers(antMatcher("/user/signup")).permitAll()
-                    .requestMatchers(antMatcher("/user/signin")).permitAll()
-                    .requestMatchers(antMatcher("/error")).permitAll()
-                    .anyRequest().authenticated());
+      authorizeRequests
+        .requestMatchers(toH2Console()).permitAll()
+        .requestMatchers(antMatcher("/config")).permitAll()
+        .requestMatchers(antMatcher("/user/signup")).permitAll()
+        .requestMatchers(antMatcher("/user/signin")).permitAll()
+        .requestMatchers(antMatcher("/error")).permitAll()
+        .anyRequest().authenticated());
 
     return http.build();
   }
