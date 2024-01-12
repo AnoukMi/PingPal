@@ -21,8 +21,9 @@ export class ContactProfileService {
   }
 
   /**
-   * Initialisation de la liste d'utilisateurs
+   * Users' list initialization
    */
+
   private initFriends(): void {
     this.contactService.userFriendsGet()
       .pipe(
@@ -35,7 +36,7 @@ export class ContactProfileService {
   }
 
   /**
-   * Converti un ContactProfileDTO en model Contact
+   * ContactProfileDTO to model Contact conversion
    */
 
   private convertToContact(profile: ContactProfileDTO): Contact {
@@ -49,6 +50,7 @@ export class ContactProfileService {
   /**
    * Wrapper of the GET /user/friend{username} endpoint which convert into Contact model
    */
+
   getAllUsers(): Observable<Contact[]> {
     return new Observable(observer => {
       observer.next(this.friends);
@@ -69,6 +71,7 @@ export class ContactProfileService {
   /**
    * Wrapper of the POST /user/shareMessage endpoint.
    */
+
   toShareMessage(user : string, msg : string){
     this.profileService.userShareMessagePost(msg);
     this.friends.forEach(contact => {
@@ -82,6 +85,7 @@ export class ContactProfileService {
   /**
    * Wrapper of the DELETE /user/shareMessage endpoint.
    */
+
   deleteSharedMessage(){
     this.profileService.userShareMessageDelete();
   }
@@ -90,6 +94,7 @@ export class ContactProfileService {
   /**
    * Set online attribute when signin in
    */
+
   signOnline(user : string, online : boolean){
     this.friends.forEach(contact => {
       if (contact.username === user) {
@@ -102,6 +107,7 @@ export class ContactProfileService {
   /**
    * Set online attribute when logging out
    */
+  
   logoutOnline(user : string){
     this.friends.forEach(contact => {
       if (contact.username === user) {
