@@ -3,7 +3,6 @@ import { catchError, map, Observable, of, Subject } from "rxjs";
 import { AuthenticationService, ProfileService, FullUserDTO } from "../api";
 import { ContactProfileService} from "./contact.service";
 
-
 // Information about the current user of the app:
 // - user profile if signed-in
 // - null if not signed-in
@@ -109,6 +108,9 @@ export class UserService {
     );
   }
 
+ /**
+   * Wrapper of the DELETE /user/profile endpoint.
+   */
   delete(login: string, password: string, remember: boolean) {
     console.debug(`### deleting ${login}...`);
     return this.authenticationService.userDeleteDelete({ login, password, remember }).pipe(
@@ -167,11 +169,9 @@ export class UserService {
     )
   }
 
-
   /**
    * Wrapper of the PATCH /user/profile endpoint.
    */
-
   edit(login: string, password: string, remember: boolean, icon: number, firstname: string, lastname: string,
        birthday: string, address: string) {
     this._currentUser = { login, password, remember, icon, firstname, lastname,
@@ -187,8 +187,6 @@ export class UserService {
       })
     )
   }
-
-
 
   /**
    * @return the address of the signed-in user.

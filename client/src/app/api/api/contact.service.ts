@@ -27,8 +27,6 @@ import { ErrorDTO } from '../model/errorDTO';
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -55,7 +53,6 @@ export class ContactService {
         }
         this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
     }
-
 
     // @ts-ignore
     private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {

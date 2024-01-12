@@ -29,8 +29,6 @@ import { UserDTO } from '../model/userDTO';
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -57,7 +55,6 @@ export class AuthenticationService {
         }
         this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
     }
-
 
     // @ts-ignore
     private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
@@ -132,7 +129,6 @@ export class AuthenticationService {
         if (localVarHttpContext === undefined) {
             localVarHttpContext = new HttpContext();
         }
-
 
         // to determine the Content-Type header
         const consumes: string[] = [
@@ -325,7 +321,6 @@ export class AuthenticationService {
         if (localVarHttpContext === undefined) {
             localVarHttpContext = new HttpContext();
         }
-
 
         // to determine the Content-Type header
         const consumes: string[] = [

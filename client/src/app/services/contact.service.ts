@@ -21,7 +21,7 @@ export class ContactProfileService {
   }
 
   /**
-   * Initialisation de la liste d'utilisateurs
+   * Users' list initialization
    */
   private initFriends(): void {
     this.contactService.userFriendsGet()
@@ -35,9 +35,8 @@ export class ContactProfileService {
   }
 
   /**
-   * Converti un ContactProfileDTO en model Contact
+   * ContactProfileDTO to model Contact conversion
    */
-
   private convertToContact(profile: ContactProfileDTO): Contact {
     let res : boolean =false;
     this.contactService.userOnlineUserIDGet(profile.userID).subscribe(
@@ -59,7 +58,6 @@ export class ContactProfileService {
   /**
    * Wrapper of the GET /user/friend{username} endpoint.
    */
-
   getOneUser(username : string):Observable<Contact>  {
     return this.contactService.userFriendUserIDGet(username).pipe(
       map((contactProfileDTO: ContactProfileDTO) => this.convertToContact(contactProfileDTO))
