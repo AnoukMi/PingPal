@@ -11,6 +11,4 @@ public interface UserRepository extends JpaRepository<UserData, String> {
   UserData findByLogin(String login);
 
   List<UserData> findAll();
-
-  boolean existsByLogin(String login);
 }

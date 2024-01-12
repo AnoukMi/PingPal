@@ -1,4 +1,4 @@
-.w3-input::placeholder { /*pour que le texte à l'intérieur soit italique*/
+.w3-input::placeholder {
   font-style: italic;
 }
 
@@ -6,9 +6,9 @@
   color: #813641;
   border-radius: 5px;
   border: 1px solid #813641;
-  padding-left: min(12%, 35px); /*majore à 35px le padding pour ne pas faire des gros espaces sur les grandes box*/
+  padding-left: min(12%, 35px);
 }
 
 .w3-input:focus {
-  color: #A47272; /* Couleur du texte écrit par l'utilisateur */
+  color: #A47272;
 }

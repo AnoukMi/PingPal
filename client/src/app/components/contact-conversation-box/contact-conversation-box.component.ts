@@ -4,7 +4,6 @@ import {ConversationDTO} from "../../api";
 import {ContactProfileService} from "../../services/contact.service";
 import {Contact} from "../../models/contact";
 import {DiscussionService} from "../../services/discussion.service";
-import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-contact-conversation-frame',
@@ -18,13 +17,10 @@ export class ContactConversationBoxComponent implements OnInit {
   @Input() interlocutor: string = '';
   contact!: Contact;
   lastMessageBody: string = '';
-  actualConv!: boolean;
-
 
   constructor(private contactProfileService: ContactProfileService,
               private discussionService: DiscussionService,
-              private router: Router,
-              private location: Location){
+              private router: Router){
 
   }
 
@@ -54,19 +50,8 @@ export class ContactConversationBoxComponent implements OnInit {
     this.lastMessageBody = this.conversation.messagesDTOS[this.conversation.messagesDTOS.length-1].body;
   }
 
-  getRoute() {
-    const currentUrl = this.location.path();
-    const parts = currentUrl.split('/');
-
-    const lastPart = parts[parts.length - 1];
-    if (lastPart === this.interlocutor) {
-      this.actualConv = true;
-    }
-  }
-
   routeToConv() {
     this.router.navigate(['/conversation', this.interlocutor]);
-    this.getRoute();
   }
 
   isPartOfPingpal(){

@@ -1,6 +1,5 @@
-import {Component, Input, OnInit, forwardRef, Output, EventEmitter, ViewChild, ElementRef} from '@angular/core';
+import {Component, Input, OnInit, forwardRef, Output, EventEmitter} from '@angular/core';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {MessageService} from "../../api";
 
 @Component({
   selector: 'app-user-writing-frame',

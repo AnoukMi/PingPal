@@ -1,48 +1,23 @@
   <div class="w3-button hover-effect" (click)="routeToConv()">
     <div *ngIf="isPartOfPingpal()">
-      <div *ngIf="actualConv">
+      <div class="conv">
         <!-- Interlocutor is from Pingpal and logged-in user is on the conversation -->
-        <div class="actual_conv">
-          <div class="nameContact"><b>{{ this.contact.firstname }} {{ this.contact.lastname }}</b></div>
-          <div class="lastMsgBody"><b>{{ this.lastMessageBody.length > 20 ?
-            this.lastMessageBody.slice(0, 20) + '...' : this.lastMessageBody }}</b></div>
-          <div class="lastMsgTime"><b>{{ lastMessageDate() }}</b></div>
-          <img class="icon" [src]="'assets/avatar/'+this.contact.icon+'.png'"/>
-        </div>
+        <div class="nameContact"><b>{{ this.contact.firstname }} {{ this.contact.lastname }}</b></div>
+        <div class="lastMsgBody"><b>{{ this.lastMessageBody.length > 20 ?
+          this.lastMessageBody.slice(0, 20) + '...' : this.lastMessageBody }}</b></div>
+        <div class="lastMsgTime"><b>{{ lastMessageDate() }}</b></div>
+        <img class="icon" [src]="'assets/avatar/'+this.contact.icon+'.png'"/>
       </div>
 
-      <div *ngIf="!actualConv">
-        <!-- Interlocutor is from Pingpal and logged-in user is not on the conversation -->
-        <div class="conv">
-          <div class="nameContact">{{ this.contact.firstname }} {{ this.contact.lastname }}</div>
-          <div class="lastMsgBody">{{ this.lastMessageBody.length > 20 ?
-            this.lastMessageBody.slice(0, 20) + '...' : this.lastMessageBody }}</div>
-          <div class="lastMsgTime">{{ lastMessageDate() }}</div>
-          <img class="icon" [src]="'assets/avatar/'+this.contact.icon+'.png'"/>
-        </div>
-      </div>
     </div>
 
-    <div *ngIf="!isPartOfPingpal()">
-      <div *ngIf="actualConv">
-        <!-- Interlocutor is not from Pingpal and logged-in user is on the conversation  -->
-        <div class="actual_conv">
-          <div class="nameContact"><b>{{ this.interlocutor }}</b></div>
-          <div class="lastMsgBody"><b>{{ this.lastMessageBody.length > 20 ?
-            this.lastMessageBody.slice(0, 20) + '...' : this.lastMessageBody }}</b></div>
-          <div class="lastMsgTime"><b>{{ lastMessageDate() }}</b></div>
-        </div>
-      </div>
 
-      <div *ngIf="!actualConv">
-        <div class="conv">
-          <!-- Interlocutor is not from Pingpal and logged-in user is not on the conversation -->
-          <div class="nameContact">{{ this.interlocutor }}</div>
-          <div class="lastMsgBody">{{ this.lastMessageBody.length > 20 ?
-            this.lastMessageBody.slice(0, 20) + '...' : this.lastMessageBody }}</div>
-          <div class="lastMsgTime">{{ lastMessageDate() }}</div>
-        </div>
-      </div>
+    <div *ngIf="!isPartOfPingpal()">
+      <!-- Interlocutor is not from Pingpal and logged-in user is on the conversation  -->
+      <div class="nameContact"><b>{{ this.interlocutor }}</b></div>
+      <div class="lastMsgBody"><b>{{ this.lastMessageBody.length > 20 ?
+        this.lastMessageBody.slice(0, 20) + '...' : this.lastMessageBody }}</b></div>
+      <div class="lastMsgTime"><b>{{ lastMessageDate() }}</b></div>
     </div>
   </div>
 

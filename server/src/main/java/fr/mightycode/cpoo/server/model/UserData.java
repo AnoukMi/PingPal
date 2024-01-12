@@ -59,15 +59,17 @@ public class UserData {
     this.sharedMessage = sharedMessage;
     this.friends = new ArrayList<>();
     this.conversations = new ArrayList<>();
-    this.showOnline=false;
+    this.showOnline = false;
   }
 
   public void setSharedMessage(String message) {
     this.sharedMessage = message;
   }
+
   public void activeOnline() {
     this.showOnline = true;
   }
+
   public void desactiveOnline() {
     this.showOnline = false;
   }

@@ -5,8 +5,8 @@
   width: 25%;
   height: 60%;
   top:50%;
-  left: 50%; /* Centre horizontalement */
-  transform: translate(-50%,-50%); /* Ajuste le centrage horizontal et vertical */
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
 
 .back_bloc {
@@ -44,8 +44,8 @@
   position: relative;
   width: 70%;
   top: 2%;
-  left: 50%; /* Centre horizontalement */
-  transform: translateX(-50%); /* Ajuste centrage horizontal */
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .text_remember {
@@ -65,8 +65,8 @@
   font-size:100%;
   background-color: #813641;
   border-radius: 16px;
-  left: 50%; /* Centre horizontalement */
-  transform: translateX(-50%); /* Ajuste le centrage horizontal */
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .no_account {

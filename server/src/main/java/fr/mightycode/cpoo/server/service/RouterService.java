@@ -13,23 +13,12 @@ import java.util.UUID;
 public interface RouterService {
 
   /**
-   * Type of messages exchanged between domain servers.
+   * Route a message to the recipient's domain server
+   * (i.e. the domain specified in the 'to' property of the message).
+   *
+   * @param message The message to route
    */
-  record Message(
-    @NotNull
-    UUID id,        // unique id of the message
-    @Positive
-    long timestamp, // timestamp of the message
-    @NotEmpty @Email
-    String from,    // sender address
-    @NotEmpty @Email
-    String to,      // recipient address
-    @NotEmpty
-    String type,    // MIME type of the body
-    @NotEmpty
-    String body     // body (BASE64 encoded for binary types)
-  ) {
-  }
+  void routeMessage(@Valid Message message);
 
   /**
    * This interface is used by the router service to notify the domain server about incoming messages.
@@ -62,10 +51,21 @@ public interface RouterService {
   }
 
   /**
-   * Route a message to the recipient's domain server
-   * (i.e. the domain specified in the 'to' property of the message).
-   *
-   * @param message The message to route
+   * Type of messages exchanged between domain servers.
    */
-  void routeMessage(@Valid Message message);
+  record Message(
+    @NotNull
+    UUID id,        // unique id of the message
+    @Positive
+    long timestamp, // timestamp of the message
+    @NotEmpty @Email
+    String from,    // sender address
+    @NotEmpty @Email
+    String to,      // recipient address
+    @NotEmpty
+    String type,    // MIME type of the body
+    @NotEmpty
+    String body     // body (BASE64 encoded for binary types)
+  ) {
+  }
 }

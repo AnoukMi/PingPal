@@ -19,7 +19,7 @@ public class ContactController {
 
   private final ContactService contactService;
 
-  @GetMapping(value = "friends", produces = MediaType.APPLICATION_JSON_VALUE) //return all user informations
+  @GetMapping(value = "friends", produces = MediaType.APPLICATION_JSON_VALUE) //return all user information
   public List<ContactProfileDTO> getAllUsers() {
     try {
       return contactService.getAllContacts();
@@ -29,7 +29,7 @@ public class ContactController {
     }
   }
 
-  @GetMapping(value = "online/{userID}", produces = MediaType.APPLICATION_JSON_VALUE) //return all user informations
+  @GetMapping(value = "online/{userID}", produces = MediaType.APPLICATION_JSON_VALUE) //return all user information
   public boolean getOnlineStatus(@PathVariable final String userID) {
     try {
       return contactService.isOnline(userID);
@@ -43,7 +43,7 @@ public class ContactController {
     }
   }
 
-  @GetMapping(value = "friend/{userID}", produces = MediaType.APPLICATION_JSON_VALUE) //return all user informations
+  @GetMapping(value = "friend/{userID}", produces = MediaType.APPLICATION_JSON_VALUE) //return all user information
   public ContactProfileDTO getOneContact(@PathVariable final String userID) {
     try {
       return contactService.getOneContact(userID);

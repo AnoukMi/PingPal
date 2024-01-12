@@ -20,18 +20,15 @@ import java.util.regex.Pattern;
 @Slf4j
 public class DomainMessageListener implements RouterService.MessageListener {
 
-  @Value("${cpoo.server.domain}")
-  private String serverDomain;
-
-  @Value("${cpoo.router.ws.url}")
-  private String routerWSUrl;
-
-  @Value("${cpoo.router.sse.url}")
-  private String routerSSEUrl;
-
   private final MessageService messageService;
   private final ConversationService conversationService;
   private final UserRepository userRepository;
+  @Value("${cpoo.server.domain}")
+  private String serverDomain;
+  @Value("${cpoo.router.ws.url}")
+  private String routerWSUrl;
+  @Value("${cpoo.router.sse.url}")
+  private String routerSSEUrl;
 
   @Override
   public String getServerDomain() {

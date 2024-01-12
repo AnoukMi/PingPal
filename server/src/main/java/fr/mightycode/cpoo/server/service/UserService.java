@@ -84,14 +84,13 @@ public class UserService {
   }
 
   public void signout() throws ServletException { //logout session
-    // retrieve the login of the signed in user
+    // retrieve the login of the signed-in user
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     String username = authentication.getName();
     // set onLine attribute to false
     UserData user = userRepository.findByLogin(username);
     user.desactiveOnline();
     userRepository.save(user); //save update to user
-    //  userRepository.save(user);
     httpServletRequest.logout();
   }
 
@@ -114,31 +113,9 @@ public class UserService {
    * @param login The login of the user
    */
 
-  public void showOnline(String login){
+  public void showOnline(String login) {
     UserData user = userRepository.findByLogin(login);
     user.activeOnline();
     userRepository.save(user); //save update to user
-  }
-
-  /**
-   * Retrieve the UserData associated to the given user
-   *
-   * @param user The address of the user
-   * @return The UserData
-   */
-  public UserData getUser(String user) {
-    return userRepository.findByLogin((getLogin(user)));
-  }
-
-  private String getLogin(String address) {
-    String result = "";
-    String regex = "([^@]+)@.*";
-    Pattern pattern = Pattern.compile(regex);
-    Matcher matcher = pattern.matcher(address);
-    if (matcher.matches()) {
-      // Extraire la partie avant le @ (groupe 1)
-      result = matcher.group(1);
-    }
-    return result;
   }
 }

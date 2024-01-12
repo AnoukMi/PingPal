@@ -25,7 +25,7 @@ public class ContactService {
    */
   public List<ContactProfileDTO> getAllContacts() {
     List<UserData> allUsers = userRepository.findAll();
-    List<ContactProfileDTO> allContacts = new ArrayList();
+    List<ContactProfileDTO> allContacts = new ArrayList<>();
     for (UserData user : allUsers) {
       ContactProfileDTO contact = new ContactProfileDTO(user);
       allContacts.add(contact);
@@ -46,7 +46,7 @@ public class ContactService {
     return new ContactProfileDTO(user);
   }
 
-  public boolean isOnline(String userID){
+  public boolean isOnline(String userID) {
     UserData user = userRepository.findByLogin(userID);
     if (user == null) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found, doesn't exist in the app");

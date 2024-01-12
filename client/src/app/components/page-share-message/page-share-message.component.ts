@@ -22,7 +22,7 @@ export class PageShareMessageComponent {
       message: ['', [Validators.required, Validators.maxLength(45)]],
     });
     this.userService.getLogin().subscribe(login => {
-      this.login = login || ''; // '' par défaut car si null ou undefined pas de valeur string possible
+      this.login = login || '';
     });
     this.contactProfileService.getOneUser(this.login).subscribe(
       (contact: Contact) => {

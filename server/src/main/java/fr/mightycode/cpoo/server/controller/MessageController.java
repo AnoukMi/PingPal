@@ -27,15 +27,12 @@ import java.util.UUID;
 @Slf4j
 public class MessageController {
 
-  @Value("${cpoo.server.domain}")
-  private String serverDomain;
-
   @Qualifier("routerServiceSSE")
   private final RouterService routerService;
-
   private final MessageService messageService;
-
   private final ConversationService conversationService;
+  @Value("${cpoo.server.domain}")
+  private String serverDomain;
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
   public MessageDTO messagePost(final Principal user, @Valid @RequestBody final NewMessageDTO newMessage) {

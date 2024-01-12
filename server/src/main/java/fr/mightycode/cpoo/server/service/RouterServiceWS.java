@@ -21,6 +21,32 @@ import java.lang.reflect.Type;
 @Slf4j
 public class RouterServiceWS implements RouterService {
 
+  private final RouterStompSessionHandler routerStompSessionHandler;
+
+  RouterServiceWS(MessageListener messageListener) {
+
+    // Create the WebSocket client and the Stomp sessions handler
+    WebSocketStompClient webSocketStompClient = new WebSocketStompClient(new StandardWebSocketClient());
+    webSocketStompClient.setMessageConverter(new MappingJackson2MessageConverter());
+    routerStompSessionHandler = new RouterStompSessionHandler(webSocketStompClient, messageListener);
+
+    // Attempt to connect immediately
+    log.info("Opening WS connection with router {} for domain {}", messageListener.getRouterWSUrl(),
+      messageListener.getServerDomain());
+    webSocketStompClient.connectAsync(messageListener.getRouterWSUrl(), routerStompSessionHandler);
+  }
+
+  @Override
+  public void routeMessage(Message message) {
+    log.info("Routing message using WS {}", message);
+    StompSession stompSession = routerStompSessionHandler.getStompSession();
+    if (!stompSession.isConnected()) {
+      log.error("Not connected to router");
+      return;
+    }
+    stompSession.send("/router/route", message);
+  }
+
   @SuppressWarnings("NullableProblems")
   @Slf4j
   public static class RouterStompSessionHandler extends StompSessionHandlerAdapter {
@@ -90,32 +116,6 @@ public class RouterServiceWS implements RouterService {
       if (!stompSession.isConnected())
         reconnect();
     }
-  }
-
-  private final RouterStompSessionHandler routerStompSessionHandler;
-
-  RouterServiceWS(MessageListener messageListener) {
-
-    // Create the WebSocket client and the Stomp sessions handler
-    WebSocketStompClient webSocketStompClient = new WebSocketStompClient(new StandardWebSocketClient());
-    webSocketStompClient.setMessageConverter(new MappingJackson2MessageConverter());
-    routerStompSessionHandler = new RouterStompSessionHandler(webSocketStompClient, messageListener);
-
-    // Attempt to connect immediately
-    log.info("Opening WS connection with router {} for domain {}", messageListener.getRouterWSUrl(),
-      messageListener.getServerDomain());
-    webSocketStompClient.connectAsync(messageListener.getRouterWSUrl(), routerStompSessionHandler);
-  }
-
-  @Override
-  public void routeMessage(Message message) {
-    log.info("Routing message using WS {}", message);
-    StompSession stompSession = routerStompSessionHandler.getStompSession();
-    if (!stompSession.isConnected()) {
-      log.error("Not connected to router");
-      return;
-    }
-    stompSession.send("/router/route", message);
   }
 }
 
