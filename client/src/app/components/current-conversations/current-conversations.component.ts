@@ -3,7 +3,6 @@ import {ConversationDTO} from "../../api";
 import {DiscussionService} from "../../services/discussion.service";
 import {Subject} from "rxjs";
 import {UserService} from "../../services/user.service";
-import {ContactProfileService} from "../../services/contact.service";
 
 @Component({
   selector: 'app-current-conversations',

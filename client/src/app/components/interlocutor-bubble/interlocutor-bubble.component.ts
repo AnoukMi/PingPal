@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import {MessageDTO} from "../../api";
-import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-interlocutor-bubble',

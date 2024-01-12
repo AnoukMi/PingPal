@@ -23,7 +23,7 @@ export class LeftSideComponent {
               protected router: Router,
               private formBuilder: FormBuilder) {
     this.userService.getLogin().subscribe(login => {
-      this.login = login || ''; // '' par défaut car si null ou undefined pas de valeur string possible
+      this.login = login || ''; // '' by default, because if null or undefined, no string value possible
     });
 
     this.userService.getFirstname().subscribe(firstname => {
@@ -54,7 +54,7 @@ export class LeftSideComponent {
     this.currentUser = user;
     // update values (when edited for example)
     this.userService.getLogin().subscribe(login => {
-      this.login = login || ''; // '' par défaut car si null ou undefined pas de valeur string possible
+      this.login = login || '';
     });
 
     this.userService.getFirstname().subscribe(firstname => {

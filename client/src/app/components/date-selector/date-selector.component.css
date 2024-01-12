@@ -21,8 +21,8 @@
 }
 
 .box:focus-within, .box:focus-within select {
-  background-color: #F6EBEB!important; /* couleur fond quand on vient de sélectionner */
-  color: #A47272!important; /*couleur texte*/
+  background-color: #F6EBEB!important;
+  color: #A47272!important;
 }
 
 .w3-dropdown-content select {

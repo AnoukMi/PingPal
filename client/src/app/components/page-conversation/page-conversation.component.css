@@ -1,12 +1,11 @@
-
-.contact_name{
+.contact_name {
   position: absolute;
   top: 15vh;
   left: 60vw;
   font-weight: 550;
 }
 
-.toscroll{
+.toScroll {
   position: relative;
   left:-0.5vw;
   top:0.6vh;

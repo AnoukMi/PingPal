@@ -6,8 +6,8 @@
   height: 85%;
   background-color: #eee7e7a6;
   top:50%;
-  left: 50%; /* Centre horizontalement */
-  transform: translate(-50%,-50%); /* Ajuste le centrage horizontal et vertical */
+  left: 50%;
+  transform: translate(-50%,-50%);
   border-radius: 16px;
 }
 
@@ -64,8 +64,8 @@
   height:6%;
   font-size:100%;
   top:32%;
-  left: 50%; /* Centre horizontalement */
-  transform: translateX(-50%); /* Ajuste centrage horizontal */
+  left: 50%;
+  transform: translateX(-50%);
   background-color: #813641;
   border-radius: 16px;
 }
@@ -73,8 +73,8 @@
 .text_create {
   position:relative;
   top:4vh;
-  left: 50%; /* Centre horizontalement */
-  transform: translateX(-50%); /* Ajuste centrage horizontal */
+  left: 50%;
+  transform: translateX(-50%);
   margin-bottom: 15%;
 }
 

@@ -1,13 +1,3 @@
-.actual_conv {
-  position: absolute;
-  left: 2%;
-  width: 90%;
-  height: 19%;
-  background-color: #ac8686;
-  border-radius: 16px;
-  border: 2px dashed #813641;
-}
-
 .conv {
   position: absolute;
   left: 2%;
@@ -56,6 +46,6 @@
 }
 
 .conv:hover{
-  background-color: #C4A6A4!important; /* Couleur quand on survole, prime sur les autres para du bouton */
-  transition: background-color 0.3s; /* Transition en douceur de la couleur de fond et de la couleur du texte */
+  background-color: #C4A6A4!important;
+  transition: background-color 0.3s;
 }

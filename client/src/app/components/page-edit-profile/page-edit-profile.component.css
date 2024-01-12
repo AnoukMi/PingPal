@@ -6,7 +6,7 @@
 }
 
 .onglet {
-  left:42.3%; /*modif la position verticale pour placer sur le bon onglet*/
+  left:42.3%;
 }
 
 .bloc{
@@ -16,7 +16,7 @@
   width:20%;
 }
 
-.bloc > * { /*pour aligne tout le contenu à gauche*/
+.bloc > * {
   position: relative;
   left: 0;
 }

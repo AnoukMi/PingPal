@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of, Subject, BehaviorSubject } from "rxjs";
+import { catchError, map, Observable, of, Subject } from "rxjs";
 import { AuthenticationService, ProfileService, FullUserDTO } from "../api";
-import {Contact} from "../models/contact";
 import { ContactProfileService} from "./contact.service";
 
 

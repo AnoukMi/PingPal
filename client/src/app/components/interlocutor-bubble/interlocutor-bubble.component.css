@@ -3,9 +3,9 @@
   position: relative;
   color: #FFFFFF;
   display: inline-block;
-  width: auto; /*pr adapter la largeur à la taille du message*/
+  width: auto;
   padding: 10px;
-  clear: left; /*empeche de s'aligner par rapport aux blocs relatifs précédents*/
+  clear: left;
   left : 3%;
   max-width: 60%;
   word-wrap: break-word;

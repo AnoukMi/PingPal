@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of, Subject, BehaviorSubject } from "rxjs";
+import { map, Observable, Subject } from "rxjs";
 import {ContactService, ContactProfileDTO, ProfileService} from "../api";
 import {Contact} from "../models/contact";
-import {CurrentUser} from "./user.service";
+
 
 @Injectable({
   providedIn: 'root'
@@ -94,7 +94,7 @@ export class ContactProfileService {
     this.friends.forEach(contact => {
       if (contact.username === user) {
         contact.setOnline(online);
-        this.contactInfo.next(contact); // Notifier le Subject
+        this.contactInfo.next(contact);
       }
     });
   }
@@ -106,7 +106,7 @@ export class ContactProfileService {
     this.friends.forEach(contact => {
       if (contact.username === user) {
         contact.setOnline(false);
-        this.contactInfo.next(contact); // Notifier le Subject
+        this.contactInfo.next(contact);
       }
     });
   }

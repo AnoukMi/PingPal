@@ -1,4 +1,3 @@
-
 /*Blocs d'identité utilisateur*/
 .user_bloc {
   width: 24%;
@@ -46,8 +45,8 @@
   overflow-y:scroll;
 }
 
-.text_global:hover { /*modifie aspect quand le texte est survolé avec la souris*/
-  text-decoration: underline; /* Souligne le texte */
+.text_global:hover {
+  text-decoration: underline;
 }
 
 .date {

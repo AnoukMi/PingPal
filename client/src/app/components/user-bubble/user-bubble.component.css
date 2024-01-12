@@ -5,9 +5,9 @@
   display: inline-block;
   padding: 10px;
   clear: right;
-  float: right; /*aligne à droite*/
+  float: right;
   right : 2%;
-  width: auto; /*pr adapter la largeur à la taille du message*/
+  width: auto;
   max-width: 60%;
   word-wrap: break-word;
 }
