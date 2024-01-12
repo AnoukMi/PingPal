@@ -23,7 +23,6 @@ export class ContactProfileService {
   /**
    * Users' list initialization
    */
-
   private initFriends(): void {
     this.contactService.userFriendsGet()
       .pipe(
@@ -38,7 +37,6 @@ export class ContactProfileService {
   /**
    * ContactProfileDTO to model Contact conversion
    */
-
   private convertToContact(profile: ContactProfileDTO): Contact {
     let res : boolean =false;
     this.contactService.userOnlineUserIDGet(profile.userID).subscribe(
@@ -50,7 +48,6 @@ export class ContactProfileService {
   /**
    * Wrapper of the GET /user/friend{username} endpoint which convert into Contact model
    */
-
   getAllUsers(): Observable<Contact[]> {
     return new Observable(observer => {
       observer.next(this.friends);
@@ -61,7 +58,6 @@ export class ContactProfileService {
   /**
    * Wrapper of the GET /user/friend{username} endpoint.
    */
-
   getOneUser(username : string):Observable<Contact>  {
     return this.contactService.userFriendUserIDGet(username).pipe(
       map((contactProfileDTO: ContactProfileDTO) => this.convertToContact(contactProfileDTO))
@@ -71,7 +67,6 @@ export class ContactProfileService {
   /**
    * Wrapper of the POST /user/shareMessage endpoint.
    */
-
   toShareMessage(user : string, msg : string){
     this.profileService.userShareMessagePost(msg);
     this.friends.forEach(contact => {
@@ -85,7 +80,6 @@ export class ContactProfileService {
   /**
    * Wrapper of the DELETE /user/shareMessage endpoint.
    */
-
   deleteSharedMessage(){
     this.profileService.userShareMessageDelete();
   }
@@ -94,7 +88,6 @@ export class ContactProfileService {
   /**
    * Set online attribute when signin in
    */
-
   signOnline(user : string, online : boolean){
     this.friends.forEach(contact => {
       if (contact.username === user) {
@@ -107,7 +100,6 @@ export class ContactProfileService {
   /**
    * Set online attribute when logging out
    */
-  
   logoutOnline(user : string){
     this.friends.forEach(contact => {
       if (contact.username === user) {
